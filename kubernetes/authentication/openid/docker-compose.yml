@@ -1,0 +1,26 @@
+version: '2'
+services:
+  postgres:
+      image: postgres:12.2
+      environment:
+        POSTGRES_DB: keycloak
+        POSTGRES_USER: keycloak
+        POSTGRES_PASSWORD: keycloak
+  keycloak:
+      image: jboss/keycloak:16.1.1
+      environment:
+        DB_VENDOR: POSTGRES
+        DB_ADDR: postgres
+        DB_DATABASE: keycloak
+        DB_USER: keycloak
+        DB_PASSWORD: keycloak
+        KEYCLOAK_USER: admin # 用户名
+        KEYCLOAK_PASSWORD: czw123456 # 密码
+      volumes:
+        - ./ssl:/etc/x509/https # 将服务器证书和私钥挂载到容器中
+      ports:
+        - 80:8080
+        - 443:8443
+      depends_on:
+        - postgres
+

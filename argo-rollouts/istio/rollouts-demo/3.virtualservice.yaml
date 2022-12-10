@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: myapp-vsvc
+  namespace: rollouts-demo
+spec:
+  gateways:
+  - myapp-gateway # 关联 Gateway 资源
+  hosts:
+  - myapp.apps.argoproj.io # 客户端访问的 host
+  http:
+  - name: primary # 关联 Rollout 的 canary.trafficRouting.istio.virtualService.routes
+    route:
+    - destination:
+        host: myapp-stable-svc # 关联 Rollout 的 canary.stableService
+      weight: 100 # 当进行金丝雀发布时，Argo Rollouts Controller 会自动帮助我们调整权重
+    - destination:
+        host: myapp-canary-svc # 关联 Rollout 的 canary.canaryService
+      weight: 0

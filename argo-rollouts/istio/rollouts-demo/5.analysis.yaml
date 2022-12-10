@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: istio-success-rate
+  namespace: rollouts-demo
+spec:
+  args:
+  - name: service
+  - name: namespace
+  metrics:
+  - name: success-rate
+    initialDelay: 60s # 延迟 60s 后启动
+    interval: 20s # 查询指标的频率
+    successCondition: len(result) == 0 || result[0] > 0.90 # 成功条件：测量值为空（指标还没采集到）或者大于 90%
+    failureLimit: 3 # 3 次不满足 successCondition 则视为失败
+    provider: 
+      prometheus:
+        address: http://prometheus.istio-system:9090 # Prometheus 地址
+        query: >+ # 查询语句
+          sum(rate(istio_requests_total{
+            reporter="source",
+            destination_service=~"{{args.service}}.{{args.namespace}}.svc.cluster.local",
+            response_code!~"5.*"}[2m])
+          )
+          /
+          sum(rate(istio_requests_total{
+            reporter="source",
+            destination_service=~"{{args.service}}.{{args.namespace}}.svc.cluster.local"}[2m])
+          )
+          unless sum(rate(istio_requests_total{
+            reporter="source",
+            destination_service=~"{{args.service}}.{{args.namespace}}.svc.cluster.local"}[2m])
+          ) == 0

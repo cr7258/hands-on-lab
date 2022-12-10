@@ -1,0 +1,21 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: namespace-view
+rules:
+  - apiGroups: [""]
+    resources: ["namespaces"] 
+    verbs: ["get", "watch", "list"] # 允许读取 namespace 信息
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tom-crb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: namespace-view # 关联的角色
+subjects:
+- kind: User
+  name: tom  # 用户名
+  apiGroup: rbac.authorization.k8s.io

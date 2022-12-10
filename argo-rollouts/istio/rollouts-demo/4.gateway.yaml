@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: myapp-gateway
+  namespace: rollouts-demo
+spec:
+  selector:
+    istio: ingressgateway # 默认创建的 istio ingressgateway pod 有这个 Label
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*" # 匹配所有 host

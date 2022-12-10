@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: myapp
+  namespace: rollouts-demo
+spec:
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: argoproj/rollouts-demo:blue
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            memory: 32Mi
+            cpu: 5m
+  strategy:
+    canary:
+      canaryService: myapp-canary-svc # 关联 canary Service
+      stableService: myapp-stable-svc # 关联 stable Service
+      analysis:
+        startingStep: 1   # step 的索引，从第 2 个 step 开始分析（20%），第 1 个是 0% 初始的时候
+        templates:
+        - templateName: istio-success-rate # 使用的 AnalysisTemplates
+        args:   # 传入 AnalysisTemplates 的参数
+        - name: service
+          value: myapp-canary-svc
+        - name: namespace
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+      trafficRouting:
+        istio:
+          virtualService:
+            name: myapp-vsvc # 关联的 Istio virtualService
+            routes:
+            - primary
+      steps:
+      - setWeight: 20
+      - pause: {}         # 需要手动确认通过
+      - setWeight: 40
+      - pause: {duration: 60s}
+      - setWeight: 60
+      - pause: {duration: 60s}
+      - setWeight: 80
+      - pause: {duration: 60s}

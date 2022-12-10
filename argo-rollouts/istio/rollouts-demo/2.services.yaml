@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-canary-svc
+  namespace: rollouts-demo
+spec:
+  ports:
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    app: myapp
+    # 进行金丝雀发布时，Argo Rollouts Controller 会自动帮我们添加 Canary 服务 Pod 的 label，例如：
+    # rollouts-pod-template-hash: 55bdff45cb
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-stable-svc
+  namespace: rollouts-demo
+spec:
+  ports:
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    app: myapp
+    # 进行金丝雀发布时，Argo Rollouts Controller 会自动帮我们添加 Stable 服务 Pod 的 label，例如：
+    # rollouts-pod-template-hash: 85f45f96

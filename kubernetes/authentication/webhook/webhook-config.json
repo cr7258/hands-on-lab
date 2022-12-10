@@ -1,0 +1,31 @@
+{
+  "kind": "Config",
+  "apiVersion": "v1",
+  "preferences": {},
+  "clusters": [
+    {
+      "name": "github-auth",
+      "cluster": {
+        "server": "http://11.8.36.162:3000/authenticate"
+      }
+    }
+  ],
+  "users": [
+    {
+      "name": "auth-apiserver",
+      "user": {
+        "token": "secret"
+      }
+    }
+  ],
+  "contexts": [
+    {
+      "name": "webhook",
+      "context": {
+        "cluster": "github-auth",
+        "user": "auth-apiserver"
+      }
+    }
+  ],
+  "current-context": "webhook"
+}
