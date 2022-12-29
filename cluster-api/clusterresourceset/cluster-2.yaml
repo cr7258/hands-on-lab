@@ -1,0 +1,16 @@
+apiVersion: cluster.x-k8s.io/v1alpha4
+kind: Cluster
+metadata:
+  name: cluster-2
+  namespace: default
+  labels:
+    cni: cilium # 安装 Cilium
+spec:
+  topology:
+    class: quick-start # ClusterClass 的名字
+    version: v1.25.3
+    workers:
+      machineDeployments:
+      - class: default-worker # ClusterClass 中定义的 machineDeployments
+        name: my-cluster-2
+        replicas: 3
