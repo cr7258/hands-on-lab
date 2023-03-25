@@ -1,0 +1,9 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  profile: remote
+  values:
+    istiodRemote:
+      injectionPath: /inject/cluster/cluster2/net/network1
+    global:
+      remotePilotAddress: a6c1fb3f8a7ed427cb68f1e847e8b4ce-1344714322.eu-west-1.elb.amazonaws.com # 配置 cluster1 ingressgateway LoadBalancer IP
