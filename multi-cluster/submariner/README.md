@@ -103,6 +103,11 @@ subctl --context kind-c2 join broker-info.subm --clusterid c2
 
 ![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230405105236.png)
 
+
+c1 集群选择 c1-worker 节点作为 gateway，c2 集群选择 c2-worker 节点作为 gateway。
+
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230406223135.png)
+
 ## 查看连接
 
 ```bash
@@ -134,32 +139,50 @@ kubectl --context kind-c2 apply -f - <<EOF
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: whereami
   namespace: sample
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app: whereami
   template:
     metadata:
       labels:
-        app: nginx
+        app: whereami
     spec:
       containers:
-        - name: nginx
-          image: nginx
-          ports:
-            - containerPort: 80
+      - name: whereami
+        image: cr7258/whereami:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-cs
+  name: whereami-cs
   namespace: sample
 spec:
   selector:
-    app: nginx
+    app: whereami
   ports:
     - protocol: TCP
       port: 80
@@ -167,11 +190,23 @@ spec:
 EOF
 ```
 
-
-导出服务
+在 c2 集群查看服务
 
 ```bash
-subctl --context kind-c2 export service --namespace sample nginx-cs
+root@seven-demo:~# kubectl --context kind-c2 get pod -n sample -o wide
+NAME                        READY   STATUS    RESTARTS   AGE   IP          NODE        NOMINATED NODE   READINESS GATES
+whereami-754776cdc9-28kgd   1/1     Running   0          19h   10.9.1.18   c2-worker   <none>           <none>
+whereami-754776cdc9-8ccmc   1/1     Running   0          19h   10.9.1.17   c2-worker   <none>           <none>
+whereami-754776cdc9-dlp55   1/1     Running   0          19h   10.9.1.16   c2-worker   <none>           <none>
+root@seven-demo:~# kubectl --context kind-c2 get svc -n sample -o wide
+NAME          TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+whereami-cs   ClusterIP   10.99.2.201   <none>        80/TCP    19h   app=whereami
+```
+
+在 c2 集群导出服务
+
+```bash
+subctl --context kind-c2 export service --namespace sample whereami-cs
 ```
 
 c1,c2 集群会自动注入 ServiceImport
@@ -181,7 +216,7 @@ kubectl --context kind-c1 get -n submariner-operator serviceimport
 kubectl --context kind-c2 get -n submariner-operator serviceimport
 ```
 
-![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230405110341.png)
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230406210456.png)
 
 
 查看 Endpointslice
@@ -191,10 +226,9 @@ kubectl --context kind-c1 get endpointslices -n sample
 kubectl --context kind-c2 get endpointslices -n sample
 ```
 
-![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230405114226.png)
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230406210536.png)
 
-
-在 c1 集群访问 c2 集群的 nginx 服务
+在 c1 集群访问 c2 集群的 whereami 服务
 
 ```bash
 kubectl --context kind-c1 run client --image=cr7258/nettool:v1
@@ -202,17 +236,16 @@ kubectl --context kind-c1 exec -it client -- bash
 ```
 
 ```bash
-curl nginx-cs.sample.svc.clusterset.local
+nslookup whereami-cs.sample.svc.clusterset.local
 ```
 
-![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230405114410.png)
-
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230406210652.png)
 
 ```bash
-nslookup nginx-cs.sample.svc.clusterset.local
+curl whereami-cs.sample.svc.clusterset.local
 ```
 
-![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230405114430.png)
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230406210720.png)
 
 CoreDNS 的配置文件会被修改，`clusterset.local` 域名交给 Lighthouse DNS 来解析。
 ```
@@ -262,32 +295,50 @@ kubectl --context kind-c1 apply -f - <<EOF
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: whereami
   namespace: sample
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app: whereami
   template:
     metadata:
       labels:
-        app: nginx
+        app: whereami
     spec:
       containers:
-        - name: nginx
-          image: nginx
-          ports:
-            - containerPort: 80
+      - name: whereami
+        image: cr7258/whereami:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-cs
+  name: whereami-cs
   namespace: sample
 spec:
   selector:
-    app: nginx
+    app: whereami
   ports:
     - protocol: TCP
       port: 80
@@ -295,10 +346,23 @@ spec:
 EOF
 ```
 
-导出服务
+在 c1 集群上查看服务
 
 ```bash
-subctl --context kind-c1 export service --namespace sample nginx-cs
+root@seven-demo:~# kubectl --context kind-c1 get pod -n sample -o wide
+NAME                        READY   STATUS    RESTARTS   AGE   IP          NODE        NOMINATED NODE   READINESS GATES
+whereami-754776cdc9-hq4m2   1/1     Running   0          45s   10.8.1.25   c1-worker   <none>           <none>
+whereami-754776cdc9-rt84w   1/1     Running   0          45s   10.8.1.23   c1-worker   <none>           <none>
+whereami-754776cdc9-v5zrk   1/1     Running   0          45s   10.8.1.24   c1-worker   <none>           <none>
+root@seven-demo:~# kubectl --context kind-c1 get svc -n sample
+NAME          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+whereami-cs   ClusterIP   10.88.132.102   <none>        80/TCP    50s
+```
+
+在 c1 集群导出服务
+
+```bash
+subctl --context kind-c1 export service --namespace sample whereami-cs
 ```
 
 在 c1 集群访问应该优先访问本集群的服务
@@ -308,16 +372,38 @@ kubectl --context kind-c1 exec -it client -- bash
 ```
 
 ```bash
-nslookup nginx-cs.sample.svc.clusterset.local
+nslookup whereami-cs.sample.svc.clusterset.local
 ```
 
-![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230405114712.png)
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407165605.png)
 
 ```bash
-curl nginx-cs.sample.svc.clusterset.local
+curl whereami-cs.sample.svc.clusterset.local
 ```
 
-![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230405114734.png)
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407165622.png)
+
+
+查看 ServiceImport
+
+```bash
+kubectl --context kind-c1 get -n submariner-operator serviceimport
+kubectl --context kind-c2 get -n submariner-operator serviceimport
+```
+
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407165911.png)
+
+
+查看 Endpointslice
+
+
+```bash
+kubectl --context kind-c1 get endpointslices -n sample
+kubectl --context kind-c2 get endpointslices -n sample
+```
+
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407165929.png)
+
 
 ### Headless Service + StatefulSet
 
@@ -327,47 +413,81 @@ kubectl --context kind-c2 apply -f - <<EOF
 apiVersion: v1
 kind: Service
 metadata:
- name: nginx-ss
+ name: whereami-ss
  namespace: sample
  labels:
-   app: nginx-ss
+   app: whereami-ss
 spec:
  ports:
  - port: 80
-   name: nginx
+   name: whereami
  clusterIP: None
  selector:
-   app: nginx-ss
+   app: whereami-ss
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
- name: nginx
+ name: whereami
  namespace: sample
 spec:
- serviceName: "nginx-ss"
+ serviceName: "whereami-ss"
  replicas: 3
  selector:
    matchLabels:
-       app: nginx-ss
+       app: whereami-ss
  template:
    metadata:
      labels:
-       app: nginx-ss
+       app: whereami-ss
    spec:
      containers:
-     - name: nginx-ss
-       image: nginx
+     - name: whereami-ss
+       image: cr7258/whereami:v1
        ports:
        - containerPort: 80
-         name: nginx
+         name: whereami
+       env:
+       - name: NAMESPACE
+         valueFrom:
+           fieldRef:
+             fieldPath: metadata.namespace
+       - name: NODE_NAME
+         valueFrom:
+           fieldRef:
+             fieldPath: spec.nodeName
+       - name: POD_NAME
+         valueFrom:
+           fieldRef:
+             fieldPath: metadata.name
+       - name: POD_IP
+         valueFrom:
+          fieldRef:
+             fieldPath: status.podIP
 EOF
+```
+
+在 c2 集群查看服务
+
+```bash
+root@seven-demo:~# kubectl get pod -n sample --context kind-c2 -o wide
+NAME                        READY   STATUS    RESTARTS   AGE   IP          NODE        NOMINATED NODE   READINESS GATES
+whereami-0                  1/1     Running   0          38s   10.9.1.20   c2-worker   <none>           <none>
+whereami-1                  1/1     Running   0          36s   10.9.1.21   c2-worker   <none>           <none>
+whereami-2                  1/1     Running   0          31s   10.9.1.22   c2-worker   <none>           <none>
+whereami-754776cdc9-28kgd   1/1     Running   0          20h   10.9.1.18   c2-worker   <none>           <none>
+whereami-754776cdc9-8ccmc   1/1     Running   0          20h   10.9.1.17   c2-worker   <none>           <none>
+whereami-754776cdc9-dlp55   1/1     Running   0          20h   10.9.1.16   c2-worker   <none>           <none>
+root@seven-demo:~# kubectl get svc -n sample --context kind-c2
+NAME          TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
+whereami-cs   ClusterIP   10.99.2.201   <none>        80/TCP    20h
+whereami-ss   ClusterIP   None          <none>        80/TCP    4m58s
 ```
 
 在 c2 集群导出服务
 
 ```bash
-subctl --context kind-c2 export service nginx-ss --namespace sample 
+subctl --context kind-c2 export service whereami-ss --namespace sample 
 ```
 
 在 c1 集群访问 c2 集群服务
@@ -377,23 +497,40 @@ kubectl --context kind-c1 exec -it client -- bash
 ```
 
 ```
-nslookup nginx-ss.sample.svc.clusterset.local
+nslookup whereami-ss.sample.svc.clusterset.local
 ```
 
-![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230405115037.png)
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407172948.png)
 
 
 ```bash
-nslookup nginx-0.c2.nginx-ss.sample.svc.clusterset.local
+nslookup whereami-0.c2.whereami-ss.sample.svc.clusterset.local
 ```
 
-![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230405115111.png)
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407173020.png)
 
 ```bash
-curl nginx-ss.sample.svc.clusterset.local
+curl whereami-ss.sample.svc.clusterset.local
+```
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407173037.png)
+
+查看 ServiceImport
+
+```bash
+kubectl --context kind-c1 get -n submariner-operator serviceimport
+kubectl --context kind-c2 get -n submariner-operator serviceimport
 ```
 
-![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230405115137.png)
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407172906.png)
+
+查看 Endpointslice
+
+```bash
+kubectl --context kind-c1 get endpointslices -n sample
+kubectl --context kind-c2 get endpointslices -n sample
+```
+
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407172932.png)
 
 ## 清理
 
@@ -403,4 +540,20 @@ subctl uninstall --context kind-c1
 subctl uninstall --context kind-c2
 
 kind delete clusters broker c1 c2
+```
+
+## Ipsec 隧道
+
+```
+c1-gateway
+--psk --encrypt --name submariner-cable-c2-172-19-0-10-0-0 --id 172.19.0.8 --host 172.19.0.8 --client 10.88.0.0/16 --ikeport 4500 --to --id 172.19.0.10 --host 172.19.0.10 --client 10.99.0.0/16 --ikeport 4500
+--psk --encrypt --name submariner-cable-c2-172-19-0-10-0-1 --id 172.19.0.8 --host 172.19.0.8 --client 10.88.0.0/16 --ikeport 4500 --to --id 172.19.0.10 --host 172.19.0.10 --client 10.9.0.0/16 --ikeport 4500
+--psk --encrypt --name submariner-cable-c2-172-19-0-10-1-0 --id 172.19.0.8 --host 172.19.0.8 --client 10.8.0.0/16 --ikeport 4500 --to --id 172.19.0.10 --host 172.19.0.10 --client 10.99.0.0/16 --ikeport 4500
+--psk --encrypt --name submariner-cable-c2-172-19-0-10-1-1 --id 172.19.0.8 --host 172.19.0.8 --client 10.8.0.0/16 --ikeport 4500 --to --id 172.19.0.10 --host 172.19.0.10 --client 10.9.0.0/16 --ikeport 4500
+
+c2-gateway
+--psk --encrypt --name submariner-cable-c1-172-19-0-8-0-0 --id 172.19.0.10 --host 172.19.0.10 --client 10.99.0.0/16 --ikeport 4500 --to --id 172.19.0.8 --host 172.19.0.8 --client 10.88.0.0/16 --ikeport 4500
+--psk --encrypt --name submariner-cable-c1-172-19-0-8-0-1 --id 172.19.0.10 --host 172.19.0.10 --client 10.99.0.0/16 --ikeport 4500 --to --id 172.19.0.8 --host 172.19.0.8 --client 10.8.0.0/16 --ikeport 4500
+--psk --encrypt --name submariner-cable-c1-172-19-0-8-1-0 --id 172.19.0.10 --host 172.19.0.10 --client 10.9.0.0/16 --ikeport 4500 --to --id 172.19.0.8 --host 172.19.0.8 --client 10.88.0.0/16 --ikeport 4500
+--psk --encrypt --name submariner-cable-c1-172-19-0-8-1-1 --id 172.19.0.10 --host 172.19.0.10 --client 10.9.0.0/16 --ikeport 4500 --to --id 172.19.0.8 --host 172.19.0.8 --client 10.8.0.0/16 --ikeport 4500
 ```
