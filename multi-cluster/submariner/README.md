@@ -34,6 +34,13 @@ curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.18.0/kind-linux-amd64
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 
+# 安装 Kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+mv kubectl /usr/local/bin
+apt install -y bash-completion
+echo 'source <(kubectl completion bash)' >>~/.bashrc
+
 # 安装 subctl
 curl -Lo subctl-release-0.14-linux-amd64.tar.xz https://github.com/submariner-io/subctl/releases/download/subctl-release-0.14/subctl-release-0.14-linux-amd64.tar.xz
 tar -xf subctl-release-0.14-linux-amd64.tar.xz
@@ -93,9 +100,9 @@ EOF
 subctl --context kind-broker deploy-broker
 ```
 
-![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230405105053.png)
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407175528.png)
 
-## 加入集群
+## c1, c2 加入集群
 
 ```bash
 subctl --context kind-c1 join broker-info.subm --clusterid c1
@@ -513,9 +520,11 @@ nslookup whereami-0.c2.whereami-ss.sample.svc.clusterset.local
 ![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407173020.png)
 
 ```bash
-curl whereami-ss.sample.svc.clusterset.local
+curl whereami-0.c2.whereami-ss.sample.svc.clusterset.local
 ```
-![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407173037.png)
+
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20230407180629.png)
+
 
 查看 ServiceImport
 
