@@ -1,20 +1,20 @@
 ## 环境准备
 
 ```bash
-root@seven-demo:~# hostnamectl
+root@seven-demo:~# seven-demo
    Static hostname: seven-demo
          Icon name: computer-vm
            Chassis: vm
-        Machine ID: 4321d62ad63d44cbbc4dff3b6e282b26
-           Boot ID: 3869510730c94566b2e83212c8bd7075
+        Machine ID: f780bfec3c409135b11d1ceac73e2293
+           Boot ID: e83e9a883800480f86d37189bdb09628
     Virtualization: kvm
   Operating System: Ubuntu 20.04.5 LTS
-            Kernel: Linux 5.4.0-137-generic
+            Kernel: Linux 5.15.0-1030-gcp
       Architecture: x86-64
 ```
 
 ```bash
-# 安装 Docker
+# 安装 Docker，根据操作系统安装 https://docs.docker.com/engine/install/ 
 sudo apt-get update
 sudo apt-get install -y \
     ca-certificates \
@@ -44,6 +44,9 @@ chmod +x /usr/local/bin/subctl
 ## 创建集群
 
 ```yaml
+# 替换成服务器 IP
+export SERVER_IP="10.138.0.16"
+
 kind create cluster --config - <<EOF
 kind: Cluster
 name: broker
@@ -51,7 +54,7 @@ apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
 - role: control-plane
 networking:
-  apiServerAddress: 10.138.0.11 # 替换成本机 IP
+  apiServerAddress: $SERVER_IP
   podSubnet: "10.7.0.0/16"
   serviceSubnet: "10.77.0.0/16"
 EOF
@@ -64,7 +67,7 @@ nodes:
 - role: control-plane
 - role: worker
 networking:
-  apiServerAddress: 10.138.0.11 # 替换成本机 IP
+  apiServerAddress: $SERVER_IP
   podSubnet: "10.8.0.0/16"
   serviceSubnet: "10.88.0.0/16"
 EOF
@@ -77,7 +80,7 @@ nodes:
 - role: control-plane
 - role: worker
 networking:
-  apiServerAddress: 10.138.0.11 # 替换成本机 IP
+  apiServerAddress: $SERVER_IP
   podSubnet: "10.9.0.0/16"
   serviceSubnet: "10.99.0.0/16"
 EOF
