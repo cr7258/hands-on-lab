@@ -1,0 +1,37 @@
+002 listening for IKE messages
+003 IP interfaces veth9f3e9a47 and vetheb39f9a0 share address 10.7.1.1!
+003 IP interfaces veth9f3e9a47 and vethd83dfd9e share address 10.7.1.1!
+003 IP interfaces veth9f3e9a47 and veth8bbc6a31 share address 10.7.1.1!
+003 IP interfaces veth9f3e9a47 and veth346726fc share address 10.7.1.1!
+003 IP interfaces vetheb39f9a0 and vethd83dfd9e share address 10.7.1.1!
+003 IP interfaces vetheb39f9a0 and veth8bbc6a31 share address 10.7.1.1!
+003 IP interfaces vetheb39f9a0 and veth346726fc share address 10.7.1.1!
+003 IP interfaces vethd83dfd9e and veth8bbc6a31 share address 10.7.1.1!
+003 IP interfaces vethd83dfd9e and veth346726fc share address 10.7.1.1!
+003 IP interfaces veth8bbc6a31 and veth346726fc share address 10.7.1.1!
+002 adding UDP interface vx-submariner 240.19.0.5:500
+002 adding UDP interface vx-submariner 240.19.0.5:4500
+002 forgetting secrets
+002 loading secrets from "/etc/ipsec.secrets"
+002 loading secrets from "/etc/ipsec.d/submariner.secrets"
+2023-04-08T14:07:12.454Z INF ..reswan/libreswan.go:344 libreswan            Creating connection(s) for {"metadata":{"name":"g2-submariner-cable-g2-172-19-0-6","namespace":"submariner-operator","uid":"ea1cbe4a-3d3f-4f02-8440-061273c72756","resourceVersion":"1710","generation":1,"creationTimestamp":"2023-04-08T14:06:47Z","labels":{"submariner-io/clusterID":"g2"},"managedFields":[{"manager":"submariner-gateway","operation":"Update","apiVersion":"submariner.io/v1","time":"2023-04-08T14:06:47Z","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:labels":{".":{},"f:submariner-io/clusterID":{}}},"f:spec":{".":{},"f:backend":{},"f:backend_config":{".":{},"f:natt-discovery-port":{},"f:preferred-server":{},"f:udp-port":{}},"f:cable_name":{},"f:cluster_id":{},"f:hostname":{},"f:nat_enabled":{},"f:private_ip":{},"f:public_ip":{},"f:subnets":{}}}}]},"spec":{"cluster_id":"g2","cable_name":"submariner-cable-g2-172-19-0-6","hostname":"g2-worker","subnets":["120.2.0.0/24"],"private_ip":"172.19.0.6","public_ip":"35.233.208.59","nat_enabled":true,"backend":"libreswan","backend_config":{"natt-discovery-port":"4490","preferred-server":"false","udp-port":"4500"}}} in bi-directional mode
+2023-04-08T14:07:12.454Z INF ..reswan/libreswan.go:406 libreswan            Executing whack with args: [--psk --encrypt --name submariner-cable-g2-172-19-0-6-0-0 --id 172.19.0.5 --host 172.19.0.5 --client 120.1.0.0/24 --ikeport 4500 --to --id 172.19.0.6 --host 172.19.0.6 --client 120.2.0.0/24 --ikeport 4500]
+002 "submariner-cable-g2-172-19-0-6-0-0": added IKEv2 connection
+181 "submariner-cable-g2-172-19-0-6-0-0" #1: initiating IKEv2 connection
+2023-04-08T14:07:12.972Z INF ..gine/cableengine.go:202 CableEngine          Successfully installed Endpoint cable "submariner-cable-g2-172-19-0-6" with remote IP 172.19.0.6
+2023-04-08T14:07:13.469Z DBG ..reswan/libreswan.go:249 libreswan            Connection "submariner-cable-g2-172-19-0-6-0-0" not found in active connections obtained from whack: map[], map[]
+2023-04-08T14:07:13.470Z DBG ..reswan/libreswan.go:263 libreswan            Connection "submariner-cable-g2-172-19-0-6" not found in active connections obtained from whack: map[], map[]
+2023-04-08T14:07:16.730Z DBG ..ry/request_handle.go:52 NAT                  Received request from 172.19.0.6:4490 - REQUEST_NUMBER: 0x641a274b932f7f14, SENDER: "submariner-cable-g2-172-19-0-6", RECEIVER: "submariner-cable-g1-172-19-0-5"
+2023-04-08T14:07:16.730Z DBG ..y/request_handle.go:117 NAT                  Sending response to 172.19.0.6:4490 - REQUEST_NUMBER: 0x641a274b932f7f14, RESPONSE: OK, SENDER: "submariner-cable-g1-172-19-0-5", RECEIVER: "submariner-cable-g2-172-19-0-6"
+2023-04-08T14:07:17.924Z INF ..thchecker/pinger.go:106 HealthChecker        Starting pinger for IP "120.2.0.254"
+2023-04-08T14:07:17.924Z INF ..er/healthchecker.go:159 HealthChecker        CableEngine HealthChecker started pinger for CableName: "submariner-cable-g2-172-19-0-6" with HealthCheckIP "120.2.0.254"
+2023-04-08T14:07:17.925Z DBG ..ery/natdiscovery.go:147 NAT                  NAT discovery updated endpoint "submariner-cable-g2-172-19-0-6"
+2023-04-08T14:07:17.925Z INF ..ery/natdiscovery.go:162 NAT                  Starting NAT discovery for endpoint "submariner-cable-g2-172-19-0-6"
+2023-04-08T14:07:18.389Z DBG ..ery/request_send.go:115 NAT                  Sending request - REQUEST_NUMBER: 0xa1c3984810c66a39, SENDER: "submariner-cable-g1-172-19-0-5", RECEIVER: "submariner-cable-g2-172-19-0-6", USING_SRC: 172.19.0.5:4490, USING_DST: 172.19.0.6:4490
+2023-04-08T14:07:18.389Z DBG ..ery/request_send.go:115 NAT                  Sending request - REQUEST_NUMBER: 0xa1c3984810c66a3a, SENDER: "submariner-cable-g1-172-19-0-5", RECEIVER: "submariner-cable-g2-172-19-0-6", USING_SRC: 172.19.0.5:4490, USING_DST: 35.233.208.59:4490
+2023-04-08T14:07:18.391Z DBG ..ry/request_handle.go:52 NAT                  Received request from 35.233.208.59:4490 - REQUEST_NUMBER: 0xa1c3984810c66a3a, SENDER: "submariner-cable-g1-172-19-0-5", RECEIVER: "submariner-cable-g2-172-19-0-6"
+2023-04-08T14:07:18.391Z WRN ..ry/request_handle.go:56 NAT                  Received NAT discovery packet for cluster "g2", but we are cluster "g1"
+2023-04-08T14:07:18.392Z DBG ..y/request_handle.go:117 NAT                  Sending response to 35.233.208.59:4490 - REQUEST_NUMBER: 0xa1c3984810c66a3a, RESPONSE: UNKNOWN_DST_CLUSTER, SENDER: "submariner-cable-g1-172-19-0-5", RECEIVER: "submariner-cable-g1-172-19-0-5"
+2023-04-08T14:07:18.392Z DBG ..y/response_handle.go:31 NAT                  Received response from 172.19.0.6:4490 - REQUEST_NUMBER: 0xa1c3984810c66a39, RESPONSE: OK, SENDER: "submariner-cable-g2-172-19-0-6", RECEIVER: "submariner-cable-g1-172-19-0-5"
+2023-04-08T14:07:18.393Z DBG ../remote_endpoint.go:184 NAT                  selected private IP "172.19.0.6" for endpoint "submariner-cable-g2-172-19-0-6"
+2023-04-08T14:07:18.393Z DBG ..y/response_handle.go:31 NAT                  Received response from 35.233.208.59:4490 - REQUEST_NUMBER: 0xa1c3984810c66a3a, RESPONSE: UNKNOWN_DST_CLUSTER, SENDER: "submariner-cable-g1-172-19-0-5", RECEIVER: "submariner-cable-g1-172-19-0-5"

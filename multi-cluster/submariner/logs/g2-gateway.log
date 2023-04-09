@@ -1,0 +1,69 @@
+root@seven-demo:~/globalnet# kubectl logs -n submariner-operator   submariner-gateway-fxdbd  --context kind-g2
++ trap 'exit 1' SIGTERM SIGINT
++ export CHARON_PID_FILE=/var/run/charon.pid
++ CHARON_PID_FILE=/var/run/charon.pid
++ rm -f /var/run/charon.pid
++ SUBMARINER_VERBOSITY=2
++ '[' false == true ']'
++ DEBUG=-v=2
+++ cat /proc/sys/net/ipv4/conf/all/send_redirects
++ [[ 0 = 0 ]]
++ exec submariner-gateway -v=2 -alsologtostderr
+2023-04-08T14:07:02.081Z INF ../submariner/main.go:109 main                 Starting the submariner gateway engine
+2023-04-08T14:07:02.082Z INF ../submariner/main.go:117 main                 Parsed env variables
+W0408 14:07:02.082329       1 client_config.go:617] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.
+2023-04-08T14:07:02.088Z INF ../submariner/main.go:133 main                 Creating the cable engine
+2023-04-08T14:07:02.094Z INF ../submariner/main.go:144 main                 AIR_GAPPED_DEPLOYMENT is set to false
+2023-04-08T14:07:10.659Z INF ../submariner/main.go:154 main                 Creating the datastore syncer
+2023-04-08T14:07:10.718Z DBG ..ery/natdiscovery.go:120 NAT                  NAT discovery server starting on port 4490
+2023-04-08T14:07:10.773Z INF ..ine/syncer/syncer.go:92 GWSyncer             CableEngine syncer started
+2023-04-08T14:07:10.774Z INF ../submariner/main.go:368 main                 Gateway leader election config values: main.leaderConfig{LeaseDuration:10, RenewDeadline:5, RetryPeriod:2}
+2023-04-08T14:07:10.775Z INF ../submariner/main.go:386 main                 Using namespace "submariner-operator" for the leader election lock
+I0408 14:07:10.775640       1 leaderelection.go:248] attempting to acquire leader lease submariner-operator/submariner-gateway-lock...
+I0408 14:07:10.869884       1 leaderelection.go:258] successfully acquired lease submariner-operator/submariner-gateway-lock
+2023-04-08T14:07:10.870Z DBG ..ols/record/event.go:285 main                 Event(v1.ObjectReference{Kind:"ConfigMap", Namespace:"submariner-operator", Name:"submariner-gateway-lock", UID:"0eb7b8ff-794d-4842-bd31-cae91f044e98", APIVersion:"v1", ResourceVersion:"1504", FieldPath:""}): type: 'Normal' reason: 'LeaderElection' g2-worker-submariner-gateway became leader
+2023-04-08T14:07:10.870Z DBG ..ols/record/event.go:285 main                 Event(v1.ObjectReference{Kind:"Lease", Namespace:"submariner-operator", Name:"submariner-gateway-lock", UID:"08be1b83-dd19-456b-9225-4ada325eb002", APIVersion:"coordination.k8s.io/v1", ResourceVersion:"1505", FieldPath:""}): type: 'Normal' reason: 'LeaderElection' g2-worker-submariner-gateway became leader
+2023-04-08T14:07:10.870Z INF ..reswan/libreswan.go:123 libreswan            Using NATT UDP port 4500
+2023-04-08T14:07:10.871Z INF ..reswan/libreswan.go:556 libreswan            Starting Pluto
+2023-04-08T14:07:12.384Z DBG ..ry/request_handle.go:52 NAT                  Received request from 172.19.0.5:4490 - REQUEST_NUMBER: 0xa1c3984810c66a37, SENDER: "submariner-cable-g1-172-19-0-5", RECEIVER: "submariner-cable-g2-172-19-0-6"
+2023-04-08T14:07:12.384Z DBG ..y/request_handle.go:117 NAT                  Sending response to 172.19.0.5:4490 - REQUEST_NUMBER: 0xa1c3984810c66a37, RESPONSE: OK, SENDER: "submariner-cable-g2-172-19-0-6", RECEIVER: "submariner-cable-g1-172-19-0-5"
+2023-04-08T14:07:14.883Z INF ..gine/cableengine.go:104 CableEngine          CableEngine controller started, driver: "libreswan"
+2023-04-08T14:07:14.883Z INF ..public_ip_watcher.go:62 Endpoint             Starting the public IP watcher.
+2023-04-08T14:07:14.884Z INF ..r/datastoresyncer.go:72 DSSyncer             Starting the datastore syncer
+2023-04-08T14:07:14.884Z INF ..ers/tunnel/tunnel.go:40 Tunnel               Starting the tunnel controller
+2023-04-08T14:07:15.086Z INF ..er/healthchecker.go:110 HealthChecker        CableEngine HealthChecker started with PingInterval: 1, MaxPacketLossCount: 5
+2023-04-08T14:07:15.987Z INF ../datastoresyncer.go:218 DSSyncer             Ensuring we are the only endpoint active for this cluster
+2023-04-08T14:07:16.002Z INF ../datastoresyncer.go:297 DSSyncer             Creating local submariner Cluster: types.SubmarinerCluster{ID:"g2", Spec:v1.ClusterSpec{ClusterID:"g2", ColorCodes:[]string{"blue"}, ServiceCIDR:[]string{"10.77.0.0/16"}, ClusterCIDR:[]string{"10.7.0.0/16"}, GlobalCIDR:[]string{"120.2.0.0/24"}}}
+2023-04-08T14:07:16.337Z INF ..thchecker/pinger.go:106 HealthChecker        Starting pinger for IP "120.1.0.254"
+2023-04-08T14:07:16.337Z INF ..er/healthchecker.go:159 HealthChecker        CableEngine HealthChecker started pinger for CableName: "submariner-cable-g1-172-19-0-5" with HealthCheckIP "120.1.0.254"
+2023-04-08T14:07:16.341Z INF ..ery/natdiscovery.go:162 NAT                  Starting NAT discovery for endpoint "submariner-cable-g1-172-19-0-5"
+2023-04-08T14:07:16.411Z INF ../datastoresyncer.go:310 DSSyncer             Creating local submariner Endpoint: types.SubmarinerEndpoint{Spec:v1.EndpointSpec{ClusterID:"g2", CableName:"submariner-cable-g2-172-19-0-6", HealthCheckIP:"", Hostname:"g2-worker", Subnets:[]string{"120.2.0.0/24"}, PrivateIP:"172.19.0.6", PublicIP:"35.233.208.59", NATEnabled:true, Backend:"libreswan", BackendConfig:map[string]string{"natt-discovery-port":"4490", "preferred-server":"false", "udp-port":"4500"}}}
+2023-04-08T14:07:16.728Z DBG ..ery/request_send.go:115 NAT                  Sending request - REQUEST_NUMBER: 0x641a274b932f7f14, SENDER: "submariner-cable-g2-172-19-0-6", RECEIVER: "submariner-cable-g1-172-19-0-5", USING_SRC: 172.19.0.6:4490, USING_DST: 172.19.0.5:4490
+2023-04-08T14:07:16.729Z DBG ..ery/request_send.go:115 NAT                  Sending request - REQUEST_NUMBER: 0x641a274b932f7f15, SENDER: "submariner-cable-g2-172-19-0-6", RECEIVER: "submariner-cable-g1-172-19-0-5", USING_SRC: 172.19.0.6:4490, USING_DST: 35.233.208.59:4490
+2023-04-08T14:07:16.731Z DBG ..y/response_handle.go:31 NAT                  Received response from 172.19.0.5:4490 - REQUEST_NUMBER: 0x641a274b932f7f14, RESPONSE: OK, SENDER: "submariner-cable-g1-172-19-0-5", RECEIVER: "submariner-cable-g2-172-19-0-6"
+2023-04-08T14:07:16.731Z DBG ../remote_endpoint.go:184 NAT                  selected private IP "172.19.0.5" for endpoint "submariner-cable-g1-172-19-0-5"
+2023-04-08T14:07:16.731Z INF ..gine/cableengine.go:195 CableEngine          Installing Endpoint cable "submariner-cable-g1-172-19-0-5"
+002 listening for IKE messages
+003 IP interfaces veth5c511e75 and vethdac7d763 share address 10.7.1.1!
+003 IP interfaces veth5c511e75 and vethb548c52c share address 10.7.1.1!
+003 IP interfaces veth5c511e75 and veth1a02fae8 share address 10.7.1.1!
+003 IP interfaces veth5c511e75 and vethd43f56fb share address 10.7.1.1!
+003 IP interfaces vethdac7d763 and vethb548c52c share address 10.7.1.1!
+003 IP interfaces vethdac7d763 and veth1a02fae8 share address 10.7.1.1!
+003 IP interfaces vethdac7d763 and vethd43f56fb share address 10.7.1.1!
+003 IP interfaces vethb548c52c and veth1a02fae8 share address 10.7.1.1!
+003 IP interfaces vethb548c52c and vethd43f56fb share address 10.7.1.1!
+003 IP interfaces veth1a02fae8 and vethd43f56fb share address 10.7.1.1!
+002 forgetting secrets
+002 loading secrets from "/etc/ipsec.secrets"
+002 loading secrets from "/etc/ipsec.d/submariner.secrets"
+2023-04-08T14:07:16.739Z INF ..reswan/libreswan.go:344 libreswan            Creating connection(s) for {"metadata":{"name":"g1-submariner-cable-g1-172-19-0-5","namespace":"submariner-operator","uid":"54f4c0ca-becb-4c31-a9cb-f3075503325f","resourceVersion":"1523","generation":1,"creationTimestamp":"2023-04-08T14:07:16Z","labels":{"submariner-io/clusterID":"g1"},"managedFields":[{"manager":"submariner-gateway","operation":"Update","apiVersion":"submariner.io/v1","time":"2023-04-08T14:07:16Z","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:labels":{".":{},"f:submariner-io/clusterID":{}}},"f:spec":{".":{},"f:backend":{},"f:backend_config":{".":{},"f:natt-discovery-port":{},"f:preferred-server":{},"f:udp-port":{}},"f:cable_name":{},"f:cluster_id":{},"f:healthCheckIP":{},"f:hostname":{},"f:nat_enabled":{},"f:private_ip":{},"f:public_ip":{},"f:subnets":{}}}}]},"spec":{"cluster_id":"g1","cable_name":"submariner-cable-g1-172-19-0-5","healthCheckIP":"120.1.0.254","hostname":"g1-worker","subnets":["120.1.0.0/24"],"private_ip":"172.19.0.5","public_ip":"35.233.208.59","nat_enabled":true,"backend":"libreswan","backend_config":{"natt-discovery-port":"4490","preferred-server":"false","udp-port":"4500"}}} in bi-directional mode
+2023-04-08T14:07:16.740Z INF ..reswan/libreswan.go:406 libreswan            Executing whack with args: [--psk --encrypt --name submariner-cable-g1-172-19-0-5-0-0 --id 172.19.0.6 --host 172.19.0.6 --client 120.2.0.0/24 --ikeport 4500 --to --id 172.19.0.5 --host 172.19.0.5 --client 120.1.0.0/24 --ikeport 4500]
+002 "submariner-cable-g1-172-19-0-5-0-0": added IKEv2 connection
+2023-04-08T14:07:16.912Z INF ../datastoresyncer.go:104 DSSyncer             Datastore syncer started
+2023-04-08T14:07:16.944Z INF ..ncer/node_handler.go:73 DSSyncer             Updating the endpoint HealthCheckIP to globalIP "120.2.0.254"
+2023-04-08T14:07:16.946Z INF ../datastoresyncer.go:310 DSSyncer             Creating local submariner Endpoint: types.SubmarinerEndpoint{Spec:v1.EndpointSpec{ClusterID:"g2", CableName:"submariner-cable-g2-172-19-0-6", HealthCheckIP:"120.2.0.254", Hostname:"g2-worker", Subnets:[]string{"120.2.0.0/24"}, PrivateIP:"172.19.0.6", PublicIP:"35.233.208.59", NATEnabled:true, Backend:"libreswan", BackendConfig:map[string]string{"natt-discovery-port":"4490", "preferred-server":"false", "udp-port":"4500"}}}
+181 "submariner-cable-g1-172-19-0-5-0-0" #2: initiating IKEv2 connection
+2023-04-08T14:07:17.150Z INF ..gine/cableengine.go:202 CableEngine          Successfully installed Endpoint cable "submariner-cable-g1-172-19-0-5" with remote IP 172.19.0.5
+2023-04-08T14:07:18.390Z DBG ..ry/request_handle.go:52 NAT                  Received request from 172.19.0.5:4490 - REQUEST_NUMBER: 0xa1c3984810c66a39, SENDER: "submariner-cable-g1-172-19-0-5", RECEIVER: "submariner-cable-g2-172-19-0-6"
+2023-04-08T14:07:18.391Z DBG ..y/request_handle.go:117 NAT                  Sending response to 172.19.0.5:4490 - REQUEST_NUMBER: 0xa1c3984810c66a39, RESPONSE: OK, SENDER: "submariner-cable-g2-172-19-0-6", RECEIVER: "submariner-cable-g1-172-19-0-5"
