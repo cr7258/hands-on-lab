@@ -1,0 +1,13 @@
+## Ipsec 隧道
+
+c1-gateway
+--psk --encrypt --name submariner-cable-c2-172-19-0-10-0-0 --id 172.19.0.8 --host 172.19.0.8 --client 10.88.0.0/16 --ikeport 4500 --to --id 172.19.0.10 --host 172.19.0.10 --client 10.99.0.0/16 --ikeport 4500
+--psk --encrypt --name submariner-cable-c2-172-19-0-10-0-1 --id 172.19.0.8 --host 172.19.0.8 --client 10.88.0.0/16 --ikeport 4500 --to --id 172.19.0.10 --host 172.19.0.10 --client 10.9.0.0/16 --ikeport 4500
+--psk --encrypt --name submariner-cable-c2-172-19-0-10-1-0 --id 172.19.0.8 --host 172.19.0.8 --client 10.8.0.0/16 --ikeport 4500 --to --id 172.19.0.10 --host 172.19.0.10 --client 10.99.0.0/16 --ikeport 4500
+--psk --encrypt --name submariner-cable-c2-172-19-0-10-1-1 --id 172.19.0.8 --host 172.19.0.8 --client 10.8.0.0/16 --ikeport 4500 --to --id 172.19.0.10 --host 172.19.0.10 --client 10.9.0.0/16 --ikeport 4500
+
+c2-gateway
+--psk --encrypt --name submariner-cable-c1-172-19-0-8-0-0 --id 172.19.0.10 --host 172.19.0.10 --client 10.99.0.0/16 --ikeport 4500 --to --id 172.19.0.8 --host 172.19.0.8 --client 10.88.0.0/16 --ikeport 4500
+--psk --encrypt --name submariner-cable-c1-172-19-0-8-0-1 --id 172.19.0.10 --host 172.19.0.10 --client 10.99.0.0/16 --ikeport 4500 --to --id 172.19.0.8 --host 172.19.0.8 --client 10.8.0.0/16 --ikeport 4500
+--psk --encrypt --name submariner-cable-c1-172-19-0-8-1-0 --id 172.19.0.10 --host 172.19.0.10 --client 10.9.0.0/16 --ikeport 4500 --to --id 172.19.0.8 --host 172.19.0.8 --client 10.88.0.0/16 --ikeport 4500
+--psk --encrypt --name submariner-cable-c1-172-19-0-8-1-1 --id 172.19.0.10 --host 172.19.0.10 --client 10.9.0.0/16 --ikeport 4500 --to --id 172.19.0.8 --host 172.19.0.8 --client 10.8.0.0/16 --ikeport 4500
