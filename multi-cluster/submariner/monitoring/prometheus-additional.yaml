@@ -1,0 +1,14 @@
+- job_name: 'prometheus-federate'
+  honor_labels: true
+  metrics_path: '/federate'
+  params:
+   'match[]':
+      - '{__name__=~"submariner.*"}'
+  static_configs:
+  - targets:
+     - 'prometheus-prometheus-0.cluster-2.prometheus-operated.default.svc.clusterset.local:9090'
+    labels:
+      cluster: 'cluster-2'
+  metric_relabel_configs:
+    - regex: 'prometheus.*'
+      action: labeldrop

@@ -1,0 +1,71 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: submariner-gateway-servicemonitor
+  namespace: submariner-operator
+  labels:
+    app: submariner-gateway
+    monitor: "true"
+spec:
+  selector:
+    matchLabels:
+      app: submariner-metrics-proxy
+  endpoints:
+  - port: metrics
+    relabelings:
+     - targetLabel: cluster
+       replacement: cluster-1
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: submariner-lighthouse-agent-servicemonitor
+  namespace: submariner-operator
+  labels:
+    app: submariner-lighthouse-agent
+    monitor: "true"
+spec:
+  selector:
+    matchLabels:
+      app: submariner-lighthouse-agent
+  endpoints:
+  - port: metrics
+    relabelings:
+     - targetLabel: cluster
+       replacement: cluster-1
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: submariner-lighthouse-coredns-servicemonitor
+  namespace: submariner-operator
+  labels:
+    app: submariner-lighthouse-coredns
+    monitor: "true"
+spec:
+  selector:
+    matchLabels:
+      app: submariner-lighthouse-coredns
+  endpoints:
+  - port: metrics
+    relabelings:
+     - targetLabel: cluster
+       replacement: cluster-1
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: submariner-operator-servicemonitor
+  namespace: submariner-operator
+  labels:
+    name: submariner-operator
+    monitor: "true"
+spec:
+  selector:
+    matchLabels:
+      name: submariner-operator
+  endpoints:
+  - port: metrics
+    relabelings:
+     - targetLabel: cluster
+       replacement: cluster-1
