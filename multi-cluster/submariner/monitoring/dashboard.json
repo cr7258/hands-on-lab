@@ -30,8 +30,7 @@
     "panels": [
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "8e884329-d4df-41ad-99de-455943f80e8f"
+          "type": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -80,8 +79,7 @@
         "targets": [
           {
             "datasource": {
-              "type": "prometheus",
-              "uid": "8e884329-d4df-41ad-99de-455943f80e8f"
+              "type": "prometheus"
             },
             "editorMode": "code",
             "expr": "submariner_service_import{cluster=\"$cluster\"}",
@@ -95,8 +93,7 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "8e884329-d4df-41ad-99de-455943f80e8f"
+          "type": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -145,8 +142,7 @@
         "targets": [
           {
             "datasource": {
-              "type": "prometheus",
-              "uid": "8e884329-d4df-41ad-99de-455943f80e8f"
+              "type": "prometheus"
             },
             "editorMode": "code",
             "expr": "submariner_service_export{cluster=\"$cluster\"} OR on() vector(0)",
@@ -160,8 +156,7 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "8e884329-d4df-41ad-99de-455943f80e8f"
+          "type": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -210,8 +205,7 @@
         "targets": [
           {
             "datasource": {
-              "type": "prometheus",
-              "uid": "8e884329-d4df-41ad-99de-455943f80e8f"
+              "type": "prometheus"
             },
             "editorMode": "code",
             "exemplar": false,
@@ -228,8 +222,7 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "8e884329-d4df-41ad-99de-455943f80e8f"
+          "type": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -307,8 +300,7 @@
         "targets": [
           {
             "datasource": {
-              "type": "prometheus",
-              "uid": "8e884329-d4df-41ad-99de-455943f80e8f"
+              "type": "prometheus"
             },
             "editorMode": "code",
             "expr": "submariner_connection_latency_seconds{cluster=\"$cluster\"}",
@@ -322,8 +314,7 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "8e884329-d4df-41ad-99de-455943f80e8f"
+          "type": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -746,8 +737,7 @@
             "value": "cluster-1"
           },
           "datasource": {
-            "type": "prometheus",
-            "uid": "8e884329-d4df-41ad-99de-455943f80e8f"
+            "type": "prometheus"
           },
           "definition": "label_values(up,cluster)",
           "hide": 0,
