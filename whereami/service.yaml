@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: whereami
+spec:
+  selector:
+    app: whereami
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

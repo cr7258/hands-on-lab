@@ -15,4 +15,5 @@ docker push cr7258/whereami:v1
 
 ```bash
 kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
 ```

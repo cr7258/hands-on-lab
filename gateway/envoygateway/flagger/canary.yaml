@@ -1,0 +1,50 @@
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: podinfo
+  namespace: test
+spec:
+  # deployment reference
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: podinfo
+  # the maximum time in seconds for the canary deployment
+  # to make progress before it is rollback (default 600s)
+  progressDeadlineSeconds: 60
+  service:
+    # service port number
+    port: 9898
+    # container port number or name (optional)
+    targetPort: 9898
+    # Gateway API HTTPRoute host names
+    hosts:
+     - test.example.com
+    # Reference to the Gateway that the generated HTTPRoute would attach to.
+    gatewayRefs:
+      - name: podinfo-gw
+        namespace: test
+  analysis:
+    # schedule interval (default 60s)
+    interval: 1m
+    # max number of failed metric checks before rollback
+    threshold: 5
+    # max traffic percentage routed to canary
+    # percentage (0-100)
+    maxWeight: 50
+    # canary increment step
+    # percentage (0-100)
+    stepWeight: 10  
+    metrics:
+    - name: request-success-rate
+      interval: 1m
+      # minimum req success rate (non 5xx responses)
+      # percentage (0-100)
+      thresholdRange:
+        min: 99
+    - name: request-duration
+      interval: 1m
+      # maximum req duration P99
+      # milliseconds
+      thresholdRange:
+        max: 500
