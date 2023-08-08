@@ -1,0 +1,3 @@
+cargo:rerun-if-changed=build/main.rs
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/I576375/Code/hands-on-lab/wasm/runtime/http-server/target/wasm32-wasi/release/build/typenum-1738a533e30ea356/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/I576375/Code/hands-on-lab/wasm/runtime/http-server/target/wasm32-wasi/release/build/typenum-1738a533e30ea356/out/op.rs
