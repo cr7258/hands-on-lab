@@ -1,0 +1,17 @@
+apiVersion: pyrra.dev/v1alpha1
+kind: ServiceLevelObjective
+metadata:
+  name: thanos-store
+  namespace: monitoring
+  labels:
+    prometheus: k8s
+    role: alert-rules
+spec:
+  target: '99.5'
+  window: 7d
+  indicator:
+    ratio:
+      errors:
+        metric: grpc_server_handled_total{grpc_service="thanos.Store",grpc_method="Series",namespace="monitoring",job="thanos-store",grpc_code=~"Aborted|Unavailable|Internal|Unknown|Unimplemented|DataLoss"}
+      total:
+        metric: grpc_server_handled_total{grpc_service="thanos.Store",grpc_method="Series",namespace="monitoring",job="thanos-store"}

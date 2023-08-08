@@ -1,0 +1,19 @@
+apiVersion: pyrra.dev/v1alpha1
+kind: ServiceLevelObjective
+metadata:
+  labels:
+    prometheus: k8s
+    role: alert-rules
+  name: demo-app-http-errors
+  namespace: monitoring
+spec:
+  description: ""
+  indicator:
+    ratio:
+      errors:
+        metric: http_requests_total{code=~"5..|4.."}
+      total:
+        metric: http_requests_total
+  target: "99.99"
+  window: 2w
+

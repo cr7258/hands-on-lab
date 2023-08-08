@@ -1,0 +1,25 @@
+name: Go
+on:
+  pull_request:
+  push:
+    branches:
+      - 'release-*'
+      - 'main'
+    tags:
+      - 'v*'
+env:
+  golang-version: '1.17'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    name: Go
+    steps:
+      - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
+      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
+        with:
+          go-version-file: 'go.mod'
+      - run: mkdir -p ui/build && touch ui/build/empty
+      - run: make test
+      - run: make pyrra

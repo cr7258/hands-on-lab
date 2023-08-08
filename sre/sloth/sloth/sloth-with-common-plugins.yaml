@@ -1,0 +1,147 @@
+---
+# Source: sloth/templates/service-account.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sloth
+  namespace: monitoring
+  labels:
+    helm.sh/chart: sloth-0.6.4
+    app.kubernetes.io/managed-by: Helm
+    app: sloth
+    app.kubernetes.io/name: sloth
+    app.kubernetes.io/instance: sloth
+---
+# Source: sloth/templates/cluster-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: sloth
+  labels:
+    helm.sh/chart: sloth-0.6.4
+    app.kubernetes.io/managed-by: Helm
+    app: sloth
+    app.kubernetes.io/name: sloth
+    app.kubernetes.io/instance: sloth
+rules:
+  - apiGroups: ["sloth.slok.dev"]
+    resources: ["*"]
+    verbs: ["*"]
+
+  - apiGroups: ["monitoring.coreos.com"]
+    resources: ["prometheusrules"]
+    verbs: ["create", "list", "get", "update", "watch"]
+---
+# Source: sloth/templates/cluster-role-binding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: sloth
+  labels:
+    helm.sh/chart: sloth-0.6.4
+    app.kubernetes.io/managed-by: Helm
+    app: sloth
+    app.kubernetes.io/name: sloth
+    app.kubernetes.io/instance: sloth
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: sloth
+subjects:
+  - kind: ServiceAccount
+    name: sloth
+    namespace: monitoring
+---
+# Source: sloth/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sloth
+  namespace: monitoring
+  labels:
+    helm.sh/chart: sloth-0.6.4
+    app.kubernetes.io/managed-by: Helm
+    app: sloth
+    app.kubernetes.io/name: sloth
+    app.kubernetes.io/instance: sloth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sloth
+      app.kubernetes.io/name: sloth
+      app.kubernetes.io/instance: sloth
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: sloth-0.6.4
+        app.kubernetes.io/managed-by: Helm
+        app: sloth
+        app.kubernetes.io/name: sloth
+        app.kubernetes.io/instance: sloth
+      annotations:
+        kubectl.kubernetes.io/default-container: sloth
+    spec:
+      serviceAccountName: sloth
+      containers:
+        - name: sloth
+          image: ghcr.io/slok/sloth:v0.11.0
+          args:
+            - kubernetes-controller
+            - --sli-plugins-path=/plugins
+          ports:
+            - containerPort: 8081
+              name: metrics
+              protocol: TCP
+          volumeMounts:
+            - name: sloth-common-sli-plugins
+              mountPath: /plugins/sloth-common-sli-plugins
+          resources:
+            limits:
+              cpu: 50m
+              memory: 150Mi
+            requests:
+              cpu: 5m
+              memory: 75Mi
+        - name: git-sync-plugins
+          image: k8s.gcr.io/git-sync/git-sync:v3.6.1
+          args:
+            - --repo=https://github.com/slok/sloth-common-sli-plugins
+            - --branch=main
+            - --wait=30
+            - --webhook-url=http://localhost:8082/-/reload
+          volumeMounts:
+            - name: sloth-common-sli-plugins
+              # Default path for git-sync.
+              mountPath: /tmp/git
+          resources:
+            limits:
+              cpu: 50m
+              memory: 100Mi
+            requests:
+              cpu: 5m
+              memory: 50Mi
+      volumes:
+        - name: sloth-common-sli-plugins
+          emptyDir: {}
+---
+# Source: sloth/templates/pod-monitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: sloth
+  namespace: monitoring
+  labels:
+    helm.sh/chart: sloth-0.6.4
+    app.kubernetes.io/managed-by: Helm
+    app: sloth
+    app.kubernetes.io/name: sloth
+    app.kubernetes.io/instance: sloth
+spec:
+  selector:
+    matchLabels:
+      app: sloth
+      app.kubernetes.io/name: sloth
+      app.kubernetes.io/instance: sloth
+  podMetricsEndpoints:
+    - port: metrics

@@ -1,0 +1,34 @@
+.content.detail {
+  .container .row {
+    margin-bottom: 100px;
+  }
+
+  .header {
+    span.badge {
+      margin-right: 5px;
+    }
+  }
+
+  .timerange {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 45%, $gray-300 50%, rgba(0, 0, 0, 0) 55%);
+
+    .inner {
+      margin: 0 auto;
+      background-color: $body-bg;
+
+      @media (min-width: 576px) {
+        width: 66%;
+      }
+      @media (min-width: 768px) {
+        width: 50%;
+      }
+      @media (min-width: 1440px) {
+        width: 33%;
+      }
+    }
+  }
+
+  h4.graphs-headline {
+    margin-bottom: 0;
+  }
+}

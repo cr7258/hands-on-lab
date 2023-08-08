@@ -1,0 +1,1 @@
+{"groups":[{"name":"example-group","rules":[{"alert":"ExampleAlert","annotations":{"description":"This is an example alert."},"expr":"vector(1)","labels":{"severity":"warning"}}]}]}

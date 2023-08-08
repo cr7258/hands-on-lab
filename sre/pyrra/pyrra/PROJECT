@@ -1,0 +1,7 @@
+domain: pyrra.dev
+repo: github.com/pyrra-dev/pyrra
+resources:
+- group: pyrra
+  kind: ServiceLevelObjective
+  version: v1alpha1
+version: "2"
