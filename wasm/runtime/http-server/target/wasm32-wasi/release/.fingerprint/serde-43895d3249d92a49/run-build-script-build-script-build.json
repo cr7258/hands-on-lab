@@ -1,1 +1,0 @@
-{"rustc":2386259884065963178,"features":"","target":0,"profile":0,"path":0,"deps":[[18260804926946925357,"build_script_build",false,12335420877417027151]],"local":[{"RerunIfChanged":{"output":"wasm32-wasi/release/build/serde-43895d3249d92a49/output","paths":["build.rs"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}

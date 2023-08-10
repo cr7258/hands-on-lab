@@ -1,2 +1,0 @@
-cargo:rustc-cfg=tokio_wasm
-cargo:rustc-cfg=tokio_wasi_wasmedge
