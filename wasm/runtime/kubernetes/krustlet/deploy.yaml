@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wasm-demo-app
+spec:
+  containers:
+    - name: wasm-demo-app
+      image: ghcr.io/cr7258/wasm-demo-app:oci
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "wasm32-wasi"
+      effect: "NoExecute"
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "wasm32-wasi"
+      effect: "NoSchedule"
