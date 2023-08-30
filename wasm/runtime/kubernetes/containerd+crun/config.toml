@@ -43,6 +43,6 @@ version = 2
 
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.crun]
     runtime_type = "io.containerd.runc.v2"
-    pod_annotations = ["module.wasm.image/variant", "run.oci.handler"]
+    pod_annotations = ["module.wasm.image/variant"]
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.crun.options]
     BinaryName = "crun"
