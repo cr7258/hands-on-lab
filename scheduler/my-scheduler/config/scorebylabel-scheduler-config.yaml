@@ -1,0 +1,14 @@
+apiVersion: kubescheduler.config.k8s.io/v1beta2
+kind: KubeSchedulerConfiguration
+leaderElection:
+  leaderElect: false
+clientConnection:
+  kubeconfig: "/Users/I576375/.kube/config"
+profiles:
+  - schedulerName: scorebylabel
+    plugins:
+      score:
+        enabled:
+          - name: ScoreByLabel
+        disabled:
+          - name: "*" # disable all default plugins

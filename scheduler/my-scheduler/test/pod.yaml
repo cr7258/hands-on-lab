@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: testpod
+spec:
+  schedulerName: scorebylabel
+  containers:
+    - name: testpod
+      image: busybox
+      command: ["/bin/sh"]
+      args:
+        - "-c"
+        - "sleep 3600s"
+      resources:
+        requests:
+          cpu: "200m"
+          memory: 50Mi
