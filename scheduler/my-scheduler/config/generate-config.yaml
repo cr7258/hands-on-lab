@@ -7,7 +7,7 @@ clientConnection:
   qps: 50
 enableContentionProfiling: true
 enableProfiling: true
-healthzBindAddress: 0.0.0.0:10251
+healthzBindAddress: ""
 kind: KubeSchedulerConfiguration
 leaderElection:
   leaderElect: false
@@ -17,7 +17,7 @@ leaderElection:
   resourceName: kube-scheduler
   resourceNamespace: kube-system
   retryPeriod: 2s
-metricsBindAddress: 0.0.0.0:10251
+metricsBindAddress: ""
 parallelism: 16
 percentageOfNodesToScore: 0
 podInitialBackoffSeconds: 1
@@ -97,6 +97,7 @@ profiles:
         weight: 0
       - name: InterPodAffinity
         weight: 0
+    multiPoint: {}
     permit: {}
     postBind: {}
     postFilter:
@@ -107,6 +108,7 @@ profiles:
       enabled:
       - name: VolumeBinding
         weight: 0
+    preEnqueue: {}
     preFilter:
       enabled:
       - name: NodeResourcesFit

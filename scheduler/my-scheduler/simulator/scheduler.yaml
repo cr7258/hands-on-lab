@@ -1,0 +1,10 @@
+kind: KubeSchedulerConfiguration
+apiVersion: kubescheduler.config.k8s.io/v1
+clientConnection:
+  kubeconfig: simulator/kubeconfig.yaml
+profiles:
+  - schedulerName: scorebylabel
+    plugins:
+      multiPoint:
+        enabled:
+          - name: ScoreByLabel

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: with-node-affinity
+  labels:
+    app: with-node-affinity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:  with-node-affinity
+  template:
+    metadata:
+      labels:
+        app:  with-node-affinity
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "schedulable"
+                operator: In
+                values:
+                - "true"
+      containers:
+      - name: with-node-affinity
+        image: busybox
+        command: ["/bin/sh", "-ec", "sleep infinity"]
