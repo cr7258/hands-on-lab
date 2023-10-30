@@ -22,6 +22,10 @@ type ScoreByLabel struct {
 	handle framework.Handle
 }
 
+func (*ScoreByLabel) Name() string {
+	return Name
+}
+
 func (s *ScoreByLabel) Score(ctx context.Context, state *framework.CycleState, p *v1.Pod, nodeName string) (int64, *framework.Status) {
 	nodeInfo, err := s.handle.SnapshotSharedLister().NodeInfos().Get(nodeName)
 	if err != nil {
@@ -65,10 +69,6 @@ func (s *ScoreByLabel) NormalizeScore(ctx context.Context, state *framework.Cycl
 
 func (s *ScoreByLabel) ScoreExtensions() framework.ScoreExtensions {
 	return s
-}
-
-func (*ScoreByLabel) Name() string {
-	return Name
 }
 
 func New(obj runtime.Object, h framework.Handle) (framework.Plugin, error) {
