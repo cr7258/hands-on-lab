@@ -56,7 +56,11 @@ func (s *ScoreByLabel) NormalizeScore(ctx context.Context, state *framework.Cycl
 			higherScore = node.Score
 		}
 	}
-
+	// node 1: 50, node 2: 100, node 3: 200
+	// higherScore = 200
+	// node 1: 50 * 100 / 200 = 25
+	// node 2: 100 * 100 / 200 = 50
+	// node 3: 200 * 100 / 200 = 100
 	for i, node := range scores {
 		if higherScore > 0 {
 			scores[i].Score = node.Score * framework.MaxNodeScore / higherScore
