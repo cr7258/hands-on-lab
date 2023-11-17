@@ -1,0 +1,23 @@
+flask==2.0.2
+wtforms==3.0.1
+flask-wtf==1.0.1
+elasticsearch~=8.6.0
+Pillow~=9.3.0
+sentence-transformers~=2.2.2
+tqdm~=4.64.1
+
+# Eland for import NLP models
+eland>=8,<9
+torch~=1.11.0
+
+# required by '.env' and '.flaskenv' files
+python-dotenv~=0.21.1
+
+# for reading the exif jpg data
+exif==1.5.0
+
+# required only for RAW images conversion
+# rawpy==0.17.3
+# imageio==2.22.4
+
+Werkzeug==2.2.2
