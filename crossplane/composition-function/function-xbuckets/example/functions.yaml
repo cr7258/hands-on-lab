@@ -1,0 +1,10 @@
+apiVersion: pkg.crossplane.io/v1beta1
+kind: Function
+metadata:
+  name: function-xbuckets
+  annotations:
+    render.crossplane.io/runtime: Development
+spec:
+  # The CLI ignores this package when using the Development runtime.
+  # You can set it to any value.
+  package: xpkg.upbound.io/negz/function-xbuckets:v0.1.0

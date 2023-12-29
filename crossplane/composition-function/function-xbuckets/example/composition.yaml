@@ -1,0 +1,13 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: create-buckets
+spec:
+  compositeTypeRef:
+    apiVersion: example.crossplane.io/v1
+    kind: XBuckets
+  mode: Pipeline
+  pipeline:
+    - step: create-buckets
+      functionRef:
+        name: function-xbuckets
