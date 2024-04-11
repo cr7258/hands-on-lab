@@ -1,0 +1,41 @@
+apiVersion: sql.gcp.upbound.io/v1beta1
+kind: DatabaseInstance
+metadata:
+  name: example-sql-instance
+spec:
+  forProvider:
+    databaseVersion: POSTGRES_13
+    region: us-central1
+    settings:
+    - diskSize: 20
+      tier: db-custom-1-3840
+      ipConfiguration:
+      - ipv4Enabled: true
+        authorizedNetworks:
+        - name: all
+          value: 0.0.0.0/0
+    deletionProtection: false
+  writeConnectionSecretToRef: # 会往这个 secret 写入数据库连接信息
+    name: example-sql-connection-secret
+    namespace: crossplane-system
+---
+apiVersion: sql.gcp.upbound.io/v1beta1
+kind: User
+metadata:
+  name: example-sql-user
+spec:
+  forProvider:
+    instanceRef:
+      name: example-sql-instance
+    passwordSecretRef:
+      key: password
+      name: example-sql-password
+      namespace: crossplane-system
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-sql-password
+  namespace: crossplane-system
+data:
+  password: dGVzdDEyMw==  # echo -n test123 | base64

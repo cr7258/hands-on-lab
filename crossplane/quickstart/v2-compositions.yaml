@@ -1,0 +1,85 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: sqls.example.com
+spec:
+  group: example.com
+  names:
+    kind: SQL
+    plural: sqls
+  claimNames:
+    kind: SQLClaim
+    plural: sqlclaims
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema: {}
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: gcp-postgresql
+  labels:
+    provider: gcp
+    db: postgresql
+spec:
+  compositeTypeRef:
+    apiVersion: example.com/v1alpha1
+    kind: SQL
+  resources:
+  - name: databaseinstance
+    base:
+      apiVersion: sql.gcp.upbound.io/v1beta1
+      kind: DatabaseInstance
+      metadata:
+        name: example-sql-instance
+      spec:
+        forProvider:
+          databaseVersion: POSTGRES_13
+          region: us-central1
+          settings:
+          - diskSize: 20
+            tier: db-custom-1-3840
+            ipConfiguration:
+            - ipv4Enabled: true
+              authorizedNetworks:
+              - name: all
+                value: 0.0.0.0/0
+          deletionProtection: false
+        writeConnectionSecretToRef:
+          name: example-sql-connection-secret
+          namespace: crossplane-system
+  - name: user
+    base:
+      apiVersion: sql.gcp.upbound.io/v1beta1
+      kind: User
+      metadata:
+        name: example-sql-user
+      spec:
+        forProvider:
+          instanceSelector:
+            matchControllerRef: true
+          passwordSecretRef:
+            key: password
+            name: example-sql-password
+            namespace: crossplane-system
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-sql-password
+  namespace: crossplane-system
+data:
+  password: dGVzdDEyMw==
+---
+apiVersion: example.com/v1alpha1
+kind: SQL
+metadata:
+  name: example-sql
+spec:
+  compositionSelector:
+    matchLabels:
+      provider: gcp
+      db: postgresql

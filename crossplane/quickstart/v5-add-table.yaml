@@ -1,0 +1,233 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: sqls.example.com
+spec:
+  group: example.com
+  names:
+    kind: SQL
+    plural: sqls
+  claimNames:
+    kind: SQLClaim
+    plural: sqlclaims
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              parameters:
+                type: object
+                properties:
+                  version:
+                    description: The DB version depends on the DB type and versions available in the selected provider.
+                    type: string
+                  size:
+                    description: "Supported sizes: small, medium, large"
+                    type: string
+                    default: small
+                  database:
+                    description: The database to create inside the DB server.
+                    type: string
+                  schema:
+                    description: The SQL to apply the database schema.      
+                    type: string
+                required:
+                - version
+                - database
+                - schema
+            required:
+            - parameters
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: gcp-postgresql
+  labels:
+    provider: gcp
+    db: postgresql
+spec:
+  compositeTypeRef:
+    apiVersion: example.com/v1alpha1
+    kind: SQL
+  mode: Pipeline
+  pipeline:
+  - step: patch-and-transform
+    functionRef:
+      name: function-patch-and-transform 
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
+      resources:
+      - name: databaseinstance
+        base:
+          apiVersion: sql.gcp.upbound.io/v1beta1
+          kind: DatabaseInstance
+          spec:
+            forProvider:
+              # databaseVersion: POSTGRES_13
+              region: us-central1
+              settings:
+              - diskSize: 20
+                # tier: db-custom-1-3840
+                ipConfiguration:
+                - ipv4Enabled: true
+                  authorizedNetworks:
+                  - name: all
+                    value: 0.0.0.0/0
+              deletionProtection: false   
+            writeConnectionSecretToRef:
+              # name: example-sql-connection-secret
+              namespace: crossplane-system
+        patches:
+        - fromFieldPath: metadata.name
+          toFieldPath: metadata.name
+          transforms:
+          - type: string
+            string:
+              fmt: "%s-instance"
+              type: Format
+        - fromFieldPath: spec.parameters.version
+          toFieldPath: spec.forProvider.databaseVersion
+          transforms:
+          - type: string
+            string:
+              fmt: POSTGRES_%s
+              type: Format
+        - fromFieldPath: spec.parameters.size
+          toFieldPath: spec.forProvider.settings[0].tier
+          transforms:
+          - type: map
+            map:
+              small: db-custom-1-3840
+              medium: db-custom-2-7680
+              large: db-custom-4-15360
+        - fromFieldPath: metadata.name
+          toFieldPath: spec.writeConnectionSecretToRef.name
+          transforms:
+          - type: string
+            string:
+              fmt: "%s-connection-secret"
+              type: Format
+      - name: user
+        base:
+          apiVersion: sql.gcp.upbound.io/v1beta1
+          kind: User
+          spec:
+            forProvider:
+              instanceSelector:
+                matchControllerRef: true
+              passwordSecretRef:
+                key: password
+                name: example-sql-password
+                namespace: crossplane-system
+        patches:
+        - fromFieldPath: metadata.name
+          toFieldPath: metadata.name
+          transforms:
+          - type: string
+            string:
+              fmt: "%s-user"
+              type: Format
+      - name: database
+        base:
+          apiVersion: sql.gcp.upbound.io/v1beta1
+          kind: Database
+          spec:
+            forProvider:
+              instanceSelector:
+                matchControllerRef: true
+        patches:
+        - fromFieldPath: spec.parameters.database
+          toFieldPath: metadata.name
+      - name: kubernetes
+        base:
+          apiVersion: kubernetes.crossplane.io/v1alpha1
+          kind: ProviderConfig
+          spec:
+            credentials:
+              source: InjectedIdentity
+        patches:
+        - fromFieldPath: metadata.name
+          toFieldPath: metadata.name
+          transforms:
+          - type: string
+            string:
+              fmt: "%s-kubernetes"
+              type: Format
+  - step: schema
+    functionRef:
+      name: function-go-templating
+    input:
+      apiVersion: gotemplating.fn.crossplane.io/v1beta1
+      kind: GoTemplate
+      source: Inline
+      inline:
+        template: |
+          apiVersion: kubernetes.crossplane.io/v1alpha1
+          kind: Object
+          metadata:
+            name: {{ $.observed.composite.resource.metadata.name }}-schema-{{ $.observed.composite.resource.spec.parameters.database }}
+            annotations:
+              gotemplating.fn.crossplane.io/composition-resource-name: {{ $.observed.composite.resource.metadata.name }}-schema-{{ $.observed.composite.resource.spec.parameters.database }}
+          spec:
+            providerConfigRef:
+              name: {{ $.observed.composite.resource.metadata.name }}-kubernetes
+            forProvider:
+              manifest:
+                apiVersion: db.atlasgo.io/v1alpha1
+                kind: AtlasSchema
+                metadata:
+                  name: {{ $.observed.composite.resource.metadata.name }}-{{ $.observed.composite.resource.spec.parameters.database }}
+                  namespace: crossplane-system
+                spec:
+                  credentials:
+                    scheme: postgres
+                    hostFrom:
+                      secretKeyRef:
+                        key: publicIP
+                        name: {{ $.observed.composite.resource.metadata.name }}-connection-secret
+                    port: 5432
+                    user: {{ $.observed.composite.resource.metadata.name }}-user
+                    passwordFrom:
+                      secretKeyRef:
+                        key: password
+                        name: example-sql-password
+                    database: {{ $.observed.composite.resource.spec.parameters.database }}
+                    parameters:
+                      sslmode: disable
+                  schema: 
+                    sql: "{{ $.observed.composite.resource.spec.parameters.schema }}"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-sql-password
+  namespace: crossplane-system
+data:
+  password: dGVzdDEyMw==
+---
+apiVersion: example.com/v1alpha1
+kind: SQL
+metadata:
+  name: example-sql
+spec:
+  compositionSelector:
+    matchLabels:
+      provider: gcp
+      db: postgresql
+  parameters:
+    version: "13"
+    size: small
+    database: example-db
+    schema: |
+      create table videos (
+        id varchar(50) not null,
+        description text,
+        primary key (id)
+      );
