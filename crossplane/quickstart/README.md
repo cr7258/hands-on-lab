@@ -626,7 +626,7 @@ spec:
     ......
 ```
 
-在创建 SQL CR 时，我们就可以通过 `version` 字段来指定 Cloud SQL 实例的 PostgreSQL 版本，并通过 `size` 字段来指定实例的规格。
+在创建 SQL CR 时，我们就可以通过 `version` 字段来指定 Cloud SQL 实例的 PostgreSQL 版本，并通过 `size` 字段来指定实例的规格了。
 
 ```yaml
 apiVersion: example.com/v1alpha1
@@ -1028,7 +1028,7 @@ kubectl delete -f v5-add-table.yaml
 
 ### 7.6 实验 6: Auto-Ready Function
 
-[auto-ready](https://github.com/crossplane-contrib/function-auto-ready) Function 可以用于检测 Composite Resources 相关的 Managed Resources 的状态，当所有的 Managed Resources 都处于 Ready 状态时，auto-ready Function 会自动将 Composite Resources 标记为 Ready。auto-ready Function 的使用方式非常简单，不需要设置任何参数。
+[auto-ready](https://github.com/crossplane-contrib/function-auto-ready) Function 可以用于检测 Composite Resources 相关的 Managed Resources 的状态，当所有的 Managed Resources 都处于 Ready 状态时，`auto-ready` Function 会自动将 Composite Resources 标记为 Ready。`auto-ready` Function 的使用方式非常简单，不需要设置任何参数。
 
 ```yaml
 apiVersion: apiextensions.crossplane.io/v1
@@ -1539,8 +1539,6 @@ gcloud projects delete ${PROJECT_ID}
 
 在这篇文章中，我们深入探讨了 Crossplane 这一开源的 Kubernetes 扩展工具，它允许用户通过 Kubernetes API 来统一管理和编排云资源。文章首先对 Crossplane 的核心组件和概念进行了详细解释，包括 Providers、Managed Resources、Compositions、Composite Resource Definitions 等等。随后，我们通过一系列的实践案例，逐步学习了如何使用 Crossplane 来管理云资源，包括使用 Managed Resources 来创建云资源、使用 Compositions 来组合 Managed Resources、使用 Claims 来在命名空间创建资源、使用 Configuration Packages 来打包和分享资源等等。希望通过学习这篇文章，你能够对 Crossplane 有一个更深入的了解，并且能够利用它来统一管理和编排你的基础设施资源。
 
-> 建议点击阅读原文以获得更好的阅读体验，包括显示文章外链和查看高清插图。
-
 ## 9 参考资料
 
 - [Crossplane: The Cloud Native Control Plane by Viktor Farcic](https://www.upbound.io/resources/lp/book/crossplane-cloud-native-control-plane)
@@ -1549,3 +1547,7 @@ gcloud projects delete ${PROJECT_ID}
 - [Crossplane Documentation](https://docs.crossplane.io/v1.15/)
 - [Monitoring-As-Code with Crossplane](https://blog.crossplane.io/monitoring-as-code-with-crossplane/)
 - [Going Further with Crossplane: Compositions and Functions](https://blog.ogenki.io/post/crossplane_composition_functions/)
+
+## 10 欢迎关注
+
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20220104221116.png)
