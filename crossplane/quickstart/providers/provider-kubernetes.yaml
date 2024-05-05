@@ -32,3 +32,11 @@ spec:
   package: xpkg.upbound.io/crossplane-contrib/provider-kubernetes:v0.13.0
   controllerConfigRef:
     name: provider-kubernetes
+---
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: providerconfig-kubernetes
+spec:
+  credentials:
+    source: InjectedIdentity

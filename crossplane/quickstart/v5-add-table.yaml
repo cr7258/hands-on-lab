@@ -7,9 +7,6 @@ spec:
   names:
     kind: SQL
     plural: sqls
-  claimNames:
-    kind: SQLClaim
-    plural: sqlclaims
   versions:
   - name: v1alpha1
     served: true
@@ -59,7 +56,7 @@ spec:
   pipeline:
   - step: patch-and-transform
     functionRef:
-      name: function-patch-and-transform 
+      name: crossplane-contrib-function-patch-and-transform 
     input:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
@@ -69,6 +66,8 @@ spec:
           apiVersion: sql.gcp.upbound.io/v1beta1
           kind: DatabaseInstance
           spec:
+            providerConfigRef:
+              name: providerconfig-gcp-sql
             forProvider:
               # databaseVersion: POSTGRES_13
               region: us-central1
@@ -119,6 +118,8 @@ spec:
           apiVersion: sql.gcp.upbound.io/v1beta1
           kind: User
           spec:
+            providerConfigRef:
+              name: providerconfig-gcp-sql
             forProvider:
               instanceSelector:
                 matchControllerRef: true
@@ -139,30 +140,17 @@ spec:
           apiVersion: sql.gcp.upbound.io/v1beta1
           kind: Database
           spec:
+            providerConfigRef:
+              name: providerconfig-gcp-sql
             forProvider:
               instanceSelector:
                 matchControllerRef: true
         patches:
         - fromFieldPath: spec.parameters.database
           toFieldPath: metadata.name
-      - name: kubernetes
-        base:
-          apiVersion: kubernetes.crossplane.io/v1alpha1
-          kind: ProviderConfig
-          spec:
-            credentials:
-              source: InjectedIdentity
-        patches:
-        - fromFieldPath: metadata.name
-          toFieldPath: metadata.name
-          transforms:
-          - type: string
-            string:
-              fmt: "%s-kubernetes"
-              type: Format
   - step: schema
     functionRef:
-      name: function-go-templating
+      name: crossplane-contrib-function-go-templating
     input:
       apiVersion: gotemplating.fn.crossplane.io/v1beta1
       kind: GoTemplate
@@ -177,7 +165,7 @@ spec:
               gotemplating.fn.crossplane.io/composition-resource-name: {{ $.observed.composite.resource.metadata.name }}-schema-{{ $.observed.composite.resource.spec.parameters.database }}
           spec:
             providerConfigRef:
-              name: {{ $.observed.composite.resource.metadata.name }}-kubernetes
+              name: providerconfig-kubernetes
             forProvider:
               manifest:
                 apiVersion: db.atlasgo.io/v1alpha1

@@ -7,6 +7,9 @@ spec:
   names:
     kind: SQL
     plural: sqls
+  claimNames:
+    kind: SQLClaim
+    plural: sqlclaims
   versions:
   - name: v1alpha1
     served: true
@@ -56,7 +59,7 @@ spec:
   pipeline:
   - step: patch-and-transform
     functionRef:
-      name: crossplane-contrib-function-patch-and-transform 
+      name: crossplane-contrib-function-patch-and-transform
     input:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
@@ -80,17 +83,19 @@ spec:
                   - name: all
                     value: 0.0.0.0/0
               deletionProtection: false   
-            writeConnectionSecretToRef:
+            # writeConnectionSecretToRef:
               # name: example-sql-connection-secret
-              namespace: crossplane-system
+              # namespace: team-a / team-b
         patches:
-        - fromFieldPath: metadata.name
-          toFieldPath: metadata.name
-          transforms:
-          - type: string
+        - type: CombineFromComposite
+          combine:
+            variables:
+            - fromFieldPath: spec.claimRef.namespace
+            - fromFieldPath: spec.claimRef.name
+            strategy: string
             string:
-              fmt: "%s-instance"
-              type: Format
+              fmt: "%s-%s-instance"
+          toFieldPath: metadata.name
         - fromFieldPath: spec.parameters.version
           toFieldPath: spec.forProvider.databaseVersion
           transforms:
@@ -106,13 +111,15 @@ spec:
               small: db-custom-1-3840
               medium: db-custom-2-7680
               large: db-custom-4-15360
-        - fromFieldPath: metadata.name
+        - fromFieldPath: spec.claimRef.name
           toFieldPath: spec.writeConnectionSecretToRef.name
           transforms:
           - type: string
             string:
               fmt: "%s-connection-secret"
               type: Format
+        - fromFieldPath: spec.claimRef.namespace
+          toFieldPath: spec.writeConnectionSecretToRef.namespace
       - name: user
         base:
           apiVersion: sql.gcp.upbound.io/v1beta1
@@ -126,15 +133,19 @@ spec:
               passwordSecretRef:
                 key: password
                 name: example-sql-password
-                namespace: crossplane-system
+                # namespace: team-a / team-b
         patches:
         - fromFieldPath: metadata.name
           toFieldPath: metadata.name
+        - fromFieldPath: spec.claimRef.name
+          toFieldPath: metadata.annotations["crossplane.io/external-name"]
           transforms:
           - type: string
             string:
               fmt: "%s-user"
               type: Format
+        - fromFieldPath: spec.claimRef.namespace
+          toFieldPath: spec.forProvider.passwordSecretRef.namespace
       - name: database
         base:
           apiVersion: sql.gcp.upbound.io/v1beta1
@@ -146,8 +157,10 @@ spec:
               instanceSelector:
                 matchControllerRef: true
         patches:
-        - fromFieldPath: spec.parameters.database
+        - fromFieldPath: metadata.name
           toFieldPath: metadata.name
+        - fromFieldPath: spec.parameters.database
+          toFieldPath: metadata.annotations["crossplane.io/external-name"]
   - step: schema
     functionRef:
       name: crossplane-contrib-function-go-templating
@@ -172,16 +185,16 @@ spec:
                 kind: AtlasSchema
                 metadata:
                   name: {{ $.observed.composite.resource.metadata.name }}-{{ $.observed.composite.resource.spec.parameters.database }}
-                  namespace: crossplane-system
+                  namespace: {{ $.observed.composite.resource.spec.claimRef.namespace }}
                 spec:
                   credentials:
                     scheme: postgres
                     hostFrom:
                       secretKeyRef:
                         key: publicIP
-                        name: {{ $.observed.composite.resource.metadata.name }}-connection-secret
+                        name: {{ $.observed.composite.resource.spec.claimRef.name }}-connection-secret
                     port: 5432
-                    user: {{ $.observed.composite.resource.metadata.name }}-user
+                    user: {{ $.observed.composite.resource.spec.claimRef.name }}-user
                     passwordFrom:
                       secretKeyRef:
                         key: password
@@ -194,31 +207,3 @@ spec:
   - step: automatically-detect-ready-composed-resources
     functionRef:
       name: crossplane-contrib-function-auto-ready
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: example-sql-password
-  namespace: crossplane-system
-data:
-  password: dGVzdDEyMw==
----
-apiVersion: example.com/v1alpha1
-kind: SQL
-metadata:
-  name: example-sql
-spec:
-  compositionSelector:
-    matchLabels:
-      provider: gcp
-      db: postgresql
-  parameters:
-    version: "13"
-    size: small
-    database: example-db
-    schema: |
-      create table videos (
-        id varchar(50) not null,
-        description text,
-        primary key (id)
-      );

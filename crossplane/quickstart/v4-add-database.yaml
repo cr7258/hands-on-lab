@@ -7,9 +7,6 @@ spec:
   names:
     kind: SQL
     plural: sqls
-  claimNames:
-    kind: SQLClaim
-    plural: sqlclaims
   versions:
   - name: v1alpha1
     served: true
@@ -57,6 +54,8 @@ spec:
       apiVersion: sql.gcp.upbound.io/v1beta1
       kind: DatabaseInstance
       spec:
+        providerConfigRef:
+          name: providerconfig-gcp-sql  
         forProvider:
           # databaseVersion: POSTGRES_13
           region: us-central1
@@ -79,12 +78,14 @@ spec:
       - type: string
         string:
           fmt: "%s-instance"
+          type: Format
     - fromFieldPath: spec.parameters.version
       toFieldPath: spec.forProvider.databaseVersion
       transforms:
       - type: string
         string:
           fmt: POSTGRES_%s
+          type: Format
     - fromFieldPath: spec.parameters.size
       toFieldPath: spec.forProvider.settings[0].tier
       transforms:
@@ -99,11 +100,14 @@ spec:
       - type: string
         string:
           fmt: "%s-connection-secret"
+          type: Format
   - name: user
     base:
       apiVersion: sql.gcp.upbound.io/v1beta1
       kind: User
       spec:
+        providerConfigRef:
+          name: providerconfig-gcp-sql  
         forProvider:
           instanceSelector:
             matchControllerRef: true
@@ -118,11 +122,14 @@ spec:
       - type: string
         string:
           fmt: "%s-user"
+          type: Format
   - name: database
     base:
       apiVersion: sql.gcp.upbound.io/v1beta1
       kind: Database
       spec:
+        providerConfigRef:
+          name: providerconfig-gcp-sql      
         forProvider:
           instanceSelector:
             matchControllerRef: true

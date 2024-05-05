@@ -1,0 +1,7 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Configuration
+metadata:
+  name: crossplane-sql
+spec:
+  packagePullPolicy: Always
+  package: xpkg.upbound.io/seven-demo/seven-sql:v0.0.1

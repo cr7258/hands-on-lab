@@ -59,7 +59,7 @@ spec:
   pipeline:
   - step: patch-and-transform
     functionRef:
-      name: function-patch-and-transform 
+      name: crossplane-contrib-function-patch-and-transform 
     input:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
@@ -69,6 +69,8 @@ spec:
           apiVersion: sql.gcp.upbound.io/v1beta1
           kind: DatabaseInstance
           spec:
+            providerConfigRef:
+              name: providerconfig-gcp-sql
             forProvider:
               # databaseVersion: POSTGRES_13
               region: us-central1
@@ -109,7 +111,7 @@ spec:
               small: db-custom-1-3840
               medium: db-custom-2-7680
               large: db-custom-4-15360
-        - fromFieldPath: metadata.name
+        - fromFieldPath: spec.claimRef.name
           toFieldPath: spec.writeConnectionSecretToRef.name
           transforms:
           - type: string
@@ -123,6 +125,8 @@ spec:
           apiVersion: sql.gcp.upbound.io/v1beta1
           kind: User
           spec:
+            providerConfigRef:
+              name: providerconfig-gcp-sql
             forProvider:
               instanceSelector:
                 matchControllerRef: true
@@ -147,6 +151,8 @@ spec:
           apiVersion: sql.gcp.upbound.io/v1beta1
           kind: Database
           spec:
+            providerConfigRef:
+              name: providerconfig-gcp-sql
             forProvider:
               instanceSelector:
                 matchControllerRef: true
@@ -155,24 +161,9 @@ spec:
           toFieldPath: metadata.name
         - fromFieldPath: spec.parameters.database
           toFieldPath: metadata.annotations["crossplane.io/external-name"]
-      - name: kubernetes
-        base:
-          apiVersion: kubernetes.crossplane.io/v1alpha1
-          kind: ProviderConfig
-          spec:
-            credentials:
-              source: InjectedIdentity
-        patches:
-        - fromFieldPath: metadata.name
-          toFieldPath: metadata.name
-          transforms:
-          - type: string
-            string:
-              fmt: "%s-kubernetes"
-              type: Format
   - step: schema
     functionRef:
-      name: function-go-templating
+      name: crossplane-contrib-function-go-templating
     input:
       apiVersion: gotemplating.fn.crossplane.io/v1beta1
       kind: GoTemplate
@@ -187,7 +178,7 @@ spec:
               gotemplating.fn.crossplane.io/composition-resource-name: {{ $.observed.composite.resource.metadata.name }}-schema-{{ $.observed.composite.resource.spec.parameters.database }}
           spec:
             providerConfigRef:
-              name: {{ $.observed.composite.resource.metadata.name }}-kubernetes
+              name: providerconfig-kubernetes
             forProvider:
               manifest:
                 apiVersion: db.atlasgo.io/v1alpha1
@@ -201,9 +192,9 @@ spec:
                     hostFrom:
                       secretKeyRef:
                         key: publicIP
-                        name: {{ $.observed.composite.resource.metadata.name }}-connection-secret
+                        name: {{ $.observed.composite.resource.spec.claimRef.name }}-connection-secret
                     port: 5432
-                    user: {{ $.observed.composite.resource.metadata.name }}-user
+                    user: {{ $.observed.composite.resource.spec.claimRef.name }}-user
                     passwordFrom:
                       secretKeyRef:
                         key: password
@@ -215,7 +206,7 @@ spec:
                     sql: "{{ $.observed.composite.resource.spec.parameters.schema }}"
   - step: automatically-detect-ready-composed-resources
     functionRef:
-      name: function-auto-ready
+      name: crossplane-contrib-function-auto-ready
 ---
 apiVersion: v1
 kind: Namespace

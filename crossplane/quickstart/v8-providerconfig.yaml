@@ -1,0 +1,20 @@
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: providerconfig-kubernetes
+spec:
+  credentials:
+    source: InjectedIdentity
+---
+apiVersion: gcp.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: providerconfig-gcp-sql
+spec:
+  projectID: $PROJECT_ID # replace with your GCP projectID
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: gcp-creds
+      key: creds

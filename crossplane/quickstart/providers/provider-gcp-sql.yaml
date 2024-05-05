@@ -1,0 +1,19 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-gcp-sql
+spec:
+  package: xpkg.upbound.io/upbound/provider-gcp-sql:v1.0.2
+---
+apiVersion: gcp.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: providerconfig-gcp-sql
+spec:
+  projectID: $PROJECT_ID # replace with your GCP projectID
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: gcp-creds
+      key: creds

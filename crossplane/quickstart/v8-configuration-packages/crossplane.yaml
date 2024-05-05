@@ -1,0 +1,21 @@
+apiVersion: meta.pkg.crossplane.io/v1
+kind: Configuration
+metadata:
+  name: seven-sql
+  annotations:
+    meta.crossplane.io/maintainer: Seven Cheng
+    meta.crossplane.io/description: Deploy PostgreSQL databases on Google Cloud Platform
+spec:
+  crossplane:
+    version: ">=v1.15.0"
+  dependsOn:
+  - provider: xpkg.upbound.io/upbound/provider-gcp-sql
+    version: ">=v1.0.2"
+  - provider: xpkg.upbound.io/crossplane-contrib/provider-kubernetes
+    version: ">=v0.13.0"
+  - function: "xpkg.upbound.io/crossplane-contrib/function-go-templating"
+    version: "v0.4.1"
+  - function: "xpkg.upbound.io/crossplane-contrib/function-patch-and-transform"
+    version: "v0.2.1"
+  - function: "xpkg.upbound.io/crossplane-contrib/function-auto-ready"
+    version: "v0.2.1"

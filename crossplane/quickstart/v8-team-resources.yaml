@@ -1,0 +1,68 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: team-a
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-sql-password
+  namespace: team-a
+data:
+  password: dGVzdDEyMw==
+---
+apiVersion: example.com/v1alpha1
+kind: SQLClaim
+metadata:
+  name: example-sql
+  namespace: team-a
+spec:
+  compositionSelector:
+    matchLabels:
+      provider: gcp
+      db: postgresql
+  parameters:
+    version: "13"
+    size: small
+    database: example-db
+    schema: |
+      create table videos (
+        id varchar(50) not null,
+        description text,
+        primary key (id)
+      );
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: team-b
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: example-sql-password
+  namespace: team-b
+data:
+  password: dGVzdDEyMw==
+---
+apiVersion: example.com/v1alpha1
+kind: SQLClaim
+metadata:
+  name: example-sql
+  namespace: team-b
+spec:
+  compositionSelector:
+    matchLabels:
+      provider: gcp
+      db: postgresql
+  parameters:
+    version: "13"
+    size: small
+    database: example-db
+    schema: |
+      create table videos (
+        id varchar(50) not null,
+        description text,
+        primary key (id)
+      );

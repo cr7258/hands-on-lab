@@ -3,6 +3,8 @@ kind: DatabaseInstance
 metadata:
   name: example-sql-instance
 spec:
+  providerConfigRef:
+    name: providerconfig-gcp-sql 
   forProvider:
     databaseVersion: POSTGRES_13
     region: us-central1
@@ -24,6 +26,8 @@ kind: User
 metadata:
   name: example-sql-user
 spec:
+  providerConfigRef:
+    name: providerconfig-gcp-sql  
   forProvider:
     instanceRef:
       name: example-sql-instance
