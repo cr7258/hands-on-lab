@@ -1,0 +1,1802 @@
+# myapp   0/4     Pending   0          0s
+# the pod has not been scheduled yet
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nwhile true; do\n  echo \"sidecar container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nwhile true; do\n  echo \"sidecar container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-23T14:48:52Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "741994"
+  uid: 64b07f1c-a2ce-4120-8558-4aa0a17df662
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          while true; do
+            echo "sidecar container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          while true; do
+            echo "sidecar container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-n2cxz
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  phase: Pending
+  qosClass: BestEffort
+
+
+# myapp   0/4     Pending   0          0s
+# the pod has been scheduled but didn't initialize containers
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nwhile true; do\n  echo \"sidecar container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nwhile true; do\n  echo \"sidecar container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-23T14:48:52Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "741995"
+  uid: 64b07f1c-a2ce-4120-8558-4aa0a17df662
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          while true; do
+            echo "sidecar container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          while true; do
+            echo "sidecar container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-n2cxz
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      status: "True"
+      type: PodScheduled
+  phase: Pending
+  qosClass: BestEffort
+
+# myapp   0/4     Init:0/3   0          0s
+# waiting for the init-container-1 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nwhile true; do\n  echo \"sidecar container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nwhile true; do\n  echo \"sidecar container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-23T14:48:52Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "741997"
+  uid: 64b07f1c-a2ce-4120-8558-4aa0a17df662
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          while true; do
+            echo "sidecar container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          while true; do
+            echo "sidecar container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-n2cxz
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with incomplete status: [init-container-1 sidecar-container-1
+      sidecar-container-2]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with unready status: [sidecar-container-1 sidecar-container-2
+      main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with unready status: [sidecar-container-1 sidecar-container-2
+      main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.4
+  initContainerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: init-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  qosClass: BestEffort
+  startTime: "2024-05-23T14:48:52Z"
+
+
+# myapp   0/4     Init:0/3   0          1s
+# the init-container-1 is running but doesn't complete yet
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nwhile true; do\n  echo \"sidecar container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nwhile true; do\n  echo \"sidecar container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-23T14:48:52Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "742002"
+  uid: 64b07f1c-a2ce-4120-8558-4aa0a17df662
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          while true; do
+            echo "sidecar container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          while true; do
+            echo "sidecar container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-n2cxz
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with incomplete status: [init-container-1 sidecar-container-1
+      sidecar-container-2]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with unready status: [sidecar-container-1 sidecar-container-2
+      main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with unready status: [sidecar-container-1 sidecar-container-2
+      main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.4
+  initContainerStatuses:
+    - containerID: containerd://7b686d5e5885777ba6321f4f4ac9014464595c1d68c8deec080063241e58a4b8
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: false
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-23T14:48:53Z"
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  podIP: 10.244.0.13
+  podIPs:
+    - ip: 10.244.0.13
+  qosClass: BestEffort
+  startTime: "2024-05-23T14:48:52Z"
+
+
+# myapp   0/4     Init:1/3   0          11s
+# the init-container-1 completed and exited, waiting for the sidecar-container-1 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nwhile true; do\n  echo \"sidecar container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nwhile true; do\n  echo \"sidecar container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-23T14:48:52Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "742017"
+  uid: 64b07f1c-a2ce-4120-8558-4aa0a17df662
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          while true; do
+            echo "sidecar container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          while true; do
+            echo "sidecar container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-n2cxz
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with incomplete status: [sidecar-container-1 sidecar-container-2]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with unready status: [sidecar-container-1 sidecar-container-2
+      main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with unready status: [sidecar-container-1 sidecar-container-2
+      main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.4
+  initContainerStatuses:
+    - containerID: containerd://7b686d5e5885777ba6321f4f4ac9014464595c1d68c8deec080063241e58a4b8
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://7b686d5e5885777ba6321f4f4ac9014464595c1d68c8deec080063241e58a4b8
+          exitCode: 0
+          finishedAt: "2024-05-23T14:49:03Z"
+          reason: Completed
+          startedAt: "2024-05-23T14:48:53Z"
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  podIP: 10.244.0.13
+  podIPs:
+    - ip: 10.244.0.13
+  qosClass: BestEffort
+  startTime: "2024-05-23T14:48:52Z"
+
+
+# myapp   1/4     Init:2/3   0          12s
+# the sidecar-container-1 is running, waiting for the sidecar-container-2 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nwhile true; do\n  echo \"sidecar container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nwhile true; do\n  echo \"sidecar container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-23T14:48:52Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "742023"
+  uid: 64b07f1c-a2ce-4120-8558-4aa0a17df662
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          while true; do
+            echo "sidecar container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          while true; do
+            echo "sidecar container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-n2cxz
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with incomplete status: [sidecar-container-2]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with unready status: [sidecar-container-2 main-container-1
+      main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with unready status: [sidecar-container-2 main-container-1
+      main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.4
+  initContainerStatuses:
+    - containerID: containerd://7b686d5e5885777ba6321f4f4ac9014464595c1d68c8deec080063241e58a4b8
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://7b686d5e5885777ba6321f4f4ac9014464595c1d68c8deec080063241e58a4b8
+          exitCode: 0
+          finishedAt: "2024-05-23T14:49:03Z"
+          reason: Completed
+          startedAt: "2024-05-23T14:48:53Z"
+    - containerID: containerd://44a32ca99b498a006db11c5b73811826e8eafc8972c7434877dc2c38d48a5c1e
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-23T14:49:03Z"
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  podIP: 10.244.0.13
+  podIPs:
+    - ip: 10.244.0.13
+  qosClass: BestEffort
+  startTime: "2024-05-23T14:48:52Z"
+
+# myapp   2/4     PodInitializing   0          13s
+# the sidecar-container-2 is running, waiting for the main-container-1 and main-container-2 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nwhile true; do\n  echo \"sidecar container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nwhile true; do\n  echo \"sidecar container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-23T14:48:52Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "742027"
+  uid: 64b07f1c-a2ce-4120-8558-4aa0a17df662
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          while true; do
+            echo "sidecar container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          while true; do
+            echo "sidecar container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-n2cxz
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:49:05Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.4
+  initContainerStatuses:
+    - containerID: containerd://7b686d5e5885777ba6321f4f4ac9014464595c1d68c8deec080063241e58a4b8
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://7b686d5e5885777ba6321f4f4ac9014464595c1d68c8deec080063241e58a4b8
+          exitCode: 0
+          finishedAt: "2024-05-23T14:49:03Z"
+          reason: Completed
+          startedAt: "2024-05-23T14:48:53Z"
+    - containerID: containerd://44a32ca99b498a006db11c5b73811826e8eafc8972c7434877dc2c38d48a5c1e
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-23T14:49:03Z"
+    - containerID: containerd://e207c2e673c286299651c3776c7248e3ffa1a43d72e8a74bae536b64d4c34de5
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-2
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-23T14:49:04Z"
+  phase: Pending
+  podIP: 10.244.0.13
+  podIPs:
+    - ip: 10.244.0.13
+  qosClass: BestEffort
+  startTime: "2024-05-23T14:48:52Z"
+
+
+# myapp   4/4     Running           0          14s
+# the main-container-1 and main-container-2 are running
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nwhile true; do\n  echo \"sidecar container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nwhile true; do\n  echo \"sidecar container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-23T14:48:52Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "742035"
+  uid: 64b07f1c-a2ce-4120-8558-4aa0a17df662
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          while true; do
+            echo "sidecar container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          while true; do
+            echo "sidecar container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-n2cxz
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-n2cxz
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:49:05Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:49:06Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:49:06Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-23T14:48:52Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - containerID: containerd://038b401a86b56cb18ae389e9b8b64c64ab2e4e22959f18b02093be6562445a1b
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-23T14:49:05Z"
+    - containerID: containerd://4605cbe7a3d68de14abc83ca961a71eb6fee85b36db5095c74ba9108ff71a4a7
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-2
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-23T14:49:05Z"
+  hostIP: 172.19.0.4
+  initContainerStatuses:
+    - containerID: containerd://7b686d5e5885777ba6321f4f4ac9014464595c1d68c8deec080063241e58a4b8
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://7b686d5e5885777ba6321f4f4ac9014464595c1d68c8deec080063241e58a4b8
+          exitCode: 0
+          finishedAt: "2024-05-23T14:49:03Z"
+          reason: Completed
+          startedAt: "2024-05-23T14:48:53Z"
+    - containerID: containerd://44a32ca99b498a006db11c5b73811826e8eafc8972c7434877dc2c38d48a5c1e
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-23T14:49:03Z"
+    - containerID: containerd://e207c2e673c286299651c3776c7248e3ffa1a43d72e8a74bae536b64d4c34de5
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-2
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-23T14:49:04Z"
+  phase: Running
+  podIP: 10.244.0.13
+  podIPs:
+    - ip: 10.244.0.13
+  qosClass: BestEffort
+  startTime: "2024-05-23T14:48:52Z"

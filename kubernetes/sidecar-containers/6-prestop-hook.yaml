@@ -1,0 +1,98 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+spec:
+  initContainers:
+    - name: init-container-1
+      image: busybox:1.35
+      command: ["sh", "-c"]
+      args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+    - name: sidecar-container-1
+      image: busybox:1.35
+      command: [ "sh", "-c" ]
+      args:
+        - |
+          echo "sidecar container 1 is starting..."
+          trap '
+            echo \"sidecar container 1 received SIGTERM\";
+            sleep 3;
+            echo \"sidecar container 1 stopped\";
+            exit 0
+          ' TERM;
+
+          while true; do
+            echo \"sidecar container 1 is doing some tasks...\";
+            sleep 3;
+          done
+
+      restartPolicy: Always
+    - name: sidecar-container-2
+      image: busybox:1.35
+      command: [ "sh", "-c" ]
+      args:
+        - |
+          echo "sidecar container 2 is starting..."
+          trap '
+            echo \"sidecar container 2 received SIGTERM\";
+            sleep 3;
+            echo \"sidecar container 2 stopped\";
+            exit 0
+          ' TERM;
+
+          while true; do
+            echo \"sidecar container 2 is doing some tasks...\";
+            sleep 3;
+          done
+
+      restartPolicy: Always
+  containers:
+    - name: main-container-1
+      image: busybox:1.35
+      command: ["sh", "-c"]
+      args:
+        - |
+          echo "main container 1 is starting..."
+          trap '
+            echo \"main container 1 received SIGTERM\";
+            sleep 10;
+            echo \"main container 1 stopped\";
+            exit 0
+          ' TERM;
+          
+          while true; do
+            echo \"main container 1 is doing some tasks...\";
+            sleep 3;
+          done
+
+      lifecycle:
+        preStop:
+          exec:
+            command: ["sh", "-c", "echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep 5"]
+    - name: main-container-2
+      image: busybox:1.35
+      command: ["sh", "-c"]
+      args:
+        - |
+          echo "main container 2 is starting..."
+          trap '
+            echo \"main container 2 received SIGTERM\";
+            sleep 10;
+            echo \"main container 2 stopped\";
+            exit 0
+          ' TERM;
+          
+          while true; do
+            echo \"main container 2 is doing some tasks...\";
+            sleep 3;
+          done
+
+      lifecycle:
+        preStop:
+          exec:
+            command: ["sh", "-c", "echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep 5"]

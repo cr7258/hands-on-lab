@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: myapp
+spec:
+  template:
+    spec:
+      containers:
+        - name: main-container-1
+          image: busybox:1.35
+          command: ["sh", "-c"]
+          args:
+            - |
+              echo "main container is starting..."
+              for i in $(seq 1 5); do
+                echo "main container is doing some task: $i/5"
+                sleep 3
+              done
+              echo "main container completed tasks and exited"
+        - name: sidecar-container-1
+          image: busybox:1.35
+          command: ["sh", "-c"]
+          args:
+            - |
+              echo "sidecar container is starting..."
+              while true; do
+                echo "sidecar container is collecting logs..."
+                sleep 1
+              done
+      restartPolicy: OnFailure

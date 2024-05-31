@@ -1,0 +1,704 @@
+# myapp-fdpb7   0/2     Pending   0          0s
+# the pod has not been scheduled yet
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2024-05-28T13:05:25Z"
+  finalizers:
+    - batch.kubernetes.io/job-tracking
+  generateName: myapp-
+  labels:
+    batch.kubernetes.io/controller-uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+    batch.kubernetes.io/job-name: myapp
+    controller-uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+    job-name: myapp
+  name: myapp-fdpb7
+  namespace: default
+  ownerReferences:
+    - apiVersion: batch/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Job
+      name: myapp
+      uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+  resourceVersion: "1168502"
+  uid: 4fd41413-a254-4f4b-9380-2e9468c88565
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container is starting..."
+          for i in $(seq 1 5); do
+            echo "main container is doing some task: $i/5"
+            sleep 3
+          done
+          echo "main container completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-b5cr8
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container is starting..."
+          while true; do
+            echo "sidecar container is collecting logs..."
+            sleep 1
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-b5cr8
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: OnFailure
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-b5cr8
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  phase: Pending
+  qosClass: BestEffort
+
+# myapp-fdpb7   0/2     Pending   0          0s
+# pod has been scheduled but didn't initialize containers
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2024-05-28T13:05:25Z"
+  finalizers:
+    - batch.kubernetes.io/job-tracking
+  generateName: myapp-
+  labels:
+    batch.kubernetes.io/controller-uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+    batch.kubernetes.io/job-name: myapp
+    controller-uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+    job-name: myapp
+  name: myapp-fdpb7
+  namespace: default
+  ownerReferences:
+    - apiVersion: batch/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Job
+      name: myapp
+      uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+  resourceVersion: "1168505"
+  uid: 4fd41413-a254-4f4b-9380-2e9468c88565
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container is starting..."
+          for i in $(seq 1 5); do
+            echo "main container is doing some task: $i/5"
+            sleep 3
+          done
+          echo "main container completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-b5cr8
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container is starting..."
+          while true; do
+            echo "sidecar container is collecting logs..."
+            sleep 1
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-b5cr8
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: OnFailure
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-b5cr8
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:25Z"
+      status: "True"
+      type: PodScheduled
+  phase: Pending
+  qosClass: BestEffort
+
+# myapp-fdpb7   0/2     ContainerCreating   0          0s
+# waiting for the main-container-1 and sidecar-container-1 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2024-05-28T13:05:25Z"
+  finalizers:
+    - batch.kubernetes.io/job-tracking
+  generateName: myapp-
+  labels:
+    batch.kubernetes.io/controller-uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+    batch.kubernetes.io/job-name: myapp
+    controller-uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+    job-name: myapp
+  name: myapp-fdpb7
+  namespace: default
+  ownerReferences:
+    - apiVersion: batch/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Job
+      name: myapp
+      uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+  resourceVersion: "1168507"
+  uid: 4fd41413-a254-4f4b-9380-2e9468c88565
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container is starting..."
+          for i in $(seq 1 5); do
+            echo "main container is doing some task: $i/5"
+            sleep 3
+          done
+          echo "main container completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-b5cr8
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container is starting..."
+          while true; do
+            echo "sidecar container is collecting logs..."
+            sleep 1
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-b5cr8
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: OnFailure
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-b5cr8
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:25Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:25Z"
+      message: 'containers with unready status: [main-container-1 sidecar-container-1]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:25Z"
+      message: 'containers with unready status: [main-container-1 sidecar-container-1]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:25Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: ContainerCreating
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: ContainerCreating
+  hostIP: 172.19.0.2
+  phase: Pending
+  qosClass: BestEffort
+  startTime: "2024-05-28T13:05:25Z"
+
+# myapp-fdpb7   2/2     Running             0          2s
+# the main-container-1 and sidecar-container-1 are running
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2024-05-28T13:05:25Z"
+  finalizers:
+    - batch.kubernetes.io/job-tracking
+  generateName: myapp-
+  labels:
+    batch.kubernetes.io/controller-uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+    batch.kubernetes.io/job-name: myapp
+    controller-uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+    job-name: myapp
+  name: myapp-fdpb7
+  namespace: default
+  ownerReferences:
+    - apiVersion: batch/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Job
+      name: myapp
+      uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+  resourceVersion: "1168517"
+  uid: 4fd41413-a254-4f4b-9380-2e9468c88565
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container is starting..."
+          for i in $(seq 1 5); do
+            echo "main container is doing some task: $i/5"
+            sleep 3
+          done
+          echo "main container completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-b5cr8
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container is starting..."
+          while true; do
+            echo "sidecar container is collecting logs..."
+            sleep 1
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-b5cr8
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: OnFailure
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-b5cr8
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:25Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:27Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:27Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:25Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - containerID: containerd://af182325a9bb106697dc56f7ff25e96d6dd22d45eb134990d9c4820349c11232
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-28T13:05:26Z"
+    - containerID: containerd://fb24805ffe5ee1fddb64a728ee8853299f9c093b2722b77d54808d9821b90b0e
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-28T13:05:26Z"
+  hostIP: 172.19.0.2
+  phase: Running
+  podIP: 10.244.0.7
+  podIPs:
+    - ip: 10.244.0.7
+  qosClass: BestEffort
+  startTime: "2024-05-28T13:05:25Z"
+
+# myapp-fdpb7   1/2     NotReady            0          17s
+# the main-container-1 completed tasks and exited, but the sidecar-container-1 is still running
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2024-05-28T13:05:25Z"
+  finalizers:
+    - batch.kubernetes.io/job-tracking
+  generateName: myapp-
+  labels:
+    batch.kubernetes.io/controller-uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+    batch.kubernetes.io/job-name: myapp
+    controller-uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+    job-name: myapp
+  name: myapp-fdpb7
+  namespace: default
+  ownerReferences:
+    - apiVersion: batch/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Job
+      name: myapp
+      uid: 53eea8d2-7dc9-49fa-92c5-993eade85133
+  resourceVersion: "1168537"
+  uid: 4fd41413-a254-4f4b-9380-2e9468c88565
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container is starting..."
+          for i in $(seq 1 5); do
+            echo "main container is doing some task: $i/5"
+            sleep 3
+          done
+          echo "main container completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-b5cr8
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container is starting..."
+          while true; do
+            echo "sidecar container is collecting logs..."
+            sleep 1
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-b5cr8
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: OnFailure
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-b5cr8
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:25Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:42Z"
+      message: 'containers with unready status: [main-container-1]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:42Z"
+      message: 'containers with unready status: [main-container-1]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T13:05:25Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - containerID: containerd://af182325a9bb106697dc56f7ff25e96d6dd22d45eb134990d9c4820349c11232
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://af182325a9bb106697dc56f7ff25e96d6dd22d45eb134990d9c4820349c11232
+          exitCode: 0
+          finishedAt: "2024-05-28T13:05:41Z"
+          reason: Completed
+          startedAt: "2024-05-28T13:05:26Z"
+    - containerID: containerd://fb24805ffe5ee1fddb64a728ee8853299f9c093b2722b77d54808d9821b90b0e
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-28T13:05:26Z"
+  hostIP: 172.19.0.2
+  phase: Running
+  podIP: 10.244.0.7
+  podIPs:
+    - ip: 10.244.0.7
+  qosClass: BestEffort
+  startTime: "2024-05-28T13:05:25Z"

@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+spec:
+  initContainers:
+    - name: sidecar-container-1
+      image: busybox:1.35
+      command: ["sh", "-c"]
+      args:
+        - |
+          echo "sidecar container 1 is starting..."
+          while true; do
+            echo "sidecar container 1 is doing some tasks..."
+            sleep 3
+          done
+      restartPolicy: Always
+      resources:
+        requests:
+          cpu: "1"
+    - name: init-container-1
+      image: busybox:1.35
+      command: ["sh", "-c"]
+      args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      resources:
+        requests:
+          cpu: "9"
+    - name: sidecar-container-2
+      image: busybox:1.35
+      command: ["sh", "-c"]
+      args:
+        - |
+          echo "sidecar container 2 is starting..."
+          while true; do
+            echo "sidecar container 2 is doing some tasks..."
+            sleep 3
+          done
+      restartPolicy: Always
+      resources:
+        requests:
+          cpu: "1"
+  containers:
+    - name: main-container-1
+      image: busybox:1.35
+      command: ["sh", "-c"]
+      args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      resources:
+        requests:
+          cpu: "3"
+    - name: main-container-2
+      image: busybox:1.35
+      command: [ "sh", "-c" ]
+      args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      resources:
+        requests:
+          cpu: "4"

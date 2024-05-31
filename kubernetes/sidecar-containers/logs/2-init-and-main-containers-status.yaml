@@ -1,0 +1,2268 @@
+# myapp   0/2     Pending   0          1s
+# the pod has not been scheduled yet
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"init container 2 is starting...\"\necho \"init container 2 is doing some tasks...\"\nsleep 10\necho \"init container 2 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-2"},{"args":["echo \"init container 3 is starting...\"\necho \"init container 3 is doing some tasks...\"\nsleep 10\necho \"init container 3 completed task and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-3"}]}}
+  creationTimestamp: "2024-05-28T14:04:43Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1173142"
+  uid: c4f1654c-22fd-4b28-a75a-5c673cdf9f10
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 2 is starting..."
+          echo "init container 2 is doing some tasks..."
+          sleep 10
+          echo "init container 2 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 3 is starting..."
+          echo "init container 3 is doing some tasks..."
+          sleep 10
+          echo "init container 3 completed task and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-3
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-lm7gd
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  phase: Pending
+  qosClass: BestEffort
+
+# myapp   0/2     Pending   0          1s
+# the pod has been scheduled but didn't initialize containers
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"init container 2 is starting...\"\necho \"init container 2 is doing some tasks...\"\nsleep 10\necho \"init container 2 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-2"},{"args":["echo \"init container 3 is starting...\"\necho \"init container 3 is doing some tasks...\"\nsleep 10\necho \"init container 3 completed task and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-3"}]}}
+  creationTimestamp: "2024-05-28T14:04:43Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1173143"
+  uid: c4f1654c-22fd-4b28-a75a-5c673cdf9f10
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 2 is starting..."
+          echo "init container 2 is doing some tasks..."
+          sleep 10
+          echo "init container 2 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 3 is starting..."
+          echo "init container 3 is doing some tasks..."
+          sleep 10
+          echo "init container 3 completed task and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-3
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-lm7gd
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      status: "True"
+      type: PodScheduled
+  phase: Pending
+  qosClass: BestEffort
+
+# myapp   0/2     Init:0/3   0          1s
+# waiting for the init-container-1 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"init container 2 is starting...\"\necho \"init container 2 is doing some tasks...\"\nsleep 10\necho \"init container 2 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-2"},{"args":["echo \"init container 3 is starting...\"\necho \"init container 3 is doing some tasks...\"\nsleep 10\necho \"init container 3 completed task and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-3"}]}}
+  creationTimestamp: "2024-05-28T14:04:43Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1173144"
+  uid: c4f1654c-22fd-4b28-a75a-5c673cdf9f10
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 2 is starting..."
+          echo "init container 2 is doing some tasks..."
+          sleep 10
+          echo "init container 2 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 3 is starting..."
+          echo "init container 3 is doing some tasks..."
+          sleep 10
+          echo "init container 3 completed task and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-3
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-lm7gd
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with incomplete status: [init-container-1 init-container-2
+      init-container-3]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: init-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: init-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: init-container-3
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  qosClass: BestEffort
+  startTime: "2024-05-28T14:04:44Z"
+
+# myapp   0/2     Init:0/3   0          2s
+# the init-container-1 is running but doesn't complete yet
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"init container 2 is starting...\"\necho \"init container 2 is doing some tasks...\"\nsleep 10\necho \"init container 2 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-2"},{"args":["echo \"init container 3 is starting...\"\necho \"init container 3 is doing some tasks...\"\nsleep 10\necho \"init container 3 completed task and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-3"}]}}
+  creationTimestamp: "2024-05-28T14:04:43Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1173151"
+  uid: c4f1654c-22fd-4b28-a75a-5c673cdf9f10
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 2 is starting..."
+          echo "init container 2 is doing some tasks..."
+          sleep 10
+          echo "init container 2 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 3 is starting..."
+          echo "init container 3 is doing some tasks..."
+          sleep 10
+          echo "init container 3 completed task and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-3
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-lm7gd
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with incomplete status: [init-container-1 init-container-2
+      init-container-3]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: false
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-28T14:04:44Z"
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: init-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: init-container-3
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  podIP: 10.244.0.9
+  podIPs:
+    - ip: 10.244.0.9
+  qosClass: BestEffort
+  startTime: "2024-05-28T14:04:44Z"
+
+# myapp   0/2     Init:1/3   0          12s
+# the init-container-1 completed and exited, waiting for the init-container-2 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"init container 2 is starting...\"\necho \"init container 2 is doing some tasks...\"\nsleep 10\necho \"init container 2 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-2"},{"args":["echo \"init container 3 is starting...\"\necho \"init container 3 is doing some tasks...\"\nsleep 10\necho \"init container 3 completed task and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-3"}]}}
+  creationTimestamp: "2024-05-28T14:04:43Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1173164"
+  uid: c4f1654c-22fd-4b28-a75a-5c673cdf9f10
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 2 is starting..."
+          echo "init container 2 is doing some tasks..."
+          sleep 10
+          echo "init container 2 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 3 is starting..."
+          echo "init container 3 is doing some tasks..."
+          sleep 10
+          echo "init container 3 completed task and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-3
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-lm7gd
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with incomplete status: [init-container-2 init-container-3]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+          exitCode: 0
+          finishedAt: "2024-05-28T14:04:54Z"
+          reason: Completed
+          startedAt: "2024-05-28T14:04:44Z"
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: init-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: init-container-3
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  podIP: 10.244.0.9
+  podIPs:
+    - ip: 10.244.0.9
+  qosClass: BestEffort
+  startTime: "2024-05-28T14:04:44Z"
+
+# myapp   0/2     Init:1/3   0          13s
+# the init-container-2 is running but doesn't complete yet
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"init container 2 is starting...\"\necho \"init container 2 is doing some tasks...\"\nsleep 10\necho \"init container 2 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-2"},{"args":["echo \"init container 3 is starting...\"\necho \"init container 3 is doing some tasks...\"\nsleep 10\necho \"init container 3 completed task and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-3"}]}}
+  creationTimestamp: "2024-05-28T14:04:43Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1173171"
+  uid: c4f1654c-22fd-4b28-a75a-5c673cdf9f10
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 2 is starting..."
+          echo "init container 2 is doing some tasks..."
+          sleep 10
+          echo "init container 2 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 3 is starting..."
+          echo "init container 3 is doing some tasks..."
+          sleep 10
+          echo "init container 3 completed task and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-3
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-lm7gd
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with incomplete status: [init-container-2 init-container-3]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+          exitCode: 0
+          finishedAt: "2024-05-28T14:04:54Z"
+          reason: Completed
+          startedAt: "2024-05-28T14:04:44Z"
+    - containerID: containerd://928cc236785ac613a5a74b44e5cc71bdd64f44d2379404e5c83e1f9b6a9a3a6b
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-2
+      ready: false
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-28T14:04:55Z"
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: init-container-3
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  podIP: 10.244.0.9
+  podIPs:
+    - ip: 10.244.0.9
+  qosClass: BestEffort
+  startTime: "2024-05-28T14:04:44Z"
+
+# myapp   0/2     Init:2/3   0          23s
+# the init-container-2 completed and exited, waiting for the init-container-3 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"init container 2 is starting...\"\necho \"init container 2 is doing some tasks...\"\nsleep 10\necho \"init container 2 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-2"},{"args":["echo \"init container 3 is starting...\"\necho \"init container 3 is doing some tasks...\"\nsleep 10\necho \"init container 3 completed task and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-3"}]}}
+  creationTimestamp: "2024-05-28T14:04:43Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1173185"
+  uid: c4f1654c-22fd-4b28-a75a-5c673cdf9f10
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 2 is starting..."
+          echo "init container 2 is doing some tasks..."
+          sleep 10
+          echo "init container 2 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 3 is starting..."
+          echo "init container 3 is doing some tasks..."
+          sleep 10
+          echo "init container 3 completed task and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-3
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-lm7gd
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with incomplete status: [init-container-3]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+          exitCode: 0
+          finishedAt: "2024-05-28T14:04:54Z"
+          reason: Completed
+          startedAt: "2024-05-28T14:04:44Z"
+    - containerID: containerd://928cc236785ac613a5a74b44e5cc71bdd64f44d2379404e5c83e1f9b6a9a3a6b
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-2
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://928cc236785ac613a5a74b44e5cc71bdd64f44d2379404e5c83e1f9b6a9a3a6b
+          exitCode: 0
+          finishedAt: "2024-05-28T14:05:05Z"
+          reason: Completed
+          startedAt: "2024-05-28T14:04:55Z"
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: init-container-3
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  podIP: 10.244.0.9
+  podIPs:
+    - ip: 10.244.0.9
+  qosClass: BestEffort
+  startTime: "2024-05-28T14:04:44Z"
+
+# myapp   0/2     Init:2/3   0          24s
+# the init-container-3 is running but doesn't complete yet
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"init container 2 is starting...\"\necho \"init container 2 is doing some tasks...\"\nsleep 10\necho \"init container 2 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-2"},{"args":["echo \"init container 3 is starting...\"\necho \"init container 3 is doing some tasks...\"\nsleep 10\necho \"init container 3 completed task and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-3"}]}}
+  creationTimestamp: "2024-05-28T14:04:43Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1173189"
+  uid: c4f1654c-22fd-4b28-a75a-5c673cdf9f10
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 2 is starting..."
+          echo "init container 2 is doing some tasks..."
+          sleep 10
+          echo "init container 2 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 3 is starting..."
+          echo "init container 3 is doing some tasks..."
+          sleep 10
+          echo "init container 3 completed task and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-3
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-lm7gd
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with incomplete status: [init-container-3]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+          exitCode: 0
+          finishedAt: "2024-05-28T14:04:54Z"
+          reason: Completed
+          startedAt: "2024-05-28T14:04:44Z"
+    - containerID: containerd://928cc236785ac613a5a74b44e5cc71bdd64f44d2379404e5c83e1f9b6a9a3a6b
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-2
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://928cc236785ac613a5a74b44e5cc71bdd64f44d2379404e5c83e1f9b6a9a3a6b
+          exitCode: 0
+          finishedAt: "2024-05-28T14:05:05Z"
+          reason: Completed
+          startedAt: "2024-05-28T14:04:55Z"
+    - containerID: containerd://ac5b2ac446151811e69957bc94c083d0dbb4e122fb4b9c21cd09b63c7f23758e
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-3
+      ready: false
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-28T14:05:06Z"
+  phase: Pending
+  podIP: 10.244.0.9
+  podIPs:
+    - ip: 10.244.0.9
+  qosClass: BestEffort
+  startTime: "2024-05-28T14:04:44Z"
+
+# myapp   0/2     PodInitializing   0          34s
+# the init-container-3 completed and exited, waiting for the main-container-1 and main-container-2 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"init container 2 is starting...\"\necho \"init container 2 is doing some tasks...\"\nsleep 10\necho \"init container 2 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-2"},{"args":["echo \"init container 3 is starting...\"\necho \"init container 3 is doing some tasks...\"\nsleep 10\necho \"init container 3 completed task and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-3"}]}}
+  creationTimestamp: "2024-05-28T14:04:43Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1173204"
+  uid: c4f1654c-22fd-4b28-a75a-5c673cdf9f10
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 2 is starting..."
+          echo "init container 2 is doing some tasks..."
+          sleep 10
+          echo "init container 2 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 3 is starting..."
+          echo "init container 3 is doing some tasks..."
+          sleep 10
+          echo "init container 3 completed task and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-3
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-lm7gd
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:05:17Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+          exitCode: 0
+          finishedAt: "2024-05-28T14:04:54Z"
+          reason: Completed
+          startedAt: "2024-05-28T14:04:44Z"
+    - containerID: containerd://928cc236785ac613a5a74b44e5cc71bdd64f44d2379404e5c83e1f9b6a9a3a6b
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-2
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://928cc236785ac613a5a74b44e5cc71bdd64f44d2379404e5c83e1f9b6a9a3a6b
+          exitCode: 0
+          finishedAt: "2024-05-28T14:05:05Z"
+          reason: Completed
+          startedAt: "2024-05-28T14:04:55Z"
+    - containerID: containerd://ac5b2ac446151811e69957bc94c083d0dbb4e122fb4b9c21cd09b63c7f23758e
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-3
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://ac5b2ac446151811e69957bc94c083d0dbb4e122fb4b9c21cd09b63c7f23758e
+          exitCode: 0
+          finishedAt: "2024-05-28T14:05:16Z"
+          reason: Completed
+          startedAt: "2024-05-28T14:05:06Z"
+  phase: Pending
+  podIP: 10.244.0.9
+  podIPs:
+    - ip: 10.244.0.9
+  qosClass: BestEffort
+  startTime: "2024-05-28T14:04:44Z"
+
+# myapp   2/2     Running           0          35s
+# main-container-1 and main-container-2 are running
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nwhile true; do\n  echo \"main container 1 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nwhile true; do\n  echo \"main container 2 is doing some tasks...\"\n  sleep 3\ndone\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"init container 2 is starting...\"\necho \"init container 2 is doing some tasks...\"\nsleep 10\necho \"init container 2 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-2"},{"args":["echo \"init container 3 is starting...\"\necho \"init container 3 is doing some tasks...\"\nsleep 10\necho \"init container 3 completed task and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-3"}]}}
+  creationTimestamp: "2024-05-28T14:04:43Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1173212"
+  uid: c4f1654c-22fd-4b28-a75a-5c673cdf9f10
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          while true; do
+            echo "main container 1 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          while true; do
+            echo "main container 2 is doing some tasks..."
+            sleep 3
+          done
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 2 is starting..."
+          echo "init container 2 is doing some tasks..."
+          sleep 10
+          echo "init container 2 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+    - args:
+        - |
+          echo "init container 3 is starting..."
+          echo "init container 3 is doing some tasks..."
+          sleep 10
+          echo "init container 3 completed task and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-3
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-lm7gd
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-lm7gd
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:05:17Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:05:18Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:05:18Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-28T14:04:44Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - containerID: containerd://e2cb0cd528054a354d98f81a2b3716d4f81912a9743da9c63cdd3add5a4ee19d
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-28T14:05:17Z"
+    - containerID: containerd://f030e5ec3e91f4866348fab15f392fe3bd15c46dc5404862c104279af6e2157e
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-2
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-28T14:05:17Z"
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://69d119d542a43a825de01480a11cbb5ba288c1f00d24810d60a9c10e54c19360
+          exitCode: 0
+          finishedAt: "2024-05-28T14:04:54Z"
+          reason: Completed
+          startedAt: "2024-05-28T14:04:44Z"
+    - containerID: containerd://928cc236785ac613a5a74b44e5cc71bdd64f44d2379404e5c83e1f9b6a9a3a6b
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-2
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://928cc236785ac613a5a74b44e5cc71bdd64f44d2379404e5c83e1f9b6a9a3a6b
+          exitCode: 0
+          finishedAt: "2024-05-28T14:05:05Z"
+          reason: Completed
+          startedAt: "2024-05-28T14:04:55Z"
+    - containerID: containerd://ac5b2ac446151811e69957bc94c083d0dbb4e122fb4b9c21cd09b63c7f23758e
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-3
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://ac5b2ac446151811e69957bc94c083d0dbb4e122fb4b9c21cd09b63c7f23758e
+          exitCode: 0
+          finishedAt: "2024-05-28T14:05:16Z"
+          reason: Completed
+          startedAt: "2024-05-28T14:05:06Z"
+  phase: Running
+  podIP: 10.244.0.9
+  podIPs:
+    - ip: 10.244.0.9
+  qosClass: BestEffort
+  startTime: "2024-05-28T14:04:44Z"

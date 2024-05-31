@@ -1,0 +1,3771 @@
+# myapp   0/4     Pending   0          0s
+# the pod has not been scheduled yet
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327305"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  phase: Pending
+  qosClass: BestEffort
+
+# myapp   0/4     Pending   0          0s
+# the pod has been scheduled but didn't initialize containers
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327306"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      status: "True"
+      type: PodScheduled
+  phase: Pending
+  qosClass: BestEffort
+
+# myapp   0/4     Init:0/3   0          0s
+# waiting for the init-container-1 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327308"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with incomplete status: [init-container-1 sidecar-container-1
+      sidecar-container-2]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with unready status: [sidecar-container-1 sidecar-container-2
+      main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with unready status: [sidecar-container-1 sidecar-container-2
+      main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: init-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  qosClass: BestEffort
+  startTime: "2024-05-29T23:10:21Z"
+
+# myapp   0/4     Init:0/3   0          1s
+# the init-container-1 is running but doesn't complete yet
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327315"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with incomplete status: [init-container-1 sidecar-container-1
+      sidecar-container-2]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with unready status: [sidecar-container-1 sidecar-container-2
+      main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with unready status: [sidecar-container-1 sidecar-container-2
+      main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: false
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-29T23:10:21Z"
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  podIP: 10.244.0.18
+  podIPs:
+    - ip: 10.244.0.18
+  qosClass: BestEffort
+  startTime: "2024-05-29T23:10:21Z"
+
+#  myapp   0/4     Init:1/3   0          11s
+# the init-container-1 completed and exited, waiting for the sidecar-container-1 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327330"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with incomplete status: [sidecar-container-1 sidecar-container-2]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with unready status: [sidecar-container-1 sidecar-container-2
+      main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with unready status: [sidecar-container-1 sidecar-container-2
+      main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:10:31Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:21Z"
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  podIP: 10.244.0.18
+  podIPs:
+    - ip: 10.244.0.18
+  qosClass: BestEffort
+  startTime: "2024-05-29T23:10:21Z"
+
+#  myapp   1/4     Init:2/3   0          12s
+# the sidecar-container-1 is running, waiting for the sidecar-container-2 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327336"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with incomplete status: [sidecar-container-2]'
+      reason: ContainersNotInitialized
+      status: "False"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with unready status: [sidecar-container-2 main-container-1
+      main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with unready status: [sidecar-container-2 main-container-1
+      main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:10:31Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:21Z"
+    - containerID: containerd://cf469e245f98329d83870d90cc1f49b2a349bab1e3fbe14d9ed6135f37dfdc7d
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-29T23:10:32Z"
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: sidecar-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  phase: Pending
+  podIP: 10.244.0.18
+  podIPs:
+    - ip: 10.244.0.18
+  qosClass: BestEffort
+  startTime: "2024-05-29T23:10:21Z"
+
+# myapp   2/4     PodInitializing   0          13s
+# the sidecar-container-2 is running, waiting for the main-container-1 and main-container-2 to be created
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327340"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      message: 'containers with unready status: [main-container-1 main-container-2]'
+      reason: ContainersNotReady
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+    - image: busybox:1.35
+      imageID: ""
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        waiting:
+          reason: PodInitializing
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:10:31Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:21Z"
+    - containerID: containerd://cf469e245f98329d83870d90cc1f49b2a349bab1e3fbe14d9ed6135f37dfdc7d
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-29T23:10:32Z"
+    - containerID: containerd://fbfa567c6f1e0b958473ec6ac8ded2894b95a0d61a6183aed86dd04c917595f7
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-2
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-29T23:10:33Z"
+  phase: Pending
+  podIP: 10.244.0.18
+  podIPs:
+    - ip: 10.244.0.18
+  qosClass: BestEffort
+  startTime: "2024-05-29T23:10:21Z"
+
+# myapp   4/4     Running           0          14s
+# the main-container-1 and main-container-2 are running
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327348"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:35Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:35Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - containerID: containerd://6c75a930ebf3f0c60a2a63acba60f69e30c21be691682acbd3b76a26915af80a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-29T23:10:34Z"
+    - containerID: containerd://8a0d4dc3bb047fe57bf95a4d9e6f05b10c47811024c478af2bf61635fd619f70
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-2
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-29T23:10:34Z"
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:10:31Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:21Z"
+    - containerID: containerd://cf469e245f98329d83870d90cc1f49b2a349bab1e3fbe14d9ed6135f37dfdc7d
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-29T23:10:32Z"
+    - containerID: containerd://fbfa567c6f1e0b958473ec6ac8ded2894b95a0d61a6183aed86dd04c917595f7
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-2
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-29T23:10:33Z"
+  phase: Running
+  podIP: 10.244.0.18
+  podIPs:
+    - ip: 10.244.0.18
+  qosClass: BestEffort
+  startTime: "2024-05-29T23:10:21Z"
+
+# myapp   4/4     Terminating       0          14s
+# receive delete pod instruction, deletionTimestamp is set
+# all containers are running
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  deletionGracePeriodSeconds: 30
+  deletionTimestamp: "2024-05-29T23:11:29Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327377"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:35Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:35Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - containerID: containerd://6c75a930ebf3f0c60a2a63acba60f69e30c21be691682acbd3b76a26915af80a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-29T23:10:34Z"
+    - containerID: containerd://8a0d4dc3bb047fe57bf95a4d9e6f05b10c47811024c478af2bf61635fd619f70
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-2
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-29T23:10:34Z"
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:10:31Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:21Z"
+    - containerID: containerd://cf469e245f98329d83870d90cc1f49b2a349bab1e3fbe14d9ed6135f37dfdc7d
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-29T23:10:32Z"
+    - containerID: containerd://fbfa567c6f1e0b958473ec6ac8ded2894b95a0d61a6183aed86dd04c917595f7
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-2
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-29T23:10:33Z"
+  phase: Running
+  podIP: 10.244.0.18
+  podIPs:
+    - ip: 10.244.0.18
+  qosClass: BestEffort
+  startTime: "2024-05-29T23:10:21Z"
+
+# myapp   0/4     Terminating       0          53s
+# all containers are terminated, pod phase change to succeeded
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  deletionGracePeriodSeconds: 30
+  deletionTimestamp: "2024-05-29T23:11:29Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327404"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:34Z"
+      reason: PodCompleted
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:11:14Z"
+      reason: PodCompleted
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:11:14Z"
+      reason: PodCompleted
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - containerID: containerd://6c75a930ebf3f0c60a2a63acba60f69e30c21be691682acbd3b76a26915af80a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://6c75a930ebf3f0c60a2a63acba60f69e30c21be691682acbd3b76a26915af80a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:14Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:34Z"
+    - containerID: containerd://8a0d4dc3bb047fe57bf95a4d9e6f05b10c47811024c478af2bf61635fd619f70
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://8a0d4dc3bb047fe57bf95a4d9e6f05b10c47811024c478af2bf61635fd619f70
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:14Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:34Z"
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:10:31Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:21Z"
+    - containerID: containerd://cf469e245f98329d83870d90cc1f49b2a349bab1e3fbe14d9ed6135f37dfdc7d
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://cf469e245f98329d83870d90cc1f49b2a349bab1e3fbe14d9ed6135f37dfdc7d
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:02Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:32Z"
+    - containerID: containerd://fbfa567c6f1e0b958473ec6ac8ded2894b95a0d61a6183aed86dd04c917595f7
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://fbfa567c6f1e0b958473ec6ac8ded2894b95a0d61a6183aed86dd04c917595f7
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:03Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:33Z"
+  phase: Succeeded
+  qosClass: BestEffort
+  startTime: "2024-05-29T23:10:21Z"
+
+
+# myapp   0/4     Terminating       0          54s
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  deletionGracePeriodSeconds: 30
+  deletionTimestamp: "2024-05-29T23:11:29Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327405"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:34Z"
+      reason: PodCompleted
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:11:14Z"
+      reason: PodCompleted
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:11:14Z"
+      reason: PodCompleted
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - containerID: containerd://6c75a930ebf3f0c60a2a63acba60f69e30c21be691682acbd3b76a26915af80a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://6c75a930ebf3f0c60a2a63acba60f69e30c21be691682acbd3b76a26915af80a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:14Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:34Z"
+    - containerID: containerd://8a0d4dc3bb047fe57bf95a4d9e6f05b10c47811024c478af2bf61635fd619f70
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://8a0d4dc3bb047fe57bf95a4d9e6f05b10c47811024c478af2bf61635fd619f70
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:14Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:34Z"
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:10:31Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:21Z"
+    - containerID: containerd://cf469e245f98329d83870d90cc1f49b2a349bab1e3fbe14d9ed6135f37dfdc7d
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://cf469e245f98329d83870d90cc1f49b2a349bab1e3fbe14d9ed6135f37dfdc7d
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:02Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:32Z"
+    - containerID: containerd://fbfa567c6f1e0b958473ec6ac8ded2894b95a0d61a6183aed86dd04c917595f7
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://fbfa567c6f1e0b958473ec6ac8ded2894b95a0d61a6183aed86dd04c917595f7
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:03Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:33Z"
+  phase: Succeeded
+  podIP: 10.244.0.18
+  podIPs:
+    - ip: 10.244.0.18
+  qosClass: BestEffort
+  startTime: "2024-05-29T23:10:21Z"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  deletionGracePeriodSeconds: 0
+  deletionTimestamp: "2024-05-29T23:10:59Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327407"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:34Z"
+      reason: PodCompleted
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:11:14Z"
+      reason: PodCompleted
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:11:14Z"
+      reason: PodCompleted
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - containerID: containerd://6c75a930ebf3f0c60a2a63acba60f69e30c21be691682acbd3b76a26915af80a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://6c75a930ebf3f0c60a2a63acba60f69e30c21be691682acbd3b76a26915af80a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:14Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:34Z"
+    - containerID: containerd://8a0d4dc3bb047fe57bf95a4d9e6f05b10c47811024c478af2bf61635fd619f70
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://8a0d4dc3bb047fe57bf95a4d9e6f05b10c47811024c478af2bf61635fd619f70
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:14Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:34Z"
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:10:31Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:21Z"
+    - containerID: containerd://cf469e245f98329d83870d90cc1f49b2a349bab1e3fbe14d9ed6135f37dfdc7d
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://cf469e245f98329d83870d90cc1f49b2a349bab1e3fbe14d9ed6135f37dfdc7d
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:02Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:32Z"
+    - containerID: containerd://fbfa567c6f1e0b958473ec6ac8ded2894b95a0d61a6183aed86dd04c917595f7
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://fbfa567c6f1e0b958473ec6ac8ded2894b95a0d61a6183aed86dd04c917595f7
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:03Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:33Z"
+  phase: Succeeded
+  podIP: 10.244.0.18
+  podIPs:
+    - ip: 10.244.0.18
+  qosClass: BestEffort
+  startTime: "2024-05-29T23:10:21Z"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"myapp","namespace":"default"},"spec":{"containers":[{"args":["echo \"main container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 1 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 1 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-1"},{"args":["echo \"main container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"main container 2 received SIGTERM\\\";\n    sleep 10;\n    echo \\\"main container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"main container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","lifecycle":{"preStop":{"exec":{"command":["sh","-c","echo 'main container 2 preStop hook is running...' \u003e\u003e /proc/1/fd/1; sleep 5"]}}},"name":"main-container-2"}],"initContainers":[{"args":["echo \"init container 1 is starting...\"\necho \"init container 1 is doing some tasks...\"\nsleep 10\necho \"init container 1 completed tasks and exited\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"init-container-1"},{"args":["echo \"sidecar container 1 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 1 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 1 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 1 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-1","restartPolicy":"Always"},{"args":["echo \"sidecar container 2 is starting...\"\nexec sh -c \"\n  trap '\n    echo \\\"sidecar container 2 received SIGTERM\\\";\n    sleep 3;\n    echo \\\"sidecar container 2 stopped\\\";\n    exit 0\n  ' TERM;\n\n  while true; do\n    echo \\\"sidecar container 2 is doing some tasks...\\\";\n    sleep 3;\n  done\n\"\n"],"command":["sh","-c"],"image":"busybox:1.35","name":"sidecar-container-2","restartPolicy":"Always"}]}}
+  creationTimestamp: "2024-05-29T23:10:21Z"
+  deletionGracePeriodSeconds: 0
+  deletionTimestamp: "2024-05-29T23:10:59Z"
+  name: myapp
+  namespace: default
+  resourceVersion: "1327408"
+  uid: 10fc3a4c-15a8-4064-998d-1efadfb960d0
+spec:
+  containers:
+    - args:
+        - |
+          echo "main container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 1 received SIGTERM\";
+              sleep 10;
+              echo \"main container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 1 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "main container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"main container 2 received SIGTERM\";
+              sleep 10;
+              echo \"main container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"main container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      lifecycle:
+        preStop:
+          exec:
+            command:
+              - sh
+              - -c
+              - echo 'main container 2 preStop hook is running...' >> /proc/1/fd/1; sleep
+                5
+      name: main-container-2
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+    - args:
+        - |
+          echo "init container 1 is starting..."
+          echo "init container 1 is doing some tasks..."
+          sleep 10
+          echo "init container 1 completed tasks and exited"
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: init-container-1
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 1 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 1 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 1 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 1 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-1
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+    - args:
+        - |
+          echo "sidecar container 2 is starting..."
+          exec sh -c "
+            trap '
+              echo \"sidecar container 2 received SIGTERM\";
+              sleep 3;
+              echo \"sidecar container 2 stopped\";
+              exit 0
+            ' TERM;
+          
+            while true; do
+              echo \"sidecar container 2 is doing some tasks...\";
+              sleep 3;
+            done
+          "
+      command:
+        - sh
+        - -c
+      image: busybox:1.35
+      imagePullPolicy: IfNotPresent
+      name: sidecar-container-2
+      resources: {}
+      restartPolicy: Always
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access-mkxnj
+          readOnly: true
+  nodeName: sidecar-demo-cluster-control-plane
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  volumes:
+    - name: kube-api-access-mkxnj
+      projected:
+        defaultMode: 420
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+                - key: ca.crt
+                  path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+status:
+  conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:34Z"
+      reason: PodCompleted
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:11:14Z"
+      reason: PodCompleted
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:11:14Z"
+      reason: PodCompleted
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-29T23:10:21Z"
+      status: "True"
+      type: PodScheduled
+  containerStatuses:
+    - containerID: containerd://6c75a930ebf3f0c60a2a63acba60f69e30c21be691682acbd3b76a26915af80a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://6c75a930ebf3f0c60a2a63acba60f69e30c21be691682acbd3b76a26915af80a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:14Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:34Z"
+    - containerID: containerd://8a0d4dc3bb047fe57bf95a4d9e6f05b10c47811024c478af2bf61635fd619f70
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: main-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://8a0d4dc3bb047fe57bf95a4d9e6f05b10c47811024c478af2bf61635fd619f70
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:14Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:34Z"
+  hostIP: 172.19.0.2
+  initContainerStatuses:
+    - containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: init-container-1
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://216cb264d2390670019845c46bcf5bdc360ebf7e6dbeae68ab5db05d9fada73a
+          exitCode: 0
+          finishedAt: "2024-05-29T23:10:31Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:21Z"
+    - containerID: containerd://cf469e245f98329d83870d90cc1f49b2a349bab1e3fbe14d9ed6135f37dfdc7d
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-1
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://cf469e245f98329d83870d90cc1f49b2a349bab1e3fbe14d9ed6135f37dfdc7d
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:02Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:32Z"
+    - containerID: containerd://fbfa567c6f1e0b958473ec6ac8ded2894b95a0d61a6183aed86dd04c917595f7
+      image: docker.io/library/busybox:1.35
+      imageID: docker.io/library/busybox@sha256:469d6089bc898ead80a47dab258a127ffdae15342eab860be3be9ed2acdee33b
+      lastState: {}
+      name: sidecar-container-2
+      ready: false
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://fbfa567c6f1e0b958473ec6ac8ded2894b95a0d61a6183aed86dd04c917595f7
+          exitCode: 0
+          finishedAt: "2024-05-29T23:11:03Z"
+          reason: Completed
+          startedAt: "2024-05-29T23:10:33Z"
+  phase: Succeeded
+  podIP: 10.244.0.18
+  podIPs:
+    - ip: 10.244.0.18
+  qosClass: BestEffort
+  startTime: "2024-05-29T23:10:21Z"
