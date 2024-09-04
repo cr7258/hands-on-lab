@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package helloworld;
+package proto;
 
-option go_package = "github.com/cr7258/hands-on-lab/grpc/helloworld";
+option go_package = "github.com/cr7258/hands-on-lab/grpc/helloworld/proto";
 
 // The greeting service definition.
 service Greeter {
