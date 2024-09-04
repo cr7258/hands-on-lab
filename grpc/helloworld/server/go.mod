@@ -1,9 +1,9 @@
 module server
 
-go 1.22.6
+go 1.22.5
 
 require (
-	github.com/cr7258/hands-on-lab v0.0.0-20240904093455-22f148e392c8
+	github.com/cr7258/hands-on-lab v0.0.0-20240904100103-cd3000db400a
 	google.golang.org/grpc v1.66.0
 )
 
