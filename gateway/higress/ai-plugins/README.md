@@ -40,13 +40,20 @@ k3d cluster create higress-ai-cluster
 helm repo add higress.io https://higress.io/helm-charts
 helm install --version 2.0.0-rc.1 \
 higress -n higress-system higress.io/higress \
---create-namespace --render-subchart-notes \
+--create-namespace --render-subchart-notes
 ```
 
-将 higress-gateway 服务转发到本地端口，后面的实验将会发送请求到 127.0.0.1:10000 来访问 higress-gateway。
+等待 Higress 的所有 Pod 都正常运行后，执行以下命令将 higress-gateway 服务转发到本地端口，后面的实验将会发送请求到 127.0.0.1:10000 来访问 higress-gateway。
 
 ```bash
 kubectl port-forward -n higress-system svc/higress-gateway 10000:80
+```
+
+### 获取实验代码
+
+```bash
+git clone https://github.com/cr7258/hands-on-lab.git
+cd hands-on-lab/gateway/higress/ai-plugins
 ```
 
 ### 设置环境变量
@@ -714,6 +721,7 @@ Higress 通过 AI 统计插件提供了 AI 可观测性功能，用户可以使�
 ```bash
 helm upgrade --version 2.0.0-rc.1 --install \
 higress -n higress-system \
+--set global.onlyPushRouteCluster=false \
 --set higress-core.tracing.enable=true \
 --set higress-core.tracing.skywalking.service=skywalking-oap-server.op-system.svc.cluster.local \
 --set higress-core.tracing.skywalking.port=11800 higress.io/higress
@@ -731,13 +739,13 @@ kubectl apply -f 04-skywalking.yaml
 envsubst < 04-ai-statistics.yaml | kubectl apply -f -
 ```
 
-AI 统计插件默认会将输入和输出的 token 数量添加到 span tag 中，如果我们想要添加自定义的 tag，可以在 `tracing_span` 中进行设置。例如下面的配置会将用户输入的内容和模型名称添加到 span tag 中。`messages.-1.content` 表示获取请求体中的 `messages` 数组的最后一个元素的 `content` 字段的值。
+AI 统计插件默认会将输入和输出的 token 数量添加到 span tag 中，如果我们想要添加自定义的 tag，可以在 `tracing_span` 中进行设置。例如下面的配置会将用户输入的内容和模型名称添加到 span tag 中。`messages.0.content` 表示获取请求体中的 `messages` 数组的第一个元素的 `content` 字段的值。
 
 ```yaml
 tracing_span:
   - key: user_content
     value_source: request_body
-    value: messages.-1.content
+    value: messages.0.content
   - key: llm_model
     value_source: request_body
     value: model
@@ -825,3 +833,4 @@ k3d cluster delete higress-ai-cluster
 
 ## 总结
 
+本文详细介绍了 Higress 的多种 AI 插件及其应用场景，重点讲解了 AI Proxy 插件如何实现多种大语言模型的统一接入，AI JSON 格式化插件如何将非结构化输出转换为标准化 JSON，以及 AI Agent 插件如何通过零代码快速构建 AI Agent 应用。此外，文章还展示了 AI 统计插件在提升 AI 可观测性方面的关键作用，包括 token 数量统计和全链路追踪功能。

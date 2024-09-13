@@ -23,7 +23,7 @@ metadata:
   namespace: higress-system
 spec:
   phase: UNSPECIFIED_PHASE
-  priority: 200
+  priority: 150
   matchRules:
     - config:
         serviceName: ${LLM}
