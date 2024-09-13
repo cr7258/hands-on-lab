@@ -1,0 +1,89 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: ai-proxy
+  namespace: higress-system
+spec:
+  phase: UNSPECIFIED_PHASE
+  priority: 100
+  matchRules:
+    - config:
+        provider:
+          type: ${LLM}
+          apiTokens:
+            - ${API_TOKEN}
+      ingress:
+        - ${LLM}
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/ai-proxy:1.0.0
+---
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: ai-json-resp
+  namespace: higress-system
+spec:
+  phase: UNSPECIFIED_PHASE
+  priority: 200
+  matchRules:
+    - config:
+        serviceName: ${LLM}
+        serviceDomain: ${LLM_DOMAIN}
+        servicePort: 443
+        servicePath: ${LLM_PATH}
+        apiKey: ${API_TOKEN}
+        jsonSchema:
+          title: ReasoningSchema
+          type: object
+          properties:
+            reasoning_steps:
+              type: array
+              items:
+                type: string
+              description: The reasoning steps leading to the final conclusion.
+            answer:
+              type: string
+              description: The final answer, taking into account the reasoning steps.
+          required:
+            - reasoning_steps
+            - answer
+          additionalProperties: false
+      ingress:
+        - ${LLM}
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/ai-json-resp:1.0.0
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/backend-protocol: HTTPS
+    higress.io/destination: ${LLM}.dns
+    higress.io/proxy-ssl-name: ${LLM_DOMAIN}
+    higress.io/proxy-ssl-server-name: "on"
+  labels:
+    higress.io/resource-definer: higress
+  name: ${LLM}
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+    - http:
+        paths:
+          - backend:
+              resource:
+                apiGroup: networking.higress.io
+                kind: McpBridge
+                name: default
+            path: /
+            pathType: Prefix
+---
+apiVersion: networking.higress.io/v1
+kind: McpBridge
+metadata:
+  name: default
+  namespace: higress-system
+spec:
+  registries:
+    - domain: ${LLM_DOMAIN}
+      name: ${LLM}
+      port: 443
+      type: dns

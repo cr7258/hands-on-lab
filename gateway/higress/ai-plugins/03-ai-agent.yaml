@@ -1,0 +1,236 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: ai-proxy
+  namespace: higress-system
+spec:
+  phase: UNSPECIFIED_PHASE
+  priority: 100
+  matchRules:
+  - config:
+      provider:
+        type: ${LLM}
+        apiTokens:
+          - ${API_TOKEN}
+    ingress:
+    - ${LLM}
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/ai-proxy:1.0.0
+---
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: ai-agent
+  namespace: higress-system
+spec:
+  phase: UNSPECIFIED_PHASE
+  priority: 200
+  matchRules:
+  - config:
+      llm:
+        apiKey: ${API_TOKEN}
+        domain: ${LLM_DOMAIN}
+        serviceName: ${LLM}.dns
+        servicePort: 443
+        path: ${LLM_PATH}
+        model: ${LLM_MODEL}
+        maxIterations: 5
+      promptTemplate:
+        language: CH
+      apis:
+        - apiProvider:
+            domain: api.seniverse.com
+            serviceName: seniverse.dns
+            servicePort: 443
+            apiKey:
+              in: query
+              name: key
+              value: ${SENIVERSE_API_TOKEN}
+          api: |
+            openapi: 3.1.0
+            info:
+              title: 心知天气
+              description: 获取天气信息
+              version: v1.0.0
+            servers:
+              - url: https://api.seniverse.com
+            paths:
+              /v3/weather/now.json:
+                get:
+                  description: 获取指定城市的天气实况
+                  operationId: get_weather_now
+                  parameters:
+                    - name: location
+                      in: query
+                      description: 所查询的城市
+                      required: true
+                      schema:
+                        type: string
+                    - name: language
+                      in: query
+                      description: 返回天气查询结果所使用的语言
+                      required: true
+                      schema:
+                        type: string
+                        default: zh-Hans 
+                        enum:
+                          - zh-Hans 
+                          - en 
+                          - ja 
+                    - name: unit
+                      in: query
+                      description: 表示温度的的单位，有摄氏度和华氏度两种
+                      required: true
+                      schema:
+                        type: string
+                        default: c 
+                        enum:
+                          - c 
+                          - f
+        - apiProvider:
+            domain: api.aviationstack.com
+            serviceName: aviationstack.dns
+            servicePort: 443
+            apiKey:
+              in: query
+              name: access_key
+              value: ${AVIATIONSTACK_API_TOKEN}
+          api: |
+            openapi: 3.1.0
+            info:
+              title: aviationstack
+              description: 获取机票航班信息
+              version: v1.0.0
+            servers:
+              - url: https://api.aviationstack.com
+            paths:
+              /v1/flights:
+                get:
+                  description: 获取指定出发城市和目的城市的航班信息
+                  operationId: get_flight
+                  parameters:
+                    - name: dep_iata
+                      in: query
+                      description: 机场代码，根据 IATA 标准 http://www.iata.org/publications/Pages/code-search.aspx, 指旅行者将要出发的机场，例如 SHA。
+                      required: true
+                      schema:
+                        type: string
+                    - name: arr_iata
+                      in: query
+                      description: 机场代码，根据 IATA 标准 http://www.iata.org/publications/Pages/code-search.aspx，指旅行者将要到达的机场，例如 PKX.
+                      required: true
+                      schema:
+                        type: string
+                    - name: flight_status
+                      in: query
+                      description: 航班状态
+                      required: true
+                      schema:
+                        type: string
+                        default: scheduled 
+                        enum:
+                          - scheduled 
+                          - active
+                          - landed
+                          - cancelled
+                          - incident
+                          - diverted
+    ingress:
+    - ${LLM}
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/ai-agent:1.0.0
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/backend-protocol: HTTPS
+    higress.io/destination: ${LLM}.dns
+    higress.io/proxy-ssl-name: ${LLM_DOMAIN}
+    higress.io/proxy-ssl-server-name: "on"
+  labels:
+    higress.io/resource-definer: higress
+  name: ${LLM}
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+  - http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/backend-protocol: HTTPS
+    higress.io/destination: seniverse.dns
+    higress.io/proxy-ssl-name: api.seniverse.com
+    higress.io/proxy-ssl-server-name: "on"
+  labels:
+    higress.io/resource-definer: higress
+  name: seniverse
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+  - host: api.seniverse.com
+    http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/backend-protocol: HTTPS
+    higress.io/destination: aviationstack.dns
+    higress.io/proxy-ssl-name: api.aviationstack.com
+    higress.io/proxy-ssl-server-name: "on"
+  labels:
+    higress.io/resource-definer: higress
+  name: aviationstack
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+  - host: api.aviationstack.com
+    http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+---
+apiVersion: networking.higress.io/v1
+kind: McpBridge
+metadata:
+  name: default
+  namespace: higress-system
+spec:
+  registries:
+  - domain: ${LLM_DOMAIN}
+    name: ${LLM}
+    port: 443
+    type: dns
+  - domain: api.seniverse.com
+    name: seniverse
+    port: 443
+    type: dns
+  - domain: api.aviationstack.com
+    name: aviationstack
+    port: 443
+    type: dns 

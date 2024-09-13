@@ -1,0 +1,54 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: ai-proxy
+  namespace: higress-system
+spec:
+  phase: UNSPECIFIED_PHASE
+  priority: 100
+  matchRules:
+  - config:
+      provider:
+        type: ${LLM}
+        apiTokens:
+          - ${API_TOKEN}
+    ingress:
+    - ${LLM}
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/ai-proxy:1.0.0
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/backend-protocol: HTTPS
+    higress.io/destination: ${LLM}.dns
+    higress.io/proxy-ssl-name: ${LLM_DOMAIN}
+    higress.io/proxy-ssl-server-name: "on"
+  labels:
+    higress.io/resource-definer: higress
+  name: ${LLM}
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+  - http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+---
+apiVersion: networking.higress.io/v1
+kind: McpBridge
+metadata:
+  name: default
+  namespace: higress-system
+spec:
+  registries:
+  - domain: ${LLM_DOMAIN}
+    name: ${LLM}
+    port: 443
+    type: dns
