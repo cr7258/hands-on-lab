@@ -4,22 +4,22 @@
 
 AI Gateway 的定义是 AI Native 的 API Gateway，是基于 API Gateway 的能⼒来满⾜ AI Native 的需求。例如：
 
-- 将传统的 QPS 限流扩展到 Token 限流。
+- 将传统的 QPS 限流扩展到 token 限流。
 - 将传统的负载均衡/重试/fallback 能力延伸，支持对接多个大模型厂商 API，提高整体稳定性。
 - 扩展可观测能力，支持不同模型之间效果的对比 A/B Test，以及对话上下⽂链路 Tracing 等。
 
 ![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20240913220811.png)
 
-Higress (https://github.com/alibaba/higress) 是阿⾥云开源的⼀款 AI Gateway，为开发者提供了一站式的 AI 插件集和增强后端模型调度处理能力，使得 AI 与网关的集成更加便捷和高效。官方提供了丰富的插件库，涵盖 AI、流量管理、安全防护等常用功能，满足 90% 以上的业务场景需求。此外还支持 Wasm 插件扩展，支持多语言编写 Wasm 插件，插件更新采用热插拔机制对流量无损。
+[Higress](https://github.com/alibaba/higress) 是阿⾥云开源的⼀款 AI Gateway，为开发者提供了一站式的 AI 插件集和增强后端模型调度处理能力，使得 AI 与网关的集成更加便捷和高效。官方提供了丰富的插件库，涵盖 AI、流量管理、安全防护等常用功能，满足 90% 以上的业务场景需求。此外还支持 Wasm 插件扩展，支持多语言编写 Wasm 插件，插件更新采用热插拔机制对流量无损。
 
 本文是 Higress AI 插件对接大语言模型系列的第一篇，主要介绍如何使用 Higress AI 插件对接通义千问大模型，以及如何使用 Higress 的 AI Agent、AI JSON 格式化等插件来实现更高级的功能。
 
 ### 通义千问大模型介绍
 
-通义千问是由阿里云自主研发的大语言模型，用于理解和分析用户输入的自然语言，在不同领域和任务为用户提供服务和帮助。通义千问主要包含以下 3 种模型：
+[通义千问](https://help.aliyun.com/zh/model-studio/developer-reference/what-is-qwen-llm)是由阿里云自主研发的大语言模型，用于理解和分析用户输入的自然语言，在不同领域和任务为用户提供服务和帮助。通义千问主要包含以下 3 种模型：
 
 - 通义千问-Max（qwen-max）：通义千问系列效果最好的模型，适合复杂、多步骤的任务。
-- 通义千问-Plus（qwen-plus）：能力均衡，推理效果和速度介于通义千问-Max和通义千问-Turbo之间，适合中等复杂任务
+- 通义千问-Plus（qwen-plus）：能力均衡，推理效果和速度介于通义千问-Max 和通义千问-Turbo 之间，适合中等复杂任务
 - 通义千问-Turbo（qwen-turbo）：通义千问系列速度最快、成本很低的模型，适合简单任务。
 
 ## 环境准备
@@ -68,9 +68,9 @@ export LLM_DOMAIN="dashscope.aliyuncs.com"
 
 ## AI Proxy 插件
 
-首先让我们尝试一下 AI Proxy 插件，AI Proxy 插件实现了基于 OpenAI API 契约的 AI 代理功能，可以将 OpenAI API 格式的请求转换为指定大语言模型的 API 格式，当前 Higress 已经支持了国内外的十多家大语言模型（例如通义千问、百度文心一言、Claude 等等）。
+首先让我们尝试一下 AI Proxy 插件，AI Proxy 插件实现了基于 OpenAI API 契约的 AI 代理功能，可以将 OpenAI API 格式的请求转换为指定大语言模型的 API 格式，当前 Higress 已经支持了国内外的十多家大语言模型（例如通义千问、百度文心一言、Claude 等）。
 
-这里使用 envsubst 工具将环境变量替换到 YAML 文件中，envsubst 是 gettext 工具包的一部分，请根据自己对应的操作系统进行安装。
+这里使用 envsubst 工具将环境变量替换到 YAML 文件中，envsubst 是 [gettext](https://savannah.gnu.org/projects/gettext) 工具包的一部分，请根据自己对应的操作系统进行安装。
 
 执行以下命令应用 AI Proxy 插件。
 
@@ -78,7 +78,7 @@ export LLM_DOMAIN="dashscope.aliyuncs.com"
 envsubst < 01-ai-proxy.yaml | kubectl apply -f -
 ```
 
-Higress 支持使用 Wasm 插件的方式进行扩展，AI-Proxy 插件使用 Go 语言编写，实现的代码可以在 https://github.com/alibaba/higress/tree/main/plugins/wasm-go/extensions 找到。
+Higress 支持使用 Wasm 插件的方式进行扩展，AI Proxy 插件使用 Go 语言编写，实现的代码可以在 https://github.com/alibaba/higress/tree/main/plugins/wasm-go/extensions 找到。
 在配置插件时我们只需要指定对接的大语言模型类型（这里是 qwen）以及相应 API Token 即可。
 
 ```yaml
@@ -101,7 +101,7 @@ spec:
   url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/ai-proxy:1.0.0
 ```
 
-由于访问的通义千问大模型在集群之外，因此我们还需要在 McpBridge 中通过 DNS 域名的方式对通义千问的服务进行关联。另外还需要配置一条指向通义千问的 Ingress，并通过 Annotation 设置 HTTPS 请求的相关参数。
+由于访问的通义千问大模型在集群之外，因此我们还需要在 McpBridge 中通过 DNS 域名的方式来关联通义千问服务。另外还需要配置一条指向通义千问的 Ingress，并通过 Annotation 设置 HTTPS 请求的相关参数。
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -189,7 +189,7 @@ envsubst < 01-ai-proxy.yaml | kubectl delete -f -
 
 ## AI JSON 格式化插件
 
-当前，大语言模型的输出通常呈现出非正式且非结构化的特征，导致难以确保最终效果的稳定性。这使得在需要基于 LLM 响应进行开发时，通常需要使用复杂的工具如 LangChain 等思维链操作，以确保输出符合预期。
+当前，大语言模型的输出通常呈现出非正式且非结构化的特征，导致难以确保最终效果的稳定性。这使得在需要基于 LLM 的响应进行开发时，通常需要使用复杂的工具如 LangChain 等思维链操作，以确保输出符合预期。
 
 Higress 提供的 AI JSON 格式化插件可以根据用户配置的 `jsonSchema` 将大语言模型的输出转换为结构化的 JSON 格式，以便于后续的处理和展示。
 
@@ -325,12 +325,12 @@ envsubst < 02-ai-json-resp.yaml | kubectl delete -f -
 
 ## AI Agent 插件
 
-AI Agent 插件基于 Agent ReAct 能力，允许用户零代码快速构建 AI Agent 应用。通过简单配置 API 的作用、URL、请求参数等信息，用户即可将大模型与外部服务连接，使其具备特定功能，如地图助手或天气助手。
-AI Agent 让大模型能够根据用户的需求通过 API 接口自动调用合适的工具，完成复杂任务，从而解决大模型在垂直领域知识不足的问题。
+AI Agent 插件基于 Agent ReAct 能力，允许用户实现零代码快速构建 AI Agent 应用。通过简单配置 API 的作用、URL、请求参数等信息，用户即可将大模型与外部服务进行连接，使其具备特定功能，如地图助手或天气助手。
+AI Agent 让大模型能够根据用户的需求通过 API 接口自动调用合适的工具以完成复杂任务，从而解决大模型在垂直领域知识不足的问题。
 
 ![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20240913231626.png)
 
-在本节中将会展示如何使用 AI Agent 插件来构建一个天气助手和航班助手，其中天气服务使用的是心知天气，航班服务使用的是 AviationStack。请读者自行注册这两个服务并创建相应的 API Token。
+在本节中将会展示如何使用 AI Agent 插件来构建一个天气助手和航班助手，其中天气服务使用的是[知心天气](https://www.seniverse.com/)，航班服务使用的是 [AviationStack](https://aviationstack.com/)。请读者自行注册这两个服务并创建相应的 API Token。
 准备好 API Token 后，将其应用到环境变量中，然后创建相关的资源。
 
 ```bash
@@ -662,7 +662,7 @@ export LLM_MODEL="qwen-plus"
 envsubst < 03-ai-agent.yaml | kubectl apply -f -
 ```
 
-虽然 qwen-plus 模型看上去也返回了一个结果，但实际上并没有调用外部 API 来获取信息，而是根据自己的知识生成了一个结果。
+虽然 qwen-plus 模型看上去也返回了一个结果，但实际上并没有调用外部 API 来获取信息（北京当前的实际温度是 24℃），而是根据自己的知识生成了一个结果。
 
 ```bash
 curl --location 'http://127.0.0.1:10000/v1/chat/completions' \
@@ -804,7 +804,7 @@ curl --location 'http://127.0.0.1:10000/v1/chat/completions' \
 
 ![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/20240913105005.png)
 
-输入和输出 token 总数的指标信息可以通过 Higress Gateway 暴露的 Prometheus 指标来查看。
+输入和输出 token 总数的指标信息可以通过 higress-gateway 暴露的 Prometheus 指标来查看。
 
 ```bash
 export HIGRESS_GATEWAY_POD=$(kubectl get pods -l app=higress-gateway -o "jsonpath={.items[0].metadata.name}" -n higress-system)
@@ -833,4 +833,6 @@ k3d cluster delete higress-ai-cluster
 
 ## 总结
 
-本文详细介绍了 Higress 的多种 AI 插件及其应用场景，重点讲解了 AI Proxy 插件如何实现多种大语言模型的统一接入，AI JSON 格式化插件如何将非结构化输出转换为标准化 JSON，以及 AI Agent 插件如何通过零代码快速构建 AI Agent 应用。此外，文章还展示了 AI 统计插件在提升 AI 可观测性方面的关键作用，包括 token 数量统计和全链路追踪功能。
+本文详细介绍了 Higress 的多款 AI 插件及其应用场景，重点介绍了如何使用 AI Proxy 插件对接通义千问大语言模型，如何使用 AI JSON 格式化插件将非结构化输出转换为标准化的 JSON，以及如何使用 AI Agent 插件实现零代码快速构建 AI Agent 应用。此外，文章还展示了 AI 统计插件在提升 AI 可观测性方面的关键作用，包括 token 数量统计和全链路追踪功能。
+
+本文还对通义千问系列的不同模型（qwen-max, qwen-plus, qwen-tubor）在处理复杂任务时的表现进行了对比，尤其是在 AI Agent 插件中的表现。
