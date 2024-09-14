@@ -1,3 +1,5 @@
+# 使用 Higress AI 插件对接通义千问大语言模型
+
 ## 前言
 
 ### 什么是 AI Gateway
@@ -14,7 +16,7 @@ AI Gateway 的定义是 AI Native 的 API Gateway，是基于 API Gateway 的能
 
 本文是 Higress AI 插件对接大语言模型系列的第一篇，主要介绍如何使用 Higress AI 插件对接通义千问大模型，以及如何使用 Higress 的 AI Agent、AI JSON 格式化等插件来实现更高级的功能。
 
-### 通义千问大模型介绍
+### 通义千问大语言模型介绍
 
 [通义千问](https://help.aliyun.com/zh/model-studio/developer-reference/what-is-qwen-llm)是由阿里云自主研发的大语言模型，用于理解和分析用户输入的自然语言，在不同领域和任务为用户提供服务和帮助。通义千问主要包含以下 3 种模型：
 
