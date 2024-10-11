@@ -1,0 +1,1 @@
+/Users/I576375/Code/hands-on-lab/wasm/wasi/component-model/add/target/wasm32-wasip1/debug/add.wasm: /Users/I576375/Code/hands-on-lab/wasm/wasi/component-model/add/src/bindings.rs /Users/I576375/Code/hands-on-lab/wasm/wasi/component-model/add/src/lib.rs

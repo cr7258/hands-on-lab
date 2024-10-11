@@ -1,0 +1,2 @@
+cargo:rustc-link-lib=wit_bindgen_cabi_realloc0_32_0
+cargo:rustc-link-search=native=/Users/I576375/Code/hands-on-lab/wasm/wasi/component-model/add/target/wasm32-wasip1/release/build/wit-bindgen-rt-4e5b60dba845a599/out
