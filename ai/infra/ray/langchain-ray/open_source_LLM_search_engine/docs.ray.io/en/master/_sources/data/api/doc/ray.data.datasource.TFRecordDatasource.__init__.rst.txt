@@ -1,0 +1,6 @@
+ray.data.datasource.TFRecordDatasource.\_\_init\_\_
+===================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: TFRecordDatasource.__init__

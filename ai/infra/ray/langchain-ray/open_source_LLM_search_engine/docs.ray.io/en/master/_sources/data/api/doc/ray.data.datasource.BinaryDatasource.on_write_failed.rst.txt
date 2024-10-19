@@ -1,0 +1,6 @@
+ray.data.datasource.BinaryDatasource.on\_write\_failed
+======================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: BinaryDatasource.on_write_failed

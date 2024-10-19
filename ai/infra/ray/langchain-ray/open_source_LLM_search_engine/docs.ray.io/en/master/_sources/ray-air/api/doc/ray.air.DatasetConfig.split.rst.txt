@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.split
+===========================
+
+.. currentmodule:: ray.air
+
+.. autoattribute:: DatasetConfig.split

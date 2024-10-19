@@ -1,0 +1,6 @@
+ray.data.Datastream.to\_dask
+============================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.to_dask

@@ -1,0 +1,8 @@
+﻿ray.experimental.state.common.ObjectSummaries
+=============================================
+
+.. currentmodule:: ray.experimental.state.common
+
+.. autoclass:: ObjectSummaries
+    :members:
+    :show-inheritance:

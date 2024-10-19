@@ -1,0 +1,6 @@
+ray.data.datasource.FileBasedDatasource.write
+=============================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: FileBasedDatasource.write

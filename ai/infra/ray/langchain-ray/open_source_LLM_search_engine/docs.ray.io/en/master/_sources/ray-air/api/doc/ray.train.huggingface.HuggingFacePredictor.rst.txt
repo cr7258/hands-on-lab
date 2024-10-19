@@ -1,0 +1,33 @@
+﻿
+
+ray.train.huggingface.HuggingFacePredictor
+==========================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. autoclass:: HuggingFacePredictor
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      
+      ~HuggingFacePredictor.from_checkpoint
+      ~HuggingFacePredictor.from_pandas_udf
+      ~HuggingFacePredictor.get_preprocessor
+      ~HuggingFacePredictor.predict
+      ~HuggingFacePredictor.preferred_batch_format
+      ~HuggingFacePredictor.set_preprocessor
+
+   
+   
+
+
+   
+   
+   

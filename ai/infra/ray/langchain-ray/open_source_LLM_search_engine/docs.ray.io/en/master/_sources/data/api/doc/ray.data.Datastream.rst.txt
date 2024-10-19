@@ -1,0 +1,101 @@
+﻿
+
+ray.data.Datastream
+===================
+
+.. currentmodule:: ray.data
+
+.. autoclass:: Datastream
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~Datastream.__init__
+      ~Datastream.add_column
+      ~Datastream.aggregate
+      
+      ~Datastream.count
+      ~Datastream.dataset_format
+      ~Datastream.default_batch_format
+      ~Datastream.deserialize_lineage
+      ~Datastream.drop_columns
+      ~Datastream.filter
+      ~Datastream.flat_map
+      ~Datastream.fully_executed
+      ~Datastream.get_internal_block_refs
+      ~Datastream.groupby
+      ~Datastream.has_serializable_lineage
+      ~Datastream.input_files
+      ~Datastream.is_fully_executed
+      ~Datastream.iter_batches
+      ~Datastream.iter_rows
+      ~Datastream.iter_tf_batches
+      ~Datastream.iter_torch_batches
+      ~Datastream.iterator
+      ~Datastream.lazy
+      ~Datastream.limit
+      ~Datastream.map
+      ~Datastream.map_batches
+      ~Datastream.materialize
+      ~Datastream.max
+      ~Datastream.mean
+      ~Datastream.min
+      ~Datastream.num_blocks
+      ~Datastream.random_sample
+      ~Datastream.random_shuffle
+      ~Datastream.randomize_block_order
+      ~Datastream.repartition
+      ~Datastream.repeat
+      ~Datastream.schema
+      ~Datastream.select_columns
+      ~Datastream.serialize_lineage
+      ~Datastream.show
+      ~Datastream.size_bytes
+      ~Datastream.sort
+      ~Datastream.split
+      ~Datastream.split_at_indices
+      ~Datastream.split_proportionately
+      ~Datastream.stats
+      ~Datastream.std
+      ~Datastream.streaming_split
+      ~Datastream.sum
+      ~Datastream.take
+      ~Datastream.take_all
+      ~Datastream.take_batch
+      ~Datastream.to_arrow_refs
+      ~Datastream.to_dask
+      ~Datastream.to_mars
+      ~Datastream.to_modin
+      ~Datastream.to_numpy_refs
+      ~Datastream.to_pandas
+      ~Datastream.to_pandas_refs
+      ~Datastream.to_random_access_dataset
+      ~Datastream.to_spark
+      ~Datastream.to_tf
+      ~Datastream.to_torch
+      ~Datastream.train_test_split
+      ~Datastream.union
+      ~Datastream.window
+      ~Datastream.write_csv
+      ~Datastream.write_datasource
+      ~Datastream.write_json
+      ~Datastream.write_mongo
+      ~Datastream.write_numpy
+      ~Datastream.write_parquet
+      ~Datastream.write_tfrecords
+      ~Datastream.write_webdataset
+      ~Datastream.zip
+
+   
+   
+
+
+   
+   
+   

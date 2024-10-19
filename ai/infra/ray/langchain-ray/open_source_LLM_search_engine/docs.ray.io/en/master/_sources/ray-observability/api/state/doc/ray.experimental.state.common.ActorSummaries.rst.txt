@@ -1,0 +1,8 @@
+﻿ray.experimental.state.common.ActorSummaries
+============================================
+
+.. currentmodule:: ray.experimental.state.common
+
+.. autoclass:: ActorSummaries
+    :members:
+    :show-inheritance:

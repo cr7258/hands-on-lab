@@ -1,0 +1,1081 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Metrics &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/versionwarning.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../_static/js/docsearch.js"></script>
+    <script src="../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../_static/js/termynal.js"></script>
+    <script defer="defer" src="../_static/js/custom.js"></script>
+    <script defer="defer" src="../_static/js/top-navigation.js"></script>
+    <script src="../_static/js/tags.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script async="async" src="../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/ray-observability/ray-metrics.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Profiling" href="../ray-observability/monitoring-debugging/profiling.html" />
+    <link rel="prev" title="Logging" href="../ray-observability/ray-logging.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:31:53Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "ray-observability/ray-metrics", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/overview.html">
+     Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ray-dashboard.html">
+     Ray Dashboard
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/state/state-api.html">
+     Monitoring Ray States
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/ray-debugging.html">
+     Ray Debugger
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/ray-logging.html">
+     Logging
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="ray-metrics.html#">
+     Metrics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/monitoring-debugging/profiling.html">
+     Profiling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/ray-tracing.html">
+     Tracing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/monitoring-debugging/troubleshoot-failures.html">
+     Troubleshooting Failures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/monitoring-debugging/troubleshoot-hangs.html">
+     Troubleshooting Hangs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/monitoring-debugging/troubleshoot-performance.html">
+     Troubleshooting Performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/monitoring-debugging/gotchas.html">
+     Ray Gotchas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/monitoring-debugging/getting-help.html">
+     Getting Help
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-contribute/debugging.html">
+     Debugging (internal)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-contribute/profiling.html">
+     Profiling (internal)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2Fray-observability/ray-metrics.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/edit/master/doc/source/ray-observability/ray-metrics.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/ray-observability/ray-metrics.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-metrics.html#getting-started">
+   Getting Started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-metrics.html#grafana">
+   Grafana
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#deploying-grafana">
+     Deploying Grafana
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-metrics.html#system-metrics">
+   System Metrics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#metrics-semantics-and-consistency">
+     Metrics Semantics and Consistency
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-metrics.html#application-level-metrics">
+   Application-level Metrics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-metrics.html#configurations">
+   Configurations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#customize-prometheus-export-port">
+     Customize prometheus export port
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#alternate-prometheus-host-location">
+     Alternate Prometheus host location
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#alternate-grafana-host-location">
+     Alternate Grafana host location
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-metrics.html#troubleshooting">
+   Troubleshooting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#mac-does-not-trust-the-developer-when-installing-prometheus-or-grafana">
+     Mac does not trust the developer when installing prometheus or grafana
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#grafana-dashboards-are-not-embedded-in-the-ray-dashboard">
+     Grafana dashboards are not embedded in the Ray dashboard
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Metrics</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-metrics.html#getting-started">
+   Getting Started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-metrics.html#grafana">
+   Grafana
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#deploying-grafana">
+     Deploying Grafana
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-metrics.html#system-metrics">
+   System Metrics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#metrics-semantics-and-consistency">
+     Metrics Semantics and Consistency
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-metrics.html#application-level-metrics">
+   Application-level Metrics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-metrics.html#configurations">
+   Configurations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#customize-prometheus-export-port">
+     Customize prometheus export port
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#alternate-prometheus-host-location">
+     Alternate Prometheus host location
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#alternate-grafana-host-location">
+     Alternate Grafana host location
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-metrics.html#troubleshooting">
+   Troubleshooting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#mac-does-not-trust-the-developer-when-installing-prometheus-or-grafana">
+     Mac does not trust the developer when installing prometheus or grafana
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-metrics.html#grafana-dashboards-are-not-embedded-in-the-ray-dashboard">
+     Grafana dashboards are not embedded in the Ray dashboard
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="metrics">
+<span id="ray-metrics"></span><h1>Metrics<a class="headerlink" href="ray-metrics.html#metrics" title="Permalink to this headline">#</a></h1>
+<p>To help monitor Ray applications, Ray</p>
+<ul class="simple">
+<li><p>Collects system-level metrics.</p></li>
+<li><p>Provides a default configuration for prometheus.</p></li>
+<li><p>Provides a default Grafana dashboard.</p></li>
+<li><p>Exposes metrics in a Prometheus format. We’ll call the endpoint to access these metrics a Prometheus endpoint.</p></li>
+<li><p>Supports custom metrics APIs that resemble Prometheus <a class="reference external" href="https://prometheus.io/docs/concepts/metric_types/">metric types</a>.</p></li>
+</ul>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="ray-metrics.html#getting-started" title="Permalink to this headline">#</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The below instructions for Prometheus to enable a basic workflow of running and accessing the dashboard on your local machine.
+For more information about how to run Prometheus on a remote cluster, see <a class="reference internal" href="../cluster/running-applications/monitoring-and-observability.html#multi-node-metrics"><span class="std std-ref">here</span></a>.</p>
+</div>
+<p>Ray exposes its metrics in Prometheus format. This allows us to easily scrape them using Prometheus.</p>
+<p>First, <a class="reference external" href="https://prometheus.io/download/">download Prometheus</a>. Make sure to download the correct binary for your operating system. (Ex: darwin for mac osx)</p>
+<p>Then, unzip the the archive into a local directory using the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar xvfz prometheus-*.tar.gz
+<span class="nb">cd</span> prometheus-*
+</pre></div>
+</div>
+<p>Ray exports metrics only when <code class="docutils literal notranslate"><span class="pre">ray[default]</span></code> is installed.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install <span class="s2">&quot;ray[default]&quot;</span>
+</pre></div>
+</div>
+<p>Ray provides a prometheus config that works out of the box. After running ray, it can be found at <code class="xref py py-obj docutils literal notranslate"><span class="pre">/tmp/ray/session_latest/metrics/prometheus/prometheus.yml</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">global</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15s</span><span class="w"></span>
+<span class="w">  </span><span class="nt">evaluation_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15s</span><span class="w"></span>
+
+<span class="nt">scrape_configs</span><span class="p">:</span><span class="w"></span>
+<span class="c1"># Scrape from each ray node as defined in the service_discovery.json provided by ray.</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ray&#39;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">file_sd_configs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">files</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;/tmp/ray/prom_metrics_service_discovery.json&#39;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Next, let’s start Prometheus.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./prometheus --config.file<span class="o">=</span>/tmp/ray/session_latest/metrics/prometheus/prometheus.yml
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using mac, you may receive an error at this point about trying to launch an application where the developer has not been verified. See <a class="reference internal" href="ray-metrics.html#unverified-developer"><span class="std std-ref">this link</span></a> to fix the issue.</p>
+</div>
+<p>Now, you can access Ray metrics from the default Prometheus url, <code class="xref py py-obj docutils literal notranslate"><span class="pre">http://localhost:9090</span></code>.</p>
+<p>See <a class="reference internal" href="../cluster/running-applications/monitoring-and-observability.html#multi-node-metrics"><span class="std std-ref">here</span></a> for more information on how to set up Prometheus on a Ray Cluster.</p>
+</section>
+<section id="grafana">
+<span id="id1"></span><h2>Grafana<a class="headerlink" href="ray-metrics.html#grafana" title="Permalink to this headline">#</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The below instructions for Grafana setup to enable a basic workflow of running and accessing the dashboard on your local machine.
+For more information about how to run Grafana on a remote cluster, see <a class="reference internal" href="../cluster/running-applications/monitoring-and-observability.html#multi-node-metrics-grafana"><span class="std std-ref">here</span></a>.</p>
+</div>
+<p>Grafana is a tool that supports more advanced visualizations of prometheus metrics and
+allows you to create custom dashboards with your favorite metrics. Ray exports some default
+configurations which includes a default dashboard showing some of the most valuable metrics
+for debugging ray applications.</p>
+<section id="deploying-grafana">
+<h3>Deploying Grafana<a class="headerlink" href="ray-metrics.html#deploying-grafana" title="Permalink to this headline">#</a></h3>
+<p>First, <a class="reference external" href="https://grafana.com/grafana/download">download Grafana</a>. Follow the instructions on the download page to download the right binary for your operating system.</p>
+<p>Then go to to the location of the binary and run grafana using the built in configuration found in <code class="xref py py-obj docutils literal notranslate"><span class="pre">/tmp/ray/session_latest/metrics/grafana</span></code> folder.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./bin/grafana-server --config /tmp/ray/session_latest/metrics/grafana/grafana.ini web
+</pre></div>
+</div>
+<p>Now, you can access grafana using the default grafana url, <code class="xref py py-obj docutils literal notranslate"><span class="pre">http://localhost:3000</span></code>.
+You can then see the default dashboard by going to dashboards -&gt; manage -&gt; Ray -&gt; Default Dashboard. The same <a class="reference internal" href="ray-metrics.html#system-metrics"><span class="std std-ref">metric graphs</span></a> are also accessible via <a class="reference internal" href="ray-dashboard.html#ray-dashboard"><span class="std std-ref">Ray Dashboard</span></a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If this is your first time using Grafana, you can login with the username: <code class="xref py py-obj docutils literal notranslate"><span class="pre">admin</span></code> and password <code class="xref py py-obj docutils literal notranslate"><span class="pre">admin</span></code>.</p>
+</div>
+<img alt="../_images/graphs1.png" class="align-center" src="../_images/graphs1.png" />
+<p>See <a class="reference internal" href="../cluster/running-applications/monitoring-and-observability.html#multi-node-metrics-grafana"><span class="std std-ref">here</span></a> for more information on how to set up Grafana on a Ray Cluster.</p>
+</section>
+</section>
+<section id="system-metrics">
+<span id="id2"></span><h2>System Metrics<a class="headerlink" href="ray-metrics.html#system-metrics" title="Permalink to this headline">#</a></h2>
+<p>Ray exports a number of system metrics, which provide introspection into the state of Ray workloads, as well as hardware utilization statistics. The following table describes the officially supported metrics:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Certain labels are common across all metrics, such as <code class="xref py py-obj docutils literal notranslate"><span class="pre">SessionName</span></code> (uniquely identifies a Ray cluster instance), <code class="xref py py-obj docutils literal notranslate"><span class="pre">instance</span></code> (per-node label applied by Prometheus, and <code class="xref py py-obj docutils literal notranslate"><span class="pre">JobId</span></code> (Ray job id, as applicable).</p>
+</div>
+<table class="table" id="id4">
+<caption><span class="caption-text">Ray System Metrics</span><a class="headerlink" href="ray-metrics.html#id4" title="Permalink to this table">#</a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Prometheus Metric</p></th>
+<th class="head"><p>Labels</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_tasks</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Name</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">State</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">IsRetry</span></code></p></td>
+<td><p>Current number of tasks (both remote functions and actor calls) by state. The State label (e.g., RUNNING, FINISHED, FAILED) describes the state of the task. See <a class="reference external" href="https://github.com/ray-project/ray/blob/e85355b9b593742b4f5cb72cab92051980fa73d3/src/ray/protobuf/common.proto#L583">rpc::TaskState</a> for more information. The function/method name is available as the Name label. If the task was retried due to failure or reconstruction, the IsRetry label will be set to “1”, otherwise “0”.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_actors</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Name</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">State</span></code></p></td>
+<td><p>Current number of actors in a particular state. The State label is described by <a class="reference external" href="https://github.com/ray-project/ray/blob/e85355b9b593742b4f5cb72cab92051980fa73d3/src/ray/protobuf/gcs.proto#L85">rpc::ActorTableData</a> proto in gcs.proto. The actor class name is available in the Name label.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_resources</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Name</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">State</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>Logical resource usage for each node of the cluster. Each resource has some quantity that is <a class="reference external" href="https://github.com/ray-project/ray/blob/9eab65ed77bdd9907989ecc3e241045954a09cb4/src/ray/stats/metric_defs.cc#L188">in either</a> USED state vs AVAILABLE state. The Name label defines the resource name (e.g., CPU, GPU).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_object_store_memory</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Location</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">ObjectState</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>Object store memory usage in bytes, <a class="reference external" href="https://github.com/ray-project/ray/blob/9eab65ed77bdd9907989ecc3e241045954a09cb4/src/ray/stats/metric_defs.cc#L231">broken down</a> by logical Location (SPILLED, IN_MEMORY, etc.), and ObjectState (UNSEALED, SEALED).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_placement_groups</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">State</span></code></p></td>
+<td><p>Current number of placement groups by state. The State label (e.g., PENDING, CREATED, REMOVED) describes the state of the placement group. See <a class="reference external" href="https://github.com/ray-project/ray/blob/e85355b9b593742b4f5cb72cab92051980fa73d3/src/ray/protobuf/gcs.proto#L517">rpc::PlacementGroupTable</a> for more information.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_memory_manager_worker_eviction_total</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Type</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Name</span></code></p></td>
+<td><p>The number of tasks and actors killed by the Ray Out of Memory killer (<a class="reference external" href="scheduling/ray-oom-prevention.html">https://docs.ray.io/en/master/ray-core/scheduling/ray-oom-prevention.html</a>) broken down by types (whether it is tasks or actors) and names (name of tasks and actors).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_node_cpu_utilization</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>The CPU utilization per node as a percentage quantity (0..100). This should be scaled by the number of cores per node to convert the units into cores.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_node_cpu_count</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>The number of CPU cores per node.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_node_gpus_utilization</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">GpuDeviceName</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">GpuIndex</span></code></p></td>
+<td><p>The GPU utilization per GPU as a percentage quantity (0..NGPU*100). <code class="xref py py-obj docutils literal notranslate"><span class="pre">GpuDeviceName</span></code> is a name of a GPU device (e.g., Nvidia A10G) and <code class="xref py py-obj docutils literal notranslate"><span class="pre">GpuIndex</span></code> is the index of the GPU.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_node_disk_usage</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>The amount of disk space used per node, in bytes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_node_disk_free</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>The amount of disk space available per node, in bytes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_node_disk_io_write_speed</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>The disk write throughput per node, in bytes per second.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_node_disk_io_read_speed</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>The disk read throughput per node, in bytes per second.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_node_mem_used</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>The amount of physical memory used per node, in bytes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_node_mem_total</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>The amount of physical memory available per node, in bytes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_component_uss_mb</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Component</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>The measured unique set size in megabytes, broken down by logical Ray component. Ray components consist of system components (e.g., raylet, gcs, dashboard, or agent) and the method names of running tasks/actors.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_component_cpu_percentage</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Component</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>The measured CPU percentage, broken down by logical Ray component. Ray components consist of system components (e.g., raylet, gcs, dashboard, or agent) and the method names of running tasks/actors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_node_gram_used</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">GpuDeviceName</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">GpuIndex</span></code></p></td>
+<td><p>The amount of GPU memory used per GPU, in bytes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_node_network_receive_speed</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>The network receive throughput per node, in bytes per second.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_node_network_send_speed</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InstanceId</span></code></p></td>
+<td><p>The network send throughput per node, in bytes per second.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_cluster_active_nodes</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type</span></code></p></td>
+<td><p>The number of healthy nodes in the cluster, broken down by autoscaler node type.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_cluster_failed_nodes</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type</span></code></p></td>
+<td><p>The number of failed nodes reported by the autoscaler, broken down by node type.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_cluster_pending_nodes</span></code></p></td>
+<td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node_type</span></code></p></td>
+<td><p>The number of pending nodes reported by the autoscaler, broken down by node type.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="metrics-semantics-and-consistency">
+<h3>Metrics Semantics and Consistency<a class="headerlink" href="ray-metrics.html#metrics-semantics-and-consistency" title="Permalink to this headline">#</a></h3>
+<p>Ray guarantees all its internal state metrics are <em>eventually</em> consistent even in the presence of failures— should any worker fail, eventually the right state will be reflected in the Prometheus time-series output. However, any particular metrics query is not guaranteed to reflect an exact snapshot of the cluster state.</p>
+<p>For the <code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_tasks</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_actors</span></code> metrics, you should use sum queries to plot their outputs (e.g., <code class="docutils literal notranslate"><span class="pre">sum(ray_tasks)</span> <span class="pre">by</span> <span class="pre">(Name,</span> <span class="pre">State)</span></code>). The reason for this is that Ray’s task metrics are emitted from multiple distributed components. Hence, there are multiple metric points, including negative metric points, emitted from different processes that must be summed to produce the correct logical view of the distributed system. For example, for a single task submitted and executed, Ray may emit  <code class="docutils literal notranslate"><span class="pre">(submitter)</span> <span class="pre">SUBMITTED_TO_WORKER:</span> <span class="pre">1,</span> <span class="pre">(executor)</span> <span class="pre">SUBMITTED_TO_WORKER:</span> <span class="pre">-1,</span> <span class="pre">(executor)</span> <span class="pre">RUNNING:</span> <span class="pre">1</span></code>, which reduces to <code class="docutils literal notranslate"><span class="pre">SUBMITTED_TO_WORKER:</span> <span class="pre">0,</span> <span class="pre">RUNNING:</span> <span class="pre">1</span></code> after summation.</p>
+</section>
+</section>
+<section id="application-level-metrics">
+<span id="id3"></span><h2>Application-level Metrics<a class="headerlink" href="ray-metrics.html#application-level-metrics" title="Permalink to this headline">#</a></h2>
+<p>Ray provides a convenient API in <a class="reference internal" href="api/utility.html#custom-metric-api-ref"><span class="std std-ref">ray.util.metrics</span></a> for defining and exporting custom metrics for visibility into your applications.
+There are currently three metrics supported: Counter, Gauge, and Histogram.
+These metrics correspond to the same <a class="reference external" href="https://prometheus.io/docs/concepts/metric_types/">Prometheus metric types</a>.
+Below is a simple example of an actor that exports metrics using these APIs:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.util.metrics</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">Gauge</span><span class="p">,</span> <span class="n">Histogram</span>
+
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">_metrics_export_port</span><span class="o">=</span><span class="mi">8080</span><span class="p">)</span>
+
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">class</span> <span class="nc">MyActor</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_curr_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span>
+            <span class="s2">&quot;num_requests&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Number of requests processed by the actor.&quot;</span><span class="p">,</span>
+            <span class="n">tag_keys</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;actor_name&quot;</span><span class="p">,),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="o">.</span><span class="n">set_default_tags</span><span class="p">({</span><span class="s2">&quot;actor_name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">gauge</span> <span class="o">=</span> <span class="n">Gauge</span><span class="p">(</span>
+            <span class="s2">&quot;curr_count&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Current count held by the actor. Goes up and down.&quot;</span><span class="p">,</span>
+            <span class="n">tag_keys</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;actor_name&quot;</span><span class="p">,),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gauge</span><span class="o">.</span><span class="n">set_default_tags</span><span class="p">({</span><span class="s2">&quot;actor_name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span> <span class="o">=</span> <span class="n">Histogram</span><span class="p">(</span>
+            <span class="s2">&quot;request_latency&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Latencies of requests in ms.&quot;</span><span class="p">,</span>
+            <span class="n">boundaries</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">tag_keys</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;actor_name&quot;</span><span class="p">,),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">set_default_tags</span><span class="p">({</span><span class="s2">&quot;actor_name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_curr_count</span> <span class="o">+=</span> <span class="n">num</span>
+
+        <span class="c1"># Increment the total request count.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
+        <span class="c1"># Update the gauge to the new value.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gauge</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_curr_count</span><span class="p">)</span>
+        <span class="c1"># Record the latency for this request in ms.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">histogram</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_curr_count</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting actor.&quot;</span><span class="p">)</span>
+<span class="n">my_actor</span> <span class="o">=</span> <span class="n">MyActor</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="s2">&quot;my_actor&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calling actor.&quot;</span><span class="p">)</span>
+<span class="n">my_actor</span><span class="o">.</span><span class="n">process_request</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calling actor.&quot;</span><span class="p">)</span>
+<span class="n">my_actor</span><span class="o">.</span><span class="n">process_request</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Metrics should be exported.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;See http://localhost:8080 (this may take a few seconds to load).&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sleep so we can look at the metrics before exiting.</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exiting!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>While the script is running, the metrics will be exported to <code class="docutils literal notranslate"><span class="pre">localhost:8080</span></code> (this is the endpoint that Prometheus would be configured to scrape).
+If you open this in the browser, you should see the following output:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># HELP ray_request_latency Latencies of requests in ms.
+# TYPE ray_request_latency histogram
+ray_request_latency_bucket{Component=&quot;core_worker&quot;,Version=&quot;3.0.0.dev0&quot;,actor_name=&quot;my_actor&quot;,le=&quot;0.1&quot;} 2.0
+ray_request_latency_bucket{Component=&quot;core_worker&quot;,Version=&quot;3.0.0.dev0&quot;,actor_name=&quot;my_actor&quot;,le=&quot;1.0&quot;} 2.0
+ray_request_latency_bucket{Component=&quot;core_worker&quot;,Version=&quot;3.0.0.dev0&quot;,actor_name=&quot;my_actor&quot;,le=&quot;+Inf&quot;} 2.0
+ray_request_latency_count{Component=&quot;core_worker&quot;,Version=&quot;3.0.0.dev0&quot;,actor_name=&quot;my_actor&quot;} 2.0
+ray_request_latency_sum{Component=&quot;core_worker&quot;,Version=&quot;3.0.0.dev0&quot;,actor_name=&quot;my_actor&quot;} 0.11992454528808594
+# HELP ray_curr_count Current count held by the actor. Goes up and down.
+# TYPE ray_curr_count gauge
+ray_curr_count{Component=&quot;core_worker&quot;,Version=&quot;3.0.0.dev0&quot;,actor_name=&quot;my_actor&quot;} -15.0
+# HELP ray_num_requests_total Number of requests processed by the actor.
+# TYPE ray_num_requests_total counter
+ray_num_requests_total{Component=&quot;core_worker&quot;,Version=&quot;3.0.0.dev0&quot;,actor_name=&quot;my_actor&quot;} 2.0
+</pre></div>
+</div>
+<p>Please see <a class="reference internal" href="api/utility.html#custom-metric-api-ref"><span class="std std-ref">ray.util.metrics</span></a> for more details.</p>
+</section>
+<section id="configurations">
+<h2>Configurations<a class="headerlink" href="ray-metrics.html#configurations" title="Permalink to this headline">#</a></h2>
+<section id="customize-prometheus-export-port">
+<h3>Customize prometheus export port<a class="headerlink" href="ray-metrics.html#customize-prometheus-export-port" title="Permalink to this headline">#</a></h3>
+<p>Ray by default provides the service discovery file, but you can directly scrape metrics from prometheus ports.
+To do that, you may want to customize the port that metrics gets exposed to a pre-defined port.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray start --head --metrics-export-port<span class="o">=</span><span class="m">8080</span> <span class="c1"># Assign metrics export port on a head node.</span>
+</pre></div>
+</div>
+<p>Now, you can scrape Ray’s metrics using Prometheus via <code class="docutils literal notranslate"><span class="pre">&lt;ip&gt;:8080</span></code>.</p>
+</section>
+<section id="alternate-prometheus-host-location">
+<h3>Alternate Prometheus host location<a class="headerlink" href="ray-metrics.html#alternate-prometheus-host-location" title="Permalink to this headline">#</a></h3>
+<p>You can choose to run Prometheus on a non-default port or on a different machine. When doing so, you should
+make sure that prometheus can scrape the metrics from your ray nodes following instructions <a class="reference internal" href="../cluster/running-applications/monitoring-and-observability.html#multi-node-metrics"><span class="std std-ref">here</span></a>.</p>
+<p>In addition, both Ray and Grafana needs to know how to access this prometheus instance. This can be configured
+by setting the <code class="xref py py-obj docutils literal notranslate"><span class="pre">RAY_PROMETHEUS_HOST</span></code> env var when launching ray. The env var takes in the address to access Prometheus. More
+info can be found <a class="reference internal" href="../cluster/running-applications/monitoring-and-observability.html#multi-node-metrics-grafana"><span class="std std-ref">here</span></a>. By default, we assume Prometheus is hosted at <code class="xref py py-obj docutils literal notranslate"><span class="pre">localhost:9090</span></code>.</p>
+<p>For example, if Prometheus is hosted at port 9000 on a node with ip 55.66.77.88, One should set the value to
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">RAY_PROMETHEUS_HOST=http://55.66.77.88:9000</span></code>.</p>
+</section>
+<section id="alternate-grafana-host-location">
+<h3>Alternate Grafana host location<a class="headerlink" href="ray-metrics.html#alternate-grafana-host-location" title="Permalink to this headline">#</a></h3>
+<p>You can choose to run Grafana on a non-default port or on a different machine. If you choose to do this, the
+<a class="reference internal" href="ray-dashboard.html#ray-dashboard"><span class="std std-ref">Dashboard</span></a> needs to be configured with a public address to that service so the web page
+can load the graphs. This can be done with the <code class="xref py py-obj docutils literal notranslate"><span class="pre">RAY_GRAFANA_HOST</span></code> env var when launching ray. The env var takes
+in the address to access Grafana. More info can be found <a class="reference internal" href="../cluster/running-applications/monitoring-and-observability.html#multi-node-metrics-grafana"><span class="std std-ref">here</span></a>. Instructions
+to use an existing Grafana instance can be found <a class="reference internal" href="../cluster/running-applications/monitoring-and-observability.html#multi-node-metrics-grafana-existing"><span class="std std-ref">here</span></a>.</p>
+<p>For the Grafana charts to work on the Ray dashboard, the user of the dashboard’s browser must be able to reach
+the Grafana service. If this browser cannot reach Grafana the same way the Ray head node can, you can use a separate
+env var <code class="xref py py-obj docutils literal notranslate"><span class="pre">RAY_GRAFANA_IFRAME_HOST</span></code> to customize the host the browser users to attempt to reach Grafana. If this is not set,
+we use the value of <code class="xref py py-obj docutils literal notranslate"><span class="pre">RAY_GRAFANA_HOST</span></code> by default.</p>
+<p>For example, if Grafana is hosted at is 55.66.77.88 on port 3000. One should set the value
+to <code class="xref py py-obj docutils literal notranslate"><span class="pre">RAY_GRAFANA_HOST=http://55.66.77.88:3000</span></code>.</p>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="ray-metrics.html#troubleshooting" title="Permalink to this headline">#</a></h2>
+<section id="mac-does-not-trust-the-developer-when-installing-prometheus-or-grafana">
+<span id="unverified-developer"></span><h3>Mac does not trust the developer when installing prometheus or grafana<a class="headerlink" href="ray-metrics.html#mac-does-not-trust-the-developer-when-installing-prometheus-or-grafana" title="Permalink to this headline">#</a></h3>
+<p>You may have received an error that looks like this:</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/troubleshooting/prometheus-trusted-developer.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/troubleshooting/prometheus-trusted-developer.png" />
+<p>When downloading binaries from the internet, Mac requires that the binary be signed by a trusted developer ID.
+Unfortunately, many developers today are not trusted by Mac and so this requirement must be overridden by the user manaully.</p>
+<p>See <a class="reference external" href="https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac">these instructions</a> on how to override the restriction and install or run the application.</p>
+</section>
+<section id="grafana-dashboards-are-not-embedded-in-the-ray-dashboard">
+<h3>Grafana dashboards are not embedded in the Ray dashboard<a class="headerlink" href="ray-metrics.html#grafana-dashboards-are-not-embedded-in-the-ray-dashboard" title="Permalink to this headline">#</a></h3>
+<p>If you’re getting error that <code class="xref py py-obj docutils literal notranslate"><span class="pre">RAY_GRAFANA_HOST</span></code> is not setup despite you’ve set it up, please check:
+That you’ve included protocol in the URL (e.g. <code class="xref py py-obj docutils literal notranslate"><span class="pre">http://your-grafana-url.com</span></code> instead of <code class="xref py py-obj docutils literal notranslate"><span class="pre">your-grafana-url.com</span></code>).
+Also, make sure that url doesn’t have trailing slash (e.g. <code class="xref py py-obj docutils literal notranslate"><span class="pre">http://your-grafana-url.com</span></code> instead of <code class="xref py py-obj docutils literal notranslate"><span class="pre">http://your-grafana-url.com/</span></code>).</p>
+</section>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../ray-observability/ray-logging.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Logging</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../ray-observability/monitoring-debugging/profiling.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Profiling</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

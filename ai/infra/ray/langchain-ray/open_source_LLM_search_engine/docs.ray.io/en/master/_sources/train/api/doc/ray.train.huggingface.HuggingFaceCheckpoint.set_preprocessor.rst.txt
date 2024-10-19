@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceCheckpoint.set\_preprocessor
+=============================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFaceCheckpoint.set_preprocessor

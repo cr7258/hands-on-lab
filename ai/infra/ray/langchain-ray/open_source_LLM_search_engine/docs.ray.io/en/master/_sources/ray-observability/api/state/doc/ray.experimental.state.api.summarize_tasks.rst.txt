@@ -1,0 +1,6 @@
+﻿ray.experimental.state.api.summarize\_tasks
+===========================================
+
+.. currentmodule:: ray.experimental.state.api
+
+.. autofunction:: summarize_tasks

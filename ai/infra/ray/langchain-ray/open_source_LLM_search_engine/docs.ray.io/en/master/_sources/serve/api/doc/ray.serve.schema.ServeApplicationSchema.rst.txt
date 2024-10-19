@@ -1,0 +1,6 @@
+﻿ray.serve.schema.ServeApplicationSchema
+=======================================
+
+.. currentmodule:: ray.serve.schema
+
+.. autopydantic_model:: ServeApplicationSchema

@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.merge
+===========================
+
+.. currentmodule:: ray.air
+
+.. automethod:: DatasetConfig.merge

@@ -1,0 +1,6 @@
+ray.serve.handle.RayServeHandle.remote
+======================================
+
+.. currentmodule:: ray.serve.handle
+
+.. automethod:: RayServeHandle.remote

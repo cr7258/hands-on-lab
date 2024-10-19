@@ -1,0 +1,6 @@
+ray.data.datasource.MongoDatasource.get\_name
+=============================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: MongoDatasource.get_name

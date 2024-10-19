@@ -1,0 +1,35 @@
+﻿
+
+ray.data.datasource.CSVDatasource
+=================================
+
+.. currentmodule:: ray.data.datasource
+
+.. autoclass:: CSVDatasource
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~CSVDatasource.__init__
+      
+      ~CSVDatasource.do_write
+      
+      ~CSVDatasource.get_name
+      ~CSVDatasource.on_write_complete
+      ~CSVDatasource.on_write_failed
+      ~CSVDatasource.prepare_read
+      ~CSVDatasource.write
+
+   
+   
+
+
+   
+   
+   

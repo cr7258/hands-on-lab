@@ -1,0 +1,6 @@
+ray.data.Datastream.to\_pandas\_refs
+====================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.to_pandas_refs

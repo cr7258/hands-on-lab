@@ -1,0 +1,6 @@
+﻿ray.experimental.state.api.get\_placement\_group
+================================================
+
+.. currentmodule:: ray.experimental.state.api
+
+.. autofunction:: get_placement_group

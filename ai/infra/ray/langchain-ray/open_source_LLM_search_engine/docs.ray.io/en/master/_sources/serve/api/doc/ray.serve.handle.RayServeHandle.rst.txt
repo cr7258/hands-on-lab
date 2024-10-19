@@ -1,0 +1,30 @@
+﻿
+
+ray.serve.handle.RayServeHandle
+===============================
+
+.. currentmodule:: ray.serve.handle
+
+.. autoclass:: RayServeHandle
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      
+      ~RayServeHandle.options
+      ~RayServeHandle.remote
+      
+
+   
+   
+
+
+   
+   
+   

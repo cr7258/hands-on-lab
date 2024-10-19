@@ -1,0 +1,1993 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Loading Data &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/versionwarning.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../_static/js/docsearch.js"></script>
+    <script src="../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../_static/js/termynal.js"></script>
+    <script defer="defer" src="../_static/js/custom.js"></script>
+    <script defer="defer" src="../_static/js/top-navigation.js"></script>
+    <script src="../_static/js/tags.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script async="async" src="../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/data/creating-datastreams.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Transforming Data" href="transforming-datastreams.html" />
+    <link rel="prev" title="User Guides" href="user-guide.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:30:48Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "data/creating-datastreams", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="data.html">
+   Ray Data
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="getting-started.html">
+     Getting Started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="key-concepts.html">
+     Key Concepts
+    </a>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="user-guide.html">
+     User Guides
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="creating-datastreams.html#">
+       Loading Data
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="transforming-datastreams.html">
+       Transforming Data
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="consuming-datastreams.html">
+       Consuming Data
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="data-tensor-support.html">
+       ML Tensor Support
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="custom-datasource.html">
+       Custom Datasources
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="data-internals.html">
+       Scheduling, Execution, and Memory Management
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="performance-tips.html">
+       Performance Tips and Tuning
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="pipelining-compute.html">
+       DatasetPipelines (deprecated)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="examples/index.html">
+     Examples
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="faq.html">
+     FAQ
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api/api.html">
+     Ray Data API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="glossary.html">
+     Ray Data Glossary
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="integrations.html">
+     Integrations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2Fdata/creating-datastreams.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/edit/master/doc/source/data/creating-datastreams.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/data/creating-datastreams.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#generating-synthetic-data">
+   Generating Synthetic Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#reading-files-from-storage">
+   Reading Files From Storage
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#supported-file-formats">
+     Supported File Formats
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#reading-from-remote-storage">
+     Reading from Remote Storage
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#reading-from-local-storage">
+     Reading from Local Storage
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#reading-compressed-files">
+     Reading Compressed Files
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#from-in-memory-data">
+   From In-Memory Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#from-single-node-data-libraries">
+     From Single-Node Data Libraries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#from-distributed-data-processing-frameworks">
+     From Distributed Data Processing Frameworks
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#from-torch-and-tensorflow">
+   From Torch and TensorFlow
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#from-hugging-face-datasets">
+   From 🤗 (Hugging Face) Datasets
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#from-mongodb">
+   From MongoDB
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#reading-from-sql-databases">
+   Reading From SQL Databases
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#custom-datasources">
+   Custom Datasources
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#performance-considerations">
+   Performance Considerations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#read-parallelism">
+     Read Parallelism
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#deferred-read-task-execution">
+     Deferred Read Task Execution
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Loading Data</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#generating-synthetic-data">
+   Generating Synthetic Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#reading-files-from-storage">
+   Reading Files From Storage
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#supported-file-formats">
+     Supported File Formats
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#reading-from-remote-storage">
+     Reading from Remote Storage
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#reading-from-local-storage">
+     Reading from Local Storage
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#reading-compressed-files">
+     Reading Compressed Files
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#from-in-memory-data">
+   From In-Memory Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#from-single-node-data-libraries">
+     From Single-Node Data Libraries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#from-distributed-data-processing-frameworks">
+     From Distributed Data Processing Frameworks
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#from-torch-and-tensorflow">
+   From Torch and TensorFlow
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#from-hugging-face-datasets">
+   From 🤗 (Hugging Face) Datasets
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#from-mongodb">
+   From MongoDB
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#reading-from-sql-databases">
+   Reading From SQL Databases
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#custom-datasources">
+   Custom Datasources
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="creating-datastreams.html#performance-considerations">
+   Performance Considerations
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#read-parallelism">
+     Read Parallelism
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="creating-datastreams.html#deferred-read-task-execution">
+     Deferred Read Task Execution
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="loading-data">
+<span id="creating-datastreams"></span><h1>Loading Data<a class="headerlink" href="creating-datastreams.html#loading-data" title="Permalink to this headline">#</a></h1>
+<p><a class="reference internal" href="api/doc/ray.data.Datastream.html#ray.data.Datastream" title="ray.data.Datastream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Datastreams</span></code></a> can be created from:</p>
+<ul class="simple">
+<li><p>generated synthetic data,</p></li>
+<li><p>local and distributed in-memory data, and</p></li>
+<li><p>local and external storage systems (local disk, cloud storage, HDFS, etc.).</p></li>
+</ul>
+<p>This guide surveys the many ways to create a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>. If none of these meet your
+needs, please reach out to us on <a class="reference external" href="https://discuss.ray.io/">Discourse</a> or open a feature
+request on the <a class="reference external" href="https://github.com/ray-project/ray">Ray GitHub repo</a>, and check out
+our <a class="reference internal" href="custom-datasource.html#custom-datasources"><span class="std std-ref">guide for implementing a custom datasource</span></a>
+if you’re interested in rolling your own integration!</p>
+<section id="generating-synthetic-data">
+<span id="datastream-generate-data"></span><h2>Generating Synthetic Data<a class="headerlink" href="creating-datastreams.html#generating-synthetic-data" title="Permalink to this headline">#</a></h2>
+<div class="tabbed-set docutils">
+<input checked="checked" id="eff58988-a09e-4acb-80d3-739a16b818b4" name="9f6c56fa-0c03-4d6a-8497-2f2b2a092364" type="radio">
+</input><label class="tabbed-label" for="eff58988-a09e-4acb-80d3-739a16b818b4">
+Int Range</label><div class="tabbed-content docutils">
+<p>Create a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> from a range of integers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Datastream of Python objects.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(num_blocks=200, num_rows=10000, schema=&lt;class &#39;int&#39;&gt;)</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1"># -&gt; [0, 1, 2, 3, 4]</span>
+</pre></div>
+</div>
+</div>
+<input id="05312e95-5eb1-4001-b0fd-0a8c93882890" name="9f6c56fa-0c03-4d6a-8497-2f2b2a092364" type="radio">
+</input><label class="tabbed-label" for="05312e95-5eb1-4001-b0fd-0a8c93882890">
+Tabular Range</label><div class="tabbed-content docutils">
+<p>Create an Arrow (tabular) <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> from a range of integers,
+with a single column containing this integer range.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Datastream of Arrow records.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(num_blocks=200, num_rows=10000, schema={id: int64})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1"># -&gt; [{&#39;value&#39;: 0}, {&#39;value&#39;: 1}, {&#39;value&#39;: 2}, {&#39;value&#39;: 3}, {&#39;value&#39;: 4}]</span>
+</pre></div>
+</div>
+</div>
+<input id="64afa12c-3764-4c56-97d8-9754f4b89a27" name="9f6c56fa-0c03-4d6a-8497-2f2b2a092364" type="radio">
+</input><label class="tabbed-label" for="64afa12c-3764-4c56-97d8-9754f4b89a27">
+Tensor Range</label><div class="tabbed-content docutils">
+<p>Create a tensor datastream from a range of integers, packing this integer range into
+tensors of the provided shape.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Datastream of tensors.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="mi">64</span> <span class="o">*</span> <span class="mi">64</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">))</span>
+<span class="c1"># -&gt; Datastream(</span>
+<span class="c1">#       num_blocks=200,</span>
+<span class="c1">#       num_rows=409600,</span>
+<span class="c1">#       schema={__value__: numpy.ndarray(shape=(64, 64), dtype=int64)}</span>
+<span class="c1">#    )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; [array([[0, 0, 0, ..., 0, 0, 0],</span>
+<span class="c1">#         [0, 0, 0, ..., 0, 0, 0],</span>
+<span class="c1">#         [0, 0, 0, ..., 0, 0, 0],</span>
+<span class="c1">#         ...,</span>
+<span class="c1">#         [0, 0, 0, ..., 0, 0, 0],</span>
+<span class="c1">#         [0, 0, 0, ..., 0, 0, 0],</span>
+<span class="c1">#         [0, 0, 0, ..., 0, 0, 0]]),</span>
+<span class="c1">#  array([[1, 1, 1, ..., 1, 1, 1],</span>
+<span class="c1">#         [1, 1, 1, ..., 1, 1, 1],</span>
+<span class="c1">#         [1, 1, 1, ..., 1, 1, 1],</span>
+<span class="c1">#         ...,</span>
+<span class="c1">#         [1, 1, 1, ..., 1, 1, 1],</span>
+<span class="c1">#         [1, 1, 1, ..., 1, 1, 1],</span>
+<span class="c1">#         [1, 1, 1, ..., 1, 1, 1]])]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="reading-files-from-storage">
+<span id="datastream-reading-from-storage"></span><h2>Reading Files From Storage<a class="headerlink" href="creating-datastreams.html#reading-files-from-storage" title="Permalink to this headline">#</a></h2>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">ray.data.read_*()</span></code> APIs, Datastreams can be created from files on local disk
+or remote storage system such as S3, GCS, Azure Blob Storage, or HDFS. Any filesystem
+<a class="reference external" href="http://arrow.apache.org/docs/python/generated/pyarrow.fs.FileSystem.html">supported by pyarrow</a>
+can be used to specify file locations, and many common file formats are supported:
+Parquet, CSV, JSON, NPY, text, binary.</p>
+<p>Each of these APIs take a path or list of paths to files or directories. Any directories
+provided will be walked in order to obtain concrete file paths, at which point all files
+will be read in parallel.</p>
+<section id="supported-file-formats">
+<span id="datastream-supported-file-formats"></span><h3>Supported File Formats<a class="headerlink" href="creating-datastreams.html#supported-file-formats" title="Permalink to this headline">#</a></h3>
+<div class="tabbed-set docutils">
+<input checked="checked" id="e0f7c9b3-88cc-4add-954e-ffab8cd927be" name="79b19aaa-f02c-4389-a0fa-c5146d7d5f8b" type="radio">
+</input><label class="tabbed-label" for="e0f7c9b3-88cc-4add-954e-ffab8cd927be">
+Parquet</label><div class="tabbed-content docutils">
+<p>Read Parquet files into a tabular <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>. The Parquet data will be read into
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.Table.html">Arrow Table</a>
+blocks. Although this simple example demonstrates reading a single file, note that
+Datastreams can also read directories of Parquet files. We also support reading partitioned
+Parquet datasets with partition column values pulled from the file paths.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a tabular Datastream by reading a Parquet file.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;example://iris.parquet&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(</span>
+<span class="c1">#        num_blocks=1,</span>
+<span class="c1">#        num_rows=150,</span>
+<span class="c1">#        schema={</span>
+<span class="c1">#            sepal.length: double,</span>
+<span class="c1">#            sepal.width: double,</span>
+<span class="c1">#            petal.length: double,</span>
+<span class="c1">#            petal.width: double,</span>
+<span class="c1">#            variety: string,</span>
+<span class="c1">#        }</span>
+<span class="c1">#    )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {</span>
+<span class="c1">#     &#39;sepal.length&#39;: 5.1,</span>
+<span class="c1">#     &#39;sepal.width&#39;: 3.5,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.4,</span>
+<span class="c1">#     &#39;petal.width&#39;: 0.2,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Setosa&#39;,</span>
+<span class="c1"># }</span>
+<span class="c1"># -&gt; {</span>
+<span class="c1">#     &#39;sepal.length&#39;: 4.9,</span>
+<span class="c1">#     &#39;sepal.width&#39;: 3.0,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.4,</span>
+<span class="c1">#     &#39;petal.width&#39;: 0.2,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Setosa&#39;,</span>
+<span class="c1"># }</span>
+</pre></div>
+</div>
+<p>Datastreams’ Parquet reader also supports projection and filter pushdown, allowing column
+selection and row filtering to be pushed down to the file scan. For column selection,
+unselected columns will never be read from the file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+
+<span class="c1"># Create a tabular Datastream by reading a Parquet file, pushing column selection and row</span>
+<span class="c1"># filtering down to the file scan.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span>
+    <span class="s2">&quot;example://iris.parquet&quot;</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">,</span> <span class="s2">&quot;variety&quot;</span><span class="p">],</span>
+    <span class="nb">filter</span><span class="o">=</span><span class="n">pa</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">5.0</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">materialize</span><span class="p">()</span>  <span class="c1"># Force a full read of the file.</span>
+<span class="c1"># -&gt; Datastream(num_blocks=1, num_rows=118, schema={sepal.length: double, variety: string})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 5.1, &#39;variety&#39;: &#39;Setosa&#39;}</span>
+<span class="c1">#    {&#39;sepal.length&#39;: 5.4, &#39;variety&#39;: &#39;Setosa&#39;}</span>
+</pre></div>
+</div>
+<p>See the API docs for <a class="reference internal" href="api/doc/ray.data.read_parquet.html#ray.data.read_parquet" title="ray.data.read_parquet"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_parquet()</span></code></a>.</p>
+</div>
+<input id="f02270c7-562a-46a4-a8ec-1c02ee5322cc" name="79b19aaa-f02c-4389-a0fa-c5146d7d5f8b" type="radio">
+</input><label class="tabbed-label" for="f02270c7-562a-46a4-a8ec-1c02ee5322cc">
+CSV</label><div class="tabbed-content docutils">
+<p>Read CSV files into a tabular <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>. The CSV data will be read into
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.Table.html">Arrow Table</a>
+blocks. Although this simple example demonstrates reading a single file, note that
+Datastreams can also read directories of CSV files, with one tabular block created
+per file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a tabular Datastream by reading a CSV file.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(</span>
+<span class="c1">#        num_blocks=1,</span>
+<span class="c1">#        num_rows=150,</span>
+<span class="c1">#        schema={</span>
+<span class="c1">#            sepal.length: double,</span>
+<span class="c1">#            sepal.width: double,</span>
+<span class="c1">#            petal.length: double,</span>
+<span class="c1">#            petal.width: double,</span>
+<span class="c1">#            variety: string,</span>
+<span class="c1">#        }</span>
+<span class="c1">#    )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {</span>
+<span class="c1">#     &#39;sepal.length&#39;: 5.1,</span>
+<span class="c1">#     &#39;sepal.width&#39;: 3.5,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.4,</span>
+<span class="c1">#     &#39;petal.width&#39;: 0.2,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Setosa&#39;,</span>
+<span class="c1"># }</span>
+<span class="c1"># -&gt; {</span>
+<span class="c1">#     &#39;sepal.length&#39;: 4.9,</span>
+<span class="c1">#     &#39;sepal.width&#39;: 3.0,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.4,</span>
+<span class="c1">#     &#39;petal.width&#39;: 0.2,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Setosa&#39;,</span>
+<span class="c1"># }</span>
+</pre></div>
+</div>
+<p>See the API docs for <a class="reference internal" href="api/doc/ray.data.read_csv.html#ray.data.read_csv" title="ray.data.read_csv"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_csv()</span></code></a>.</p>
+</div>
+<input id="c1749b25-5939-45ae-8052-98d9c9f938ac" name="79b19aaa-f02c-4389-a0fa-c5146d7d5f8b" type="radio">
+</input><label class="tabbed-label" for="c1749b25-5939-45ae-8052-98d9c9f938ac">
+JSON</label><div class="tabbed-content docutils">
+<p>Read JSON files into a tabular <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>. The JSON data will be read into
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.Table.html">Arrow Table</a>
+blocks. Although this simple example demonstrates reading a single file, note that
+Datastreams can also read directories of JSON files, with one tabular block created
+per file.</p>
+<p>Currently, only newline-delimited JSON (NDJSON) is supported.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a tabular Datastream by reading a JSON file.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s2">&quot;example://iris.json&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(</span>
+<span class="c1">#        num_blocks=1,</span>
+<span class="c1">#        num_rows=150,</span>
+<span class="c1">#        schema={</span>
+<span class="c1">#            sepal.length: double,</span>
+<span class="c1">#            sepal.width: double,</span>
+<span class="c1">#            petal.length: double,</span>
+<span class="c1">#            petal.width: double,</span>
+<span class="c1">#            variety: string,</span>
+<span class="c1">#        }</span>
+<span class="c1">#    )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {</span>
+<span class="c1">#     &#39;sepal.length&#39;: 5.1,</span>
+<span class="c1">#     &#39;sepal.width&#39;: 3.5,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.4,</span>
+<span class="c1">#     &#39;petal.width&#39;: 0.2,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Setosa&#39;,</span>
+<span class="c1"># }</span>
+<span class="c1"># -&gt; {</span>
+<span class="c1">#     &#39;sepal.length&#39;: 4.9,</span>
+<span class="c1">#     &#39;sepal.width&#39;: 3.0,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.4,</span>
+<span class="c1">#     &#39;petal.width&#39;: 0.2,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Setosa&#39;,</span>
+<span class="c1"># }</span>
+</pre></div>
+</div>
+<p>See the API docs for <a class="reference internal" href="api/doc/ray.data.read_json.html#ray.data.read_json" title="ray.data.read_json"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_json()</span></code></a>.</p>
+</div>
+<input id="1cb76119-2cf3-4d56-bfdd-89b8d275d0fb" name="79b19aaa-f02c-4389-a0fa-c5146d7d5f8b" type="radio">
+</input><label class="tabbed-label" for="1cb76119-2cf3-4d56-bfdd-89b8d275d0fb">
+NumPy</label><div class="tabbed-content docutils">
+<p>Read NumPy files into a tensor <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>. The NumPy ndarray data will be read into
+single-column
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.Table.html">Arrow Table</a>
+blocks using our
+<a class="reference internal" href="api/doc/ray.data.extensions.tensor_extension.ArrowTensorType.html#ray.data.extensions.tensor_extension.ArrowTensorType" title="ray.data.extensions.tensor_extension.ArrowTensorType"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensor</span> <span class="pre">extension</span> <span class="pre">type</span></code></a>,
+treating the outermost ndarray dimension as the row dimension. See our
+<a class="reference internal" href="data-tensor-support.html#data-tensor-support"><span class="std std-ref">tensor data guide</span></a> for more information on working
+with tensors in Datastreams. Although this simple example demonstrates reading a single
+file, note that Datastreams can also read directories of NumPy files, with one tensor
+block created per file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a tensor Datastream by reading a NumPy file.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_numpy</span><span class="p">(</span><span class="s2">&quot;example://mnist_subset.npy&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(</span>
+<span class="c1">#       num_blocks=1,</span>
+<span class="c1">#       num_rows=3,</span>
+<span class="c1">#       schema={__value__: numpy.ndarray(shape=(28, 28), dtype=uint8)}</span>
+<span class="c1">#   )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># [array([[0, ...]]), array([[0, ...]])]</span>
+</pre></div>
+</div>
+<p>See the API docs for <a class="reference internal" href="api/doc/ray.data.read_numpy.html#ray.data.read_numpy" title="ray.data.read_numpy"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_numpy()</span></code></a>.</p>
+</div>
+<input id="62ad3ea2-59a9-4262-8145-47e475d54bb8" name="79b19aaa-f02c-4389-a0fa-c5146d7d5f8b" type="radio">
+</input><label class="tabbed-label" for="62ad3ea2-59a9-4262-8145-47e475d54bb8">
+Text</label><div class="tabbed-content docutils">
+<p>Read text files into a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>. Each line in each text file will be treated as a
+row in the datastream, resulting in a list-of-strings block being created for each text
+file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a tabular Datastream by reading a text file.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="s2">&quot;example://sms_spam_collection_subset.txt&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(num_blocks=1, num_rows=10, schema=&lt;class &#39;str&#39;&gt;)</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; ham     Go until jurong point, crazy.. Available only in bugis n great world la e</span>
+<span class="c1">#            buffet... Cine there got amore wat...</span>
+<span class="c1">#    ham     Ok lar... Joking wif u oni...</span>
+<span class="c1">#    spam    Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA</span>
+<span class="c1">#            to 87121 to receive entry question(std txt rate)T&amp;C&#39;s apply</span>
+<span class="c1">#            08452810075over18&#39;s</span>
+</pre></div>
+</div>
+<p>See the API docs for <a class="reference internal" href="api/doc/ray.data.read_text.html#ray.data.read_text" title="ray.data.read_text"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_text()</span></code></a>.</p>
+</div>
+<input id="62d3c080-11f5-40ed-8322-3d8ebe3e1b0d" name="79b19aaa-f02c-4389-a0fa-c5146d7d5f8b" type="radio">
+</input><label class="tabbed-label" for="62d3c080-11f5-40ed-8322-3d8ebe3e1b0d">
+Images</label><div class="tabbed-content docutils">
+<p>Call <a class="reference internal" href="api/doc/ray.data.read_images.html#ray.data.read_images" title="ray.data.read_images"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_images()</span></code></a> to read images into a <a class="reference internal" href="api/doc/ray.data.Datastream.html#ray.data.Datastream" title="ray.data.Datastream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Datastream</span></code></a>.</p>
+<p>This function stores image data in single-column
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.Table.html">Arrow Table</a>
+blocks using the
+<a class="reference internal" href="api/doc/ray.data.extensions.tensor_extension.ArrowTensorType.html#ray.data.extensions.tensor_extension.ArrowTensorType" title="ray.data.extensions.tensor_extension.ArrowTensorType"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensor</span> <span class="pre">extension</span> <span class="pre">type</span></code></a>.
+For more information on working with tensors in Datastreams, read the
+<a class="reference internal" href="data-tensor-support.html#data-tensor-support"><span class="std std-ref">tensor data guide</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_images</span><span class="p">(</span><span class="s2">&quot;example://image-datasets/simple&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(num_blocks=3, num_rows=3, </span>
+<span class="c1">#            schema={image: numpy.ndarray(shape=(32, 32, 3), dtype=uint8)})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># -&gt; [array([[[ 88,  70,  68],</span>
+<span class="c1">#            [103,  88,  85],</span>
+<span class="c1">#            [112,  96,  97],</span>
+<span class="c1">#            ...,</span>
+<span class="c1">#            [168, 151,  81],</span>
+<span class="c1">#            [167, 149,  83],</span>
+<span class="c1">#            [166, 148,  82]]], dtype=uint8)]</span>
+</pre></div>
+</div>
+</div>
+<input id="d0f18e31-5d00-4dc3-868e-093f2705b505" name="79b19aaa-f02c-4389-a0fa-c5146d7d5f8b" type="radio">
+</input><label class="tabbed-label" for="d0f18e31-5d00-4dc3-868e-093f2705b505">
+Binary</label><div class="tabbed-content docutils">
+<p>Read binary files into a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>. Each binary file will be treated as a single row
+of opaque bytes. These bytes can be decoded into tensor, tabular, text, or any other
+kind of data using <a class="reference internal" href="api/doc/ray.data.Datastream.map_batches.html#ray.data.Datastream.map_batches" title="ray.data.Datastream.map_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">map_batches()</span></code></a> to apply a per-row decoding
+<a class="reference internal" href="transforming-datastreams.html#transform-datastreams-writing-udfs"><span class="std std-ref">user-defined function</span></a>.</p>
+<p>Although this simple example demonstrates reading a single file, note that Datastreams
+can also read directories of binary files, with one bytes block created per file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">import</span> <span class="nn">PIL.Image</span>
+
+<span class="c1"># Create a tabular Datastream by reading a binary file.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_binary_files</span><span class="p">(</span><span class="s2">&quot;example://mnist_subset_partitioned/0/1.png&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(num_blocks=1, num_rows=1, schema=&lt;class &#39;bytes&#39;&gt;)</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">bytes_</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">bytes_</span><span class="p">[</span><span class="s2">&quot;bytes&quot;</span><span class="p">]))</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;L&quot;</span><span class="p">))})</span>
+<span class="c1"># -&gt; Datastream(</span>
+<span class="c1">#        num_blocks=1,</span>
+<span class="c1">#        num_rows=1,</span>
+<span class="c1">#        schema={__value__: numpy.ndarray(shape=(28, 28), dtype=uint8)}</span>
+<span class="c1">#    )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; ham     Go until jurong point, crazy.. Available only in bugis n great world la e</span>
+<span class="c1">#            buffet... Cine there got amore wat...</span>
+<span class="c1">#    ham     Ok lar... Joking wif u oni...</span>
+<span class="c1">#    spam    Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA</span>
+<span class="c1">#            to 87121 to receive entry question(std txt rate)T&amp;C&#39;s apply</span>
+<span class="c1">#            08452810075over18&#39;s</span>
+</pre></div>
+</div>
+<p>See the API docs for <a class="reference internal" href="api/doc/ray.data.read_binary_files.html#ray.data.read_binary_files" title="ray.data.read_binary_files"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_binary_files()</span></code></a>.</p>
+</div>
+<input id="badecdd0-ceba-4921-8264-36d5041dae61" name="79b19aaa-f02c-4389-a0fa-c5146d7d5f8b" type="radio">
+</input><label class="tabbed-label" for="badecdd0-ceba-4921-8264-36d5041dae61">
+TFRecords</label><div class="tabbed-content docutils">
+<p>Call <a class="reference internal" href="api/doc/ray.data.read_tfrecords.html#ray.data.read_tfrecords" title="ray.data.read_tfrecords"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_tfrecords()</span></code></a> to read TFRecord files into a tabular
+<a class="reference internal" href="api/doc/ray.data.Datastream.html#ray.data.Datastream" title="ray.data.Datastream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Datastream</span></code></a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Only <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/train/Example">tf.train.Example</a>
+records are supported.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a tabular Datastream by reading a TFRecord file.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_tfrecords</span><span class="p">(</span><span class="s2">&quot;example://iris.tfrecords&quot;</span><span class="p">)</span>
+<span class="c1"># Datastream(</span>
+<span class="c1">#     num_blocks=1,</span>
+<span class="c1">#     num_rows=150,</span>
+<span class="c1">#     schema={</span>
+<span class="c1">#         sepal.length: float64,</span>
+<span class="c1">#         sepal.width: float64,</span>
+<span class="c1">#         petal.length: float64,</span>
+<span class="c1">#         petal.width: float64,</span>
+<span class="c1">#         label: object,</span>
+<span class="c1">#     },</span>
+<span class="c1"># )</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># {</span>
+<span class="c1">#     &quot;sepal.length&quot;: 5.099999904632568,</span>
+<span class="c1">#     &quot;sepal.width&quot;: 3.5,</span>
+<span class="c1">#     &quot;petal.length&quot;: 1.399999976158142,</span>
+<span class="c1">#     &quot;petal.width&quot;: 0.20000000298023224,</span>
+<span class="c1">#     &quot;label&quot;: b&quot;Setosa&quot;,</span>
+<span class="c1"># }</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="reading-from-remote-storage">
+<span id="datastream-reading-remote-storage"></span><h3>Reading from Remote Storage<a class="headerlink" href="creating-datastreams.html#reading-from-remote-storage" title="Permalink to this headline">#</a></h3>
+<p>All of the file formats mentioned above can be read from remote storage, such as S3,
+GCS, Azure Blob Storage, and HDFS. These storage systems are supported via Arrow’s
+filesystem APIs natively for S3 and HDFS, and as a wrapper around fsspec for GCS and
+HDFS. All <code class="docutils literal notranslate"><span class="pre">ray.data.read_*()</span></code> APIs expose a <code class="docutils literal notranslate"><span class="pre">filesystem</span></code> argument that accepts both
+<a class="reference external" href="https://arrow.apache.org/docs/python/filesystems.html">Arrow FileSystem</a> instances
+and <a class="reference external" href="https://filesystem-spec.readthedocs.io/en/latest/">fsspec FileSystem</a> instances,
+allowing you to configure this connection to the remote storage system, such as
+authn/authz and buffer/block size.</p>
+<p>For S3 and HDFS, the underlying <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.fs.FileSystem.html">FileSystem</a>
+implementation will be inferred from the URL scheme (<code class="docutils literal notranslate"><span class="pre">&quot;s3://&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;hdfs://&quot;</span></code>); if
+the default connection configuration suffices for your workload, you won’t need to
+specify a <code class="docutils literal notranslate"><span class="pre">filesystem</span></code> argument.</p>
+<p>We use Parquet files for the below examples, but all of the aforementioned file formats
+are supported for each of these storage systems.</p>
+<div class="tabbed-set docutils">
+<input checked="checked" id="db3e4ced-5e06-4872-80e5-261c85c71c6e" name="b35f2eff-04e4-4e79-9228-5597a6c1b207" type="radio">
+</input><label class="tabbed-label" for="db3e4ced-5e06-4872-80e5-261c85c71c6e">
+S3</label><div class="tabbed-content docutils">
+<p>The AWS S3 storage system is inferred from the URI scheme (<code class="docutils literal notranslate"><span class="pre">s3://</span></code>), with required connection
+configuration such as S3 credentials being pulled from the machine’s environment
+(e.g. the <code class="docutils literal notranslate"><span class="pre">AWS_ACCESS_KEY_ID</span></code> and <code class="docutils literal notranslate"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code> environment variables).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a tabular Datastream by reading a Parquet file from S3.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;s3://<a href="https://docs.ray.io/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e7868988899e8a889294a7868e95ca829f868a978b82ca83869386">[email&#160;protected]</a>/ursa-labs-taxi-data/by_year/2019/01/data.parquet&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(</span>
+<span class="c1">#        num_blocks=1,</span>
+<span class="c1">#        num_rows=7667792,</span>
+<span class="c1">#        schema={</span>
+<span class="c1">#            vendor_id: string,</span>
+<span class="c1">#            pickup_at: timestamp[us],</span>
+<span class="c1">#            dropoff_at: timestamp[us],</span>
+<span class="c1">#            passenger_count: int8,</span>
+<span class="c1">#            trip_distance: float,</span>
+<span class="c1">#            rate_code_id: string,</span>
+<span class="c1">#            store_and_fwd_flag: string,</span>
+<span class="c1">#            ...,</span>
+<span class="c1">#        },</span>
+<span class="c1">#    )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {</span>
+<span class="c1">#        &#39;vendor_id&#39;: &#39;1&#39;,</span>
+<span class="c1">#        &#39;pickup_at&#39;: datetime.datetime(2019, 1, 1, 0, 46, 40),</span>
+<span class="c1">#        &#39;dropoff_at&#39;: datetime.datetime(2019, 1, 1, 0, 53, 20),</span>
+<span class="c1">#        &#39;passenger_count&#39;: 1,</span>
+<span class="c1">#        &#39;trip_distance&#39;: 1.5,</span>
+<span class="c1">#        &#39;rate_code_id&#39;: &#39;1&#39;,</span>
+<span class="c1">#        &#39;store_and_fwd_flag&#39;: &#39;N&#39;, </span>
+<span class="c1">#        ...,</span>
+<span class="c1">#    }</span>
+<span class="c1">#    {</span>
+<span class="c1">#        &#39;vendor_id&#39;: &#39;1&#39;,</span>
+<span class="c1">#        &#39;pickup_at&#39;: datetime.datetime(2019, 1, 1, 0, 59, 47)</span>
+<span class="c1">#        &#39;dropoff_at&#39;: datetime.datetime(2019, 1, 1, 1, 18, 59),</span>
+<span class="c1">#        &#39;passenger_count&#39;: 1,</span>
+<span class="c1">#        &#39;trip_distance&#39;: 2.5999999046325684,</span>
+<span class="c1">#        &#39;rate_code_id&#39;: &#39;1&#39;,</span>
+<span class="c1">#        &#39;store_and_fwd_flag&#39;: &#39;N&#39;, </span>
+<span class="c1">#        ...,</span>
+<span class="c1">#    }</span>
+</pre></div>
+</div>
+<p>If needing to customize this S3 storage system connection (credentials, region,
+endpoint override, etc.), you can pass in an
+<a class="reference external" href="https://arrow.apache.org/docs/python/filesystems.html#s3">S3FileSystem</a> instance
+to <a class="reference internal" href="api/doc/ray.data.read_parquet.html#ray.data.read_parquet" title="ray.data.read_parquet"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_parquet()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+
+<span class="c1"># Create a tabular Datastream by reading a Parquet file from a private S3 bucket.</span>
+<span class="c1"># NOTE: This example is not runnable as-is; add in a path to your private bucket and the</span>
+<span class="c1"># required S3 credentials!</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span>
+    <span class="s2">&quot;s3://some/private/bucket&quot;</span><span class="p">,</span>
+    <span class="n">filesystem</span><span class="o">=</span><span class="n">pa</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">S3FileSystem</span><span class="p">(</span>
+        <span class="n">region</span><span class="o">=</span><span class="s2">&quot;us-west-2&quot;</span><span class="p">,</span>
+        <span class="n">access_key</span><span class="o">=</span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+        <span class="n">secret_key</span><span class="o">=</span><span class="s2">&quot;XXXX&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="1db87158-155e-48a2-88c0-450a93cc3e9c" name="b35f2eff-04e4-4e79-9228-5597a6c1b207" type="radio">
+</input><label class="tabbed-label" for="1db87158-155e-48a2-88c0-450a93cc3e9c">
+HDFS</label><div class="tabbed-content docutils">
+<p>The HDFS storage system is inferred from the URI scheme (<code class="docutils literal notranslate"><span class="pre">hdfs://</span></code>), with required connection
+configuration such as the host and the port being derived from the URI.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This example is not runnable as-is; you’ll need to point it at your HDFS
+cluster/data.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a tabular Datastream by reading a Parquet file from HDFS using HDFS connection</span>
+<span class="c1"># automatically constructed based on the URI.</span>
+<span class="c1"># NOTE: This example is not runnable as-is; you&#39;ll need to point it at your HDFS</span>
+<span class="c1"># cluster/data.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;hdfs://&lt;host:port&gt;/path/to/file.parquet&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If needing to customize this HDFS storage system connection (host, port, user, kerb
+ticket, etc.), you can pass in an <a class="reference external" href="https://arrow.apache.org/docs/python/filesystems.html#hadoop-distributed-file-system-hdfs">HDFSFileSystem</a>
+instance to <a class="reference internal" href="api/doc/ray.data.read_parquet.html#ray.data.read_parquet" title="ray.data.read_parquet"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_parquet()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+
+<span class="c1"># Create a tabular Datastream by reading a Parquet file from HDFS, manually specifying a</span>
+<span class="c1"># configured HDFS connection via a Pyarrow HDFSFileSystem instance.</span>
+<span class="c1"># NOTE: This example is not runnable as-is; you&#39;ll need to point it at your HDFS</span>
+<span class="c1"># cluster/data.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span>
+    <span class="s2">&quot;hdfs://path/to/file.parquet&quot;</span><span class="p">,</span>
+    <span class="n">filesystem</span><span class="o">=</span><span class="n">pa</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">HDFSFileSystem</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">9000</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s2">&quot;bob&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="aaac9220-8068-4786-a349-6d573a5f257c" name="b35f2eff-04e4-4e79-9228-5597a6c1b207" type="radio">
+</input><label class="tabbed-label" for="aaac9220-8068-4786-a349-6d573a5f257c">
+GCS</label><div class="tabbed-content docutils">
+<p>Data can be read from Google Cloud Storage by providing a configured
+<a class="reference external" href="https://gcsfs.readthedocs.io/en/latest/">gcsfs GCSFileSystem</a>, where the
+appropriate Google Cloud project and credentials can be specified.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This example is not runnable as-is; you’ll need to point it at your GCS bucket and
+configure your GCP project and credentials.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gcsfs</span>
+
+<span class="c1"># Create a tabular Datastream by reading a Parquet file from GCS, passing the configured</span>
+<span class="c1"># GCSFileSystem.</span>
+<span class="c1"># NOTE: This example is not runnable as-is; you need to point it at your GCS bucket</span>
+<span class="c1"># and configure your GCP project and credentials.</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;gs://path/to/file.parquet&quot;</span>
+<span class="n">filesystem</span> <span class="o">=</span> <span class="n">gcsfs</span><span class="o">.</span><span class="n">GCSFileSystem</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="s2">&quot;my-google-project&quot;</span><span class="p">)</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">filesystem</span><span class="o">=</span><span class="n">filesystem</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To verify that your GCP project and credentials are set up, validate
+that the GCS <code class="xref py py-obj docutils literal notranslate"><span class="pre">filesystem</span></code> has permissions to read the input <code class="xref py py-obj docutils literal notranslate"><span class="pre">path</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">filesystem</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+<span class="c1"># [&#39;path/to/file.parquet&#39;]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filesystem</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+<span class="c1"># &lt;File-like object GCSFileSystem, path/to/file.parquet&gt;</span>
+</pre></div>
+</div>
+<p>For more examples, see the <a class="reference external" href="https://gcsfs.readthedocs.io/en/latest/#examples">GCSFS Documentation</a>.</p>
+</div>
+</div>
+<input id="c53e8523-f99d-4b8a-b4d0-046b6124163c" name="b35f2eff-04e4-4e79-9228-5597a6c1b207" type="radio">
+</input><label class="tabbed-label" for="c53e8523-f99d-4b8a-b4d0-046b6124163c">
+ADL/ABS (Azure)</label><div class="tabbed-content docutils">
+<p>Data can be read from Azure Blob Storage by providing a configured
+<a class="reference external" href="https://github.com/fsspec/adlfs">adlfs AzureBlobFileSystem</a>, where the appropriate
+account name and account key can be specified.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">adlfs</span>
+
+<span class="c1"># Create a tabular Datastream by reading a Parquet file from Azure Blob Storage, passing</span>
+<span class="c1"># the configured AzureBlobFileSystem.</span>
+<span class="n">path</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;az://nyctlc/yellow/puYear=2009/puMonth=1/&quot;</span>
+    <span class="s2">&quot;part-00019-tid-8898858832658823408-a1de80bd-eed3-4d11-b9d4-fa74bfbd47bc-426333-4&quot;</span>
+    <span class="s2">&quot;.c000.snappy.parquet&quot;</span>
+<span class="p">)</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">,</span>
+    <span class="n">filesystem</span><span class="o">=</span><span class="n">adlfs</span><span class="o">.</span><span class="n">AzureBlobFileSystem</span><span class="p">(</span><span class="n">account_name</span><span class="o">=</span><span class="s2">&quot;azureopendatastorage&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="reading-from-local-storage">
+<h3>Reading from Local Storage<a class="headerlink" href="creating-datastreams.html#reading-from-local-storage" title="Permalink to this headline">#</a></h3>
+<p>In Ray Data, users often read from remote storage systems as described above. In
+some use cases, users may want to read from local storage. There are three ways to read
+from a local filesystem:</p>
+<ul class="simple">
+<li><p><strong>Providing a local filesystem path</strong>: For example, in <code class="docutils literal notranslate"><span class="pre">ray.data.read_csv(&quot;my_file.csv&quot;)</span></code>,
+the given path will be resolved as a local filesystem path.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the file exists only on the local node and you run this read operation in
+distributed cluster, this will fail as it cannot access the file from remote node.</p>
+</div>
+<ul class="simple">
+<li><p><strong>Using ``local://`` custom URI scheme</strong>: Similarly, this will be resolved to local
+filesystem, e.g. <code class="docutils literal notranslate"><span class="pre">ray.data.read_csv(&quot;local://my_file.csv&quot;)</span></code> will read the
+same file as the approach above. The difference is that this scheme will ensure
+all read tasks happen on the local node, so it’s safe to run in a distributed
+cluster.</p></li>
+<li><p><strong>Using ``example://`` custom URI scheme</strong>: The paths with this scheme will be resolved
+to <code class="docutils literal notranslate"><span class="pre">ray/data/examples/data</span></code> directory in the Ray package. This scheme is used
+only for testing or demoing examples.</p></li>
+</ul>
+</section>
+<section id="reading-compressed-files">
+<h3>Reading Compressed Files<a class="headerlink" href="creating-datastreams.html#reading-compressed-files" title="Permalink to this headline">#</a></h3>
+<p>Ray Data supports reading compressed files using the <code class="docutils literal notranslate"><span class="pre">arrow_open_stream_args</span></code> arg.
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.CompressedInputStream.html">Codecs supported by Arrow</a>
+(bz2, brotli, gzip, lz4 or zstd) are compatible with Ray Data.
+For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read a gzip-compressed CSV file from S3.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;s3://<a href="https://docs.ray.io/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="20414e4f4e594d4f5553604149520d4558414d504c450d44415441">[email&#160;protected]</a>/gzip_compressed.csv&quot;</span><span class="p">,</span>
+    <span class="n">arrow_open_stream_args</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;compression&quot;</span><span class="p">:</span> <span class="s2">&quot;gzip&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="from-in-memory-data">
+<span id="datastream-from-in-memory-data"></span><h2>From In-Memory Data<a class="headerlink" href="creating-datastreams.html#from-in-memory-data" title="Permalink to this headline">#</a></h2>
+<p>Datastreams can be constructed from existing in-memory data. In addition to being able to
+construct a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> from plain Python objects, Datastreams also interoperates with popular
+single-node libraries (<a class="reference external" href="https://pandas.pydata.org/">Pandas</a>,
+<a class="reference external" href="https://numpy.org/">NumPy</a>, <a class="reference external" href="https://arrow.apache.org/">Arrow</a>) as well as
+distributed frameworks (<a class="reference internal" href="dask-on-ray.html#dask-on-ray"><span class="std std-ref">Dask</span></a>, <a class="reference internal" href="raydp.html#spark-on-ray"><span class="std std-ref">Spark</span></a>,
+<a class="reference internal" href="modin/index.html#modin-on-ray"><span class="std std-ref">Modin</span></a>, <a class="reference internal" href="mars-on-ray.html#mars-on-ray"><span class="std std-ref">Mars</span></a>).</p>
+<section id="from-single-node-data-libraries">
+<span id="datastream-from-in-memory-data-single-node"></span><h3>From Single-Node Data Libraries<a class="headerlink" href="creating-datastreams.html#from-single-node-data-libraries" title="Permalink to this headline">#</a></h3>
+<p>In this section, we demonstrate creating a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> from single-node in-memory data.</p>
+<div class="tabbed-set docutils">
+<input checked="checked" id="c177f657-f0cb-400a-8949-5542fab221a0" name="34a5b603-a898-4459-934f-c1cbc3178bac" type="radio">
+</input><label class="tabbed-label" for="c177f657-f0cb-400a-8949-5542fab221a0">
+Pandas</label><div class="tabbed-content docutils">
+<p>Create a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> from a Pandas DataFrame. This constructs a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>
+backed by a single Pandas DataFrame block.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Create a tabular Datastream from a Pandas DataFrame.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;col1&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)),</span> <span class="s2">&quot;col2&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)))})</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="c1"># -&gt; MaterializedDatastream(num_blocks=1, num_rows=10000, schema={col1: int64, col2: object})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 0, &#39;col2&#39;: &#39;0&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 1, &#39;col2&#39;: &#39;1&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 2, &#39;col2&#39;: &#39;2&#39;}</span>
+</pre></div>
+</div>
+<p>We can also build a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> from more than one Pandas DataFrame, where each said
+DataFrame will become a block in the <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span>
+<span class="n">num_chunks</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">chunk_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">//</span> <span class="n">num_chunks</span>
+<span class="n">chunks</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">chunk_size</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">chunk_size</span><span class="p">)]</span>
+<span class="n">dfs</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;col1&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">chunk</span><span class="p">),</span> <span class="s2">&quot;col2&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">chunk</span><span class="p">))})</span>
+    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span>
+<span class="p">]</span>
+<span class="c1"># Create a tabular Datastream from multiple Pandas DataFrames.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span>
+<span class="c1"># -&gt; MaterializedDatastream(num_blocks=10, num_rows=10000, schema={col1: int64, col2: object})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 0, &#39;col2&#39;: &#39;0&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 1, &#39;col2&#39;: &#39;1&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 2, &#39;col2&#39;: &#39;2&#39;}</span>
+</pre></div>
+</div>
+</div>
+<input id="674f9a85-e297-4a32-803d-7891352034f8" name="34a5b603-a898-4459-934f-c1cbc3178bac" type="radio">
+</input><label class="tabbed-label" for="674f9a85-e297-4a32-803d-7891352034f8">
+NumPy</label><div class="tabbed-content docutils">
+<p>Create a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> from a NumPy ndarray. This constructs a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>
+backed by a single-column Arrow table block; the outer dimension of the ndarray
+will be treated as the row dimension, and the column will have name <code class="docutils literal notranslate"><span class="pre">&quot;__value__&quot;</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Create a tensor Datastream from a 3D NumPy ndarray.</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="c1"># The outer dimension is treated as the row dimension.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+<span class="c1"># -&gt; MaterializedDatastream(</span>
+<span class="c1">#        num_blocks=1,</span>
+<span class="c1">#        num_rows=3,</span>
+<span class="c1">#        schema={__value__: numpy.ndarray(shape=(4, 4), dtype=double)}</span>
+<span class="c1">#    )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;value&#39;: array([[1., 1., 1., 1.],</span>
+<span class="c1">#        [1., 1., 1., 1.],</span>
+<span class="c1">#        [1., 1., 1., 1.],</span>
+<span class="c1">#        [1., 1., 1., 1.]])}</span>
+<span class="c1"># -&gt; {&#39;value&#39;: array([[1., 1., 1., 1.],</span>
+<span class="c1">#        [1., 1., 1., 1.],</span>
+<span class="c1">#        [1., 1., 1., 1.],</span>
+<span class="c1">#        [1., 1., 1., 1.]])}</span>
+</pre></div>
+</div>
+<p>We can also build a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> from more than one NumPy ndarray, where each said
+ndarray will become a single-column Arrow table block in the <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Create a tensor Datastream from multiple 3D NumPy ndarray.</span>
+<span class="n">arrs</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+<span class="c1"># The outer dimension is treated as the row dimension.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">arrs</span><span class="p">)</span>
+<span class="c1"># -&gt; MaterializedDatastream(</span>
+<span class="c1">#        num_blocks=4,</span>
+<span class="c1">#        num_rows=8,</span>
+<span class="c1">#        schema={__value__: numpy.ndarray(shape=(4, 4), dtype=double)}</span>
+<span class="c1">#    )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;value&#39;: array([[0.06587483, 0.67808656, 0.76461924, 0.83428549],</span>
+<span class="c1">#        [0.04932103, 0.25112165, 0.26476714, 0.24599738],</span>
+<span class="c1">#        [0.67624391, 0.58689537, 0.12594709, 0.94663371],</span>
+<span class="c1">#        [0.32435665, 0.97719096, 0.03234169, 0.71563231]])}</span>
+<span class="c1"># -&gt; {&#39;value&#39;: array([[0.98570318, 0.65956399, 0.82168898, 0.09798336],</span>
+<span class="c1">#        [0.22426704, 0.34209978, 0.02605247, 0.48200137],</span>
+<span class="c1">#        [0.17312096, 0.38789983, 0.42663678, 0.92652456],</span>
+<span class="c1">#        [0.80787394, 0.92437162, 0.11185822, 0.3319638 ]])}</span>
+</pre></div>
+</div>
+</div>
+<input id="105fe387-5fde-4462-b7e8-b45134928971" name="34a5b603-a898-4459-934f-c1cbc3178bac" type="radio">
+</input><label class="tabbed-label" for="105fe387-5fde-4462-b7e8-b45134928971">
+Arrow</label><div class="tabbed-content docutils">
+<p>Create a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> from an
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.Table.html">Arrow Table</a>.
+This constructs a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> backed by a single Arrow <code class="docutils literal notranslate"><span class="pre">Table</span></code> block.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+
+<span class="c1"># Create a tabular Datastream from an Arrow Table.</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">table</span><span class="p">({</span><span class="s2">&quot;col1&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)),</span> <span class="s2">&quot;col2&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)))})</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_arrow</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="c1"># -&gt; MaterializedDatastream(num_blocks=1, num_rows=10000, schema={col1: int64, col2: string})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 0, &#39;col2&#39;: &#39;0&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 1, &#39;col2&#39;: &#39;1&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 2, &#39;col2&#39;: &#39;2&#39;}</span>
+</pre></div>
+</div>
+<p>We can also build a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> from more than one Arrow Table, where each said
+<code class="docutils literal notranslate"><span class="pre">Table</span></code> will become a block in the <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span>
+<span class="n">num_chunks</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">chunk_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">//</span> <span class="n">num_chunks</span>
+<span class="n">chunks</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">chunk_size</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">chunk_size</span><span class="p">)]</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">pa</span><span class="o">.</span><span class="n">table</span><span class="p">({</span><span class="s2">&quot;col1&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">chunk</span><span class="p">),</span> <span class="s2">&quot;col2&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">chunk</span><span class="p">))})</span>
+    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span>
+<span class="p">]</span>
+<span class="c1"># Create a tabular Datastream from multiple Arrow Tables.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_arrow</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+<span class="c1"># -&gt; MaterializedDatastream(num_blocks=10, num_rows=10000, schema={col1: int64, col2: string})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 0, &#39;col2&#39;: &#39;0&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 1, &#39;col2&#39;: &#39;1&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 2, &#39;col2&#39;: &#39;2&#39;}</span>
+</pre></div>
+</div>
+</div>
+<input id="e1ab1100-1654-4822-b73e-30d6d1c203d4" name="34a5b603-a898-4459-934f-c1cbc3178bac" type="radio">
+</input><label class="tabbed-label" for="e1ab1100-1654-4822-b73e-30d6d1c203d4">
+Python Objects</label><div class="tabbed-content docutils">
+<p>Create a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> from a list of Python objects; since each object in this
+particular list is a dictionary, Datastreams will treat this list as a list of tabular
+records, and will construct an Arrow <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Datastream of tabular (Arrow) records.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_items</span><span class="p">([{</span><span class="s2">&quot;col1&quot;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;col2&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)}</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)])</span>
+<span class="c1"># -&gt; MaterializedDatastream(num_blocks=200, num_rows=10000, schema={col1: int64, col2: string})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 0, &#39;col2&#39;: &#39;0&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 1, &#39;col2&#39;: &#39;1&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 2, &#39;col2&#39;: &#39;2&#39;}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="from-distributed-data-processing-frameworks">
+<span id="datastream-from-in-memory-data-distributed"></span><h3>From Distributed Data Processing Frameworks<a class="headerlink" href="creating-datastreams.html#from-distributed-data-processing-frameworks" title="Permalink to this headline">#</a></h3>
+<p>In addition to working with single-node in-memory data, Datastreams can be constructed from
+distributed (multi-node) in-memory data, interoperating with popular distributed
+data processing frameworks such as <a class="reference internal" href="dask-on-ray.html#dask-on-ray"><span class="std std-ref">Dask</span></a>, <a class="reference internal" href="raydp.html#spark-on-ray"><span class="std std-ref">Spark</span></a>,
+<a class="reference internal" href="modin/index.html#modin-on-ray"><span class="std std-ref">Modin</span></a>, and <a class="reference internal" href="mars-on-ray.html#mars-on-ray"><span class="std std-ref">Mars</span></a>.</p>
+<p>These conversions work by running Ray tasks converting each Dask/Spark/Modin/Mars
+data partition to a block format supported by Datastreams (copying data if needed), and using the
+futures representing the return value of those conversion tasks as the <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> block
+futures.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These data processing frameworks must be running on Ray in order for these Datastreams
+integrations to work. See how these frameworks can be run on Ray in our
+<a class="reference internal" href="integrations.html#data-integrations"><span class="std std-ref">data processing integrations docs</span></a>.</p>
+</div>
+<div class="tabbed-set docutils">
+<input checked="checked" id="75bd8bb2-ae24-4227-924c-afe1d58ce5fe" name="7ace1387-fecc-463a-b31b-b92ec98a8e5a" type="radio">
+</input><label class="tabbed-label" for="75bd8bb2-ae24-4227-924c-afe1d58ce5fe">
+Dask</label><div class="tabbed-content docutils">
+<p>Create a <code class="docutils literal notranslate"><span class="pre">MaterializedDatastream</span></code> from a
+<a class="reference external" href="https://docs.dask.org/en/stable/dataframe.html">Dask DataFrame</a>. This constructs a
+<code class="docutils literal notranslate"><span class="pre">Datastream</span></code> backed by the distributed Pandas DataFrame partitions that underly the
+Dask DataFrame.</p>
+<p>This conversion has near-zero overhead, since Datastreams simply reinterprets existing
+Dask-in-Ray partition objects as Datastream blocks.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;col1&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)),</span> <span class="s2">&quot;col2&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)))})</span>
+<span class="n">ddf</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">npartitions</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1"># Create a tabular Datastream from a Dask DataFrame.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_dask</span><span class="p">(</span><span class="n">ddf</span><span class="p">)</span>
+<span class="c1"># -&gt; MaterializedDatastream(num_blocks=10, num_rows=10000, schema={col1: int64, col2: object})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 0, &#39;col2&#39;: &#39;0&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 1, &#39;col2&#39;: &#39;1&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 2, &#39;col2&#39;: &#39;2&#39;}</span>
+</pre></div>
+</div>
+</div>
+<input id="a35cd2d1-4606-48ba-8395-d7e783955dec" name="7ace1387-fecc-463a-b31b-b92ec98a8e5a" type="radio">
+</input><label class="tabbed-label" for="a35cd2d1-4606-48ba-8395-d7e783955dec">
+Spark</label><div class="tabbed-content docutils">
+<p>Create a <code class="docutils literal notranslate"><span class="pre">MaterializedDatastream</span></code> from a <a class="reference external" href="https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/dataframe.html">Spark DataFrame</a>.
+This constructs a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> backed by the distributed Spark DataFrame partitions
+that underly the Spark DataFrame. When this conversion happens, Spark-on-Ray (RayDP)
+will save the Spark DataFrame partitions to Ray’s object store in the Arrow format,
+which Datastreams will then interpret as its blocks.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">raydp</span>
+
+<span class="n">spark</span> <span class="o">=</span> <span class="n">raydp</span><span class="o">.</span><span class="n">init_spark</span><span class="p">(</span><span class="n">app_name</span><span class="o">=</span><span class="s2">&quot;Spark -&gt; Datastreams Example&quot;</span><span class="p">,</span>
+                         <span class="n">num_executors</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                         <span class="n">executor_cores</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                         <span class="n">executor_memory</span><span class="o">=</span><span class="s2">&quot;500MB&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">([(</span><span class="n">i</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)],</span> <span class="p">[</span><span class="s2">&quot;col1&quot;</span><span class="p">,</span> <span class="s2">&quot;col2&quot;</span><span class="p">])</span>
+<span class="c1"># Create a tabular Datastream from a Spark DataFrame.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_spark</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="c1"># -&gt; MaterializedDatastream(num_blocks=10, num_rows=10000, schema={col1: int64, col2: string})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 0, &#39;col2&#39;: &#39;0&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 1, &#39;col2&#39;: &#39;1&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 2, &#39;col2&#39;: &#39;2&#39;}</span>
+</pre></div>
+</div>
+</div>
+<input id="53777ad3-5a7f-498b-a584-24d52e6bce0b" name="7ace1387-fecc-463a-b31b-b92ec98a8e5a" type="radio">
+</input><label class="tabbed-label" for="53777ad3-5a7f-498b-a584-24d52e6bce0b">
+Modin</label><div class="tabbed-content docutils">
+<p>Create a <code class="docutils literal notranslate"><span class="pre">MaterializedDatastream</span></code> from a Modin DataFrame. This constructs a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>
+backed by the distributed Pandas DataFrame partitions that underly the Modin DataFrame.</p>
+<p>This conversion has near-zero overhead, since Datastreams simply reinterprets existing
+Modin partition objects as Datastream blocks.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">modin.pandas</span> <span class="k">as</span> <span class="nn">md</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;col1&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)),</span> <span class="s2">&quot;col2&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)))})</span>
+<span class="n">mdf</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="c1"># Create a tabular Datastream from a Modin DataFrame.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_modin</span><span class="p">(</span><span class="n">mdf</span><span class="p">)</span>
+<span class="c1"># -&gt; MaterializedDatastream(num_blocks=8, num_rows=10000, schema={col1: int64, col2: object})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 0, &#39;col2&#39;: &#39;0&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 1, &#39;col2&#39;: &#39;1&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 2, &#39;col2&#39;: &#39;2&#39;}</span>
+</pre></div>
+</div>
+</div>
+<input id="1f47bc9d-6c4e-4838-9cee-ac6940d018a3" name="7ace1387-fecc-463a-b31b-b92ec98a8e5a" type="radio">
+</input><label class="tabbed-label" for="1f47bc9d-6c4e-4838-9cee-ac6940d018a3">
+Mars</label><div class="tabbed-content docutils">
+<p>Create a <code class="docutils literal notranslate"><span class="pre">MaterializedDatastream</span></code> from a Mars DataFrame. This constructs a <code class="docutils literal notranslate"><span class="pre">Datastream</span></code>
+backed by the distributed Pandas DataFrame partitions that underly the Mars DataFrame.</p>
+<p>This conversion has near-zero overhead, since Datastreams simply reinterprets existing
+Mars partition objects as Datastream blocks.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mars</span>
+<span class="kn">import</span> <span class="nn">mars.dataframe</span> <span class="k">as</span> <span class="nn">md</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">mars</span><span class="o">.</span><span class="n">new_cluster_in_ray</span><span class="p">(</span><span class="n">worker_num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">worker_cpu</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;col1&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)),</span> <span class="s2">&quot;col2&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">)))})</span>
+<span class="n">mdf</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">num_partitions</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="c1"># Create a tabular Datastream from a Mars DataFrame.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_mars</span><span class="p">(</span><span class="n">mdf</span><span class="p">)</span>
+<span class="c1"># -&gt; MaterializedDatastream(num_blocks=8, num_rows=10000, schema={col1: int64, col2: object})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 0, &#39;col2&#39;: &#39;0&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 1, &#39;col2&#39;: &#39;1&#39;}</span>
+<span class="c1"># -&gt; {&#39;col1&#39;: 2, &#39;col2&#39;: &#39;2&#39;}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="from-torch-and-tensorflow">
+<span id="datastream-from-torch-tf"></span><h2>From Torch and TensorFlow<a class="headerlink" href="creating-datastreams.html#from-torch-and-tensorflow" title="Permalink to this headline">#</a></h2>
+<div class="tabbed-set docutils">
+<input checked="checked" id="81ddff76-28b6-452b-8da2-a672cb15905d" name="2ade0348-6f1a-4b65-9cbf-8f8415faf50c" type="radio">
+</input><label class="tabbed-label" for="81ddff76-28b6-452b-8da2-a672cb15905d">
+PyTorch</label><div class="tabbed-content docutils">
+<p>If you already have a Torch dataset available, you can create a Datastream using
+<a class="reference internal" href="api/doc/ray.data.from_torch.html#ray.data.from_torch" title="ray.data.from_torch"><code class="xref py py-class docutils literal notranslate"><span class="pre">from_torch</span></code></a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><a class="reference internal" href="api/doc/ray.data.from_torch.html#ray.data.from_torch" title="ray.data.from_torch"><code class="xref py py-class docutils literal notranslate"><span class="pre">from_torch</span></code></a> doesn’t support parallel
+reads. You should only use this datasource for small datastreams like MNIST or
+CIFAR.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">torchvision</span>
+
+<span class="n">torch_ds</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_torch</span><span class="p">(</span><span class="n">torch_ds</span><span class="p">)</span>
+<span class="n">datastream</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># (&lt;PIL.Image.Image image mode=L size=28x28 at 0x1142CCA60&gt;, 5)</span>
+</pre></div>
+</div>
+</div>
+<input id="b390e430-2e23-422b-a605-ef385e9451aa" name="2ade0348-6f1a-4b65-9cbf-8f8415faf50c" type="radio">
+</input><label class="tabbed-label" for="b390e430-2e23-422b-a605-ef385e9451aa">
+TensorFlow</label><div class="tabbed-content docutils">
+<p>If you already have a TensorFlow dataset available, you can create a Datastream
+using <a class="reference internal" href="api/doc/ray.data.from_tf.html#ray.data.from_tf" title="ray.data.from_tf"><code class="xref py py-class docutils literal notranslate"><span class="pre">from_tf</span></code></a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><a class="reference internal" href="api/doc/ray.data.from_tf.html#ray.data.from_tf" title="ray.data.from_tf"><code class="xref py py-class docutils literal notranslate"><span class="pre">from_tf</span></code></a> doesn’t support parallel reads. You
+should only use this function with small datastreams like MNIST or CIFAR.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">tensorflow_datasets</span> <span class="k">as</span> <span class="nn">tfds</span>
+
+<span class="n">tf_ds</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">tfds</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;cifar10&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">])</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_tf</span><span class="p">(</span><span class="n">tf_ds</span><span class="p">)</span>
+
+<span class="n">datastream</span>
+<span class="c1"># -&gt; MaterializedDatastream(num_blocks=200, num_rows=50000, schema={id: binary, image: numpy.ndarray(shape=(32, 32, 3), dtype=uint8), label: int64})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="from-hugging-face-datasets">
+<span id="datastream-from-huggingface"></span><h2>From 🤗 (Hugging Face) Datasets<a class="headerlink" href="creating-datastreams.html#from-hugging-face-datasets" title="Permalink to this headline">#</a></h2>
+<p>You can convert 🤗 Datasets into Ray Data by using
+<a class="reference internal" href="api/doc/ray.data.from_huggingface.html#ray.data.from_huggingface" title="ray.data.from_huggingface"><code class="xref py py-class docutils literal notranslate"><span class="pre">from_huggingface</span></code></a>. This function accesses the underlying Arrow table and
+converts it into a Datastream directly.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><a class="reference internal" href="api/doc/ray.data.from_huggingface.html#ray.data.from_huggingface" title="ray.data.from_huggingface"><code class="xref py py-class docutils literal notranslate"><span class="pre">from_huggingface</span></code></a> doesn’t support parallel
+reads. This will not usually be an issue with in-memory 🤗 Datasets,
+but may fail with large memory-mapped 🤗 Datasets. 🤗 <code class="docutils literal notranslate"><span class="pre">IterableDatastream</span></code>
+objects are not supported.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray.data</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+
+<span class="n">hf_ds</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;wikitext&quot;</span><span class="p">,</span> <span class="s2">&quot;wikitext-2-raw-v1&quot;</span><span class="p">)</span>
+<span class="n">ray_ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_huggingface</span><span class="p">(</span><span class="n">hf_ds</span><span class="p">)</span>
+<span class="n">ray_ds</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># [{&#39;text&#39;: &#39;&#39;}, {&#39;text&#39;: &#39; = Valkyria Chronicles III = \n&#39;}]</span>
+</pre></div>
+</div>
+</section>
+<section id="from-mongodb">
+<span id="datastream-mongo-db"></span><h2>From MongoDB<a class="headerlink" href="creating-datastreams.html#from-mongodb" title="Permalink to this headline">#</a></h2>
+<p>A Datastream can also be created from <a class="reference external" href="https://www.mongodb.com/">MongoDB</a> with
+<a class="reference internal" href="api/doc/ray.data.read_mongo.html#ray.data.read_mongo" title="ray.data.read_mongo"><code class="xref py py-class docutils literal notranslate"><span class="pre">read_mongo</span></code></a>.
+This interacts with MongoDB similar to external filesystems, except here you will
+need to specify the MongoDB source by its <a class="reference external" href="https://www.mongodb.com/docs/manual/reference/connection-string/">uri</a>,
+<a class="reference external" href="https://www.mongodb.com/docs/manual/core/databases-and-collections/">database and collection</a>,
+and specify a <a class="reference external" href="https://www.mongodb.com/docs/manual/core/aggregation-pipeline/">pipeline</a> to run against
+the collection. The execution results are then used to create a Datastream.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This example is not runnable as-is; you’ll need to point it at your MongoDB
+instance.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+
+<span class="c1"># Read a local MongoDB.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_mongo</span><span class="p">(</span>
+    <span class="n">uri</span><span class="o">=</span><span class="s2">&quot;mongodb://localhost:27017&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;my_db&quot;</span><span class="p">,</span>
+    <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;my_collection&quot;</span><span class="p">,</span>
+    <span class="n">pipeline</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;$match&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;col&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;$gte&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;$lt&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}}},</span> <span class="p">{</span><span class="s2">&quot;$sort&quot;</span><span class="p">:</span> <span class="s2">&quot;sort_col&quot;</span><span class="p">}],</span>
+<span class="p">)</span>
+
+<span class="c1"># Reading a remote MongoDB is the same.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_mongo</span><span class="p">(</span>
+    <span class="n">uri</span><span class="o">=</span><span class="s2">&quot;mongodb://username:<a href="https://docs.ray.io/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcccddcfcfcbd3ced8fcd1d3d2dbd3d8de8c92d9c4ddd1ccd0d992dfd3d1">[email&#160;protected]</a>:27017/?authSource=admin&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;my_db&quot;</span><span class="p">,</span>
+    <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;my_collection&quot;</span><span class="p">,</span>
+    <span class="n">pipeline</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;$match&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;col&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;$gte&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;$lt&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}}},</span> <span class="p">{</span><span class="s2">&quot;$sort&quot;</span><span class="p">:</span> <span class="s2">&quot;sort_col&quot;</span><span class="p">}],</span>
+<span class="p">)</span>
+
+<span class="c1"># Write back to MongoDB.</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">write_mongo</span><span class="p">(</span>
+    <span class="n">MongoDatasource</span><span class="p">(),</span>
+    <span class="n">uri</span><span class="o">=</span><span class="s2">&quot;mongodb://username:<a href="https://docs.ray.io/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d6d7c6e6e6a726f795d7072737a72797f2d3378657c706d7178337e7270">[email&#160;protected]</a>:27017/?authSource=admin&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;my_db&quot;</span><span class="p">,</span>
+    <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;my_collection&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="reading-from-sql-databases">
+<span id="datastreams-sql-databases"></span><h2>Reading From SQL Databases<a class="headerlink" href="creating-datastreams.html#reading-from-sql-databases" title="Permalink to this headline">#</a></h2>
+<p>Call <a class="reference internal" href="api/doc/ray.data.read_sql.html#ray.data.read_sql" title="ray.data.read_sql"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_sql()</span></code></a> to read data from a database that provides a
+<a class="reference external" href="https://peps.python.org/pep-0249/">Python DB API2-compliant</a> connector.</p>
+<div class="tabbed-set docutils">
+<input checked="checked" id="b96b4719-6d65-417a-b1f3-73621169b10f" name="38fa331c-ae0b-4fe4-bf41-634663ca6f5b" type="radio">
+</input><label class="tabbed-label" for="b96b4719-6d65-417a-b1f3-73621169b10f">
+MySQL</label><div class="tabbed-content docutils">
+<p>To read from MySQL, install
+<a class="reference external" href="https://dev.mysql.com/doc/connector-python/en/">MySQL Connector/Python</a>. It’s the
+first-party MySQL database connector.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install mysql-connector-python</span>
+</pre></div>
+</div>
+<p>Then, define your connection login and query the database.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mysql.connector</span>
+
+<span class="kn">import</span> <span class="nn">ray</span>
+
+<span class="k">def</span> <span class="nf">create_connection</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=...</span><span class="p">,</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;example-mysql-database.c2c2k1yfll7o.us-west-2.rds.amazonaws.com&quot;</span><span class="p">,</span>
+        <span class="n">connection_timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="n">database</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="c1"># Get all movies</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM movie&quot;</span><span class="p">,</span> <span class="n">create_connection</span><span class="p">)</span>
+<span class="c1"># Get movies after the year 1980</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT title, score FROM movie WHERE year &gt;= 1980&quot;</span><span class="p">,</span> <span class="n">create_connection</span>
+<span class="p">)</span>
+<span class="c1"># Get the number of movies per year</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT year, COUNT(*) FROM movie GROUP BY year&quot;</span><span class="p">,</span> <span class="n">create_connection</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="0e1dad8b-7132-4c38-966f-4e615cb0e47d" name="38fa331c-ae0b-4fe4-bf41-634663ca6f5b" type="radio">
+</input><label class="tabbed-label" for="0e1dad8b-7132-4c38-966f-4e615cb0e47d">
+PostgreSQL</label><div class="tabbed-content docutils">
+<p>To read from PostgreSQL, install <a class="reference external" href="https://www.psycopg.org/docs">Psycopg 2</a>. It’s
+the most popular PostgreSQL database connector.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install psycopg2-binary</span>
+</pre></div>
+</div>
+<p>Then, define your connection login and query the database.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">psycopg2</span>
+
+<span class="kn">import</span> <span class="nn">ray</span>
+
+<span class="k">def</span> <span class="nf">create_connection</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=...</span><span class="p">,</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;example-postgres-database.c2c2k1yfll7o.us-west-2.rds.amazonaws.com&quot;</span><span class="p">,</span>
+        <span class="n">dbname</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="c1"># Get all movies</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM movie&quot;</span><span class="p">,</span> <span class="n">create_connection</span><span class="p">)</span>
+<span class="c1"># Get movies after the year 1980</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT title, score FROM movie WHERE year &gt;= 1980&quot;</span><span class="p">,</span> <span class="n">create_connection</span>
+<span class="p">)</span>
+<span class="c1"># Get the number of movies per year</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT year, COUNT(*) FROM movie GROUP BY year&quot;</span><span class="p">,</span> <span class="n">create_connection</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="347265af-5995-4aca-92ba-0fe0d64483fd" name="38fa331c-ae0b-4fe4-bf41-634663ca6f5b" type="radio">
+</input><label class="tabbed-label" for="347265af-5995-4aca-92ba-0fe0d64483fd">
+Snowflake</label><div class="tabbed-content docutils">
+<p>To read from Snowflake, install the
+<a class="reference external" href="https://docs.snowflake.com/en/user-guide/python-connector">Snowflake Connector for Python</a>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install snowflake-connector-python</span>
+</pre></div>
+</div>
+<p>Then, define your connection login and query the database.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">snowflake.connector</span>
+
+<span class="kn">import</span> <span class="nn">ray</span>
+
+<span class="k">def</span> <span class="nf">create_connection</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">snowflake</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">user</span><span class="o">=...</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=...</span>
+        <span class="n">account</span><span class="o">=</span><span class="s2">&quot;ZZKXUVH-IPB52023&quot;</span><span class="p">,</span>
+        <span class="n">database</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="c1"># Get all movies</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM movie&quot;</span><span class="p">,</span> <span class="n">create_connection</span><span class="p">)</span>
+<span class="c1"># Get movies after the year 1980</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT title, score FROM movie WHERE year &gt;= 1980&quot;</span><span class="p">,</span> <span class="n">create_connection</span>
+<span class="p">)</span>
+<span class="c1"># Get the number of movies per year</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT year, COUNT(*) FROM movie GROUP BY year&quot;</span><span class="p">,</span> <span class="n">create_connection</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="fb8462e3-b069-4fdc-93ba-ad309275b696" name="38fa331c-ae0b-4fe4-bf41-634663ca6f5b" type="radio">
+</input><label class="tabbed-label" for="fb8462e3-b069-4fdc-93ba-ad309275b696">
+Databricks</label><div class="tabbed-content docutils">
+<p>To read from Databricks, install the
+<a class="reference external" href="https://docs.databricks.com/dev-tools/python-sql-connector.html">Databricks SQL Connector for Python</a>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install databricks-sql-connector</span>
+</pre></div>
+</div>
+<p>Then, define your connection logic and read from the Databricks SQL warehouse.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">databricks</span> <span class="kn">import</span> <span class="n">sql</span>
+
+<span class="kn">import</span> <span class="nn">ray</span>
+
+<span class="k">def</span> <span class="nf">create_connection</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">sql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">server_hostname</span><span class="o">=</span><span class="s2">&quot;dbc-1016e3a4-d292.cloud.databricks.com&quot;</span><span class="p">,</span>
+        <span class="n">http_path</span><span class="o">=</span><span class="s2">&quot;/sql/1.0/warehouses/a918da1fc0b7fed0&quot;</span><span class="p">,</span>
+        <span class="n">access_token</span><span class="o">=...</span><span class="p">,</span>
+
+
+<span class="c1"># Get all movies</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM movie&quot;</span><span class="p">,</span> <span class="n">create_connection</span><span class="p">)</span>
+<span class="c1"># Get movies after the year 1980</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT title, score FROM movie WHERE year &gt;= 1980&quot;</span><span class="p">,</span> <span class="n">create_connection</span>
+<span class="p">)</span>
+<span class="c1"># Get the number of movies per year</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT year, COUNT(*) FROM movie GROUP BY year&quot;</span><span class="p">,</span> <span class="n">create_connection</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="7c50ca08-6001-4e55-9d84-e8675da18272" name="38fa331c-ae0b-4fe4-bf41-634663ca6f5b" type="radio">
+</input><label class="tabbed-label" for="7c50ca08-6001-4e55-9d84-e8675da18272">
+BigQuery</label><div class="tabbed-content docutils">
+<p>To read from BigQuery, install the
+<a class="reference external" href="https://cloud.google.com/python/docs/reference/bigquery/latest">Python Client for Google BigQuery</a>.
+This package includes a DB API2-compliant database connector.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install google-cloud-bigquery</span>
+</pre></div>
+</div>
+<p>Then, define your connection login and query the dataset.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">google.cloud</span> <span class="kn">import</span> <span class="n">bigquery</span>
+<span class="kn">from</span> <span class="nn">google.cloud.bigquery</span> <span class="kn">import</span> <span class="n">dbapi</span>
+
+<span class="kn">import</span> <span class="nn">ray</span>
+
+<span class="k">def</span> <span class="nf">create_connection</span><span class="p">():</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dbapi</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+
+<span class="c1"># Get all movies</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM movie&quot;</span><span class="p">,</span> <span class="n">create_connection</span><span class="p">)</span>
+<span class="c1"># Get movies after the year 1980</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT title, score FROM movie WHERE year &gt;= 1980&quot;</span><span class="p">,</span> <span class="n">create_connection</span>
+<span class="p">)</span>
+<span class="c1"># Get the number of movies per year</span>
+<span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span>
+    <span class="s2">&quot;SELECT year, COUNT(*) FROM movie GROUP BY year&quot;</span><span class="p">,</span> <span class="n">create_connection</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="custom-datasources">
+<span id="data-custom-datasource"></span><h2>Custom Datasources<a class="headerlink" href="creating-datastreams.html#custom-datasources" title="Permalink to this headline">#</a></h2>
+<p>Datastreams can read and write in parallel to <a class="reference internal" href="api/input_output.html#data-source-api"><span class="std std-ref">custom datasources</span></a> defined in Python.
+Once you have implemented <code class="xref py py-obj docutils literal notranslate"><span class="pre">YourCustomDataSource</span></code>, you can use it like any other source in Ray Data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read from a custom datasource.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_datasource</span><span class="p">(</span><span class="n">YourCustomDatasource</span><span class="p">(),</span> <span class="o">**</span><span class="n">read_args</span><span class="p">)</span>
+
+<span class="c1"># Write to a custom datasource.</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">write_datasource</span><span class="p">(</span><span class="n">YourCustomDatasource</span><span class="p">(),</span> <span class="o">**</span><span class="n">write_args</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For more details, check out <a class="reference internal" href="custom-datasource.html#custom-datasources"><span class="std std-ref">guide for implementing a custom datasource</span></a>.</p>
+</section>
+<section id="performance-considerations">
+<h2>Performance Considerations<a class="headerlink" href="creating-datastreams.html#performance-considerations" title="Permalink to this headline">#</a></h2>
+<section id="read-parallelism">
+<h3>Read Parallelism<a class="headerlink" href="creating-datastreams.html#read-parallelism" title="Permalink to this headline">#</a></h3>
+<p>Datastreams automatically selects the read <code class="docutils literal notranslate"><span class="pre">parallelism</span></code> according to the following procedure:</p>
+<ol class="arabic simple">
+<li><p>The number of available CPUs is estimated. If in a placement group, the number of CPUs in the cluster is scaled by the size of the placement group compared to the cluster size. If not in a placement group, this is the number of CPUs in the cluster.</p></li>
+<li><p>The parallelism is set to the estimated number of CPUs multiplied by 2. If the parallelism is less than 8, it is set to 8.</p></li>
+<li><p>The in-memory data size is estimated. If the parallelism would create in-memory blocks that are larger on average than the target block size (512MiB), the parallelism is increased until the blocks are &lt; 512MiB in size.</p></li>
+<li><p>The parallelism is truncated to <code class="docutils literal notranslate"><span class="pre">min(num_files,</span> <span class="pre">parallelism)</span></code>.</p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">parallelism</span></code> determines the number of blocks the base data will be split into for parallel reads. Datastream will decide internally how many read tasks to run concurrently to best utilize the cluster, ranging from <code class="docutils literal notranslate"><span class="pre">1...parallelism</span></code> tasks. In other words, the higher the parallelism, the smaller the data blocks in the Datastream and hence the more opportunity for parallel execution.</p>
+<a class="reference internal image-reference" href="../_images/datastream-read.svg"><img alt="../_images/datastream-read.svg" class="align-center" src="../_images/datastream-read.svg" width="650px" /></a>
+<p>This default parallelism can be overridden via the <code class="docutils literal notranslate"><span class="pre">parallelism</span></code> argument; see the
+<a class="reference internal" href="performance-tips.html#data-performance-tips"><span class="std std-ref">performance guide</span></a>  for tips on how to tune this read
+parallelism.</p>
+</section>
+<section id="deferred-read-task-execution">
+<span id="datastream-deferred-reading"></span><h3>Deferred Read Task Execution<a class="headerlink" href="creating-datastreams.html#deferred-read-task-execution" title="Permalink to this headline">#</a></h3>
+<p>Datastreams created via the <code class="docutils literal notranslate"><span class="pre">ray.data.read_*()</span></code> APIs are lazy: no read tasks are
+executed until a downstream consumption operation triggers execution. Metadata
+inspection functions like <a class="reference internal" href="api/doc/ray.data.Datastream.schema.html#ray.data.Datastream.schema" title="ray.data.Datastream.schema"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.schema()</span></code></a> and
+<a class="reference internal" href="api/doc/ray.data.Datastream.show.html#ray.data.Datastream.show" title="ray.data.Datastream.show"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.show()</span></code></a> will trigger execution of only one or some
+tasks, instead of all tasks. This allows metadata to be inspected right away. Execution
+of all read tasks can be triggered manually using the
+<a class="reference internal" href="api/doc/ray.data.Datastream.materialize.html#ray.data.Datastream.materialize" title="ray.data.Datastream.materialize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.materialize()</span></code></a> API.</p>
+</section>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="user-guide.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">User Guides</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="transforming-datastreams.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Transforming Data</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

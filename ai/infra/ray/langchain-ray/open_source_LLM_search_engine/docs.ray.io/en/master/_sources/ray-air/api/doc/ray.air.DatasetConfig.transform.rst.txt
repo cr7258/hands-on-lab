@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.transform
+===============================
+
+.. currentmodule:: ray.air
+
+.. autoattribute:: DatasetConfig.transform

@@ -1,0 +1,6 @@
+ray.data.Datastream.get\_internal\_block\_refs
+==============================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.get_internal_block_refs

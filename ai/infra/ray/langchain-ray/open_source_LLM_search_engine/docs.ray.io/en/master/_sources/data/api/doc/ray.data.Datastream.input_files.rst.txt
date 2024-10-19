@@ -1,0 +1,6 @@
+ray.data.Datastream.input\_files
+================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.input_files

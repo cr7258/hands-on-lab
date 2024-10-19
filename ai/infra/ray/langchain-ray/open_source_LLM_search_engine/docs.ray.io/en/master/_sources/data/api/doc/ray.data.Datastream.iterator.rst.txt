@@ -1,0 +1,6 @@
+ray.data.Datastream.iterator
+============================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.iterator

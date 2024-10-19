@@ -1,0 +1,6 @@
+ray.data.datasource.WebDatasetDatasource.prepare\_read
+======================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: WebDatasetDatasource.prepare_read

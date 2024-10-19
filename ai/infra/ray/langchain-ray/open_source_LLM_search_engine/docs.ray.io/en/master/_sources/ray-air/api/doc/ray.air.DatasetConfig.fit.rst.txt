@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.fit
+=========================
+
+.. currentmodule:: ray.air
+
+.. autoattribute:: DatasetConfig.fit

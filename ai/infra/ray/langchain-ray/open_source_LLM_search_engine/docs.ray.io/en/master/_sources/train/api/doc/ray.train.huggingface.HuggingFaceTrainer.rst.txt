@@ -1,0 +1,35 @@
+﻿
+
+ray.train.huggingface.HuggingFaceTrainer
+========================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. autoclass:: HuggingFaceTrainer
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      
+      ~HuggingFaceTrainer.as_trainable
+      ~HuggingFaceTrainer.can_restore
+      ~HuggingFaceTrainer.fit
+      ~HuggingFaceTrainer.get_dataset_config
+      
+      ~HuggingFaceTrainer.restore
+      ~HuggingFaceTrainer.setup
+      
+
+   
+   
+
+
+   
+   
+   

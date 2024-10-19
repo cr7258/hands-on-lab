@@ -1,0 +1,6 @@
+ray.data.Datastream.sort
+========================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.sort

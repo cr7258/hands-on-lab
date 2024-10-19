@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceCheckpoint.uri
+===============================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. autoproperty:: HuggingFaceCheckpoint.uri

@@ -1,0 +1,860 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ray.serve.handle &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/versionwarning.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../../../_static/js/docsearch.js"></script>
+    <script src="../../../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../../../_static/js/termynal.js"></script>
+    <script defer="defer" src="../../../_static/js/custom.js"></script>
+    <script defer="defer" src="../../../_static/js/top-navigation.js"></script>
+    <script src="../../../_static/js/tags.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script async="async" src="../../../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/_modules/ray/serve/handle.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:35:18Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "_modules/ray/serve/handle", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2F_modules/ray/serve/handle.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for ray.serve.handle</h1><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">concurrent.futures</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Coroutine</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray._private.utils</span> <span class="kn">import</span> <span class="n">get_or_create_event_loop</span>
+<span class="kn">from</span> <span class="nn">ray.actor</span> <span class="kn">import</span> <span class="n">ActorHandle</span>
+
+<span class="kn">from</span> <span class="nn">ray</span> <span class="kn">import</span> <span class="n">serve</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.common</span> <span class="kn">import</span> <span class="n">EndpointTag</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">SERVE_HANDLE_JSON_KEY</span><span class="p">,</span>
+    <span class="n">SYNC_HANDLE_IN_DAG_FEATURE_FLAG_ENV_KEY</span><span class="p">,</span>
+    <span class="n">ServeHandleType</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">get_random_letters</span><span class="p">,</span>
+    <span class="n">DEFAULT</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.autoscaling_metrics</span> <span class="kn">import</span> <span class="n">start_metrics_pusher</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.common</span> <span class="kn">import</span> <span class="n">DeploymentInfo</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.constants</span> <span class="kn">import</span> <span class="n">HANDLE_METRIC_PUSH_INTERVAL_S</span>
+<span class="kn">from</span> <span class="nn">ray.serve.generated.serve_pb2</span> <span class="kn">import</span> <span class="n">DeploymentRoute</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.router</span> <span class="kn">import</span> <span class="n">Router</span><span class="p">,</span> <span class="n">RequestMetadata</span>
+<span class="kn">from</span> <span class="nn">ray.util</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="kn">from</span> <span class="nn">ray.util.annotations</span> <span class="kn">import</span> <span class="n">DeveloperAPI</span><span class="p">,</span> <span class="n">PublicAPI</span>
+
+<span class="n">_global_async_loop</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="c1"># Feature flag to revert to legacy behavior of synchronous deployment</span>
+<span class="c1"># handle in dynamic dispatch. This is here as an escape hatch and last resort.</span>
+<span class="n">FLAG_SERVE_DEPLOYMENT_HANDLE_IS_SYNC</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SYNC_HANDLE_IN_DAG_FEATURE_FLAG_ENV_KEY</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_wrap_into_async_task</span><span class="p">(</span><span class="n">async_func</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wrap an async function so it returns async task instead of coroutine</span>
+
+<span class="sd">    This makes the returned value awaitable more than once.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">inspect</span><span class="o">.</span><span class="n">iscoroutinefunction</span><span class="p">(</span><span class="n">async_func</span><span class="p">)</span>
+
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">async_func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">async_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span>
+
+
+<span class="k">def</span> <span class="nf">_create_or_get_async_loop_in_thread</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">_global_async_loop</span>
+    <span class="k">if</span> <span class="n">_global_async_loop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_global_async_loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">()</span>
+        <span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
+            <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">target</span><span class="o">=</span><span class="n">_global_async_loop</span><span class="o">.</span><span class="n">run_forever</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">_global_async_loop</span>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">HandleOptions</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Options for each ServeHandle instances. These fields are immutable.&quot;&quot;&quot;</span>
+
+    <span class="n">method_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;__call__&quot;</span>
+
+
+<div class="viewcode-block" id="RayServeHandle"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.handle.RayServeHandle.html#ray.serve.handle.RayServeHandle">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">RayServeHandle</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A handle used to make requests from one deployment to another.</span>
+
+<span class="sd">    This is used to compose multiple deployments in a single application by binding</span>
+<span class="sd">    them together when building the application. For example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import ray</span>
+<span class="sd">        from ray import serve</span>
+<span class="sd">        from ray.serve.handle import RayServeHandle, RayServeSyncHandle</span>
+
+<span class="sd">        @serve.deployment</span>
+<span class="sd">        class Downstream:</span>
+<span class="sd">            def __init__(self, message: str):</span>
+<span class="sd">                self._message = message</span>
+
+<span class="sd">        def __call__(self, name: str) -&gt; str:</span>
+<span class="sd">            return self._message + name</span>
+
+<span class="sd">        @serve.deployment</span>
+<span class="sd">        class Ingress:</span>
+<span class="sd">            def __init__(self, handle: RayServeHandle):</span>
+<span class="sd">                self._handle = handle</span>
+
+<span class="sd">            async def __call__(self, name: str) -&gt; str:</span>
+<span class="sd">                obj_ref: ray.ObjectRef = await self._handle.remote(name)</span>
+<span class="sd">                return await obj_ref</span>
+
+<span class="sd">        app = Ingress.bind(Downstream.bind(&quot;Hello &quot;))</span>
+<span class="sd">        handle: RayServeSyncHandle = serve.run(app)</span>
+
+<span class="sd">        # Prints &quot;Hello Mr. Magoo&quot;</span>
+<span class="sd">        print(ray.get(handle.remote(&quot;Mr. Magoo&quot;)))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">controller_handle</span><span class="p">:</span> <span class="n">ActorHandle</span><span class="p">,</span>
+        <span class="n">deployment_name</span><span class="p">:</span> <span class="n">EndpointTag</span><span class="p">,</span>
+        <span class="n">handle_options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">HandleOptions</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">_router</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Router</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">_internal_pickled_http_request</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller_handle</span> <span class="o">=</span> <span class="n">controller_handle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span> <span class="o">=</span> <span class="n">deployment_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handle_options</span> <span class="o">=</span> <span class="n">handle_options</span> <span class="ow">or</span> <span class="n">HandleOptions</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handle_tag</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="si">}</span><span class="s2">#</span><span class="si">{</span><span class="n">get_random_letters</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pickled_http_request</span> <span class="o">=</span> <span class="n">_internal_pickled_http_request</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_counter</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span>
+            <span class="s2">&quot;serve_handle_request_counter&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The number of handle.remote() calls that have been &quot;</span>
+                <span class="s2">&quot;made on this handle.&quot;</span>
+            <span class="p">),</span>
+            <span class="n">tag_keys</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;handle&quot;</span><span class="p">,</span> <span class="s2">&quot;deployment&quot;</span><span class="p">,</span> <span class="s2">&quot;route&quot;</span><span class="p">,</span> <span class="s2">&quot;application&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_counter</span><span class="o">.</span><span class="n">set_default_tags</span><span class="p">(</span>
+            <span class="p">{</span><span class="s2">&quot;handle&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_tag</span><span class="p">,</span> <span class="s2">&quot;deployment&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">}</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="p">:</span> <span class="n">Router</span> <span class="o">=</span> <span class="n">_router</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_router</span><span class="p">()</span>
+
+        <span class="n">deployment_route</span> <span class="o">=</span> <span class="n">DeploymentRoute</span><span class="o">.</span><span class="n">FromString</span><span class="p">(</span>
+            <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">controller_handle</span><span class="o">.</span><span class="n">get_deployment_info</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">deployment_info</span> <span class="o">=</span> <span class="n">DeploymentInfo</span><span class="o">.</span><span class="n">from_proto</span><span class="p">(</span><span class="n">deployment_route</span><span class="o">.</span><span class="n">deployment_info</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stop_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pusher</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">remote_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller_handle</span><span class="o">.</span><span class="n">record_handle_metrics</span><span class="o">.</span><span class="n">remote</span>
+        <span class="k">if</span> <span class="n">deployment_info</span><span class="o">.</span><span class="n">deployment_config</span><span class="o">.</span><span class="n">autoscaling_config</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stop_event</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pusher</span> <span class="o">=</span> <span class="n">start_metrics_pusher</span><span class="p">(</span>
+                <span class="n">interval_s</span><span class="o">=</span><span class="n">HANDLE_METRIC_PUSH_INTERVAL_S</span><span class="p">,</span>
+                <span class="n">collection_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_collect_handle_queue_metrics</span><span class="p">,</span>
+                <span class="n">metrics_process_func</span><span class="o">=</span><span class="n">remote_func</span><span class="p">,</span>
+                <span class="n">stop_event</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_stop_event</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_collect_handle_queue_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">get_num_queued_queries</span><span class="p">()}</span>
+
+    <span class="k">def</span> <span class="nf">_make_router</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Router</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Router</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">controller_handle</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">,</span>
+            <span class="n">event_loop</span><span class="o">=</span><span class="n">get_or_create_event_loop</span><span class="p">(),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">stop_metrics_pusher</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stop_event</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pusher</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stop_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pusher</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_is_polling</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Whether this handle is actively polling for replica updates.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">long_poll_client</span><span class="o">.</span><span class="n">is_running</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_is_same_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Whether the caller&#39;s asyncio loop is the same loop for handle.</span>
+
+<span class="sd">        This is only useful for async handles.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">get_or_create_event_loop</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">_event_loop</span>
+
+    <span class="k">def</span> <span class="nf">_options</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">method_name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DEFAULT</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">new_options_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_options</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">user_modified_options_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">key</span><span class="p">:</span> <span class="n">value</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s2">&quot;method_name&quot;</span><span class="p">],</span> <span class="p">[</span><span class="n">method_name</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span>
+        <span class="p">}</span>
+        <span class="n">new_options_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">user_modified_options_dict</span><span class="p">)</span>
+        <span class="n">new_options</span> <span class="o">=</span> <span class="n">HandleOptions</span><span class="p">(</span><span class="o">**</span><span class="n">new_options_dict</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">controller_handle</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">,</span>
+            <span class="n">new_options</span><span class="p">,</span>
+            <span class="n">_router</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="p">,</span>
+            <span class="n">_internal_pickled_http_request</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_pickled_http_request</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="RayServeHandle.options"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.handle.RayServeHandle.options.html#ray.serve.handle.RayServeHandle.options">[docs]</a>    <span class="k">def</span> <span class="nf">options</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">method_name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DEFAULT</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;RayServeHandle&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Set options for this handle and return an updated copy of it.</span>
+
+<span class="sd">        Example:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            # The following two lines are equivalent:</span>
+<span class="sd">            obj_ref = await handle.other_method.remote(*args)</span>
+<span class="sd">            obj_ref = await handle.options(method_name=&quot;other_method&quot;).remote(*args)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">(</span><span class="n">method_name</span><span class="o">=</span><span class="n">method_name</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_remote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deployment_name</span><span class="p">,</span> <span class="n">handle_options</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Coroutine</span><span class="p">:</span>
+        <span class="n">_request_context</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">serve</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">_serve_request_context</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">request_metadata</span> <span class="o">=</span> <span class="n">RequestMetadata</span><span class="p">(</span>
+            <span class="n">_request_context</span><span class="o">.</span><span class="n">request_id</span><span class="p">,</span>
+            <span class="n">deployment_name</span><span class="p">,</span>
+            <span class="n">call_method</span><span class="o">=</span><span class="n">handle_options</span><span class="o">.</span><span class="n">method_name</span><span class="p">,</span>
+            <span class="n">http_arg_is_pickled</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_pickled_http_request</span><span class="p">,</span>
+            <span class="n">route</span><span class="o">=</span><span class="n">_request_context</span><span class="o">.</span><span class="n">route</span><span class="p">,</span>
+            <span class="n">app_name</span><span class="o">=</span><span class="n">_request_context</span><span class="o">.</span><span class="n">app_name</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_counter</span><span class="o">.</span><span class="n">inc</span><span class="p">(</span>
+            <span class="n">tags</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;route&quot;</span><span class="p">:</span> <span class="n">_request_context</span><span class="o">.</span><span class="n">route</span><span class="p">,</span>
+                <span class="s2">&quot;application&quot;</span><span class="p">:</span> <span class="n">_request_context</span><span class="o">.</span><span class="n">app_name</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">coro</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">assign_request</span><span class="p">(</span><span class="n">request_metadata</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">coro</span>
+
+<div class="viewcode-block" id="RayServeHandle.remote"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.handle.RayServeHandle.remote.html#ray.serve.handle.RayServeHandle.remote">[docs]</a>    <span class="nd">@_wrap_into_async_task</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">remote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Issue an asynchronous request to the __call__ method of the deployment.</span>
+
+<span class="sd">        Returns an `asyncio.Task` whose underlying result is a Ray ObjectRef that</span>
+<span class="sd">        points to the final result of the request.</span>
+
+<span class="sd">        The final result can be retrieved by `await`ing the ObjectRef. Example:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            obj_ref = await handle.remote(*args)</span>
+<span class="sd">            result = await obj_ref</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remote</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_options</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;(deployment=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Required for this class&#39;s __reduce__ method to be picklable.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">serialized_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;controller_handle&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller_handle</span><span class="p">,</span>
+            <span class="s2">&quot;deployment_name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">,</span>
+            <span class="s2">&quot;handle_options&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_options</span><span class="p">,</span>
+            <span class="s2">&quot;_internal_pickled_http_request&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pickled_http_request</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">RayServeHandle</span><span class="o">.</span><span class="n">_deserialize</span><span class="p">,</span> <span class="p">(</span><span class="n">serialized_data</span><span class="p">,)</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">method_name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_metrics_pusher</span><span class="p">()</span></div>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">RayServeSyncHandle</span><span class="p">(</span><span class="n">RayServeHandle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A handle used to make requests to the ingress deployment of an application.</span>
+
+<span class="sd">    This is returned by `serve.run` and can be used to invoke the application from</span>
+<span class="sd">    Python rather than over HTTP. For example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import ray</span>
+<span class="sd">        from ray import serve</span>
+<span class="sd">        from ray.serve.handle import RayServeSyncHandle</span>
+
+<span class="sd">        @serve.deployment</span>
+<span class="sd">        class Ingress:</span>
+<span class="sd">            def __call__(self, name: str) -&gt; str:</span>
+<span class="sd">                return f&quot;Hello {name}&quot;</span>
+
+<span class="sd">        app = Ingress.bind()</span>
+<span class="sd">        handle: RayServeSyncHandle = serve.run(app)</span>
+
+<span class="sd">        # Prints &quot;Hello Mr. Magoo&quot;</span>
+<span class="sd">        print(ray.get(handle.remote(&quot;Mr. Magoo&quot;)))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_is_same_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="c1"># NOTE(simon): For sync handle, the caller doesn&#39;t have to be in the</span>
+        <span class="c1"># same loop as the handle&#39;s loop, so we always return True here.</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_make_router</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Router</span><span class="p">:</span>
+        <span class="c1"># Delayed import because ray.serve.api depends on handles.</span>
+        <span class="k">return</span> <span class="n">Router</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">controller_handle</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">,</span>
+            <span class="n">event_loop</span><span class="o">=</span><span class="n">_create_or_get_async_loop_in_thread</span><span class="p">(),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">options</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">method_name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DEFAULT</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;RayServeSyncHandle&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Set options for this handle and return an updated copy of it.</span>
+
+<span class="sd">        Example:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            # The following two lines are equivalent:</span>
+<span class="sd">            obj_ref = handle.other_method.remote(*args)</span>
+<span class="sd">            obj_ref = handle.options(method_name=&quot;other_method&quot;).remote(*args)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">(</span><span class="n">method_name</span><span class="o">=</span><span class="n">method_name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">remote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ray</span><span class="o">.</span><span class="n">ObjectRef</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Issue an asynchronous request to the __call__ method of the deployment.</span>
+
+<span class="sd">        Returns a Ray ObjectRef whose results can be waited for or retrieved</span>
+<span class="sd">        using ray.wait or ray.get, respectively.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            obj_ref = handle.remote(*args)</span>
+<span class="sd">            result = ray.get(obj_ref)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">coro</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remote</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_options</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">future</span><span class="p">:</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">Future</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run_coroutine_threadsafe</span><span class="p">(</span>
+            <span class="n">coro</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">_event_loop</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">serialized_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;controller_handle&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller_handle</span><span class="p">,</span>
+            <span class="s2">&quot;deployment_name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">,</span>
+            <span class="s2">&quot;handle_options&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_options</span><span class="p">,</span>
+            <span class="s2">&quot;_internal_pickled_http_request&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pickled_http_request</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">RayServeSyncHandle</span><span class="o">.</span><span class="n">_deserialize</span><span class="p">,</span> <span class="p">(</span><span class="n">serialized_data</span><span class="p">,)</span>
+
+
+<span class="nd">@DeveloperAPI</span>
+<span class="k">class</span> <span class="nc">RayServeDeploymentHandle</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Send requests to a deployment. This class should not be manually created.&quot;&quot;&quot;</span>
+
+    <span class="c1"># &quot;&quot;&quot;Lazily initialized handle that only gets fulfilled upon first execution.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">deployment_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">handle_options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">HandleOptions</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span> <span class="o">=</span> <span class="n">deployment_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handle_options</span> <span class="o">=</span> <span class="n">handle_options</span> <span class="ow">or</span> <span class="n">HandleOptions</span><span class="p">()</span>
+        <span class="c1"># For Serve DAG we need placeholder in DAG binding and building without</span>
+        <span class="c1"># requirement of serve.start; Thus handle is fulfilled at runtime.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">:</span> <span class="n">RayServeHandle</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">method_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;RayServeDeploymentHandle&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">,</span> <span class="n">HandleOptions</span><span class="p">(</span><span class="n">method_name</span><span class="o">=</span><span class="n">method_name</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">remote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">_ray_cache_refs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Task</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="p">:</span>
+            <span class="n">handle</span> <span class="o">=</span> <span class="n">serve</span><span class="o">.</span><span class="n">_private</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get_deployment</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">_get_handle</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="n">FLAG_SERVE_DEPLOYMENT_HANDLE_IS_SYNC</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">handle</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">method_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_options</span><span class="o">.</span><span class="n">method_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Required for this class&#39;s __reduce__ method to be picklable.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">serialized_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;deployment_name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">,</span>
+            <span class="s2">&quot;handle_options&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_options</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">RayServeDeploymentHandle</span><span class="o">.</span><span class="n">_deserialize</span><span class="p">,</span> <span class="p">(</span><span class="n">serialized_data</span><span class="p">,)</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">method_name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;(deployment=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">deployment_name</span><span class="si">}</span><span class="s2">&#39;)&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">_serve_handle_to_json_dict</span><span class="p">(</span><span class="n">handle</span><span class="p">:</span> <span class="n">RayServeHandle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Converts a Serve handle to a JSON-serializable dictionary.</span>
+
+<span class="sd">    The dictionary can be converted back to a ServeHandle using</span>
+<span class="sd">    _serve_handle_from_json_dict.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">RayServeSyncHandle</span><span class="p">):</span>
+        <span class="n">handle_type</span> <span class="o">=</span> <span class="n">ServeHandleType</span><span class="o">.</span><span class="n">SYNC</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">handle_type</span> <span class="o">=</span> <span class="n">ServeHandleType</span><span class="o">.</span><span class="n">ASYNC</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="n">SERVE_HANDLE_JSON_KEY</span><span class="p">:</span> <span class="n">handle_type</span><span class="p">,</span>
+        <span class="s2">&quot;deployment_name&quot;</span><span class="p">:</span> <span class="n">handle</span><span class="o">.</span><span class="n">deployment_name</span><span class="p">,</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">_serve_handle_from_json_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">RayServeHandle</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Converts a JSON-serializable dictionary back to a ServeHandle.</span>
+
+<span class="sd">    The dictionary should be constructed using _serve_handle_to_json_dict.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">SERVE_HANDLE_JSON_KEY</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dict must contain </span><span class="si">{</span><span class="n">SERVE_HANDLE_JSON_KEY</span><span class="si">}</span><span class="s2"> key.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">serve</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">get_global_client</span><span class="p">()</span><span class="o">.</span><span class="n">get_handle</span><span class="p">(</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;deployment_name&quot;</span><span class="p">],</span>
+        <span class="n">sync</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">SERVE_HANDLE_JSON_KEY</span><span class="p">]</span> <span class="o">==</span> <span class="n">ServeHandleType</span><span class="o">.</span><span class="n">SYNC</span><span class="p">,</span>
+        <span class="n">missing_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

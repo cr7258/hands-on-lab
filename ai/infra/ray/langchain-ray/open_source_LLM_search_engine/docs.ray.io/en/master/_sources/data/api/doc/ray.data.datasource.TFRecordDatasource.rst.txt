@@ -1,0 +1,35 @@
+﻿
+
+ray.data.datasource.TFRecordDatasource
+======================================
+
+.. currentmodule:: ray.data.datasource
+
+.. autoclass:: TFRecordDatasource
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~TFRecordDatasource.__init__
+      
+      ~TFRecordDatasource.do_write
+      
+      ~TFRecordDatasource.get_name
+      ~TFRecordDatasource.on_write_complete
+      ~TFRecordDatasource.on_write_failed
+      ~TFRecordDatasource.prepare_read
+      ~TFRecordDatasource.write
+
+   
+   
+
+
+   
+   
+   

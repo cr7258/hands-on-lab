@@ -1,0 +1,6 @@
+ray.data.Datastream.write\_csv
+==============================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.write_csv

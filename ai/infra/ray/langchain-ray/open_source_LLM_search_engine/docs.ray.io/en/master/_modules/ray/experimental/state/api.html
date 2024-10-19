@@ -1,0 +1,1801 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ray.experimental.state.api &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/js/versionwarning.js"></script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../../../../_static/js/docsearch.js"></script>
+    <script src="../../../../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../../../../_static/js/termynal.js"></script>
+    <script defer="defer" src="../../../../_static/js/custom.js"></script>
+    <script defer="defer" src="../../../../_static/js/top-navigation.js"></script>
+    <script src="../../../../_static/js/tags.js"></script>
+    <script src="../../../../_static/tabs.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../_static/design-tabs.js"></script>
+    <script async="async" src="../../../../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/_modules/ray/experimental/state/api.html" />
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:35:12Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "_modules/ray/experimental/state/api", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2F_modules/ray/experimental/state/api.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for ray.experimental.state.api</h1><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">fields</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">from</span> <span class="nn">ray.dashboard.modules.dashboard_sdk</span> <span class="kn">import</span> <span class="n">SubmissionClient</span>
+<span class="kn">from</span> <span class="nn">ray.dashboard.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">get_address_for_submission_client</span><span class="p">,</span>
+    <span class="n">ray_address_to_api_server_url</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ray.experimental.state.common</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DEFAULT_LIMIT</span><span class="p">,</span>
+    <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">ActorState</span><span class="p">,</span>
+    <span class="n">ClusterEventState</span><span class="p">,</span>
+    <span class="n">GetApiOptions</span><span class="p">,</span>
+    <span class="n">GetLogOptions</span><span class="p">,</span>
+    <span class="n">JobState</span><span class="p">,</span>
+    <span class="n">ListApiOptions</span><span class="p">,</span>
+    <span class="n">NodeState</span><span class="p">,</span>
+    <span class="n">ObjectState</span><span class="p">,</span>
+    <span class="n">PlacementGroupState</span><span class="p">,</span>
+    <span class="n">PredicateType</span><span class="p">,</span>
+    <span class="n">RuntimeEnvState</span><span class="p">,</span>
+    <span class="n">StateResource</span><span class="p">,</span>
+    <span class="n">SummaryApiOptions</span><span class="p">,</span>
+    <span class="n">SummaryResource</span><span class="p">,</span>
+    <span class="n">SupportedFilterType</span><span class="p">,</span>
+    <span class="n">TaskState</span><span class="p">,</span>
+    <span class="n">WorkerState</span><span class="p">,</span>
+    <span class="n">dict_to_state</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ray.experimental.state.exception</span> <span class="kn">import</span> <span class="n">RayStateApiException</span><span class="p">,</span> <span class="n">ServerUnavailable</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">warnings_on_slow_request</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">explain</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A context manager to print warnings if the request is replied slowly.</span>
+
+<span class="sd">    Warnings are printed 3 times</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: The address of the endpoint.</span>
+<span class="sd">        endpoint: The name of the endpoint.</span>
+<span class="sd">        timeout: Request timeout in seconds.</span>
+<span class="sd">        explain: Whether ot not it will print the warning.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Do nothing if explain is not specified.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">explain</span><span class="p">:</span>
+        <span class="k">yield</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Prepare timers to print warning.</span>
+    <span class="c1"># Print 3 times with exponential backoff. timeout / 2, timeout / 4, timeout / 8</span>
+    <span class="k">def</span> <span class="nf">print_warning</span><span class="p">(</span><span class="n">elapsed</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">elapsed</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">timeout</span><span class="si">}</span><span class="s2"> seconds) &quot;</span>
+            <span class="s2">&quot;Waiting for the response from the API server &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;address </span><span class="si">{</span><span class="n">address</span><span class="si">}{</span><span class="n">endpoint</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">warning_timers</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="n">timeout</span> <span class="o">/</span> <span class="n">i</span><span class="p">,</span> <span class="n">print_warning</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">timeout</span> <span class="o">/</span> <span class="n">i</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+    <span class="p">]</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">timer</span> <span class="ow">in</span> <span class="n">warning_timers</span><span class="p">:</span>
+            <span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="c1"># Make sure all timers are cancelled once request is terminated.</span>
+        <span class="k">for</span> <span class="n">timer</span> <span class="ow">in</span> <span class="n">warning_timers</span><span class="p">:</span>
+            <span class="n">timer</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains API client and methods for querying ray state.</span>
+
+<span class="sd">NOTE(rickyyx): This is still a work-in-progress API, and subject to changes.</span>
+
+<span class="sd">If you have any feedback, you could do so at either way as below:</span>
+<span class="sd">  1. Report bugs/issues with details: https://forms.gle/gh77mwjEskjhN8G46 ,</span>
+<span class="sd">  2. Follow up in #ray-state-observability-dogfooding slack channel of Ray:</span>
+<span class="sd">    https://tinyurl.com/2pm26m4a&quot;</span>
+
+
+<span class="sd">Usage:</span>
+<span class="sd">    1. [Recommended] With StateApiClient:</span>
+<span class="sd">    ```</span>
+<span class="sd">        client = StateApiClient(address=&quot;auto&quot;)</span>
+<span class="sd">        data = client.list(StateResource.NODES)</span>
+<span class="sd">        ...</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    2. With SDK APIs:</span>
+<span class="sd">    The API creates a `StateApiClient` for each invocation. So if multiple</span>
+<span class="sd">    invocations of listing are used, it is better to reuse the `StateApiClient`</span>
+<span class="sd">    as suggested above.</span>
+<span class="sd">    ```</span>
+<span class="sd">        data = list_nodes(address=&quot;auto&quot;)</span>
+<span class="sd">    ```</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">StateApiClient</span><span class="p">(</span><span class="n">SubmissionClient</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;State API Client issues REST GET requests to the server for resource states.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">cookies</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a StateApiClient and check the connection to the cluster.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            address: Ray bootstrap address (e.g. `127.0.0.0:6379`, `auto`), or Ray</span>
+<span class="sd">                Client adress (e.g. `ray://&lt;head-node-ip&gt;:10001`), or Ray dashboard</span>
+<span class="sd">                address (e.g. `http://&lt;head-node-ip&gt;:8265`).</span>
+<span class="sd">                If not provided, it will be detected automatically from any running</span>
+<span class="sd">                local Ray cluster.</span>
+<span class="sd">            cookies: Cookies to use when sending requests to the HTTP job server.</span>
+<span class="sd">            headers: Headers to use when sending requests to the HTTP job server, used</span>
+<span class="sd">                for cases like authentication to a remote cluster.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">requests</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;The Ray state CLI &amp; SDK require the ray[default] &quot;</span>
+                <span class="s2">&quot;installation: `pip install &#39;ray[default&#39;]``&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">headers</span><span class="p">:</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">}</span>
+
+        <span class="c1"># Resolve API server URL</span>
+        <span class="n">api_server_url</span> <span class="o">=</span> <span class="n">get_address_for_submission_client</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">address</span><span class="o">=</span><span class="n">api_server_url</span><span class="p">,</span>
+            <span class="n">create_cluster_if_needed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">cookies</span><span class="o">=</span><span class="n">cookies</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_make_param</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ListApiOptions</span><span class="p">,</span> <span class="n">GetApiOptions</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="n">options_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="n">options</span><span class="p">):</span>
+            <span class="c1"># TODO(rickyyx): We will need to find a way to pass server side timeout</span>
+            <span class="c1"># TODO(rickyyx): We will have to convert filter option</span>
+            <span class="c1"># slightly differently for now. But could we do k,v pair rather than this?</span>
+            <span class="c1"># I see we are also converting dict to XXXApiOptions later on, we could</span>
+            <span class="c1"># probably organize the marshaling a bit better.</span>
+            <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;filters&quot;</span><span class="p">:</span>
+                <span class="n">options_dict</span><span class="p">[</span><span class="s2">&quot;filter_keys&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">options_dict</span><span class="p">[</span><span class="s2">&quot;filter_predicates&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">options_dict</span><span class="p">[</span><span class="s2">&quot;filter_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="nb">filter</span> <span class="ow">in</span> <span class="n">options</span><span class="o">.</span><span class="n">filters</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">filter</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;The given filter has incorrect input type, </span><span class="si">{</span><span class="nb">filter</span><span class="si">}</span><span class="s2">. &quot;</span>
+                            <span class="s2">&quot;Provide (key, predicate, value) tuples.&quot;</span>
+                        <span class="p">)</span>
+                    <span class="n">filter_k</span><span class="p">,</span> <span class="n">filter_predicate</span><span class="p">,</span> <span class="n">filter_val</span> <span class="o">=</span> <span class="nb">filter</span>
+                    <span class="n">options_dict</span><span class="p">[</span><span class="s2">&quot;filter_keys&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filter_k</span><span class="p">)</span>
+                    <span class="n">options_dict</span><span class="p">[</span><span class="s2">&quot;filter_predicates&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filter_predicate</span><span class="p">)</span>
+                    <span class="n">options_dict</span><span class="p">[</span><span class="s2">&quot;filter_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filter_val</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="n">option_val</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">option_val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">options_dict</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">option_val</span>
+
+        <span class="k">return</span> <span class="n">options_dict</span>
+
+    <span class="k">def</span> <span class="nf">_make_http_get_request</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">warnings_on_slow_request</span><span class="p">(</span>
+            <span class="n">address</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_address</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">explain</span><span class="o">=</span><span class="n">_explain</span>
+        <span class="p">):</span>
+            <span class="c1"># Send a request.</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_request</span><span class="p">(</span>
+                    <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+                    <span class="n">endpoint</span><span class="p">,</span>
+                    <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+                    <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="c1"># If we have a valid JSON error, don&#39;t raise a generic exception but</span>
+                <span class="c1"># instead let the caller parse it to raise a more precise exception.</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">500</span>
+                    <span class="ow">and</span> <span class="s2">&quot;application/json&quot;</span>
+                    <span class="ow">not</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="p">):</span>
+                    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">err_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to make request to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_address</span><span class="si">}{</span><span class="n">endpoint</span><span class="si">}</span><span class="s2">. &quot;</span>
+
+                <span class="c1"># Best-effort to give hints to users on potential reasons of connection</span>
+                <span class="c1"># failure.</span>
+                <span class="n">err_str</span> <span class="o">+=</span> <span class="p">(</span>
+                    <span class="s2">&quot;Failed to connect to API server. Please check the API server &quot;</span>
+                    <span class="s2">&quot;log for details. Make sure dependencies are installed with &quot;</span>
+                    <span class="s2">&quot;`pip install ray[default]`. Please also check dashboard is &quot;</span>
+                    <span class="s2">&quot;available, and included when starting ray cluster, &quot;</span>
+                    <span class="s2">&quot;i.e. `ray start --include-dashboard=True --head`. &quot;</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">ServerUnavailable</span><span class="p">(</span><span class="n">err_str</span><span class="p">)</span>
+
+                <span class="n">err_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;Response(url=</span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">,status=</span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">)&quot;</span>
+                <span class="k">raise</span> <span class="n">RayStateApiException</span><span class="p">(</span><span class="n">err_str</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+        <span class="c1"># Process the response.</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RayStateApiException</span><span class="p">(</span>
+                <span class="s2">&quot;API server internal error. See dashboard.log file for more details. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Dictionary of `ListApiResponse` or `SummaryApiResponse`</span>
+        <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;result&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">resource</span><span class="p">:</span> <span class="n">StateResource</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">GetApiOptions</span><span class="p">],</span>
+        <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span>
+        <span class="n">Union</span><span class="p">[</span>
+            <span class="n">ActorState</span><span class="p">,</span>
+            <span class="n">PlacementGroupState</span><span class="p">,</span>
+            <span class="n">NodeState</span><span class="p">,</span>
+            <span class="n">WorkerState</span><span class="p">,</span>
+            <span class="n">TaskState</span><span class="p">,</span>
+            <span class="n">List</span><span class="p">[</span><span class="n">ObjectState</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Get resources states by id</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            resource_name: Resource names, i.e. &#39;workers&#39;, &#39;actors&#39;, &#39;nodes&#39;,</span>
+<span class="sd">                &#39;placement_groups&#39;, &#39;tasks&#39;, &#39;objects&#39;.</span>
+<span class="sd">                &#39;jobs&#39; and &#39;runtime-envs&#39; are not supported yet.</span>
+<span class="sd">            id: ID for the resource, i.e. &#39;node_id&#39; for nodes.</span>
+<span class="sd">            options: Get options. See `GetApiOptions` for details.</span>
+<span class="sd">            _explain: Print the API information such as API</span>
+<span class="sd">                latency or failed query information.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None if not found, and if found, a dictionarified:</span>
+<span class="sd">            - ActorState for actors</span>
+<span class="sd">            - PlacementGroupState for placement groups</span>
+<span class="sd">            - NodeState for nodes</span>
+<span class="sd">            - WorkerState for workers</span>
+<span class="sd">            - TaskState for tasks</span>
+
+<span class="sd">            Empty list for objects if not found, or list of ObjectState for objects</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            This doesn&#39;t catch any exceptions raised when the underlying request</span>
+<span class="sd">            call raises exceptions. For example, it could raise `requests.Timeout`</span>
+<span class="sd">            when timeout occurs.</span>
+
+<span class="sd">            ValueError:</span>
+<span class="sd">                if the resource could not be GET by id, i.e. jobs and runtime-envs.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO(rickyyx): Make GET not using filters on list operation</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_param</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="n">RESOURCE_ID_KEY_NAME</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">StateResource</span><span class="o">.</span><span class="n">NODES</span><span class="p">:</span> <span class="s2">&quot;node_id&quot;</span><span class="p">,</span>
+            <span class="n">StateResource</span><span class="o">.</span><span class="n">ACTORS</span><span class="p">:</span> <span class="s2">&quot;actor_id&quot;</span><span class="p">,</span>
+            <span class="n">StateResource</span><span class="o">.</span><span class="n">PLACEMENT_GROUPS</span><span class="p">:</span> <span class="s2">&quot;placement_group_id&quot;</span><span class="p">,</span>
+            <span class="n">StateResource</span><span class="o">.</span><span class="n">WORKERS</span><span class="p">:</span> <span class="s2">&quot;worker_id&quot;</span><span class="p">,</span>
+            <span class="n">StateResource</span><span class="o">.</span><span class="n">TASKS</span><span class="p">:</span> <span class="s2">&quot;task_id&quot;</span><span class="p">,</span>
+            <span class="n">StateResource</span><span class="o">.</span><span class="n">OBJECTS</span><span class="p">:</span> <span class="s2">&quot;object_id&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">resource</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">RESOURCE_ID_KEY_NAME</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Can&#39;t get </span><span class="si">{</span><span class="n">resource</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> by id.&quot;</span><span class="p">)</span>
+
+        <span class="n">params</span><span class="p">[</span><span class="s2">&quot;filter_keys&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">RESOURCE_ID_KEY_NAME</span><span class="p">[</span><span class="n">resource</span><span class="p">]]</span>
+        <span class="n">params</span><span class="p">[</span><span class="s2">&quot;filter_predicates&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;=&quot;</span><span class="p">]</span>
+        <span class="n">params</span><span class="p">[</span><span class="s2">&quot;filter_values&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">id</span><span class="p">]</span>
+        <span class="n">params</span><span class="p">[</span><span class="s2">&quot;detail&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/api/v0/</span><span class="si">{</span><span class="n">resource</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="n">list_api_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_http_get_request</span><span class="p">(</span>
+            <span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span>
+            <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">list_api_response</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Empty result</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">dict_to_state</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">resource</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">resource</span> <span class="o">==</span> <span class="n">StateResource</span><span class="o">.</span><span class="n">OBJECTS</span><span class="p">:</span>
+            <span class="c1"># NOTE(rickyyx):</span>
+            <span class="c1"># There might be multiple object entries for a single object id</span>
+            <span class="c1"># because a single object could be referenced at different places</span>
+            <span class="c1"># e.g. pinned as local variable, used as parameter</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="k">if</span> <span class="n">resource</span> <span class="o">==</span> <span class="n">StateResource</span><span class="o">.</span><span class="n">TASKS</span><span class="p">:</span>
+            <span class="c1"># There might be multiple task attempts given a task id due to</span>
+            <span class="c1"># task retries.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="c1"># For the rest of the resources, there should only be a single entry</span>
+        <span class="c1"># for a particular id.</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_print_api_warning</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">resource</span><span class="p">:</span> <span class="n">StateResource</span><span class="p">,</span>
+        <span class="n">api_response</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">warn_data_source_not_available</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">warn_data_truncation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">warn_limit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">warn_server_side_warnings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Print the API warnings.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            resource: Resource names, i.e. &#39;jobs&#39;, &#39;actors&#39;, &#39;nodes&#39;,</span>
+<span class="sd">                see `StateResource` for details.</span>
+<span class="sd">            api_response: The dictionarified `ListApiResponse` or `SummaryApiResponse`.</span>
+<span class="sd">            warn_data_source_not_available: Warn when some data sources</span>
+<span class="sd">                are not available.</span>
+<span class="sd">            warn_data_truncation: Warn when results were truncated at</span>
+<span class="sd">                the data source.</span>
+<span class="sd">            warn_limit: Warn when results were limited.</span>
+<span class="sd">            warn_server_side_warnings: Warn when the server side generates warnings</span>
+<span class="sd">                (E.g., when callsites not enabled for listing objects)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Print warnings if anything was given.</span>
+        <span class="k">if</span> <span class="n">warn_data_source_not_available</span><span class="p">:</span>
+            <span class="n">warning_msgs</span> <span class="o">=</span> <span class="n">api_response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;partial_failure_warning&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">warning_msgs</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">warning_msgs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">warn_data_truncation</span><span class="p">:</span>
+            <span class="c1"># Print warnings if data is truncated at the data source.</span>
+            <span class="n">num_after_truncation</span> <span class="o">=</span> <span class="n">api_response</span><span class="p">[</span><span class="s2">&quot;num_after_truncation&quot;</span><span class="p">]</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="n">api_response</span><span class="p">[</span><span class="s2">&quot;total&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="n">num_after_truncation</span><span class="p">:</span>
+                <span class="c1"># NOTE(rickyyx): For now, there&#39;s not much users</span>
+                <span class="c1"># could do (neither can we), with hard truncation.</span>
+                <span class="c1"># Unless we allow users to set a higher</span>
+                <span class="c1"># `RAY_MAX_LIMIT_FROM_DATA_SOURCE`, the data will</span>
+                <span class="c1"># always be truncated at the data source.</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="s2">&quot;The returned data may contain incomplete result. &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_after_truncation</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> total from the cluster) &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">resource</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> are retrieved from the data source. &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">total</span> <span class="o">-</span> <span class="n">num_after_truncation</span><span class="si">}</span><span class="s2"> entries have been truncated. &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;Max of </span><span class="si">{</span><span class="n">num_after_truncation</span><span class="si">}</span><span class="s2"> entries are retrieved &quot;</span>
+                        <span class="s2">&quot;from data source to prevent over-sized payloads.&quot;</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">warn_limit</span><span class="p">:</span>
+            <span class="c1"># Print warnings if return data is limited at the API server due to</span>
+            <span class="c1"># limit enforced at the server side</span>
+            <span class="n">num_filtered</span> <span class="o">=</span> <span class="n">api_response</span><span class="p">[</span><span class="s2">&quot;num_filtered&quot;</span><span class="p">]</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">api_response</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">num_filtered</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Limit last </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2"> entries &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;(Total </span><span class="si">{</span><span class="n">num_filtered</span><span class="si">}</span><span class="s2">). Use `--filter` to reduce &quot;</span>
+                        <span class="s2">&quot;the amount of data to return or &quot;</span>
+                        <span class="s2">&quot;setting a higher limit with `--limit` to see all data. &quot;</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">warn_server_side_warnings</span><span class="p">:</span>
+            <span class="c1"># Print the additional warnings.</span>
+            <span class="n">warnings_to_print</span> <span class="o">=</span> <span class="n">api_response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;warnings&quot;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="k">if</span> <span class="n">warnings_to_print</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">warning_to_print</span> <span class="ow">in</span> <span class="n">warnings_to_print</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">warning_to_print</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_raise_on_missing_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resource</span><span class="p">:</span> <span class="n">StateResource</span><span class="p">,</span> <span class="n">api_response</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Raise an exception when the API resopnse contains a missing output.</span>
+
+<span class="sd">        Output can be missing if (1) Failures on some of data source queries (e.g.,</span>
+<span class="sd">        `ray list tasks` queries all raylets, and if some of queries fail, it will</span>
+<span class="sd">        contain missing output. If all queries fail, it will just fail). (2) Data</span>
+<span class="sd">        is truncated because the output is too large.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            resource: Resource names, i.e. &#39;jobs&#39;, &#39;actors&#39;, &#39;nodes&#39;,</span>
+<span class="sd">                see `StateResource` for details.</span>
+<span class="sd">            api_response: The dictionarified `ListApiResponse` or `SummaryApiResponse`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Raise an exception if there are partial failures that cause missing output.</span>
+        <span class="n">warning_msgs</span> <span class="o">=</span> <span class="n">api_response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;partial_failure_warning&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">warning_msgs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RayStateApiException</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Failed to retrieve all </span><span class="si">{</span><span class="n">resource</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> from the cluster because&quot;</span>
+                <span class="s2">&quot;they are not reachable due to query failures to the data sources. &quot;</span>
+                <span class="s2">&quot;To avoid raising an exception and allow having missing output, &quot;</span>
+                <span class="s2">&quot;set `raise_on_missing_output=False`. &quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># Raise an exception is there is data truncation that cause missing output.</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="n">api_response</span><span class="p">[</span><span class="s2">&quot;total&quot;</span><span class="p">]</span>
+        <span class="n">num_after_truncation</span> <span class="o">=</span> <span class="n">api_response</span><span class="p">[</span><span class="s2">&quot;num_after_truncation&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">total</span> <span class="o">!=</span> <span class="n">num_after_truncation</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RayStateApiException</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Failed to retrieve all </span><span class="si">{</span><span class="n">resource</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> from the cluster because &quot;</span>
+                <span class="s2">&quot;they are not reachable due to data truncation. It happens &quot;</span>
+                <span class="s2">&quot;when the returned data is too large &quot;</span>
+                <span class="c1"># When the data is truncated, the truncation</span>
+                <span class="c1"># threshold == num_after_truncation. We cannot set this to env</span>
+                <span class="c1"># var because the CLI side might not have the correct env var.</span>
+                <span class="sa">f</span><span class="s2">&quot;(&gt; </span><span class="si">{</span><span class="n">num_after_truncation</span><span class="si">}</span><span class="s2">) &quot;</span>
+                <span class="s2">&quot;To avoid raising an exception and allow having missing output, &quot;</span>
+                <span class="s2">&quot;set `raise_on_missing_output=False`. &quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">resource</span><span class="p">:</span> <span class="n">StateResource</span><span class="p">,</span>
+        <span class="n">options</span><span class="p">:</span> <span class="n">ListApiOptions</span><span class="p">,</span>
+        <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span>
+        <span class="n">Union</span><span class="p">[</span>
+            <span class="n">ActorState</span><span class="p">,</span>
+            <span class="n">JobState</span><span class="p">,</span>
+            <span class="n">NodeState</span><span class="p">,</span>
+            <span class="n">TaskState</span><span class="p">,</span>
+            <span class="n">ObjectState</span><span class="p">,</span>
+            <span class="n">PlacementGroupState</span><span class="p">,</span>
+            <span class="n">RuntimeEnvState</span><span class="p">,</span>
+            <span class="n">WorkerState</span><span class="p">,</span>
+            <span class="n">ClusterEventState</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;List resources states</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            resource: Resource names, i.e. &#39;jobs&#39;, &#39;actors&#39;, &#39;nodes&#39;,</span>
+<span class="sd">                see `StateResource` for details.</span>
+<span class="sd">            options: List options. See `ListApiOptions` for details.</span>
+<span class="sd">            raise_on_missing_output: When True, raise an exception if the output</span>
+<span class="sd">                is incomplete. Output can be incomplete if</span>
+<span class="sd">                (1) there&#39;s a partial network failure when the source is distributed.</span>
+<span class="sd">                (2) data is truncated because it is too large.</span>
+<span class="sd">                Set it to False to avoid throwing an exception on missing data.</span>
+<span class="sd">            _explain: Print the API information such as API</span>
+<span class="sd">                latency or failed query information.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of queried result from `ListApiResponse`,</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            This doesn&#39;t catch any exceptions raised when the underlying request</span>
+<span class="sd">            call raises exceptions. For example, it could raise `requests.Timeout`</span>
+<span class="sd">            when timeout occurs.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/api/v0/</span><span class="si">{</span><span class="n">resource</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_param</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">list_api_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_http_get_request</span><span class="p">(</span>
+            <span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span>
+            <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">raise_on_missing_output</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_raise_on_missing_output</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="n">list_api_response</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_explain</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_print_api_warning</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="n">list_api_response</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">dict_to_state</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">resource</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">list_api_response</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]]</span>
+
+    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">resource</span><span class="p">:</span> <span class="n">SummaryResource</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">options</span><span class="p">:</span> <span class="n">SummaryApiOptions</span><span class="p">,</span>
+        <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Summarize resources states</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            resource_name: Resource names,</span>
+<span class="sd">                see `SummaryResource` for details.</span>
+<span class="sd">            options: summary options. See `SummaryApiOptions` for details.</span>
+<span class="sd">            raise_on_missing_output: Raise an exception if the output has missing data.</span>
+<span class="sd">                Output can have missing data if (1) there&#39;s a partial network failure</span>
+<span class="sd">                when the source is distributed. (2) data is truncated</span>
+<span class="sd">                because it is too large.</span>
+<span class="sd">            _explain: Print the API information such as API</span>
+<span class="sd">                latency or failed query information.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A dictionary of queried result from `SummaryApiResponse`.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            This doesn&#39;t catch any exceptions raised when the underlying request</span>
+<span class="sd">            call raises exceptions. For example, it could raise `requests.Timeout`</span>
+<span class="sd">            when timeout occurs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="n">options</span><span class="o">.</span><span class="n">timeout</span><span class="p">}</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/api/v0/</span><span class="si">{</span><span class="n">resource</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">/summarize&quot;</span>
+        <span class="n">summary_api_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_http_get_request</span><span class="p">(</span>
+            <span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span>
+            <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">raise_on_missing_output</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_raise_on_missing_output</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="n">summary_api_response</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_explain</span><span class="p">:</span>
+            <span class="c1"># There&#39;s no limit applied to summary, so we shouldn&#39;t warn.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_print_api_warning</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="n">summary_api_response</span><span class="p">,</span> <span class="n">warn_limit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">summary_api_response</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">][</span><span class="s2">&quot;node_id_to_summary&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="get_actor"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.get_actor.html#ray.experimental.state.api.get_actor">[docs]</a><span class="k">def</span> <span class="nf">get_actor</span><span class="p">(</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get an actor by id.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        id: Id of the actor</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        timeout: Max timeout value for the state API requests made.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None if actor not found, or</span>
+<span class="sd">        :class:`ActorState &lt;ray.experimental.state.common.ActorState&gt;`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">ACTORS</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">GetApiOptions</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">),</span> <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span>
+    <span class="p">)</span></div>
+
+
+<span class="c1"># TODO(rickyyx:alpha-obs)</span>
+<span class="k">def</span> <span class="nf">get_job</span><span class="p">(</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">JobState</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Get Job by id is currently not supported&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="get_placement_group"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.get_placement_group.html#ray.experimental.state.api.get_placement_group">[docs]</a><span class="k">def</span> <span class="nf">get_placement_group</span><span class="p">(</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlacementGroupState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get a placement group by id.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        id: Id of the placement group</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None if actor not found, or</span>
+<span class="sd">        :class:`~ray.experimental.state.common.PlacementGroupState`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">PLACEMENT_GROUPS</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">,</span>
+        <span class="n">GetApiOptions</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">),</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_node"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.get_node.html#ray.experimental.state.api.get_node">[docs]</a><span class="k">def</span> <span class="nf">get_node</span><span class="p">(</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">NodeState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get a node by id.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        id: Id of the node.</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None if actor not found, or</span>
+<span class="sd">        :class:`NodeState &lt;ray.experimental.state.common.NodeState&gt;`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;`</span>
+<span class="sd">            if the CLI is failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">NODES</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">,</span>
+        <span class="n">GetApiOptions</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">),</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_worker"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.get_worker.html#ray.experimental.state.api.get_worker">[docs]</a><span class="k">def</span> <span class="nf">get_worker</span><span class="p">(</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WorkerState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get a worker by id.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        id: Id of the worker</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None if actor not found, or</span>
+<span class="sd">        :class:`WorkerState &lt;ray.experimental.state.common.WorkerState&gt;`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">WORKERS</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">,</span>
+        <span class="n">GetApiOptions</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">),</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_task"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.get_task.html#ray.experimental.state.api.get_task">[docs]</a><span class="k">def</span> <span class="nf">get_task</span><span class="p">(</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TaskState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get task attempts of a task by id.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        id: Id of the task</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None if task not found, or a list of</span>
+<span class="sd">        :class:`~ray.experimental.state.common.TaskState`</span>
+<span class="sd">        from the task attempts.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">TASKS</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">,</span>
+        <span class="n">GetApiOptions</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">),</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_objects"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.get_objects.html#ray.experimental.state.api.get_objects">[docs]</a><span class="k">def</span> <span class="nf">get_objects</span><span class="p">(</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ObjectState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get objects by id.</span>
+
+<span class="sd">    There could be more than 1 entry returned since an object could be</span>
+<span class="sd">    referenced at different places.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        id: Id of the object</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of</span>
+<span class="sd">        :class:`~ray.experimental.state.common.ObjectState`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;`  if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">OBJECTS</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">,</span>
+        <span class="n">GetApiOptions</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">),</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="list_actors"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.list_actors.html#ray.experimental.state.api.list_actors">[docs]</a><span class="k">def</span> <span class="nf">list_actors</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PredicateType</span><span class="p">,</span> <span class="n">SupportedFilterType</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_LIMIT</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">detail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ActorState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;List actors in the cluster.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        filters: List of tuples of filter key, predicate (=, or !=), and</span>
+<span class="sd">            the filter value. E.g., `(&quot;id&quot;, &quot;=&quot;, &quot;abcd&quot;)`</span>
+<span class="sd">        limit: Max number of entries returned by the state backend.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        detail: When True, more details info (specified in `ActorState`)</span>
+<span class="sd">            will be queried and returned. See</span>
+<span class="sd">            :class:`ActorState &lt;ray.experimental.state.common.ActorState&gt;`.</span>
+<span class="sd">        raise_on_missing_output: When True, exceptions will be raised if</span>
+<span class="sd">            there is missing data due to truncation/data source unavailable.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of</span>
+<span class="sd">        :class:`ActorState &lt;ray.experimental.state.common.ActorState&gt;`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">ACTORS</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ListApiOptions</span><span class="p">(</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+            <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span>
+            <span class="n">detail</span><span class="o">=</span><span class="n">detail</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">raise_on_missing_output</span><span class="o">=</span><span class="n">raise_on_missing_output</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="list_placement_groups"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.list_placement_groups.html#ray.experimental.state.api.list_placement_groups">[docs]</a><span class="k">def</span> <span class="nf">list_placement_groups</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PredicateType</span><span class="p">,</span> <span class="n">SupportedFilterType</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_LIMIT</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">detail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">PlacementGroupState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;List placement groups in the cluster.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        filters: List of tuples of filter key, predicate (=, or !=), and</span>
+<span class="sd">            the filter value. E.g., `(&quot;state&quot;, &quot;=&quot;, &quot;abcd&quot;)`</span>
+<span class="sd">        limit: Max number of entries returned by the state backend.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        detail: When True, more details info (specified in `PlacementGroupState`)</span>
+<span class="sd">            will be queried and returned. See</span>
+<span class="sd">            :class:`~ray.experimental.state.common.PlacementGroupState`.</span>
+<span class="sd">        raise_on_missing_output: When True, exceptions will be raised if</span>
+<span class="sd">            there is missing data due to truncation/data source unavailable.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of dictionarified</span>
+<span class="sd">        :class:`~ray.experimental.state.common.PlacementGroupState`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">PLACEMENT_GROUPS</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ListApiOptions</span><span class="p">(</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="n">detail</span>
+        <span class="p">),</span>
+        <span class="n">raise_on_missing_output</span><span class="o">=</span><span class="n">raise_on_missing_output</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="list_nodes"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.list_nodes.html#ray.experimental.state.api.list_nodes">[docs]</a><span class="k">def</span> <span class="nf">list_nodes</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PredicateType</span><span class="p">,</span> <span class="n">SupportedFilterType</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_LIMIT</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">detail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">NodeState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;List nodes in the cluster.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        filters: List of tuples of filter key, predicate (=, or !=), and</span>
+<span class="sd">            the filter value. E.g., `(&quot;node_name&quot;, &quot;=&quot;, &quot;abcd&quot;)`</span>
+<span class="sd">        limit: Max number of entries returned by the state backend.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        detail: When True, more details info (specified in `NodeState`)</span>
+<span class="sd">            will be queried and returned. See</span>
+<span class="sd">            :class:`NodeState &lt;ray.experimental.state.common.NodeState&gt;`.</span>
+<span class="sd">        raise_on_missing_output: When True, exceptions will be raised if</span>
+<span class="sd">            there is missing data due to truncation/data source unavailable.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of dictionarified</span>
+<span class="sd">        :class:`NodeState &lt;ray.experimental.state.common.NodeState&gt;`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;`</span>
+<span class="sd">            if the CLI failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">NODES</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ListApiOptions</span><span class="p">(</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="n">detail</span>
+        <span class="p">),</span>
+        <span class="n">raise_on_missing_output</span><span class="o">=</span><span class="n">raise_on_missing_output</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="list_jobs"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.list_jobs.html#ray.experimental.state.api.list_jobs">[docs]</a><span class="k">def</span> <span class="nf">list_jobs</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PredicateType</span><span class="p">,</span> <span class="n">SupportedFilterType</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_LIMIT</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">detail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">JobState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;List jobs submitted to the cluster by :ref: `ray job submission &lt;jobs-overview&gt;`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        filters: List of tuples of filter key, predicate (=, or !=), and</span>
+<span class="sd">            the filter value. E.g., `(&quot;status&quot;, &quot;=&quot;, &quot;abcd&quot;)`</span>
+<span class="sd">        limit: Max number of entries returned by the state backend.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        detail: When True, more details info (specified in `JobState`)</span>
+<span class="sd">            will be queried and returned. See</span>
+<span class="sd">            :class:`JobState &lt;ray.experimental.state.common.JobState&gt;`.</span>
+<span class="sd">        raise_on_missing_output: When True, exceptions will be raised if</span>
+<span class="sd">            there is missing data due to truncation/data source unavailable.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of dictionarified</span>
+<span class="sd">        :class:`JobState &lt;ray.experimental.state.common.JobState&gt;`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">JOBS</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ListApiOptions</span><span class="p">(</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="n">detail</span>
+        <span class="p">),</span>
+        <span class="n">raise_on_missing_output</span><span class="o">=</span><span class="n">raise_on_missing_output</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="list_workers"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.list_workers.html#ray.experimental.state.api.list_workers">[docs]</a><span class="k">def</span> <span class="nf">list_workers</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PredicateType</span><span class="p">,</span> <span class="n">SupportedFilterType</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_LIMIT</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">detail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">WorkerState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;List workers in the cluster.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        filters: List of tuples of filter key, predicate (=, or !=), and</span>
+<span class="sd">            the filter value. E.g., `(&quot;is_alive&quot;, &quot;=&quot;, &quot;True&quot;)`</span>
+<span class="sd">        limit: Max number of entries returned by the state backend.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        detail: When True, more details info (specified in `WorkerState`)</span>
+<span class="sd">            will be queried and returned. See</span>
+<span class="sd">            :class:`WorkerState &lt;ray.experimental.state.common.WorkerState&gt;`.</span>
+<span class="sd">        raise_on_missing_output: When True, exceptions will be raised if</span>
+<span class="sd">            there is missing data due to truncation/data source unavailable.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of</span>
+<span class="sd">        :class:`WorkerState &lt;ray.experimental.state.common.WorkerState&gt;`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">WORKERS</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ListApiOptions</span><span class="p">(</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="n">detail</span>
+        <span class="p">),</span>
+        <span class="n">raise_on_missing_output</span><span class="o">=</span><span class="n">raise_on_missing_output</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="list_tasks"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.list_tasks.html#ray.experimental.state.api.list_tasks">[docs]</a><span class="k">def</span> <span class="nf">list_tasks</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PredicateType</span><span class="p">,</span> <span class="n">SupportedFilterType</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_LIMIT</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">detail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TaskState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;List tasks in the cluster.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        filters: List of tuples of filter key, predicate (=, or !=), and</span>
+<span class="sd">            the filter value. E.g., `(&quot;is_alive&quot;, &quot;=&quot;, &quot;True&quot;)`</span>
+<span class="sd">        limit: Max number of entries returned by the state backend.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        detail: When True, more details info (specified in `WorkerState`)</span>
+<span class="sd">            will be queried and returned. See</span>
+<span class="sd">            :class:`WorkerState &lt;ray.experimental.state.common.WorkerState&gt;`.</span>
+<span class="sd">        raise_on_missing_output: When True, exceptions will be raised if</span>
+<span class="sd">            there is missing data due to truncation/data source unavailable.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of</span>
+<span class="sd">        :class:`TaskState &lt;ray.experimental.state.common.TaskState&gt;`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">TASKS</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ListApiOptions</span><span class="p">(</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="n">detail</span>
+        <span class="p">),</span>
+        <span class="n">raise_on_missing_output</span><span class="o">=</span><span class="n">raise_on_missing_output</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="list_objects"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.list_objects.html#ray.experimental.state.api.list_objects">[docs]</a><span class="k">def</span> <span class="nf">list_objects</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PredicateType</span><span class="p">,</span> <span class="n">SupportedFilterType</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_LIMIT</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">detail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ObjectState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;List objects in the cluster.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        filters: List of tuples of filter key, predicate (=, or !=), and</span>
+<span class="sd">            the filter value. E.g., `(&quot;ip&quot;, &quot;=&quot;, &quot;0.0.0.0&quot;)`</span>
+<span class="sd">        limit: Max number of entries returned by the state backend.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        detail: When True, more details info (specified in `ObjectState`)</span>
+<span class="sd">            will be queried and returned. See</span>
+<span class="sd">            :class:`ObjectState &lt;ray.experimental.state.common.ObjectState&gt;`.</span>
+<span class="sd">        raise_on_missing_output: When True, exceptions will be raised if</span>
+<span class="sd">            there is missing data due to truncation/data source unavailable.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of</span>
+<span class="sd">        :class:`ObjectState &lt;ray.experimental.state.common.ObjectState&gt;`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">OBJECTS</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ListApiOptions</span><span class="p">(</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="n">detail</span>
+        <span class="p">),</span>
+        <span class="n">raise_on_missing_output</span><span class="o">=</span><span class="n">raise_on_missing_output</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="list_runtime_envs"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.list_runtime_envs.html#ray.experimental.state.api.list_runtime_envs">[docs]</a><span class="k">def</span> <span class="nf">list_runtime_envs</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PredicateType</span><span class="p">,</span> <span class="n">SupportedFilterType</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_LIMIT</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">detail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">RuntimeEnvState</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;List runtime environments in the cluster.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        filters: List of tuples of filter key, predicate (=, or !=), and</span>
+<span class="sd">            the filter value. E.g., `(&quot;node_id&quot;, &quot;=&quot;, &quot;abcdef&quot;)`</span>
+<span class="sd">        limit: Max number of entries returned by the state backend.</span>
+<span class="sd">        timeout: Max timeout value for the state APIs requests made.</span>
+<span class="sd">        detail: When True, more details info (specified in `RuntimeEnvState`)</span>
+<span class="sd">            will be queried and returned. See</span>
+<span class="sd">            :class:`RuntimeEnvState &lt;ray.experimental.state.common.RuntimeEnvState&gt;`.</span>
+<span class="sd">        raise_on_missing_output: When True, exceptions will be raised if</span>
+<span class="sd">            there is missing data due to truncation/data source unavailable.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of</span>
+<span class="sd">        :class:`RuntimeEnvState &lt;ray.experimental.state.common.RuntimeEnvState&gt;`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;`</span>
+<span class="sd">            if the CLI failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">RUNTIME_ENVS</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ListApiOptions</span><span class="p">(</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="n">detail</span>
+        <span class="p">),</span>
+        <span class="n">raise_on_missing_output</span><span class="o">=</span><span class="n">raise_on_missing_output</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">list_cluster_events</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PredicateType</span><span class="p">,</span> <span class="n">SupportedFilterType</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_LIMIT</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">detail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
+        <span class="n">StateResource</span><span class="o">.</span><span class="n">CLUSTER_EVENTS</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">ListApiOptions</span><span class="p">(</span>
+            <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="n">detail</span>
+        <span class="p">),</span>
+        <span class="n">raise_on_missing_output</span><span class="o">=</span><span class="n">raise_on_missing_output</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Log APIs</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="get_log"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.get_log.html#ray.experimental.state.api.get_log">[docs]</a><span class="k">def</span> <span class="nf">get_log</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">node_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">node_ip</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">actor_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">task_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">pid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">follow</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tail</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">suffix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;out&quot;</span><span class="p">,</span>
+    <span class="n">encoding</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
+    <span class="n">errors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;strict&quot;</span><span class="p">,</span>
+    <span class="n">_interval</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Retrieve log file based on file name or some entities ids (pid, actor id, task id).</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import ray</span>
+<span class="sd">        &gt;&gt;&gt; from ray.experimental.state.api import get_log # doctest: +SKIP</span>
+<span class="sd">        # To connect to an existing ray instance if there is</span>
+<span class="sd">        &gt;&gt;&gt; ray.init(&quot;auto&quot;) # doctest: +SKIP</span>
+<span class="sd">        # Node IP could be retrieved from list_nodes() or ray.nodes()</span>
+<span class="sd">        &gt;&gt;&gt; node_ip = &quot;172.31.47.143&quot;  # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; filename = &quot;gcs_server.out&quot; # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; for l in get_log(filename=filename, node_ip=node_ip): # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt;    print(l) # doctest: +SKIP</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If not specified, it will be retrieved from the initialized ray cluster.</span>
+<span class="sd">        node_id: Id of the node containing the logs .</span>
+<span class="sd">        node_ip: Ip of the node containing the logs. (At least one of the node_id and</span>
+<span class="sd">            node_ip have to be supplied when identifying a node).</span>
+<span class="sd">        filename: Name of the file (relative to the ray log directory) to be retrieved.</span>
+<span class="sd">        actor_id: Id of the actor if getting logs from an actor.</span>
+<span class="sd">        task_id: Id of the task if getting logs generated by a task.</span>
+<span class="sd">        pid: PID of the worker if getting logs generated by a worker. When querying</span>
+<span class="sd">            with pid, either node_id or node_ip must be supplied.</span>
+<span class="sd">        follow: When set to True, logs will be streamed and followed.</span>
+<span class="sd">        tail: Number of lines to get from the end of the log file. Set to -1 for getting</span>
+<span class="sd">            the entire log.</span>
+<span class="sd">        timeout: Max timeout for requests made when getting the logs.</span>
+<span class="sd">        suffix: The suffix of the log file if query by id of tasks/workers/actors. Default to &quot;out&quot;.</span>
+<span class="sd">        encoding: The encoding used to decode the content of the log file. Default is</span>
+<span class="sd">            &quot;utf-8&quot;. Use None to get binary data directly.</span>
+<span class="sd">        errors: The error handling scheme to use for decoding errors. Default is</span>
+<span class="sd">            &quot;strict&quot;. See https://docs.python.org/3/library/codecs.html#error-handlers</span>
+<span class="sd">        _interval: The interval in secs to print new logs when `follow=True`.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">        A Generator of log line, None for SendType and ReturnType.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+
+    <span class="n">api_server_url</span> <span class="o">=</span> <span class="n">ray_address_to_api_server_url</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+    <span class="n">media_type</span> <span class="o">=</span> <span class="s2">&quot;stream&quot;</span> <span class="k">if</span> <span class="n">follow</span> <span class="k">else</span> <span class="s2">&quot;file&quot;</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="n">GetLogOptions</span><span class="p">(</span>
+        <span class="n">node_id</span><span class="o">=</span><span class="n">node_id</span><span class="p">,</span>
+        <span class="n">node_ip</span><span class="o">=</span><span class="n">node_ip</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+        <span class="n">actor_id</span><span class="o">=</span><span class="n">actor_id</span><span class="p">,</span>
+        <span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">,</span>
+        <span class="n">pid</span><span class="o">=</span><span class="n">pid</span><span class="p">,</span>
+        <span class="n">lines</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span>
+        <span class="n">interval</span><span class="o">=</span><span class="n">_interval</span><span class="p">,</span>
+        <span class="n">media_type</span><span class="o">=</span><span class="n">media_type</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+        <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">options_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">(</span><span class="n">options</span><span class="p">):</span>
+        <span class="n">option_val</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">option_val</span><span class="p">:</span>
+            <span class="n">options_dict</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">option_val</span>
+
+    <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">api_server_url</span><span class="si">}</span><span class="s2">/api/v0/logs/</span><span class="si">{</span><span class="n">media_type</span><span class="si">}</span><span class="s2">?&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">options_dict</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RayStateApiException</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">for</span> <span class="nb">bytes</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="nb">bytes</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="nb">bytes</span><span class="p">)</span>
+            <span class="c1"># First byte 1 means success.</span>
+            <span class="k">if</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;1&quot;</span><span class="p">):</span>
+                <span class="nb">bytes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">logs</span> <span class="o">=</span> <span class="nb">bytes</span>
+                <span class="k">if</span> <span class="n">encoding</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">logs</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="n">errors</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+                <span class="n">error_msg</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">RayStateApiException</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">logs</span></div>
+
+
+<div class="viewcode-block" id="list_logs"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.list_logs.html#ray.experimental.state.api.list_logs">[docs]</a><span class="k">def</span> <span class="nf">list_logs</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">node_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">node_ip</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">glob_filter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;Listing log files available.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If not specified, it will be retrieved from the initialized ray cluster.</span>
+<span class="sd">        node_id: Id of the node containing the logs.</span>
+<span class="sd">        node_ip: Ip of the node containing the logs.</span>
+<span class="sd">        glob_filter: Name of the file (relative to the ray log directory) to be</span>
+<span class="sd">            retrieved. E.g. `glob_filter=&quot;*worker*&quot;` for all worker logs.</span>
+<span class="sd">        actor_id: Id of the actor if getting logs from an actor.</span>
+<span class="sd">        timeout: Max timeout for requests made when getting the logs.</span>
+<span class="sd">        _interval: The interval in secs to print new logs when `follow=True`.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">        A dictionary where the keys are log groups (e.g. gcs, raylet, worker), and</span>
+<span class="sd">        values are list of log filenames.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data, or ConnectionError if failed to resolve the</span>
+<span class="sd">            ray address.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">assert</span> <span class="p">(</span>
+        <span class="n">node_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">node_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="p">),</span> <span class="s2">&quot;At least one of node ip and node id is required&quot;</span>
+
+    <span class="n">api_server_url</span> <span class="o">=</span> <span class="n">ray_address_to_api_server_url</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">glob_filter</span><span class="p">:</span>
+        <span class="n">glob_filter</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
+
+    <span class="n">options_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">node_ip</span><span class="p">:</span>
+        <span class="n">options_dict</span><span class="p">[</span><span class="s2">&quot;node_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_ip</span>
+    <span class="k">if</span> <span class="n">node_id</span><span class="p">:</span>
+        <span class="n">options_dict</span><span class="p">[</span><span class="s2">&quot;node_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_id</span>
+    <span class="k">if</span> <span class="n">glob_filter</span><span class="p">:</span>
+        <span class="n">options_dict</span><span class="p">[</span><span class="s2">&quot;glob&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">glob_filter</span>
+    <span class="n">options_dict</span><span class="p">[</span><span class="s2">&quot;timeout&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timeout</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">api_server_url</span><span class="si">}</span><span class="s2">/api/v0/logs?</span><span class="si">{</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">options_dict</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">RayStateApiException</span><span class="p">(</span>
+            <span class="s2">&quot;API server internal error. See dashboard.log file for more details. &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;result&quot;</span><span class="p">]</span></div>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Summary APIs</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="summarize_tasks"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.summarize_tasks.html#ray.experimental.state.api.summarize_tasks">[docs]</a><span class="k">def</span> <span class="nf">summarize_tasks</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Summarize the tasks in cluster.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        timeout: Max timeout for requests made when getting the states.</span>
+<span class="sd">        raise_on_missing_output: When True, exceptions will be raised if</span>
+<span class="sd">            there is missing data due to truncation/data source unavailable.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">        Dictionarified</span>
+<span class="sd">        :class:`~ray.experimental.state.common.TaskSummaries`</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;`</span>
+<span class="sd">            if the CLI is failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span>
+        <span class="n">SummaryResource</span><span class="o">.</span><span class="n">TASKS</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">SummaryApiOptions</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">),</span>
+        <span class="n">raise_on_missing_output</span><span class="o">=</span><span class="n">raise_on_missing_output</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="summarize_actors"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.summarize_actors.html#ray.experimental.state.api.summarize_actors">[docs]</a><span class="k">def</span> <span class="nf">summarize_actors</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Summarize the actors in cluster.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        timeout: Max timeout for requests made when getting the states.</span>
+<span class="sd">        raise_on_missing_output: When True, exceptions will be raised if</span>
+<span class="sd">            there is missing data due to truncation/data source unavailable.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">        Dictionarified</span>
+<span class="sd">        :class:`~ray.experimental.state.common.ActorSummaries`</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span>
+        <span class="n">SummaryResource</span><span class="o">.</span><span class="n">ACTORS</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">SummaryApiOptions</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">),</span>
+        <span class="n">raise_on_missing_output</span><span class="o">=</span><span class="n">raise_on_missing_output</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="summarize_objects"><a class="viewcode-back" href="../../../../ray-observability/api/state/doc/ray.experimental.state.api.summarize_objects.html#ray.experimental.state.api.summarize_objects">[docs]</a><span class="k">def</span> <span class="nf">summarize_objects</span><span class="p">(</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_RPC_TIMEOUT</span><span class="p">,</span>
+    <span class="n">raise_on_missing_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">_explain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Summarize the objects in cluster.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        address: Ray bootstrap address, could be `auto`, `localhost:6379`.</span>
+<span class="sd">            If None, it will be resolved automatically from an initialized ray.</span>
+<span class="sd">        timeout: Max timeout for requests made when getting the states.</span>
+<span class="sd">        raise_on_missing_output: When True, exceptions will be raised if</span>
+<span class="sd">            there is missing data due to truncation/data source unavailable.</span>
+<span class="sd">        _explain: Print the API information such as API latency or</span>
+<span class="sd">            failed query information.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">        Dictionarified :class:`~ray.experimental.state.common.ObjectSummaries`</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exceptions: :class:`RayStateApiException &lt;ray.experimental.state.exception.RayStateApiException&gt;` if the CLI</span>
+<span class="sd">            failed to query the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
+    <span class="k">return</span> <span class="n">StateApiClient</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">)</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span>
+        <span class="n">SummaryResource</span><span class="o">.</span><span class="n">OBJECTS</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="n">SummaryApiOptions</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">),</span>
+        <span class="n">raise_on_missing_output</span><span class="o">=</span><span class="n">raise_on_missing_output</span><span class="p">,</span>
+        <span class="n">_explain</span><span class="o">=</span><span class="n">_explain</span><span class="p">,</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,1305 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ray.air.util.tensor_extensions.arrow &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../../_static/copybutton.js"></script>
+    <script src="../../../../../_static/js/versionwarning.js"></script>
+    <script src="../../../../../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../../../../../_static/js/docsearch.js"></script>
+    <script src="../../../../../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../../../../../_static/js/termynal.js"></script>
+    <script defer="defer" src="../../../../../_static/js/custom.js"></script>
+    <script defer="defer" src="../../../../../_static/js/top-navigation.js"></script>
+    <script src="../../../../../_static/js/tags.js"></script>
+    <script src="../../../../../_static/tabs.js"></script>
+    <script src="../../../../../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../../_static/design-tabs.js"></script>
+    <script async="async" src="../../../../../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/_modules/ray/air/util/tensor_extensions/arrow.html" />
+    <link rel="shortcut icon" href="../../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../../../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:35:10Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "_modules/ray/air/util/tensor_extensions/arrow", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../../../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2F_modules/ray/air/util/tensor_extensions/arrow.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for ray.air.util.tensor_extensions.arrow</h1><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">pkg_resources._vendor.packaging.version</span> <span class="kn">import</span> <span class="n">parse</span> <span class="k">as</span> <span class="n">parse_version</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+
+<span class="kn">from</span> <span class="nn">ray.air.util.tensor_extensions.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_is_ndarray_variable_shaped_tensor</span><span class="p">,</span>
+    <span class="n">create_ragged_ndarray</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ray._private.utils</span> <span class="kn">import</span> <span class="n">_get_pyarrow_version</span>
+<span class="kn">from</span> <span class="nn">ray.util.annotations</span> <span class="kn">import</span> <span class="n">PublicAPI</span>
+
+
+<span class="n">PYARROW_VERSION</span> <span class="o">=</span> <span class="n">_get_pyarrow_version</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">PYARROW_VERSION</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">PYARROW_VERSION</span> <span class="o">=</span> <span class="n">parse_version</span><span class="p">(</span><span class="n">PYARROW_VERSION</span><span class="p">)</span>
+<span class="c1"># Minimum version of Arrow that supports ExtensionScalars.</span>
+<span class="c1"># TODO(Clark): Remove conditional definition once we only support Arrow 8.0.0+.</span>
+<span class="n">MIN_PYARROW_VERSION_SCALAR</span> <span class="o">=</span> <span class="n">parse_version</span><span class="p">(</span><span class="s2">&quot;8.0.0&quot;</span><span class="p">)</span>
+<span class="c1"># Minimum version of Arrow that supports subclassable ExtensionScalars.</span>
+<span class="c1"># TODO(Clark): Remove conditional definition once we only support Arrow 9.0.0+.</span>
+<span class="n">MIN_PYARROW_VERSION_SCALAR_SUBCLASS</span> <span class="o">=</span> <span class="n">parse_version</span><span class="p">(</span><span class="s2">&quot;9.0.0&quot;</span><span class="p">)</span>
+
+<span class="n">NUM_BYTES_PER_UNICODE_CHAR</span> <span class="o">=</span> <span class="mi">4</span>
+
+
+<span class="k">def</span> <span class="nf">_arrow_supports_extension_scalars</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Whether Arrow ExtensionScalars are supported in the current pyarrow version.</span>
+
+<span class="sd">    This returns True if the pyarrow version is 8.0.0+, or if the pyarrow version is</span>
+<span class="sd">    unknown.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO(Clark): Remove utility once we only support Arrow 8.0.0+.</span>
+    <span class="k">return</span> <span class="n">PYARROW_VERSION</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">PYARROW_VERSION</span> <span class="o">&gt;=</span> <span class="n">MIN_PYARROW_VERSION_SCALAR</span>
+
+
+<span class="k">def</span> <span class="nf">_arrow_extension_scalars_are_subclassable</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Whether Arrow ExtensionScalars support subclassing in the current pyarrow version.</span>
+
+<span class="sd">    This returns True if the pyarrow version is 9.0.0+, or if the pyarrow version is</span>
+<span class="sd">    unknown.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO(Clark): Remove utility once we only support Arrow 9.0.0+.</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">PYARROW_VERSION</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">or</span> <span class="n">PYARROW_VERSION</span> <span class="o">&gt;=</span> <span class="n">MIN_PYARROW_VERSION_SCALAR_SUBCLASS</span>
+    <span class="p">)</span>
+
+
+<div class="viewcode-block" id="ArrowTensorType"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.ArrowTensorType.html#ray.data.extensions.tensor_extension.ArrowTensorType">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ArrowTensorType</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">PyExtensionType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Arrow ExtensionType for an array of fixed-shaped, homogeneous-typed</span>
+<span class="sd">    tensors.</span>
+
+<span class="sd">    This is the Arrow side of TensorDtype.</span>
+
+<span class="sd">    See Arrow extension type docs:</span>
+<span class="sd">    https://arrow.apache.org/docs/python/extending_types.html#defining-extension-types-user-defined-types</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">DataType</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct the Arrow extension type for array of fixed-shaped tensors.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            shape: Shape of contained tensors.</span>
+<span class="sd">            dtype: pyarrow dtype of tensor elements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span> <span class="o">=</span> <span class="n">shape</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">list_</span><span class="p">(</span><span class="n">dtype</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shape of contained tensors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scalar_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the type of the underlying tensor elements.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage_type</span><span class="o">.</span><span class="n">value_type</span>
+
+<div class="viewcode-block" id="ArrowTensorType.to_pandas_dtype"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.ArrowTensorType.html#ray.data.extensions.tensor_extension.ArrowTensorType.to_pandas_dtype">[docs]</a>    <span class="k">def</span> <span class="nf">to_pandas_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert Arrow extension type to corresponding Pandas dtype.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            An instance of pd.api.extensions.ExtensionDtype.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">ray.air.util.tensor_extensions.pandas</span> <span class="kn">import</span> <span class="n">TensorDtype</span>
+
+        <span class="k">return</span> <span class="n">TensorDtype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage_type</span><span class="o">.</span><span class="n">value_type</span><span class="o">.</span><span class="n">to_pandas_dtype</span><span class="p">())</span></div>
+
+    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ArrowTensorType</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage_type</span><span class="o">.</span><span class="n">value_type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__arrow_ext_class__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ExtensionArray subclass with custom logic for this array of tensors</span>
+<span class="sd">        type.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A subclass of pd.api.extensions.ExtensionArray.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ArrowTensorArray</span>
+
+    <span class="k">if</span> <span class="n">_arrow_extension_scalars_are_subclassable</span><span class="p">():</span>
+        <span class="c1"># TODO(Clark): Remove this version guard once we only support Arrow 9.0.0+.</span>
+        <span class="k">def</span> <span class="nf">__arrow_ext_scalar_class__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            ExtensionScalar subclass with custom logic for this array of tensors type.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="n">ArrowTensorScalar</span>
+
+    <span class="k">if</span> <span class="n">_arrow_supports_extension_scalars</span><span class="p">():</span>
+        <span class="c1"># TODO(Clark): Remove this version guard once we only support Arrow 8.0.0+.</span>
+        <span class="k">def</span> <span class="nf">_extension_scalar_to_ndarray</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">scalar</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">ExtensionScalar</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Convert an ExtensionScalar to a tensor element.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">raw_values</span> <span class="o">=</span> <span class="n">scalar</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="n">scalar</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">value_type</span> <span class="o">=</span> <span class="n">raw_values</span><span class="o">.</span><span class="n">type</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="n">raw_values</span><span class="o">.</span><span class="n">offset</span>
+            <span class="n">data_buffer</span> <span class="o">=</span> <span class="n">raw_values</span><span class="o">.</span><span class="n">buffers</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">_to_ndarray_helper</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">data_buffer</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;numpy.ndarray(shape=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, dtype=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">storage_type</span><span class="o">.</span><span class="n">value_type</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_need_variable_shaped_tensor_array</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">array_types</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span>
+            <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;ArrowTensorType&quot;</span><span class="p">,</span> <span class="s2">&quot;ArrowVariableShapedTensorType&quot;</span><span class="p">]</span>
+        <span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Whether the provided list of tensor types needs a variable-shaped</span>
+<span class="sd">        representation (i.e. `ArrowVariableShapedTensorType`) when concatenating</span>
+<span class="sd">        or chunking. If one or more of the tensor types in `array_types` are</span>
+<span class="sd">        variable-shaped and/or any of the tensor arrays have a different shape</span>
+<span class="sd">        than the others, a variable-shaped tensor array representation will be</span>
+<span class="sd">        required and this method will return True.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            array_types: List of tensor types to check if a variable-shaped</span>
+<span class="sd">            representation is required for concatenation</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True if concatenating arrays with types `array_types` requires</span>
+<span class="sd">            a variable-shaped representation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">arr_type</span> <span class="ow">in</span> <span class="n">array_types</span><span class="p">:</span>
+            <span class="c1"># If at least one of the arrays is variable-shaped, we can immediately</span>
+            <span class="c1"># short-circuit since we require a variable-shaped representation.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arr_type</span><span class="p">,</span> <span class="n">ArrowVariableShapedTensorType</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arr_type</span><span class="p">,</span> <span class="n">ArrowTensorType</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;All provided array types must be an instance of either &quot;</span>
+                    <span class="s2">&quot;ArrowTensorType or ArrowVariableShapedTensorType, but &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;got </span><span class="si">{</span><span class="n">arr_type</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="c1"># We need variable-shaped representation if any of the tensor arrays have</span>
+            <span class="c1"># different shapes.</span>
+            <span class="k">if</span> <span class="n">shape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">arr_type</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">shape</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="n">arr_type</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<span class="k">if</span> <span class="n">_arrow_extension_scalars_are_subclassable</span><span class="p">():</span>
+    <span class="c1"># TODO(Clark): Remove this version guard once we only support Arrow 9.0.0+.</span>
+    <span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+    <span class="k">class</span> <span class="nc">ArrowTensorScalar</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">ExtensionScalar</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">as_py</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">_extension_scalar_to_ndarray</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">__array__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_py</span><span class="p">()</span>
+
+
+<span class="c1"># TODO(Clark): Remove this mixin once we only support Arrow 9.0.0+.</span>
+<span class="k">class</span> <span class="nc">_ArrowTensorScalarIndexingMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A mixin providing support for scalar indexing in tensor extension arrays for</span>
+<span class="sd">    Arrow &lt; 9.0.0, before full ExtensionScalar support was added. This mixin overrides</span>
+<span class="sd">    __getitem__, __iter__, and to_pylist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># This mixin will be a no-op (no methods added) for Arrow 9.0.0+.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_arrow_extension_scalars_are_subclassable</span><span class="p">():</span>
+        <span class="c1"># NOTE: These __iter__ and to_pylist definitions are shared for both</span>
+        <span class="c1"># Arrow &lt; 8.0.0 and Arrow 8.*.</span>
+        <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="c1"># Override pa.Array.__iter__() in order to return an iterator of</span>
+            <span class="c1"># properly shaped tensors instead of an iterator of flattened tensors.</span>
+            <span class="c1"># See comment in above __getitem__ method.</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+                <span class="c1"># Use overridden __getitem__ method.</span>
+                <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">to_pylist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="c1"># Override pa.Array.to_pylist() due to a lack of ExtensionScalar</span>
+            <span class="c1"># support (see comment in __getitem__).</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">_arrow_supports_extension_scalars</span><span class="p">():</span>
+            <span class="c1"># NOTE(Clark): This __getitem__ override is only needed for Arrow 8.*,</span>
+            <span class="c1"># before ExtensionScalar subclassing support was added.</span>
+            <span class="c1"># TODO(Clark): Remove these methods once we only support Arrow 9.0.0+.</span>
+            <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+                <span class="c1"># This __getitem__ hook allows us to support proper indexing when</span>
+                <span class="c1"># accessing a single tensor (a &quot;scalar&quot; item of the array). Without this</span>
+                <span class="c1"># hook for integer keys, the indexing will fail on pyarrow &lt; 9.0.0 due</span>
+                <span class="c1"># to a lack of ExtensionScalar subclassing support.</span>
+
+                <span class="c1"># NOTE(Clark): We&#39;d like to override the pa.Array.getitem() helper</span>
+                <span class="c1"># instead, which would obviate the need for overriding __iter__(), but</span>
+                <span class="c1"># unfortunately overriding Cython cdef methods with normal Python</span>
+                <span class="c1"># methods isn&#39;t allowed.</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+                    <span class="n">item</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">_extension_scalar_to_ndarray</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">item</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># NOTE(Clark): This __getitem__ override is only needed for Arrow &lt; 8.0.0,</span>
+            <span class="c1"># before any ExtensionScalar support was added.</span>
+            <span class="c1"># TODO(Clark): Remove these methods once we only support Arrow 8.0.0+.</span>
+            <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+                <span class="c1"># This __getitem__ hook allows us to support proper indexing when</span>
+                <span class="c1"># accessing a single tensor (a &quot;scalar&quot; item of the array). Without this</span>
+                <span class="c1"># hook for integer keys, the indexing will fail on pyarrow &lt; 8.0.0 due</span>
+                <span class="c1"># to a lack of ExtensionScalar support.</span>
+
+                <span class="c1"># NOTE(Clark): We&#39;d like to override the pa.Array.getitem() helper</span>
+                <span class="c1"># instead, which would obviate the need for overriding __iter__(), but</span>
+                <span class="c1"># unfortunately overriding Cython cdef methods with normal Python</span>
+                <span class="c1"># methods isn&#39;t allowed.</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_numpy</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+
+<span class="c1"># NOTE: We need to inherit from the mixin before pa.ExtensionArray to ensure that the</span>
+<span class="c1"># mixin&#39;s overriding methods appear first in the MRO.</span>
+<span class="c1"># TODO(Clark): Remove this mixin once we only support Arrow 9.0.0+.</span>
+<div class="viewcode-block" id="ArrowTensorArray"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.ArrowTensorArray.html#ray.data.extensions.tensor_extension.ArrowTensorArray">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ArrowTensorArray</span><span class="p">(</span><span class="n">_ArrowTensorScalarIndexingMixin</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">ExtensionArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An array of fixed-shape, homogeneous-typed tensors.</span>
+
+<span class="sd">    This is the Arrow side of TensorArray.</span>
+
+<span class="sd">    See Arrow docs for customizing extension arrays:</span>
+<span class="sd">    https://arrow.apache.org/docs/python/extending_types.html#custom-extension-array-class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">OFFSET_DTYPE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span>
+
+<div class="viewcode-block" id="ArrowTensorArray.from_numpy"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.ArrowTensorArray.html#ray.data.extensions.tensor_extension.ArrowTensorArray.from_numpy">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_numpy</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;ArrowTensorArray&quot;</span><span class="p">,</span> <span class="s2">&quot;ArrowVariableShapedTensorArray&quot;</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert an ndarray or an iterable of ndarrays to an array of homogeneous-typed</span>
+<span class="sd">        tensors. If given fixed-shape tensor elements, this will return an</span>
+<span class="sd">        ``ArrowTensorArray``; if given variable-shape tensor elements, this will return</span>
+<span class="sd">        an ``ArrowVariableShapedTensorArray``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            arr: An ndarray or an iterable of ndarrays.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - If fixed-shape tensor elements, an ``ArrowTensorArray`` containing</span>
+<span class="sd">              ``len(arr)`` tensors of fixed shape.</span>
+<span class="sd">            - If variable-shaped tensor elements, an ``ArrowVariableShapedTensorArray``</span>
+<span class="sd">              containing ``len(arr)`` tensors of variable shape.</span>
+<span class="sd">            - If scalar elements, a ``pyarrow.Array``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="ow">and</span> <span class="n">arr</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="c1"># Stack ndarrays and pass through to ndarray handling logic below.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="c1"># ndarray stacking may fail if the arrays are heterogeneously-shaped.</span>
+                <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="c1"># Elements are scalar so a plain Arrow Array will suffice.</span>
+                <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">_is_ndarray_variable_shaped_tensor</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+                <span class="c1"># Tensor elements have variable shape, so we delegate to</span>
+                <span class="c1"># ArrowVariableShapedTensorArray.</span>
+                <span class="k">return</span> <span class="n">ArrowVariableShapedTensorArray</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">arr</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">c_contiguous</span><span class="p">:</span>
+                <span class="c1"># We only natively support C-contiguous ndarrays.</span>
+                <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+            <span class="n">pa_dtype</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">from_numpy_dtype</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_string</span><span class="p">(</span><span class="n">pa_dtype</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">byteorder</span> <span class="o">==</span> <span class="s2">&quot;&gt;&quot;</span> <span class="ow">or</span> <span class="p">(</span>
+                    <span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">byteorder</span> <span class="o">==</span> <span class="s2">&quot;=&quot;</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">byteorder</span> <span class="o">==</span> <span class="s2">&quot;big&quot;</span>
+                <span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;Only little-endian string tensors are supported, &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;but got: </span><span class="si">{</span><span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="n">pa_dtype</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">binary</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span><span class="p">)</span>
+            <span class="n">outer_len</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">element_shape</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">total_num_items</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">size</span>
+            <span class="n">num_items_per_element</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">element_shape</span><span class="p">)</span> <span class="k">if</span> <span class="n">element_shape</span> <span class="k">else</span> <span class="mi">1</span>
+
+            <span class="c1"># Data buffer.</span>
+            <span class="k">if</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_boolean</span><span class="p">(</span><span class="n">pa_dtype</span><span class="p">):</span>
+                <span class="c1"># NumPy doesn&#39;t represent boolean arrays as bit-packed, so we manually</span>
+                <span class="c1"># bit-pack the booleans before handing the buffer off to Arrow.</span>
+                <span class="c1"># NOTE: Arrow expects LSB bit-packed ordering.</span>
+                <span class="c1"># NOTE: This creates a copy.</span>
+                <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">packbits</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">bitorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">)</span>
+            <span class="n">data_buffer</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">py_buffer</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+            <span class="n">data_array</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">Array</span><span class="o">.</span><span class="n">from_buffers</span><span class="p">(</span>
+                <span class="n">pa_dtype</span><span class="p">,</span> <span class="n">total_num_items</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_buffer</span><span class="p">]</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Offset buffer.</span>
+            <span class="n">offset_buffer</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">py_buffer</span><span class="p">(</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">OFFSET_DTYPE</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_items_per_element</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">outer_len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="n">storage</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">Array</span><span class="o">.</span><span class="n">from_buffers</span><span class="p">(</span>
+                <span class="n">pa</span><span class="o">.</span><span class="n">list_</span><span class="p">(</span><span class="n">pa_dtype</span><span class="p">),</span>
+                <span class="n">outer_len</span><span class="p">,</span>
+                <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset_buffer</span><span class="p">],</span>
+                <span class="n">children</span><span class="o">=</span><span class="p">[</span><span class="n">data_array</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="n">type_</span> <span class="o">=</span> <span class="n">ArrowTensorType</span><span class="p">(</span><span class="n">element_shape</span><span class="p">,</span> <span class="n">pa_dtype</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">ExtensionArray</span><span class="o">.</span><span class="n">from_storage</span><span class="p">(</span><span class="n">type_</span><span class="p">,</span> <span class="n">storage</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">arr</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Must give ndarray or iterable of ndarrays.&quot;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_to_numpy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">zero_copy_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper for getting either an element of the array of tensors as an</span>
+<span class="sd">        ndarray, or the entire array of tensors as a single ndarray.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index: The index of the tensor element that we wish to return as</span>
+<span class="sd">                an ndarray. If not given, the entire array of tensors is</span>
+<span class="sd">                returned as an ndarray.</span>
+<span class="sd">            zero_copy_only: If True, an exception will be raised if the</span>
+<span class="sd">                conversion to a NumPy array would require copying the</span>
+<span class="sd">                underlying data (e.g. in presence of nulls, or for</span>
+<span class="sd">                non-primitive types). This argument is currently ignored, so</span>
+<span class="sd">                zero-copy isn&#39;t enforced even if this argument is true.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The corresponding tensor element as an ndarray if an index was</span>
+<span class="sd">            given, or the entire array of tensors as an ndarray otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO(Clark): Enforce zero_copy_only.</span>
+        <span class="c1"># TODO(Clark): Support strides?</span>
+        <span class="c1"># Buffers schema:</span>
+        <span class="c1"># [None, offset_buffer, None, data_buffer]</span>
+        <span class="n">buffers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffers</span><span class="p">()</span>
+        <span class="n">data_buffer</span> <span class="o">=</span> <span class="n">buffers</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">storage_list_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">type</span>
+        <span class="n">value_type</span> <span class="o">=</span> <span class="n">storage_list_type</span><span class="o">.</span><span class="n">value_type</span>
+        <span class="n">ext_dtype</span> <span class="o">=</span> <span class="n">value_type</span><span class="o">.</span><span class="n">to_pandas_dtype</span><span class="p">()</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_boolean</span><span class="p">(</span><span class="n">value_type</span><span class="p">):</span>
+            <span class="c1"># Arrow boolean array buffers are bit-packed, with 8 entries per byte,</span>
+            <span class="c1"># and are accessed via bit offsets.</span>
+            <span class="n">buffer_item_width</span> <span class="o">=</span> <span class="n">value_type</span><span class="o">.</span><span class="n">bit_width</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We assume all other array types are accessed via byte array</span>
+            <span class="c1"># offsets.</span>
+            <span class="n">buffer_item_width</span> <span class="o">=</span> <span class="n">value_type</span><span class="o">.</span><span class="n">bit_width</span> <span class="o">//</span> <span class="mi">8</span>
+        <span class="c1"># Number of items per inner ndarray.</span>
+        <span class="n">num_items_per_element</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="k">if</span> <span class="n">shape</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="c1"># Base offset into data buffer, e.g. due to zero-copy slice.</span>
+        <span class="n">buffer_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">*</span> <span class="n">num_items_per_element</span>
+        <span class="c1"># Offset of array data in buffer.</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">buffer_item_width</span> <span class="o">*</span> <span class="n">buffer_offset</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Getting a single tensor element of the array.</span>
+            <span class="n">offset_buffer</span> <span class="o">=</span> <span class="n">buffers</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">offset_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">(</span>
+                <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),),</span> <span class="n">buffer</span><span class="o">=</span><span class="n">offset_buffer</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">OFFSET_DTYPE</span>
+            <span class="p">)</span>
+            <span class="c1"># Offset into array to reach logical index.</span>
+            <span class="n">index_offset</span> <span class="o">=</span> <span class="n">offset_array</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="c1"># Add the index offset to the base offset.</span>
+            <span class="n">offset</span> <span class="o">+=</span> <span class="n">buffer_item_width</span> <span class="o">*</span> <span class="n">index_offset</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Getting the entire array of tensors.</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),)</span> <span class="o">+</span> <span class="n">shape</span>
+        <span class="k">if</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_boolean</span><span class="p">(</span><span class="n">value_type</span><span class="p">):</span>
+            <span class="c1"># Special handling for boolean arrays, since Arrow bit-packs boolean arrays</span>
+            <span class="c1"># while NumPy does not.</span>
+            <span class="c1"># Cast as uint8 array and let NumPy unpack into a boolean view.</span>
+            <span class="c1"># Offset into uint8 array, where each element is a bucket for 8 booleans.</span>
+            <span class="n">byte_bucket_offset</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">//</span> <span class="mi">8</span>
+            <span class="c1"># Offset for a specific boolean, within a uint8 array element.</span>
+            <span class="n">bool_offset</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">%</span> <span class="mi">8</span>
+            <span class="c1"># The number of uint8 array elements (buckets) that our slice spans.</span>
+            <span class="c1"># Note that, due to the offset for a specific boolean, the slice can span</span>
+            <span class="c1"># byte boundaries even if it contains less than 8 booleans.</span>
+            <span class="n">num_boolean_byte_buckets</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">((</span><span class="n">bool_offset</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">8</span><span class="p">)</span>
+            <span class="c1"># Construct the uint8 array view on the buffer.</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">num_boolean_byte_buckets</span><span class="p">,),</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span>
+                <span class="n">buffer</span><span class="o">=</span><span class="n">data_buffer</span><span class="p">,</span>
+                <span class="n">offset</span><span class="o">=</span><span class="n">byte_bucket_offset</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="c1"># Unpack into a byte per boolean, using LSB bit-packed ordering.</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unpackbits</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">bitorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">)</span>
+            <span class="c1"># Interpret buffer as boolean array.</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">,</span> <span class="n">buffer</span><span class="o">=</span><span class="n">arr</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">bool_offset</span><span class="p">)</span>
+        <span class="c1"># Special handling of binary/string types. Assumes unicode string tensor columns</span>
+        <span class="k">if</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_fixed_size_binary</span><span class="p">(</span><span class="n">value_type</span><span class="p">):</span>
+            <span class="n">ext_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;&lt;U</span><span class="si">{</span><span class="n">value_type</span><span class="o">.</span><span class="n">byte_width</span> <span class="o">//</span> <span class="n">NUM_BYTES_PER_UNICODE_CHAR</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">ext_dtype</span><span class="p">,</span> <span class="n">buffer</span><span class="o">=</span><span class="n">data_buffer</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ArrowTensorArray.to_numpy"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.ArrowTensorArray.html#ray.data.extensions.tensor_extension.ArrowTensorArray.to_numpy">[docs]</a>    <span class="k">def</span> <span class="nf">to_numpy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zero_copy_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the entire array of tensors into a single ndarray.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            zero_copy_only: If True, an exception will be raised if the</span>
+<span class="sd">                conversion to a NumPy array would require copying the</span>
+<span class="sd">                underlying data (e.g. in presence of nulls, or for</span>
+<span class="sd">                non-primitive types). This argument is currently ignored, so</span>
+<span class="sd">                zero-copy isn&#39;t enforced even if this argument is true.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A single ndarray representing the entire array of tensors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_numpy</span><span class="p">(</span><span class="n">zero_copy_only</span><span class="o">=</span><span class="n">zero_copy_only</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_concat_same_type</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">to_concat</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span>
+            <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;ArrowTensorArray&quot;</span><span class="p">,</span> <span class="s2">&quot;ArrowVariableShapedTensorArray&quot;</span><span class="p">]</span>
+        <span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;ArrowTensorArray&quot;</span><span class="p">,</span> <span class="s2">&quot;ArrowVariableShapedTensorArray&quot;</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Concatenate multiple tensor arrays.</span>
+
+<span class="sd">        If one or more of the tensor arrays in to_concat are variable-shaped and/or any</span>
+<span class="sd">        of the tensor arrays have a different shape than the others, a variable-shaped</span>
+<span class="sd">        tensor array will be returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">to_concat_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">arr</span><span class="o">.</span><span class="n">type</span> <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="n">to_concat</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ArrowTensorType</span><span class="o">.</span><span class="n">_need_variable_shaped_tensor_array</span><span class="p">(</span><span class="n">to_concat_types</span><span class="p">):</span>
+            <span class="c1"># Need variable-shaped tensor array.</span>
+            <span class="c1"># TODO(Clark): Eliminate this NumPy roundtrip by directly constructing the</span>
+            <span class="c1"># underlying storage array buffers (NumPy roundtrip will not be zero-copy</span>
+            <span class="c1"># for e.g. boolean arrays).</span>
+            <span class="c1"># NOTE(Clark): Iterating over a tensor extension array converts each element</span>
+            <span class="c1"># to an ndarray view.</span>
+            <span class="k">return</span> <span class="n">ArrowVariableShapedTensorArray</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">to_concat</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">storage</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">concat_arrays</span><span class="p">([</span><span class="n">c</span><span class="o">.</span><span class="n">storage</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">to_concat</span><span class="p">])</span>
+
+            <span class="k">return</span> <span class="n">ArrowTensorArray</span><span class="o">.</span><span class="n">from_storage</span><span class="p">(</span><span class="n">to_concat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">storage</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_chunk_tensor_arrays</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">arrs</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="s2">&quot;ArrowTensorArray&quot;</span><span class="p">,</span> <span class="s2">&quot;ArrowVariableShapedTensorArray&quot;</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pa</span><span class="o">.</span><span class="n">ChunkedArray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a ChunkedArray from multiple tensor arrays.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">arrs_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">arr</span><span class="o">.</span><span class="n">type</span> <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="n">arrs</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ArrowTensorType</span><span class="o">.</span><span class="n">_need_variable_shaped_tensor_array</span><span class="p">(</span><span class="n">arrs_types</span><span class="p">):</span>
+            <span class="n">new_arrs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">arrs</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">ArrowTensorType</span><span class="p">):</span>
+                    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">to_variable_shaped_tensor_array</span><span class="p">()</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">ArrowVariableShapedTensorType</span><span class="p">)</span>
+                <span class="n">new_arrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            <span class="n">arrs</span> <span class="o">=</span> <span class="n">new_arrs</span>
+        <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">chunked_array</span><span class="p">(</span><span class="n">arrs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ArrowTensorArray.to_variable_shaped_tensor_array"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.ArrowTensorArray.html#ray.data.extensions.tensor_extension.ArrowTensorArray.to_variable_shaped_tensor_array">[docs]</a>    <span class="k">def</span> <span class="nf">to_variable_shaped_tensor_array</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArrowVariableShapedTensorArray&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert this tensor array to a variable-shaped tensor array.</span>
+
+<span class="sd">        This is primarily used when concatenating multiple chunked tensor arrays where</span>
+<span class="sd">        at least one chunked array is already variable-shaped and/or the shapes of the</span>
+<span class="sd">        chunked arrays differ, in which case the resulting concatenated tensor array</span>
+<span class="sd">        will need to be in the variable-shaped representation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO(Clark): Eliminate this NumPy roundtrip by directly constructing the</span>
+        <span class="c1"># underlying storage array buffers (NumPy roundtrip will not be zero-copy for</span>
+        <span class="c1"># e.g. boolean arrays).</span>
+        <span class="k">return</span> <span class="n">ArrowVariableShapedTensorArray</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span></div></div>
+
+
+<div class="viewcode-block" id="ArrowVariableShapedTensorType"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.ArrowVariableShapedTensorType.html#ray.data.extensions.tensor_extension.ArrowVariableShapedTensorType">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ArrowVariableShapedTensorType</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">PyExtensionType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Arrow ExtensionType for an array of heterogeneous-shaped, homogeneous-typed</span>
+<span class="sd">    tensors.</span>
+
+<span class="sd">    This is the Arrow side of TensorDtype for tensor elements with different shapes.</span>
+<span class="sd">    Note that this extension only supports non-ragged tensor elements; i.e., when</span>
+<span class="sd">    considering each tensor element in isolation, they must have a well-defined,</span>
+<span class="sd">    non-ragged shape.</span>
+
+<span class="sd">    See Arrow extension type docs:</span>
+<span class="sd">    https://arrow.apache.org/docs/python/extending_types.html#defining-extension-types-user-defined-types</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">DataType</span><span class="p">,</span> <span class="n">ndim</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct the Arrow extension type for array of heterogeneous-shaped tensors.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dtype: pyarrow dtype of tensor elements.</span>
+<span class="sd">            ndim: The number of dimensions in the tensor elements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span> <span class="o">=</span> <span class="n">ndim</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">pa</span><span class="o">.</span><span class="n">struct</span><span class="p">([(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">list_</span><span class="p">(</span><span class="n">dtype</span><span class="p">)),</span> <span class="p">(</span><span class="s2">&quot;shape&quot;</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">list_</span><span class="p">(</span><span class="n">pa</span><span class="o">.</span><span class="n">int64</span><span class="p">()))])</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="ArrowVariableShapedTensorType.to_pandas_dtype"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.ArrowVariableShapedTensorType.html#ray.data.extensions.tensor_extension.ArrowVariableShapedTensorType.to_pandas_dtype">[docs]</a>    <span class="k">def</span> <span class="nf">to_pandas_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert Arrow extension type to corresponding Pandas dtype.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            An instance of pd.api.extensions.ExtensionDtype.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">ray.air.util.tensor_extensions.pandas</span> <span class="kn">import</span> <span class="n">TensorDtype</span>
+
+        <span class="k">return</span> <span class="n">TensorDtype</span><span class="p">(</span>
+            <span class="p">(</span><span class="kc">None</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">storage_type</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">value_type</span><span class="o">.</span><span class="n">to_pandas_dtype</span><span class="p">(),</span>
+        <span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the number of dimensions in the tensor elements.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scalar_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the type of the underlying tensor elements.&quot;&quot;&quot;</span>
+        <span class="n">data_field_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage_type</span><span class="o">.</span><span class="n">get_field_index</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage_type</span><span class="p">[</span><span class="n">data_field_index</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">value_type</span>
+
+    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">ArrowVariableShapedTensorType</span><span class="p">,</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">storage_type</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">value_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndim</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__arrow_ext_class__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ExtensionArray subclass with custom logic for this array of tensors</span>
+<span class="sd">        type.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A subclass of pd.api.extensions.ExtensionArray.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ArrowVariableShapedTensorArray</span>
+
+    <span class="k">if</span> <span class="n">_arrow_extension_scalars_are_subclassable</span><span class="p">():</span>
+        <span class="c1"># TODO(Clark): Remove this version guard once we only support Arrow 9.0.0+.</span>
+        <span class="k">def</span> <span class="nf">__arrow_ext_scalar_class__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            ExtensionScalar subclass with custom logic for this array of tensors type.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="n">ArrowTensorScalar</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage_type</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">value_type</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;numpy.ndarray(ndim=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">, dtype=</span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">_arrow_supports_extension_scalars</span><span class="p">():</span>
+        <span class="c1"># TODO(Clark): Remove this version guard once we only support Arrow 8.0.0+.</span>
+        <span class="k">def</span> <span class="nf">_extension_scalar_to_ndarray</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">scalar</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">ExtensionScalar</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Convert an ExtensionScalar to a tensor element.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">scalar</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+            <span class="n">raw_values</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span>
+
+            <span class="n">shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">scalar</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;shape&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">as_py</span><span class="p">())</span>
+            <span class="n">value_type</span> <span class="o">=</span> <span class="n">raw_values</span><span class="o">.</span><span class="n">type</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="n">raw_values</span><span class="o">.</span><span class="n">offset</span>
+            <span class="n">data_buffer</span> <span class="o">=</span> <span class="n">raw_values</span><span class="o">.</span><span class="n">buffers</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">_to_ndarray_helper</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">data_buffer</span><span class="p">)</span></div>
+
+
+<span class="c1"># NOTE: We need to inherit from the mixin before pa.ExtensionArray to ensure that the</span>
+<span class="c1"># mixin&#39;s overriding methods appear first in the MRO.</span>
+<span class="c1"># TODO(Clark): Remove this mixin once we only support Arrow 9.0.0+.</span>
+<div class="viewcode-block" id="ArrowVariableShapedTensorArray"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.ArrowVariableShapedTensorArray.html#ray.data.extensions.tensor_extension.ArrowVariableShapedTensorArray">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ArrowVariableShapedTensorArray</span><span class="p">(</span>
+    <span class="n">_ArrowTensorScalarIndexingMixin</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">ExtensionArray</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An array of heterogeneous-shaped, homogeneous-typed tensors.</span>
+
+<span class="sd">    This is the Arrow side of TensorArray for tensor elements that have differing</span>
+<span class="sd">    shapes. Note that this extension only supports non-ragged tensor elements; i.e.,</span>
+<span class="sd">    when considering each tensor element in isolation, they must have a well-defined</span>
+<span class="sd">    shape. This extension also only supports tensor elements that all have the same</span>
+<span class="sd">    number of dimensions.</span>
+
+<span class="sd">    See Arrow docs for customizing extension arrays:</span>
+<span class="sd">    https://arrow.apache.org/docs/python/extending_types.html#custom-extension-array-class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">OFFSET_DTYPE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span>
+
+<div class="viewcode-block" id="ArrowVariableShapedTensorArray.from_numpy"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.ArrowVariableShapedTensorArray.html#ray.data.extensions.tensor_extension.ArrowVariableShapedTensorArray.from_numpy">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_numpy</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ArrowVariableShapedTensorArray&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert an ndarray or an iterable of heterogeneous-shaped ndarrays to an array</span>
+<span class="sd">        of heterogeneous-shaped, homogeneous-typed tensors.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            arr: An ndarray or an iterable of heterogeneous-shaped ndarrays.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            An ArrowVariableShapedTensorArray containing len(arr) tensors of</span>
+<span class="sd">            heterogeneous shape.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Implementation note - Arrow representation of ragged tensors:</span>
+        <span class="c1">#</span>
+        <span class="c1"># We represent an array of ragged tensors using a struct array containing two</span>
+        <span class="c1"># fields:</span>
+        <span class="c1">#  - data: a variable-sized list array, where each element in the array is a</span>
+        <span class="c1">#    tensor element stored in a 1D (raveled) variable-sized list of the</span>
+        <span class="c1">#    underlying scalar data type.</span>
+        <span class="c1">#  - shape: a variable-sized list array containing the shapes of each tensor</span>
+        <span class="c1">#    element.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;ArrowVariableShapedTensorArray can only be constructed from an &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;ndarray or a list/tuple of ndarrays, but got: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Empty ragged tensor arrays are not supported.</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Creating empty ragged tensor arrays is not supported.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Whether all subndarrays are contiguous views of the same ndarray.</span>
+        <span class="n">shapes</span><span class="p">,</span> <span class="n">sizes</span><span class="p">,</span> <span class="n">raveled</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="n">ndim</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ndim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">a</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="n">ndim</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;ArrowVariableShapedTensorArray only supports tensor elements that &quot;</span>
+                    <span class="s2">&quot;all have the same number of dimensions, but got tensor elements &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;with dimensions: </span><span class="si">{</span><span class="n">ndim</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="n">ndim</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">ndim</span>
+            <span class="n">shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+            <span class="c1"># Convert to 1D array view; this should be zero-copy in the common case.</span>
+            <span class="c1"># NOTE: If array is not in C-contiguous order, this will convert it to</span>
+            <span class="c1"># C-contiguous order, incurring a copy.</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
+            <span class="n">raveled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="c1"># Get size offsets and total size.</span>
+        <span class="n">sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span>
+        <span class="n">size_offsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span>
+        <span class="n">total_size</span> <span class="o">=</span> <span class="n">size_offsets</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># Concatenate 1D views into a contiguous 1D array.</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">_is_contiguous_view</span><span class="p">(</span><span class="n">curr</span><span class="p">,</span> <span class="n">prev</span><span class="p">)</span> <span class="k">for</span> <span class="n">prev</span><span class="p">,</span> <span class="n">curr</span> <span class="ow">in</span> <span class="n">_pairwise</span><span class="p">(</span><span class="n">raveled</span><span class="p">)):</span>
+            <span class="c1"># An optimized zero-copy path if raveled tensor elements are already</span>
+            <span class="c1"># contiguous in memory, e.g. if this tensor array has already done a</span>
+            <span class="c1"># roundtrip through our Arrow representation.</span>
+            <span class="n">np_data_buffer</span> <span class="o">=</span> <span class="n">raveled</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">base</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">np_data_buffer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">raveled</span><span class="p">)</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">np_data_buffer</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="k">if</span> <span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">object_</span><span class="p">:</span>
+            <span class="n">types_and_shapes</span> <span class="o">=</span> <span class="p">[(</span><span class="sa">f</span><span class="s2">&quot;dtype=</span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;shape=</span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">]</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;ArrowVariableShapedTensorArray only supports heterogeneous-shaped &quot;</span>
+                <span class="s2">&quot;tensor collections, not arbitrarily nested ragged tensors. Got &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;arrays: </span><span class="si">{</span><span class="n">types_and_shapes</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="n">pa_dtype</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">from_numpy_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_string</span><span class="p">(</span><span class="n">pa_dtype</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">dtype</span><span class="o">.</span><span class="n">byteorder</span> <span class="o">==</span> <span class="s2">&quot;&gt;&quot;</span> <span class="ow">or</span> <span class="p">(</span>
+                <span class="n">dtype</span><span class="o">.</span><span class="n">byteorder</span> <span class="o">==</span> <span class="s2">&quot;=&quot;</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">byteorder</span> <span class="o">==</span> <span class="s2">&quot;big&quot;</span>
+            <span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Only little-endian string tensors are supported, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;but got: </span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="n">pa_dtype</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">binary</span><span class="p">(</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">:</span>
+            <span class="c1"># NumPy doesn&#39;t represent boolean arrays as bit-packed, so we manually</span>
+            <span class="c1"># bit-pack the booleans before handing the buffer off to Arrow.</span>
+            <span class="c1"># NOTE: Arrow expects LSB bit-packed ordering.</span>
+            <span class="c1"># NOTE: This creates a copy.</span>
+            <span class="n">np_data_buffer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">packbits</span><span class="p">(</span><span class="n">np_data_buffer</span><span class="p">,</span> <span class="n">bitorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">)</span>
+        <span class="n">data_buffer</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">py_buffer</span><span class="p">(</span><span class="n">np_data_buffer</span><span class="p">)</span>
+        <span class="c1"># Construct underlying data array.</span>
+        <span class="n">value_array</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">Array</span><span class="o">.</span><span class="n">from_buffers</span><span class="p">(</span><span class="n">pa_dtype</span><span class="p">,</span> <span class="n">total_size</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_buffer</span><span class="p">])</span>
+        <span class="c1"># Construct array for offsets into the 1D data array, where each offset</span>
+        <span class="c1"># corresponds to a tensor element.</span>
+        <span class="n">size_offsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">size_offsets</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">offset_array</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">size_offsets</span><span class="p">)</span>
+        <span class="n">data_array</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">ListArray</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span><span class="n">offset_array</span><span class="p">,</span> <span class="n">value_array</span><span class="p">)</span>
+        <span class="c1"># We store the tensor element shapes so we can reconstruct each tensor when</span>
+        <span class="c1"># converting back to NumPy ndarrays.</span>
+        <span class="n">shape_array</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shapes</span><span class="p">)</span>
+        <span class="c1"># Build storage array containing tensor data and the tensor element shapes.</span>
+        <span class="n">storage</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">StructArray</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">data_array</span><span class="p">,</span> <span class="n">shape_array</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">type_</span> <span class="o">=</span> <span class="n">ArrowVariableShapedTensorType</span><span class="p">(</span><span class="n">pa_dtype</span><span class="p">,</span> <span class="n">ndim</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">ExtensionArray</span><span class="o">.</span><span class="n">from_storage</span><span class="p">(</span><span class="n">type_</span><span class="p">,</span> <span class="n">storage</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_to_numpy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">zero_copy_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper for getting either an element of the array of tensors as an ndarray, or</span>
+<span class="sd">        the entire array of tensors as a single ndarray.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index: The index of the tensor element that we wish to return as an</span>
+<span class="sd">                ndarray. If not given, the entire array of tensors is returned as an</span>
+<span class="sd">                ndarray.</span>
+<span class="sd">            zero_copy_only: If True, an exception will be raised if the conversion to a</span>
+<span class="sd">                NumPy array would require copying the underlying data (e.g. in presence</span>
+<span class="sd">                of nulls, or for non-primitive types). This argument is currently</span>
+<span class="sd">                ignored, so zero-copy isn&#39;t enforced even if this argument is true.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The corresponding tensor element as an ndarray if an index was given, or</span>
+<span class="sd">            the entire array of tensors as an ndarray otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO(Clark): Enforce zero_copy_only.</span>
+        <span class="c1"># TODO(Clark): Support strides?</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Get individual ndarrays for each tensor element.</span>
+            <span class="n">arrs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_to_numpy</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">zero_copy_only</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))]</span>
+            <span class="c1"># Return ragged NumPy ndarray in the ndarray of ndarray pointers</span>
+            <span class="c1"># representation.</span>
+            <span class="k">return</span> <span class="n">create_ragged_ndarray</span><span class="p">(</span><span class="n">arrs</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+        <span class="n">shapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;shape&quot;</span><span class="p">)</span>
+
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">as_py</span><span class="p">()</span>
+        <span class="n">value_type</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">value_type</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">offsets</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">as_py</span><span class="p">()</span>
+        <span class="n">data_buffer</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">buffers</span><span class="p">()[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">_to_ndarray_helper</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">data_buffer</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ArrowVariableShapedTensorArray.to_numpy"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.ArrowVariableShapedTensorArray.html#ray.data.extensions.tensor_extension.ArrowVariableShapedTensorArray.to_numpy">[docs]</a>    <span class="k">def</span> <span class="nf">to_numpy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zero_copy_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the entire array of tensors into a single ndarray.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            zero_copy_only: If True, an exception will be raised if the conversion to a</span>
+<span class="sd">                NumPy array would require copying the underlying data (e.g. in presence</span>
+<span class="sd">                of nulls, or for non-primitive types). This argument is currently</span>
+<span class="sd">                ignored, so zero-copy isn&#39;t enforced even if this argument is true.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A single ndarray representing the entire array of tensors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_numpy</span><span class="p">(</span><span class="n">zero_copy_only</span><span class="o">=</span><span class="n">zero_copy_only</span><span class="p">)</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">_is_contiguous_view</span><span class="p">(</span><span class="n">curr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">prev</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Check if the provided tensor element is contiguous with the previous tensor</span>
+<span class="sd">    element.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        curr: The tensor element whose contiguity that we wish to check.</span>
+<span class="sd">        prev: The previous tensor element in the tensor array.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Whether the provided tensor element is contiguous with the previous tensor</span>
+<span class="sd">        element.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">curr</span><span class="o">.</span><span class="n">base</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">or</span> <span class="ow">not</span> <span class="n">curr</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">c_contiguous</span>
+        <span class="ow">or</span> <span class="p">(</span><span class="n">prev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">curr</span><span class="o">.</span><span class="n">base</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">prev</span><span class="o">.</span><span class="n">base</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="c1"># curr is either:</span>
+        <span class="c1"># - not a view,</span>
+        <span class="c1"># - not in C-contiguous order,</span>
+        <span class="c1"># - a view that does not share its base with the other subndarrays.</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># curr is a C-contiguous view that shares the same base with the seen</span>
+        <span class="c1"># subndarrays, but we need to confirm that it is contiguous with the</span>
+        <span class="c1"># previous subndarray.</span>
+        <span class="k">if</span> <span class="n">prev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span>
+            <span class="n">_get_buffer_address</span><span class="p">(</span><span class="n">curr</span><span class="p">)</span> <span class="o">-</span> <span class="n">_get_buffer_address</span><span class="p">(</span><span class="n">prev</span><span class="p">)</span>
+            <span class="o">!=</span> <span class="n">prev</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">*</span> <span class="n">prev</span><span class="o">.</span><span class="n">size</span>
+        <span class="p">):</span>
+            <span class="c1"># This view is not contiguous with the previous view.</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="k">def</span> <span class="nf">_get_buffer_address</span><span class="p">(</span><span class="n">arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get the address of the buffer underlying the provided NumPy ndarray.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">arr</span><span class="o">.</span><span class="n">__array_interface__</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_pairwise</span><span class="p">(</span><span class="n">iterable</span><span class="p">):</span>
+    <span class="c1"># pairwise(&#39;ABCDEFG&#39;) --&gt; AB BC CD DE EF FG</span>
+    <span class="c1"># Backport of itertools.pairwise for Python &lt; 3.10.</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">tee</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+    <span class="nb">next</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_to_ndarray_helper</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">data_buffer</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_boolean</span><span class="p">(</span><span class="n">value_type</span><span class="p">):</span>
+        <span class="c1"># Arrow boolean array buffers are bit-packed, with 8 entries per byte,</span>
+        <span class="c1"># and are accessed via bit offsets.</span>
+        <span class="n">buffer_item_width</span> <span class="o">=</span> <span class="n">value_type</span><span class="o">.</span><span class="n">bit_width</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># We assume all other array types are accessed via byte array</span>
+        <span class="c1"># offsets.</span>
+        <span class="n">buffer_item_width</span> <span class="o">=</span> <span class="n">value_type</span><span class="o">.</span><span class="n">bit_width</span> <span class="o">//</span> <span class="mi">8</span>
+    <span class="n">data_offset</span> <span class="o">=</span> <span class="n">buffer_item_width</span> <span class="o">*</span> <span class="n">offset</span>
+
+    <span class="k">if</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_boolean</span><span class="p">(</span><span class="n">value_type</span><span class="p">):</span>
+        <span class="c1"># Special handling for boolean arrays, since Arrow</span>
+        <span class="c1"># bit-packs boolean arrays while NumPy does not.</span>
+        <span class="c1"># Cast as uint8 array and let NumPy unpack into a boolean view.</span>
+        <span class="c1"># Offset into uint8 array, where each element is</span>
+        <span class="c1"># a bucket for 8 booleans.</span>
+        <span class="n">byte_bucket_offset</span> <span class="o">=</span> <span class="n">data_offset</span> <span class="o">//</span> <span class="mi">8</span>
+        <span class="c1"># Offset for a specific boolean, within a uint8 array element.</span>
+        <span class="n">bool_offset</span> <span class="o">=</span> <span class="n">data_offset</span> <span class="o">%</span> <span class="mi">8</span>
+        <span class="c1"># The number of uint8 array elements (buckets) that our slice spans.</span>
+        <span class="c1"># Note that, due to the offset for a specific boolean,</span>
+        <span class="c1"># the slice can span byte boundaries even if it contains</span>
+        <span class="c1"># less than 8 booleans.</span>
+        <span class="n">num_boolean_byte_buckets</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">((</span><span class="n">bool_offset</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="c1"># Construct the uint8 array view on the buffer.</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">num_boolean_byte_buckets</span><span class="p">,),</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span>
+            <span class="n">buffer</span><span class="o">=</span><span class="n">data_buffer</span><span class="p">,</span>
+            <span class="n">offset</span><span class="o">=</span><span class="n">byte_bucket_offset</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Unpack into a byte per boolean, using LSB bit-packed ordering.</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unpackbits</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">bitorder</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">)</span>
+        <span class="c1"># Interpret buffer as boolean array.</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">,</span> <span class="n">buffer</span><span class="o">=</span><span class="n">arr</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">bool_offset</span><span class="p">)</span>
+    <span class="n">ext_dtype</span> <span class="o">=</span> <span class="n">value_type</span><span class="o">.</span><span class="n">to_pandas_dtype</span><span class="p">()</span>
+    <span class="c1"># Special handling of ragged string tensors</span>
+    <span class="k">if</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_fixed_size_binary</span><span class="p">(</span><span class="n">value_type</span><span class="p">):</span>
+        <span class="n">ext_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&lt;U</span><span class="si">{</span><span class="n">value_type</span><span class="o">.</span><span class="n">byte_width</span> <span class="o">//</span> <span class="n">NUM_BYTES_PER_UNICODE_CHAR</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">ext_dtype</span><span class="p">,</span> <span class="n">buffer</span><span class="o">=</span><span class="n">data_buffer</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">data_offset</span><span class="p">)</span>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

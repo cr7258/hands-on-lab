@@ -1,0 +1,6 @@
+ray.data.Datastream.streaming\_split
+====================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.streaming_split

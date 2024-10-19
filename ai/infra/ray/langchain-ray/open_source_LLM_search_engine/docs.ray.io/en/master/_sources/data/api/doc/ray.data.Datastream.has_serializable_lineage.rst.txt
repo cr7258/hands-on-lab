@@ -1,0 +1,6 @@
+ray.data.Datastream.has\_serializable\_lineage
+==============================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.has_serializable_lineage

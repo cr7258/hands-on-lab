@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.randomize\_block\_order
+=============================================
+
+.. currentmodule:: ray.air
+
+.. autoattribute:: DatasetConfig.randomize_block_order

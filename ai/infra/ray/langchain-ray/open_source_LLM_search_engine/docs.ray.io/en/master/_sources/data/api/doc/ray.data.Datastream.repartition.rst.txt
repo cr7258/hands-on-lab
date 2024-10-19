@@ -1,0 +1,6 @@
+ray.data.Datastream.repartition
+===============================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.repartition

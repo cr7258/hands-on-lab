@@ -1,0 +1,6 @@
+ray.data.Datastream.write\_parquet
+==================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.write_parquet

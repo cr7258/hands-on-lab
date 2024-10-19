@@ -1,0 +1,35 @@
+﻿
+
+ray.data.datasource.WebDatasetDatasource
+========================================
+
+.. currentmodule:: ray.data.datasource
+
+.. autoclass:: WebDatasetDatasource
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~WebDatasetDatasource.__init__
+      
+      ~WebDatasetDatasource.do_write
+      
+      ~WebDatasetDatasource.get_name
+      ~WebDatasetDatasource.on_write_complete
+      ~WebDatasetDatasource.on_write_failed
+      ~WebDatasetDatasource.prepare_read
+      ~WebDatasetDatasource.write
+
+   
+   
+
+
+   
+   
+   

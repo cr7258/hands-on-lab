@@ -1,0 +1,6 @@
+ray.data.Datastream.max
+=======================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.max

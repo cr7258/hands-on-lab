@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceTrainer.setup
+==============================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFaceTrainer.setup

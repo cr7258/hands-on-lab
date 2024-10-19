@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.stream\_window\_size
+==========================================
+
+.. currentmodule:: ray.air
+
+.. autoattribute:: DatasetConfig.stream_window_size

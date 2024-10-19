@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFacePredictor.from\_pandas\_udf
+============================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFacePredictor.from_pandas_udf

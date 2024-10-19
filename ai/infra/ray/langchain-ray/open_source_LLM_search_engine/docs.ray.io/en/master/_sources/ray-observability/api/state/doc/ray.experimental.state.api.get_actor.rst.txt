@@ -1,0 +1,6 @@
+﻿ray.experimental.state.api.get\_actor
+=====================================
+
+.. currentmodule:: ray.experimental.state.api
+
+.. autofunction:: get_actor

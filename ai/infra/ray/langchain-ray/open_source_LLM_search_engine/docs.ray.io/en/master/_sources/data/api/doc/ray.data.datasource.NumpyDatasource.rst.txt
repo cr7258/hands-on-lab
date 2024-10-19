@@ -1,0 +1,35 @@
+﻿
+
+ray.data.datasource.NumpyDatasource
+===================================
+
+.. currentmodule:: ray.data.datasource
+
+.. autoclass:: NumpyDatasource
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~NumpyDatasource.__init__
+      
+      ~NumpyDatasource.do_write
+      
+      ~NumpyDatasource.get_name
+      ~NumpyDatasource.on_write_complete
+      ~NumpyDatasource.on_write_failed
+      ~NumpyDatasource.prepare_read
+      ~NumpyDatasource.write
+
+   
+   
+
+
+   
+   
+   

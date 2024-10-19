@@ -1,0 +1,6 @@
+ray.data.Datastream.split
+=========================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.split

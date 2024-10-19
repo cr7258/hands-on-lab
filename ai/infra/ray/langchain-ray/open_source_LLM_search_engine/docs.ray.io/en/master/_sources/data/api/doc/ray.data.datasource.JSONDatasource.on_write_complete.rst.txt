@@ -1,0 +1,6 @@
+ray.data.datasource.JSONDatasource.on\_write\_complete
+======================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: JSONDatasource.on_write_complete

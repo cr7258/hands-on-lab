@@ -1,0 +1,6 @@
+ray.data.datasource.WebDatasetDatasource.\_\_init\_\_
+=====================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: WebDatasetDatasource.__init__

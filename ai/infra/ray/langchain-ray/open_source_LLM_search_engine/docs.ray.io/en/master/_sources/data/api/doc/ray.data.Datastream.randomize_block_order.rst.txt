@@ -1,0 +1,6 @@
+ray.data.Datastream.randomize\_block\_order
+===========================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.randomize_block_order

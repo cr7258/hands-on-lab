@@ -1,0 +1,35 @@
+﻿
+
+ray.data.datasource.ImageDatasource
+===================================
+
+.. currentmodule:: ray.data.datasource
+
+.. autoclass:: ImageDatasource
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~ImageDatasource.__init__
+      
+      ~ImageDatasource.do_write
+      
+      ~ImageDatasource.get_name
+      ~ImageDatasource.on_write_complete
+      ~ImageDatasource.on_write_failed
+      ~ImageDatasource.prepare_read
+      ~ImageDatasource.write
+
+   
+   
+
+
+   
+   
+   

@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceCheckpoint.get\_internal\_representation
+=========================================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFaceCheckpoint.get_internal_representation

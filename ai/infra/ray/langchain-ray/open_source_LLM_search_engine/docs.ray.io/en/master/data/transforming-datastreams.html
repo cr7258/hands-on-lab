@@ -1,0 +1,1793 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Transforming Data &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/versionwarning.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../_static/js/docsearch.js"></script>
+    <script src="../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../_static/js/termynal.js"></script>
+    <script defer="defer" src="../_static/js/custom.js"></script>
+    <script defer="defer" src="../_static/js/top-navigation.js"></script>
+    <script src="../_static/js/tags.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script async="async" src="../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/data/transforming-datastreams.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Consuming Data" href="consuming-datastreams.html" />
+    <link rel="prev" title="Loading Data" href="creating-datastreams.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:30:50Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "data/transforming-datastreams", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="data.html">
+   Ray Data
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="getting-started.html">
+     Getting Started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="key-concepts.html">
+     Key Concepts
+    </a>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="user-guide.html">
+     User Guides
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="creating-datastreams.html">
+       Loading Data
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="transforming-datastreams.html#">
+       Transforming Data
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="consuming-datastreams.html">
+       Consuming Data
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="data-tensor-support.html">
+       ML Tensor Support
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="custom-datasource.html">
+       Custom Datasources
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="data-internals.html">
+       Scheduling, Execution, and Memory Management
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="performance-tips.html">
+       Performance Tips and Tuning
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="pipelining-compute.html">
+       DatasetPipelines (deprecated)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="examples/index.html">
+     Examples
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="faq.html">
+     FAQ
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api/api.html">
+     Ray Data API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="glossary.html">
+     Ray Data Glossary
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="integrations.html">
+     Integrations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2Fdata/transforming-datastreams.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/edit/master/doc/source/data/transforming-datastreams.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/data/transforming-datastreams.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="transforming-datastreams.html#transformations">
+   Transformations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="transforming-datastreams.html#writing-user-defined-functions-udfs">
+   Writing User-defined Functions (UDFs)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="transforming-datastreams.html#types-of-udfs">
+     Types of UDFs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="transforming-datastreams.html#udf-input-batch-format">
+     UDF Input Batch Format
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="transforming-datastreams.html#batch-udf-output-types">
+     Batch UDF Output Types
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="transforming-datastreams.html#row-udf-output-types">
+     Row UDF Output Types
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="transforming-datastreams.html#configuring-batch-size">
+   Configuring Batch Size
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="transforming-datastreams.html#compute-strategy">
+   Compute Strategy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="transforming-datastreams.html#group-bys-and-aggregations">
+   Group-bys and aggregations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="transforming-datastreams.html#shuffling-data">
+   Shuffling data
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Transforming Data</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="transforming-datastreams.html#transformations">
+   Transformations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="transforming-datastreams.html#writing-user-defined-functions-udfs">
+   Writing User-defined Functions (UDFs)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="transforming-datastreams.html#types-of-udfs">
+     Types of UDFs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="transforming-datastreams.html#udf-input-batch-format">
+     UDF Input Batch Format
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="transforming-datastreams.html#batch-udf-output-types">
+     Batch UDF Output Types
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="transforming-datastreams.html#row-udf-output-types">
+     Row UDF Output Types
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="transforming-datastreams.html#configuring-batch-size">
+   Configuring Batch Size
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="transforming-datastreams.html#compute-strategy">
+   Compute Strategy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="transforming-datastreams.html#group-bys-and-aggregations">
+   Group-bys and aggregations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="transforming-datastreams.html#shuffling-data">
+   Shuffling data
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="transforming-data">
+<span id="transforming-datastreams"></span><h1>Transforming Data<a class="headerlink" href="transforming-datastreams.html#transforming-data" title="Permalink to this headline">#</a></h1>
+<p>Datastreams transformations take in datastreams and produce new datastreams. For example, <em>map_batches</em>
+is a transformation that applies a
+<a class="reference internal" href="transforming-datastreams.html#transform-datastreams-writing-udfs"><span class="std std-ref">user-defined function</span></a> on each data record
+and returns a new datastream as the result. Datastreams transformations can be composed to
+express a chain of computations.</p>
+<section id="transformations">
+<span id="transform-datastreams-transformations"></span><h2>Transformations<a class="headerlink" href="transforming-datastreams.html#transformations" title="Permalink to this headline">#</a></h2>
+<p>There are two main types of transformations:</p>
+<ul class="simple">
+<li><p>One-to-one: each input block will contribute to only one output
+block, such as <a class="reference internal" href="api/doc/ray.data.Datastream.map_batches.html#ray.data.Datastream.map_batches" title="ray.data.Datastream.map_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.map_batches()</span></code></a>.</p></li>
+<li><p>All-to-all: input blocks can contribute to multiple output blocks,
+such as <a class="reference internal" href="api/doc/ray.data.Datastream.random_shuffle.html#ray.data.Datastream.random_shuffle" title="ray.data.Datastream.random_shuffle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.random_shuffle()</span></code></a>.</p></li>
+</ul>
+<p>Here is a table listing some common transformations supported by Ray Data.</p>
+<table class="table" id="id1">
+<caption><span class="caption-text">Common Ray Data transformations.</span><a class="headerlink" href="transforming-datastreams.html#id1" title="Permalink to this table">#</a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Transformation</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="api/doc/ray.data.Datastream.map_batches.html#ray.data.Datastream.map_batches" title="ray.data.Datastream.map_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.map_batches()</span></code></a></p></td>
+<td><p>One-to-one</p></td>
+<td><p>Apply a given function to batches of records of this datastream.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/doc/ray.data.Datastream.add_column.html#ray.data.Datastream.add_column" title="ray.data.Datastream.add_column"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.add_column()</span></code></a></p></td>
+<td><p>One-to-one</p></td>
+<td><p>Apply a given function to batches of records to create a new column.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/doc/ray.data.Datastream.add_column.html#ray.data.Datastream.add_column" title="ray.data.Datastream.add_column"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.drop_columns()</span></code></a></p></td>
+<td><p>One-to-one</p></td>
+<td><p>Drop the given columns from the datastream.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/doc/ray.data.Datastream.split.html#ray.data.Datastream.split" title="ray.data.Datastream.split"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.streaming_split()</span></code></a></p></td>
+<td><p>One-to-one</p></td>
+<td><div class="line-block">
+<div class="line">Split the datastream into N disjoint iterators.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/doc/ray.data.Datastream.repartition.html#ray.data.Datastream.repartition" title="ray.data.Datastream.repartition"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.repartition(shuffle=False)</span></code></a></p></td>
+<td><p>One-to-one</p></td>
+<td><div class="line-block">
+<div class="line">Repartition the datastream into N blocks, without shuffling the data.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/doc/ray.data.Datastream.repartition.html#ray.data.Datastream.repartition" title="ray.data.Datastream.repartition"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.repartition(shuffle=True)</span></code></a></p></td>
+<td><p>All-to-all</p></td>
+<td><div class="line-block">
+<div class="line">Repartition the datastream into N blocks, shuffling the data during repartition.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/doc/ray.data.Datastream.random_shuffle.html#ray.data.Datastream.random_shuffle" title="ray.data.Datastream.random_shuffle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.random_shuffle()</span></code></a></p></td>
+<td><p>All-to-all</p></td>
+<td><div class="line-block">
+<div class="line">Randomly shuffle the elements of this datastream.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/doc/ray.data.Datastream.sort.html#ray.data.Datastream.sort" title="ray.data.Datastream.sort"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.sort()</span></code></a></p></td>
+<td><p>All-to-all</p></td>
+<td><div class="line-block">
+<div class="line">Sort the datastream by a sortkey.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/doc/ray.data.Datastream.groupby.html#ray.data.Datastream.groupby" title="ray.data.Datastream.groupby"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.groupby()</span></code></a></p></td>
+<td><p>All-to-all</p></td>
+<td><div class="line-block">
+<div class="line">Group the datastream by a groupkey.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Datastreams also provides the convenience transformation methods <a class="reference internal" href="api/doc/ray.data.Datastream.map.html#ray.data.Datastream.map" title="ray.data.Datastream.map"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.map()</span></code></a>,
+<a class="reference internal" href="api/doc/ray.data.Datastream.flat_map.html#ray.data.Datastream.flat_map" title="ray.data.Datastream.flat_map"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.flat_map()</span></code></a>, and <a class="reference internal" href="api/doc/ray.data.Datastream.filter.html#ray.data.Datastream.filter" title="ray.data.Datastream.filter"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.filter()</span></code></a>,
+which are not vectorized (slower than <a class="reference internal" href="api/doc/ray.data.Datastream.map_batches.html#ray.data.Datastream.map_batches" title="ray.data.Datastream.map_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.map_batches()</span></code></a>), but
+may be useful for development.</p>
+</div>
+<p>The following is an example to make use of those transformation APIs for processing
+the Iris datastream.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pandas</span>
+
+<span class="c1"># Create a datastream from file with Iris data.</span>
+<span class="c1"># Tip: &quot;example://&quot; is a convenient protocol to access the</span>
+<span class="c1"># python/ray/data/examples/data directory.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+<span class="c1"># Datastream(num_blocks=1, num_rows=150,</span>
+<span class="c1">#         schema={sepal.length: float64, sepal.width: float64,</span>
+<span class="c1">#                 petal.length: float64, petal.width: float64, variety: object})</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 5.1, &#39;sepal.width&#39;: 3.5,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.4, &#39;petal.width&#39;: 0.2, &#39;variety&#39;: &#39;Setosa&#39;}</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 4.9, &#39;sepal.width&#39;: 3.0,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.4, &#39;petal.width&#39;: 0.2, &#39;variety&#39;: &#39;Setosa&#39;}</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 4.7, &#39;sepal.width&#39;: 3.2,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.3, &#39;petal.width&#39;: 0.2, &#39;variety&#39;: &#39;Setosa&#39;}</span>
+
+<span class="c1"># Repartition the datastream to 5 blocks.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1"># -&gt; Repartition</span>
+<span class="c1">#    +- Datastream(num_blocks=1, num_rows=150,</span>
+<span class="c1">#               schema={sepal.length: float64, sepal.width: float64,</span>
+<span class="c1">#                       petal.length: float64, petal.width: float64, variety: object})</span>
+
+<span class="c1"># Find rows with sepal.length &lt; 5.5 and petal.length &gt; 3.5.</span>
+<span class="k">def</span> <span class="nf">transform_batch</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">5.5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;petal.length&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">3.5</span><span class="p">)]</span>
+
+<span class="c1"># Map processing the datastream.</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">transform_batch</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 5.2, &#39;sepal.width&#39;: 2.7,</span>
+<span class="c1">#     &#39;petal.length&#39;: 3.9, &#39;petal.width&#39;: 1.4, &#39;variety&#39;: &#39;Versicolor&#39;}</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 5.4, &#39;sepal.width&#39;: 3.0,</span>
+<span class="c1">#     &#39;petal.length&#39;: 4.5, &#39;petal.width&#39;: 1.5, &#39;variety&#39;: &#39;Versicolor&#39;}</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 4.9, &#39;sepal.width&#39;: 2.5,</span>
+<span class="c1">#     &#39;petal.length&#39;: 4.5, &#39;petal.width&#39;: 1.7, &#39;variety&#39;: &#39;Virginica&#39;}</span>
+
+<span class="c1"># Split the datastream into 2 disjoint iterators.</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">streaming_split</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; [&lt;StreamSplitDataIterator at 0x7fa5b5c99070&gt;,</span>
+<span class="c1">#     &lt;StreamSplitDataIterator at 0x7fa5b5c990d0&gt;]</span>
+
+<span class="c1"># Sort the datastream by sepal.length.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">)</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 4.3, &#39;sepal.width&#39;: 3.0,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.1, &#39;petal.width&#39;: 0.1, &#39;variety&#39;: &#39;Setosa&#39;}</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 4.4, &#39;sepal.width&#39;: 2.9,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.4, &#39;petal.width&#39;: 0.2, &#39;variety&#39;: &#39;Setosa&#39;}</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 4.4, &#39;sepal.width&#39;: 3.0,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.3, &#39;petal.width&#39;: 0.2, &#39;variety&#39;: &#39;Setosa&#39;}</span>
+
+<span class="c1"># Shuffle the datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">random_shuffle</span><span class="p">()</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 6.7, &#39;sepal.width&#39;: 3.1,</span>
+<span class="c1">#     &#39;petal.length&#39;: 4.4, &#39;petal.width&#39;: 1.4, &#39;variety&#39;: &#39;Versicolor&#39;}</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 6.7, &#39;sepal.width&#39;: 3.3,</span>
+<span class="c1">#     &#39;petal.length&#39;: 5.7, &#39;petal.width&#39;: 2.1, &#39;variety&#39;: &#39;Virginica&#39;}</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 4.5, &#39;sepal.width&#39;: 2.3,</span>
+<span class="c1">#     &#39;petal.length&#39;: 1.3, &#39;petal.width&#39;: 0.3, &#39;variety&#39;: &#39;Setosa&#39;}</span>
+
+<span class="c1"># Group by the variety.</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;variety&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># -&gt; {&#39;variety&#39;: &#39;Setosa&#39;, &#39;count()&#39;: 50}</span>
+<span class="c1"># -&gt; {&#39;variety&#39;: &#39;Versicolor&#39;, &#39;count()&#39;: 50}</span>
+<span class="c1"># -&gt; {&#39;variety&#39;: &#39;Virginica&#39;, &#39;count()&#39;: 50}</span>
+</pre></div>
+</div>
+</section>
+<section id="writing-user-defined-functions-udfs">
+<span id="transform-datastreams-writing-udfs"></span><h2>Writing User-defined Functions (UDFs)<a class="headerlink" href="transforming-datastreams.html#writing-user-defined-functions-udfs" title="Permalink to this headline">#</a></h2>
+<p>User-defined functions (UDFs) are routines that apply on one row (e.g.
+<a class="reference internal" href="api/doc/ray.data.Datastream.map.html#ray.data.Datastream.map" title="ray.data.Datastream.map"><code class="xref py py-meth docutils literal notranslate"><span class="pre">.map()</span></code></a>) or a batch of rows (e.g.
+<a class="reference internal" href="api/doc/ray.data.Datastream.map_batches.html#ray.data.Datastream.map_batches" title="ray.data.Datastream.map_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">.map_batches()</span></code></a>) of a datastream. UDFs let you
+express your customized business logic in transformations. Here we will focus on
+<a class="reference internal" href="api/doc/ray.data.Datastream.map_batches.html#ray.data.Datastream.map_batches" title="ray.data.Datastream.map_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">.map_batches()</span></code></a> as it’s the primary mapping
+API in Datastreams.</p>
+<p>Here are the basics that you need to know about UDFs:</p>
+<ul class="simple">
+<li><p>A UDF can be either a function, a generator, or if using the <a class="reference internal" href="transforming-datastreams.html#transform-datastreams-compute-strategy"><span class="std std-ref">actor compute strategy</span></a>, a <a class="reference internal" href="transforming-datastreams.html#transform-datastreams-callable-classes"><span class="std std-ref">callable class</span></a>.</p></li>
+<li><p>Select the UDF input <a class="reference internal" href="transforming-datastreams.html#transform-datastreams-batch-formats"><span class="std std-ref">batch format</span></a> using the <code class="docutils literal notranslate"><span class="pre">batch_format</span></code> argument.</p></li>
+<li><p>The UDF output type determines the Datastream schema of the transformation result.</p></li>
+</ul>
+<section id="types-of-udfs">
+<span id="transform-datastreams-callable-classes"></span><h3>Types of UDFs<a class="headerlink" href="transforming-datastreams.html#types-of-udfs" title="Permalink to this headline">#</a></h3>
+<p>There are three types of UDFs that you can use with Ray Data: Function UDFs, Callable Class UDFs, and Generator UDFs.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+“Function UDFs”</label><div class="sd-tab-content docutils">
+<p>The most basic UDFs are functions that take in a batch or row as input, and returns a batch or row as output. See <a class="reference internal" href="transforming-datastreams.html#transform-datastreams-batch-formats"><span class="std std-ref">UDF Input Batch Format</span></a> for the supported batch formats.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># UDF as a function on Pandas DataFrame batches.</span>
+<span class="k">def</span> <span class="nf">pandas_transform</span><span class="p">(</span><span class="n">df_batch</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="c1"># Filter rows.</span>
+    <span class="n">df_batch</span> <span class="o">=</span> <span class="n">df_batch</span><span class="p">[</span><span class="n">df_batch</span><span class="p">[</span><span class="s2">&quot;variety&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Versicolor&quot;</span><span class="p">]</span>
+    <span class="c1"># Add derived column.</span>
+    <span class="c1"># Notice here that `df[&quot;sepal.length&quot;].max()` is only the max value of the column</span>
+    <span class="c1"># within a given batch (instead of globally)!!</span>
+    <span class="n">df_batch</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;normalized.sepal.length&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_batch</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_batch</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="c1"># Drop column.</span>
+    <span class="n">df_batch</span> <span class="o">=</span> <span class="n">df_batch</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">df_batch</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">pandas_transform</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal.width&#39;: 3.2, &#39;petal.length&#39;: 4.7, &#39;petal.width&#39;: 1.4,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Versicolor&#39;, &#39;normalized.sepal.length&#39;: 1.0}</span>
+<span class="c1"># -&gt; {&#39;sepal.width&#39;: 3.2, &#39;petal.length&#39;: 4.5, &#39;petal.width&#39;: 1.5,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Versicolor&#39;, &#39;normalized.sepal.length&#39;: 0.9142857142857144}</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+“Callable Class UDFs”</label><div class="sd-tab-content docutils">
+<p>With the actor compute strategy, you can use per-row and per-batch UDFs
+<em>callable classes</em>, i.e., classes that implement the <code class="docutils literal notranslate"><span class="pre">__call__</span></code> magic method. You
+can use the constructor of the class for stateful setup, and it is only invoked once
+per worker actor.</p>
+<p>Callable classes are useful if you need to load expensive state (such as a model) for the UDF. By using an actor class, you only need to load the state once in the beginning, rather than for each batch.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These transformation APIs take the uninstantiated callable class as an argument,
+not an instance of the class.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># UDF as a function on Pandas DataFrame batches.</span>
+<span class="k">class</span> <span class="nc">ModelUDF</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.65</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="c1"># Filter rows.</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;variety&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Versicolor&quot;</span><span class="p">]</span>
+        <span class="c1"># Apply model.</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">ModelUDF</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="n">compute</span><span class="o">=</span><span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ActorPoolStrategy</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 7.0, &#39;sepal.width&#39;: 3.2, &#39;petal.length&#39;: 4.7, &#39;petal.width&#39;: 1.4,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Versicolor&#39;, &#39;output&#39;: True}</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 6.4, &#39;sepal.width&#39;: 3.2, &#39;petal.length&#39;: 4.5, &#39;petal.width&#39;: 1.5,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Versicolor&#39;, &#39;output&#39;: False}`</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+“Generator UDFs”</label><div class="sd-tab-content docutils">
+<p>UDFs can also be written as Python generators, yielding multiple outputs for a batch or row instead of a single item. Generator UDFs are useful when returning large objects. Instead of returning a very large output batch, <code class="docutils literal notranslate"><span class="pre">fn</span></code> can instead yield the output batch in chunks to avoid excessive heap memory usage.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When applying a generator UDF on individual rows, make sure to use the <a class="reference internal" href="api/doc/ray.data.Datastream.flat_map.html#ray.data.Datastream.flat_map" title="ray.data.Datastream.flat_map"><code class="xref py py-meth docutils literal notranslate"><span class="pre">.flat_map()</span></code></a> API and not the <a class="reference internal" href="api/doc/ray.data.Datastream.map.html#ray.data.Datastream.map" title="ray.data.Datastream.map"><code class="xref py py-meth docutils literal notranslate"><span class="pre">.map()</span></code></a> API.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># UDF to repeat the dataframe 100 times, in chunks of 20.</span>
+<span class="k">def</span> <span class="nf">repeat_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">]</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">repeat_dataframe</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 5.1, &#39;sepal.width&#39;: 3.5, &#39;petal.length&#39;: 1.4, &#39;petal.width&#39;: 0.2, &#39;variety&#39;: &#39;Setosa&#39;}</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 4.9, &#39;sepal.width&#39;: 3.0, &#39;petal.length&#39;: 1.4, &#39;petal.width&#39;: 0.2, &#39;variety&#39;: &#39;Setosa&#39;}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="udf-input-batch-format">
+<span id="transform-datastreams-batch-formats"></span><h3>UDF Input Batch Format<a class="headerlink" href="transforming-datastreams.html#udf-input-batch-format" title="Permalink to this headline">#</a></h3>
+<p>Choose the <em>batch format</em> of the data given to UDFs
+by setting the <code class="docutils literal notranslate"><span class="pre">batch_format</span></code> option of <a class="reference internal" href="api/doc/ray.data.Datastream.map_batches.html#ray.data.Datastream.map_batches" title="ray.data.Datastream.map_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">.map_batches()</span></code></a>.
+Here is an overview of the available batch formats:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-3">
+“default”</label><div class="sd-tab-content docutils">
+<p>The “default” batch format presents data as follows for each Datastream type:</p>
+<ul>
+<li><p><strong>Tabular Datastreams</strong>: Each batch will be a
+<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">pandas.DataFrame</a>.
+This may incur a conversion cost if the underlying Datastream block is not
+zero-copy convertible from an Arrow table.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># UDF as a function on Pandas DataFrame batches.</span>
+<span class="k">def</span> <span class="nf">pandas_transform</span><span class="p">(</span><span class="n">df_batch</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="c1"># Filter rows.</span>
+    <span class="n">df_batch</span> <span class="o">=</span> <span class="n">df_batch</span><span class="p">[</span><span class="n">df_batch</span><span class="p">[</span><span class="s2">&quot;variety&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Versicolor&quot;</span><span class="p">]</span>
+    <span class="c1"># Add derived column.</span>
+    <span class="c1"># Notice here that `df[&quot;sepal.length&quot;].max()` is only the max value of the column</span>
+    <span class="c1"># within a given batch (instead of globally)!!</span>
+    <span class="n">df_batch</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;normalized.sepal.length&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_batch</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_batch</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="c1"># Drop column.</span>
+    <span class="n">df_batch</span> <span class="o">=</span> <span class="n">df_batch</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">df_batch</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">pandas_transform</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal.width&#39;: 3.2, &#39;petal.length&#39;: 4.7, &#39;petal.width&#39;: 1.4,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Versicolor&#39;, &#39;normalized.sepal.length&#39;: 1.0}</span>
+<span class="c1"># -&gt; {&#39;sepal.width&#39;: 3.2, &#39;petal.length&#39;: 4.5, &#39;petal.width&#39;: 1.5,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Versicolor&#39;, &#39;normalized.sepal.length&#39;: 0.9142857142857144}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Tensor Datastreams</strong> (single-column): Each batch will be a single
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html">numpy.ndarray</a>
+containing the single tensor column for this batch.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># UDF as a function on NumPy ndarray batches.</span>
+<span class="k">def</span> <span class="nf">tensor_transform</span><span class="p">(</span><span class="n">arr</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="c1"># Notice here that the ndarray is of shape (batch_size, 2, 2)</span>
+    <span class="c1"># Multiply each element in the ndarray by a factor of 2</span>
+    <span class="n">arr</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">arr</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">tensor_transform</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;numpy&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># [array([[0, 0],</span>
+<span class="c1">#         [0, 0]]),</span>
+<span class="c1"># array([[2, 2],</span>
+<span class="c1">#         [2, 2]])]</span>
+
+</pre></div>
+</div>
+</li>
+<li><p><strong>Simple Datastreams</strong>: Each batch will be a Python list.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">list_transform</span><span class="p">(</span><span class="n">batch</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="c1"># Notice here that the list is of length batch_size</span>
+    <span class="c1"># Multiply each element in the list by a factor of 2</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]]}</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">list_transform</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># {&quot;id&quot;: 0}</span>
+<span class="c1"># {&quot;id&quot;: 2}</span>
+
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-4">
+“pandas”</label><div class="sd-tab-content docutils">
+<p>The <code class="docutils literal notranslate"><span class="pre">&quot;pandas&quot;</span></code> batch format presents batches in
+<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">pandas.DataFrame</a>
+format. If converting a simple datastream to Pandas DataFrame batches, a single-column
+dataframe with the column <code class="docutils literal notranslate"><span class="pre">&quot;__value__&quot;</span></code> will be created.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># UDF as a function on Pandas DataFrame batches.</span>
+<span class="k">def</span> <span class="nf">pandas_transform</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="c1"># Filter rows.</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;variety&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Versicolor&quot;</span><span class="p">]</span>
+    <span class="c1"># Add derived column.</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;normalized.sepal.length&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="c1"># Drop column.</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">pandas_transform</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal.width&#39;: 3.2, &#39;petal.length&#39;: 4.7, &#39;petal.width&#39;: 1.4,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Versicolor&#39;, &#39;normalized.sepal.length&#39;: 1.0}</span>
+<span class="c1"># -&gt; {&#39;sepal.width&#39;: 3.2, &#39;petal.length&#39;: 4.5, &#39;petal.width&#39;: 1.5,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Versicolor&#39;, &#39;normalized.sepal.length&#39;: 0.9142857142857144}</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-5">
+“pyarrow”</label><div class="sd-tab-content docutils">
+<p>The <code class="docutils literal notranslate"><span class="pre">&quot;pyarrow&quot;</span></code> batch format presents batches in
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.Table.html">pyarrow.Table</a>
+format. If converting a simple datastream to Arrow Table batches, a single-column table
+with the column <code class="docutils literal notranslate"><span class="pre">&quot;__value__&quot;</span></code> will be created.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+<span class="kn">import</span> <span class="nn">pyarrow.compute</span> <span class="k">as</span> <span class="nn">pac</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># UDF as a function on Arrow Table batches.</span>
+<span class="k">def</span> <span class="nf">pyarrow_transform</span><span class="p">(</span><span class="n">batch</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pa</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pac</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="s2">&quot;variety&quot;</span><span class="p">],</span> <span class="s2">&quot;Versicolor&quot;</span><span class="p">))</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span>
+        <span class="s2">&quot;normalized.sepal.length&quot;</span><span class="p">,</span>
+        <span class="n">pac</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">],</span> <span class="n">pac</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">])),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">batch</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">])</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">pyarrow_transform</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pyarrow&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal.width&#39;: 3.2, &#39;petal.length&#39;: 4.7, &#39;petal.width&#39;: 1.4,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Versicolor&#39;, &#39;normalized.sepal.length&#39;: 1.0}</span>
+<span class="c1"># -&gt; {&#39;sepal.width&#39;: 3.2, &#39;petal.length&#39;: 4.5, &#39;petal.width&#39;: 1.5,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Versicolor&#39;, &#39;normalized.sepal.length&#39;: 0.9142857142857144}</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-6" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-6">
+“numpy”</label><div class="sd-tab-content docutils">
+<p>The <code class="docutils literal notranslate"><span class="pre">&quot;numpy&quot;</span></code> batch format presents batches in
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html">numpy.ndarray</a>
+format as follows:</p>
+<ul class="simple">
+<li><p><strong>Tabular Datastreams</strong>: Each batch will be a dictionary of NumPy
+ndarrays (<code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">np.ndarray]</span></code>), with each key-value pair representing a column
+in the table.</p></li>
+<li><p><strong>Tensor Datastreams</strong> (single-column): Each batch will be a single
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html">numpy.ndarray</a>
+containing the single tensor column for this batch.</p></li>
+<li><p><strong>Simple Datastreams</strong>: Each batch will be a single NumPy ndarray, where Datastreams will
+attempt to convert each list-batch to an ndarray.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_numpy</span><span class="p">(</span><span class="s2">&quot;example://mnist_subset.npy&quot;</span><span class="p">)</span>
+
+<span class="c1"># UDF as a function on NumPy ndarray batches.</span>
+<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">arr</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
+    <span class="c1"># Normalizes each image to [0, 1] range.</span>
+    <span class="n">mins</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">min</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+    <span class="n">maxes</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">max</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+    <span class="n">range_</span> <span class="o">=</span> <span class="n">maxes</span> <span class="o">-</span> <span class="n">mins</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">range_</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">mins</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">range_</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">arr</span> <span class="o">-</span> <span class="n">mins</span><span class="p">)</span> <span class="o">/</span> <span class="n">range_</span><span class="p">}</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">normalize</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;numpy&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; MapBatches(normalize)</span>
+<span class="c1">#    +- Datastream(num_blocks=1,</span>
+<span class="c1">#               num_rows=3,</span>
+<span class="c1">#               schema={__value__: numpy.ndarray(shape=(28, 28), dtype=uint8)}</span>
+<span class="c1">#       )</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Converting between the underlying Datastreams data representations (Arrow, Pandas, and
+Python lists) and the requested batch format (<code class="docutils literal notranslate"><span class="pre">&quot;default&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;pandas&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;pyarrow&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;numpy&quot;</span></code>) may incur data copies; which conversions cause data copying
+is given in the below table:</p>
+<table class="table" id="id2">
+<caption><span class="caption-text">Data Format Conversion Costs</span><a class="headerlink" href="transforming-datastreams.html#id2" title="Permalink to this table">#</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head stub"><p>Datastream Format x Batch Format</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">&quot;default&quot;</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">&quot;pandas&quot;</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">&quot;numpy&quot;</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">&quot;pyarrow&quot;</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><th class="stub"><p><code class="docutils literal notranslate"><span class="pre">&quot;pandas&quot;</span></code></p></th>
+<td><p>Zero-copy</p></td>
+<td><p>Zero-copy</p></td>
+<td><p>Copy*</p></td>
+<td><p>Copy*</p></td>
+<td><p>Zero-copy</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p><code class="docutils literal notranslate"><span class="pre">&quot;arrow&quot;</span></code></p></th>
+<td><p>Copy*</p></td>
+<td><p>Copy*</p></td>
+<td><p>Zero-copy*</p></td>
+<td><p>Zero-copy</p></td>
+<td><p>Zero-copy</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p><code class="docutils literal notranslate"><span class="pre">&quot;simple&quot;</span></code></p></th>
+<td><p>Copy</p></td>
+<td><p>Copy</p></td>
+<td><p>Copy</p></td>
+<td><p>Copy</p></td>
+<td><p>Copy</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>* No copies occur when converting between Arrow, Pandas, and NumPy formats for columns
+represented in our tensor extension type (unless data is boolean). Copies <strong>always</strong>
+occur when converting boolean data from/to Arrow to/from Pandas/NumPy, since Arrow
+bitpacks boolean data while Pandas/NumPy does not.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Prefer using vectorized operations on the <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pyarrow.Table</span></code>, and <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> types for better performance. For
+example, suppose you want to compute the sum of a column in <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>:
+instead of iterating over each row of a batch and summing up values of that column,
+use <code class="docutils literal notranslate"><span class="pre">df_batch[&quot;col_foo&quot;].sum()</span></code>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If the UDF for <a class="reference internal" href="api/doc/ray.data.Datastream.map_batches.html#ray.data.Datastream.map_batches" title="ray.data.Datastream.map_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.map_batches()</span></code></a> does <strong>not</strong>
+mutate its input, we can prevent an unnecessary data batch copy by specifying
+<code class="docutils literal notranslate"><span class="pre">zero_copy_batch=True</span></code>, which will provide the UDF with zero-copy, read-only
+batches. See the <a class="reference internal" href="api/doc/ray.data.Datastream.map_batches.html#ray.data.Datastream.map_batches" title="ray.data.Datastream.map_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.map_batches()</span></code></a> docstring for
+more information.</p>
+</div>
+</section>
+<section id="batch-udf-output-types">
+<span id="transform-datastreams-batch-output-types"></span><h3>Batch UDF Output Types<a class="headerlink" href="transforming-datastreams.html#batch-udf-output-types" title="Permalink to this headline">#</a></h3>
+<p>The following output types are allowed for batch UDFs (e.g.,
+<a class="reference internal" href="api/doc/ray.data.Datastream.map_batches.html#ray.data.Datastream.map_batches" title="ray.data.Datastream.map_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.map_batches()</span></code></a>). The following describes
+how they are interpreted to create the transformation result:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-7">
+pd.DataFrame</label><div class="sd-tab-content docutils">
+<p>Returning <code class="docutils literal notranslate"><span class="pre">pd.DataFrame</span></code> creates a Tabular datastream as the transformation result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_items</span><span class="p">([</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="s2">&quot;teststring&quot;</span><span class="p">])</span>
+<span class="c1"># -&gt; Datastream(num_blocks=1, num_rows=3, schema={item: string})</span>
+
+<span class="c1"># Convert column name.</span>
+<span class="k">def</span> <span class="nf">convert_pandas</span><span class="p">(</span><span class="n">batch</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;item&quot;</span><span class="p">]},</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">convert_pandas</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; MapBatches(convert_pandas)</span>
+<span class="c1">#    +- Datastream(num_blocks=3, num_rows=3, schema={item: tsring})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;text&#39;: &#39;test&#39;}</span>
+<span class="c1"># -&gt; {&#39;text&#39;: &#39;string&#39;}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(num_blocks=3, num_rows=3, schema={text: string})</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-8">
+pa.Table</label><div class="sd-tab-content docutils">
+<p>Returning <code class="docutils literal notranslate"><span class="pre">pa.Table</span></code> creates a Tabular datastream as the transformation result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_items</span><span class="p">([</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="s2">&quot;teststring&quot;</span><span class="p">])</span>
+<span class="c1"># -&gt; Datastream(num_blocks=1, num_rows=3, schema={item: string})</span>
+
+<span class="c1"># Convert to Arrow.</span>
+<span class="k">def</span> <span class="nf">convert_to_arrow</span><span class="p">(</span><span class="n">batch</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">pa</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">table</span><span class="p">({</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;item&quot;</span><span class="p">]})</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">convert_to_arrow</span><span class="p">)</span>
+<span class="c1"># -&gt; MapBatches(convert_to_arrow)</span>
+<span class="c1">#    +- Datastream(num_blocks=1, num_rows=3, schema={text: string})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;text&#39;: &#39;test&#39;}</span>
+<span class="c1"># -&gt; {&#39;text&#39;: &#39;string&#39;}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(num_blocks=3, num_rows=3, schema={text: string})</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-9" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-9">
+np.ndarray</label><div class="sd-tab-content docutils">
+<p>Returning <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> creates a single-column Tensor datastream as the transformation result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(</span>
+<span class="c1">#        num_blocks=1,</span>
+<span class="c1">#        num_rows=150,</span>
+<span class="c1">#        schema={</span>
+<span class="c1">#            sepal.length: double,</span>
+<span class="c1">#            sepal.width: double,</span>
+<span class="c1">#            petal.length: double,</span>
+<span class="c1">#            petal.width: double,</span>
+<span class="c1">#            variety: string,</span>
+<span class="c1">#        },</span>
+<span class="c1">#   )</span>
+
+<span class="c1"># Convert to NumPy.</span>
+<span class="k">def</span> <span class="nf">convert_to_numpy</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal.width&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()}</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">convert_to_numpy</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; MapBatches(convert_to_numpy)</span>
+<span class="c1">#    +- Datastream(</span>
+<span class="c1">#           num_blocks=1,</span>
+<span class="c1">#           num_rows=150,</span>
+<span class="c1">#           schema={</span>
+<span class="c1">#               sepal.length: double,</span>
+<span class="c1">#               sepal.width: double,</span>
+<span class="c1">#               petal.length: double,</span>
+<span class="c1">#               petal.width: double,</span>
+<span class="c1">#               variety: string,</span>
+<span class="c1">#           },</span>
+<span class="c1">#      )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;data&#39;: [5.1 3.5]}</span>
+<span class="c1">#    {&#39;data&#39;: [4.9 3. ]}</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-10" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-10">
+Dict[str, np.ndarray]</label><div class="sd-tab-content docutils">
+<p>Returning <code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">np.ndarray]</span></code> creates a multi-column Tensor datastream as the transformation result.</p>
+<p>If a column tensor is 1-dimensional, then the native Arrow 1D list
+type is used; if a column tensor has 2 or more dimensions, then the Datastream
+<a class="reference internal" href="api/data_representations.html#datastream-tensor-extension-api"><span class="std std-ref">tensor extension type</span></a> to embed these
+n-dimensional tensors in the Arrow table.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(</span>
+<span class="c1">#        num_blocks=1,</span>
+<span class="c1">#        num_rows=150,</span>
+<span class="c1">#        schema={</span>
+<span class="c1">#            sepal.length: double,</span>
+<span class="c1">#            sepal.width: double,</span>
+<span class="c1">#            petal.length: double,</span>
+<span class="c1">#            petal.width: double,</span>
+<span class="c1">#            variety: string,</span>
+<span class="c1">#        },</span>
+<span class="c1">#   )</span>
+
+<span class="c1"># Convert to dict of NumPy ndarrays.</span>
+<span class="k">def</span> <span class="nf">convert_to_numpy</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;sepal_len_and_width&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal.width&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+        <span class="s2">&quot;petal_len&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;petal.length&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+        <span class="s2">&quot;petal_width&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;petal.width&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+    <span class="p">}</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">convert_to_numpy</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; MapBatches(convert_to_numpy)</span>
+<span class="c1">#    +- Datastream(</span>
+<span class="c1">#           num_blocks=1,</span>
+<span class="c1">#           num_rows=150,</span>
+<span class="c1">#           schema={</span>
+<span class="c1">#               sepal.length: double,</span>
+<span class="c1">#               sepal.width: double,</span>
+<span class="c1">#               petal.length: double,</span>
+<span class="c1">#               petal.width: double,</span>
+<span class="c1">#               variety: string,</span>
+<span class="c1">#           },</span>
+<span class="c1">#      )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal_len_and_width&#39;: array([5.1, 3.5]), &#39;petal_len&#39;: 1.4, &#39;petal_width&#39;: 0.2}</span>
+<span class="c1"># -&gt; {&#39;sepal_len_and_width&#39;: array([4.9, 3. ]), &#39;petal_len&#39;: 1.4, &#39;petal_width&#39;: 0.2}</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-11" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-11">
+list</label><div class="sd-tab-content docutils">
+<p>Returning <code class="docutils literal notranslate"><span class="pre">list</span></code> creates a simple Python object datastream as the transformation result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(</span>
+<span class="c1">#        num_blocks=1,</span>
+<span class="c1">#        num_rows=150,</span>
+<span class="c1">#        schema={</span>
+<span class="c1">#            sepal.length: double,</span>
+<span class="c1">#            sepal.width: double,</span>
+<span class="c1">#            petal.length: double,</span>
+<span class="c1">#            petal.width: double,</span>
+<span class="c1">#            variety: string,</span>
+<span class="c1">#        },</span>
+<span class="c1">#   )</span>
+
+<span class="c1"># Convert to list of dicts.</span>
+<span class="k">def</span> <span class="nf">convert_to_list</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">convert_to_list</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; MapBatches(convert_to_list)</span>
+<span class="c1">#    +- Datastream(</span>
+<span class="c1">#           num_blocks=1,</span>
+<span class="c1">#           num_rows=150,</span>
+<span class="c1">#           schema={</span>
+<span class="c1">#               sepal.length: double,</span>
+<span class="c1">#               sepal.width: double,</span>
+<span class="c1">#               petal.length: double,</span>
+<span class="c1">#               petal.width: double,</span>
+<span class="c1">#               variety: string,</span>
+<span class="c1">#           },</span>
+<span class="c1">#      )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 5.1, &#39;sepal.width&#39;: 3.5, &#39;petal.length&#39;: 1.4, &#39;petal.width&#39;: 0.2,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Setosa&#39;}</span>
+<span class="c1"># -&gt; {&#39;sepal.length&#39;: 4.9, &#39;sepal.width&#39;: 3.0, &#39;petal.length&#39;: 1.4, &#39;petal.width&#39;: 0.2,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Setosa&#39;}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="row-udf-output-types">
+<span id="transform-datastreams-row-output-types"></span><h3>Row UDF Output Types<a class="headerlink" href="transforming-datastreams.html#row-udf-output-types" title="Permalink to this headline">#</a></h3>
+<p>The following output types are allowed for per-row UDFs (e.g.,
+<a class="reference internal" href="api/doc/ray.data.Datastream.map.html#ray.data.Datastream.map" title="ray.data.Datastream.map"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.map()</span></code></a>):</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-12">
+dict</label><div class="sd-tab-content docutils">
+<p>Returning a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of Arrow-compatible data types creates a Tabular datastream
+as the transformation result. If any dict values are not Arrow-compatible, then
+a simple Python object datastream will be created:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(num_blocks=10, num_rows=10, schema=&lt;class &#39;int&#39;&gt;)</span>
+
+<span class="c1"># Convert row to dict.</span>
+<span class="k">def</span> <span class="nf">row_to_dict</span><span class="p">(</span><span class="n">row</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;foo&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">}</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">row_to_dict</span><span class="p">)</span>
+<span class="c1"># -&gt; Map</span>
+<span class="c1">#    +- Datastream(num_blocks=10, num_rows=10, schema=&lt;class &#39;int&#39;&gt;)</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;foo&#39;: 0}</span>
+<span class="c1"># -&gt; {&#39;foo&#39;: 1}</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-13" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-13">
+np.ndarray</label><div class="sd-tab-content docutils">
+<p>Returning <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> creates a single-column Tensor datastream as the transformation result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(num_blocks=10, num_rows=10, schema={id: int64})</span>
+
+<span class="c1"># Convert row to NumPy ndarray.</span>
+<span class="k">def</span> <span class="nf">row_to_numpy</span><span class="p">(</span><span class="n">row</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])}</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">row_to_numpy</span><span class="p">)</span>
+<span class="c1"># -&gt; Map</span>
+<span class="c1">#    +- Datastream(num_blocks=10, num_rows=10, schema={data: np.ndarray(shape=(2, 2))})</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;data&#39;: [[0 0], [0 0]]]}</span>
+<span class="c1">#    {&#39;data&#39;: [[1 1], [1 1]]]}</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-14" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-14">
+object</label><div class="sd-tab-content docutils">
+<p>Other return row types will create a simple Python object datastream as the transformation result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; Datastream(</span>
+<span class="c1">#        num_blocks=1,</span>
+<span class="c1">#        num_rows=150,</span>
+<span class="c1">#        schema={</span>
+<span class="c1">#            sepal.length: double,</span>
+<span class="c1">#            sepal.width: double,</span>
+<span class="c1">#            petal.length: double,</span>
+<span class="c1">#            petal.width: double,</span>
+<span class="c1">#            variety: string,</span>
+<span class="c1">#        },</span>
+<span class="c1">#   )</span>
+
+<span class="c1"># Convert row to simple (opaque) row.</span>
+<span class="k">def</span> <span class="nf">map_row</span><span class="p">(</span><span class="n">row</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="n">row</span><span class="p">[</span><span class="s2">&quot;petal.random_property&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">row</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">map_row</span><span class="p">)</span>
+<span class="c1"># -&gt; Map</span>
+<span class="c1">#    +- Datastream(</span>
+<span class="c1">#           num_blocks=1,</span>
+<span class="c1">#           num_rows=150,</span>
+<span class="c1">#           schema={</span>
+<span class="c1">#               sepal.length: double,</span>
+<span class="c1">#               sepal.width: double,</span>
+<span class="c1">#               petal.length: double,</span>
+<span class="c1">#               petal.width: double,</span>
+<span class="c1">#               variety: string,</span>
+<span class="c1">#          },</span>
+<span class="c1">#     )</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="configuring-batch-size">
+<span id="transform-datastreams-configuring-batch-size"></span><h2>Configuring Batch Size<a class="headerlink" href="transforming-datastreams.html#configuring-batch-size" title="Permalink to this headline">#</a></h2>
+<p><a class="reference internal" href="api/doc/ray.data.Datastream.map_batches.html#ray.data.Datastream.map_batches" title="ray.data.Datastream.map_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.map_batches()</span></code></a> is the canonical parallel
+transformation API for Datastreams: it launches parallel tasks over the underlying Datastreams
+blocks and maps UDFs over data batches within those tasks, allowing the UDF to
+implement vectorized operations on batches. An important parameter to
+set is <code class="docutils literal notranslate"><span class="pre">batch_size</span></code>, which controls the size of the batches provided to the UDF.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Load datastream.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># UDF as a function on Pandas DataFrame batches.</span>
+<span class="k">def</span> <span class="nf">pandas_transform</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="c1"># Filter rows.</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;variety&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Versicolor&quot;</span><span class="p">]</span>
+    <span class="c1"># Add derived column.</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;normalized.sepal.length&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="c1"># Drop column.</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="c1"># Have each batch that pandas_transform receives contain 10 rows.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">pandas_transform</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="c1"># -&gt; MapBatches(pandas_transform)</span>
+<span class="c1">#    +- Datastream(</span>
+<span class="c1">#           num_blocks=1,</span>
+<span class="c1">#           num_rows=150,</span>
+<span class="c1">#           schema={</span>
+<span class="c1">#               sepal.length: double,</span>
+<span class="c1">#               sepal.width: double,</span>
+<span class="c1">#               petal.length: double,</span>
+<span class="c1">#               petal.width: double,</span>
+<span class="c1">#               variety: string,</span>
+<span class="c1">#           },</span>
+<span class="c1">#      )</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># -&gt; {&#39;sepal.width&#39;: 3.2, &#39;petal.length&#39;: 4.7, &#39;petal.width&#39;: 1.4,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Versicolor&#39;, &#39;normalized.sepal.length&#39;: 1.0}</span>
+<span class="c1"># -&gt; {&#39;sepal.width&#39;: 3.2, &#39;petal.length&#39;: 4.5, &#39;petal.width&#39;: 1.5,</span>
+<span class="c1">#     &#39;variety&#39;: &#39;Versicolor&#39;, &#39;normalized.sepal.length&#39;: 0.9142857142857144}</span>
+</pre></div>
+</div>
+<p>Increasing <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> can result in faster execution by better leveraging vectorized
+operations and hardware, reducing batch slicing and concatenation overhead, and overall
+saturation of CPUs/GPUs, but will also result in higher memory utilization, which can
+lead to out-of-memory failures. If encountering OOMs, decreasing your <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> may
+help.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> of <code class="docutils literal notranslate"><span class="pre">4096</span></code> may be too large for datastreams with large rows
+(e.g. tables with many columns or a collection of large images).</p>
+</div>
+<p>If you specify a <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> that’s larger than your <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> blocks, Datastreams
+will bundle multiple blocks together for a single task in order to better satisfy
+<code class="docutils literal notranslate"><span class="pre">batch_size</span></code>. If <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> is a lot larger than your <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> blocks (e.g. if
+your datastream was created with too large of a <code class="docutils literal notranslate"><span class="pre">parallelism</span></code> and/or the <code class="docutils literal notranslate"><span class="pre">batch_size</span></code>
+is set to too large of a value for your datastream), the number of parallel tasks
+may be less than expected.</p>
+<p>If your <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> blocks are smaller than your <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> and you want to increase
+<a class="reference internal" href="api/doc/ray.data.Datastream.map_batches.html#ray.data.Datastream.map_batches" title="ray.data.Datastream.map_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ds.map_batches()</span></code></a> parallelism, decrease your
+<code class="docutils literal notranslate"><span class="pre">batch_size</span></code> to prevent this block bundling. If you think that your <code class="docutils literal notranslate"><span class="pre">Datastream</span></code> blocks
+are too small, try decreasing <code class="docutils literal notranslate"><span class="pre">parallelism</span></code> during the read to create larger blocks.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The size of the batches provided to the UDF may be smaller than the provided
+<code class="docutils literal notranslate"><span class="pre">batch_size</span></code> if <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> doesn’t evenly divide the block(s) sent to a given
+task.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Block bundling (processing multiple blocks in a single task) will not occur if
+<code class="docutils literal notranslate"><span class="pre">batch_size</span></code> is not set; instead, each task will receive a single block. If a block
+is smaller than the default <code class="docutils literal notranslate"><span class="pre">batch_size</span></code> (4096), then the batch provided to the UDF
+in that task will the same size as the block, and will therefore be smaller than the
+default <code class="docutils literal notranslate"><span class="pre">batch_size</span></code>.</p>
+</div>
+</section>
+<section id="compute-strategy">
+<span id="transform-datastreams-compute-strategy"></span><h2>Compute Strategy<a class="headerlink" href="transforming-datastreams.html#compute-strategy" title="Permalink to this headline">#</a></h2>
+<p>Datastreams transformations are executed by either <a class="reference internal" href="../ray-core/tasks.html#ray-remote-functions"><span class="std std-ref">Ray tasks</span></a>
+or <a class="reference internal" href="../actors.html#actor-guide"><span class="std std-ref">Ray actors</span></a> across a Ray cluster. By default, Ray tasks are
+used. For transformations that require expensive setup,
+it’s preferrable to use Ray actors, which are stateful and allow setup to be reused
+for efficiency. For a fixed-size actor pool, specify <code class="docutils literal notranslate"><span class="pre">compute=ActorPoolStrategy(size=n)</span></code>.
+For an autoscaling actor pool, use <code class="docutils literal notranslate"><span class="pre">compute=ray.data.ActorPoolStrategy(min_size=m,</span> <span class="pre">max_size=n)</span></code>.</p>
+<p>The following is an example of using the Ray tasks and actors compute strategy
+for batch inference:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">ray.data</span> <span class="kn">import</span> <span class="n">ActorPoolStrategy</span>
+
+<span class="c1"># Dummy model to predict Iris variety.</span>
+<span class="k">def</span> <span class="nf">predict_iris</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">5.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">5.0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">6.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal.length&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">6.0</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Setosa&quot;</span><span class="p">,</span> <span class="s2">&quot;Versicolor&quot;</span><span class="p">,</span> <span class="s2">&quot;Virginica&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;predicted_variety&quot;</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">conditions</span><span class="p">,</span> <span class="n">values</span><span class="p">)})</span>
+
+<span class="k">class</span> <span class="nc">IrisInferModel</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">predict_iris</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;example://iris.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Batch inference processing with Ray tasks (the default compute strategy).</span>
+<span class="n">predicted</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">predict_iris</span><span class="p">)</span>
+
+<span class="c1"># Batch inference processing with Ray actors (pool of size 5).</span>
+<span class="n">predicted</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span>
+    <span class="n">IrisInferModel</span><span class="p">,</span> <span class="n">compute</span><span class="o">=</span><span class="n">ActorPoolStrategy</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="group-bys-and-aggregations">
+<span id="data-groupbys"></span><h2>Group-bys and aggregations<a class="headerlink" href="transforming-datastreams.html#group-bys-and-aggregations" title="Permalink to this headline">#</a></h2>
+<p>Unlike mapping operations, groupbys and aggregations are global. Grouped aggregations
+are executed lazily. Global aggregations are executed <em>eagerly</em> and block until the
+aggregation has been computed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="p">:</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_items</span><span class="p">([</span>
+    <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+
+<span class="c1"># Group by the A column and calculate the per-group mean for B and C columns.</span>
+<span class="n">agg_ds</span><span class="p">:</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Datastream</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">materialize</span><span class="p">()</span>
+<span class="c1"># -&gt; Sort Sample: 100%|███████████████████████████████████████| 10/10 [00:01&lt;00:00,  9.04it/s]</span>
+<span class="c1"># -&gt; GroupBy Map: 100%|███████████████████████████████████████| 10/10 [00:00&lt;00:00, 23.66it/s]</span>
+<span class="c1"># -&gt; GroupBy Reduce: 100%|████████████████████████████████████| 10/10 [00:00&lt;00:00, 937.21it/s]</span>
+<span class="c1"># -&gt; Datastream(num_blocks=10, num_rows=3, schema={})</span>
+<span class="n">agg_ds</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+<span class="c1"># -&gt;</span>
+<span class="c1">#    A  mean(B)  mean(C)</span>
+<span class="c1"># 0  0      9.0     13.5</span>
+<span class="c1"># 1  1      8.0     12.0</span>
+<span class="c1"># 2  2     10.0     15.0</span>
+
+<span class="c1"># Global mean on B column.</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; GroupBy Map: 100%|███████████████████████████████████████| 10/10 [00:00&lt;00:00, 2851.91it/s]</span>
+<span class="c1"># -&gt; GroupBy Reduce: 100%|████████████████████████████████████| 1/1 [00:00&lt;00:00, 319.69it/s]</span>
+<span class="c1"># -&gt; 9.0</span>
+
+<span class="c1"># Global mean on multiple columns.</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">])</span>
+<span class="c1"># -&gt; GroupBy Map: 100%|███████████████████████████████████████| 10/10 [00:00&lt;00:00, 1730.32it/s]</span>
+<span class="c1"># -&gt; GroupBy Reduce: 100%|████████████████████████████████████| 1/1 [00:00&lt;00:00, 231.41it/s]</span>
+<span class="c1"># -&gt; {&#39;mean(B)&#39;: 9.0, &#39;mean(C)&#39;: 13.5}</span>
+
+<span class="c1"># Multiple global aggregations on multiple columns.</span>
+<span class="kn">from</span> <span class="nn">ray.data.aggregate</span> <span class="kn">import</span> <span class="n">Mean</span><span class="p">,</span> <span class="n">Std</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">Mean</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">),</span> <span class="n">Std</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">Mean</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">),</span> <span class="n">Std</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="c1"># -&gt; GroupBy Map: 100%|███████████████████████████████████████| 10/10 [00:00&lt;00:00, 1568.73it/s]</span>
+<span class="c1"># -&gt; GroupBy Reduce: 100%|████████████████████████████████████| 1/1 [00:00&lt;00:00, 133.51it/s]</span>
+<span class="c1"># -&gt; {&#39;mean(A)&#39;: 0.9, &#39;std(A)&#39;: 0.8306623862918076, &#39;mean(B)&#39;: 9.0, &#39;std(B)&#39;: 5.744562646538029}</span>
+</pre></div>
+</div>
+<p>Combine aggreations with batch mapping to transform datastreams using computed statistics.
+For example, you can efficiently standardize feature columns and impute missing values
+with calculated column means.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Impute missing values with the column mean.</span>
+<span class="n">b_mean</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; GroupBy Map: 100%|███████████████████████████████████████| 10/10 [00:00&lt;00:00, 4054.03it/s]</span>
+<span class="c1"># -&gt; GroupBy Reduce: 100%|████████████████████████████████████| 1/1 [00:00&lt;00:00, 359.22it/s]</span>
+<span class="c1"># -&gt; 9.0</span>
+
+<span class="k">def</span> <span class="nf">impute_b</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">b_mean</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">impute_b</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+<span class="c1"># -&gt; MapBatches(impute_b)</span>
+<span class="c1">#    +- Datastream(num_blocks=10, num_rows=10, schema={A: int64, B: int64, C: int64})</span>
+
+<span class="c1"># Standard scaling of all feature columns.</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">Mean</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">),</span> <span class="n">Std</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">),</span> <span class="n">Mean</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">),</span> <span class="n">Std</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">))</span>
+<span class="c1"># -&gt; MapBatches(impute_b): 100%|██████████████████████████████| 10/10 [00:01&lt;00:00,  7.16it/s]</span>
+<span class="c1"># -&gt; GroupBy Map: 100%|███████████████████████████████████████| 10/10 [00:00&lt;00:00, 1260.99it/s]</span>
+<span class="c1"># -&gt; GroupBy Reduce: 100%|████████████████████████████████████| 1/1 [00:00&lt;00:00, 128.77it/s]</span>
+<span class="c1"># -&gt; {&#39;mean(B)&#39;: 9.0, &#39;std(B)&#39;: 6.0553007081949835, &#39;mean(C)&#39;: 13.5, &#39;std(C)&#39;: 9.082951062292475}</span>
+
+<span class="k">def</span> <span class="nf">batch_standard_scaler</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">column_standard_scaler</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+        <span class="n">s_mean</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mean(</span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">]</span>
+        <span class="n">s_std</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;std(</span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="n">s_mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">s_std</span>
+
+    <span class="n">cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">difference</span><span class="p">([</span><span class="s2">&quot;A&quot;</span><span class="p">])</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">column_standard_scaler</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">batch_standard_scaler</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">materialize</span><span class="p">()</span>
+<span class="c1"># -&gt; Map Progress: 100%|██████████████████████████████████████| 10/10 [00:00&lt;00:00, 144.79it/s]</span>
+<span class="c1"># -&gt; Datastream(num_blocks=10, num_rows=10, schema={A: int64, B: double, C: double})</span>
+</pre></div>
+</div>
+</section>
+<section id="shuffling-data">
+<h2>Shuffling data<a class="headerlink" href="transforming-datastreams.html#shuffling-data" title="Permalink to this headline">#</a></h2>
+<p>Call <a class="reference internal" href="api/doc/ray.data.Datastream.random_shuffle.html#ray.data.Datastream.random_shuffle" title="ray.data.Datastream.random_shuffle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Datastream.random_shuffle()</span></code></a> to
+perform a global shuffle.</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">datastream</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">datastream</span><span class="o">.</span><span class="n">random_shuffle</span><span class="p">()</span><span class="o">.</span><span class="n">take_all</span><span class="p">()</span>  
+<span class="go">[7, 0, 9, 3, 5, 1, 4, 2, 8, 6]</span>
+</pre></div>
+</div>
+<p>For better performance, perform a local shuffle. Read
+<a class="reference internal" href="../ray-air/check-ingest.html#air-shuffle"><span class="std std-ref">Shuffling Data</span></a> in the AIR user guide to learn more.</p>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="creating-datastreams.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Loading Data</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="consuming-datastreams.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Consuming Data</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

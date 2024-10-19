@@ -1,0 +1,8 @@
+﻿ray.experimental.state.common.PlacementGroupState
+=================================================
+
+.. currentmodule:: ray.experimental.state.common
+
+.. autoclass:: PlacementGroupState
+    :members:
+    :show-inheritance:

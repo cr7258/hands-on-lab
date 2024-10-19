@@ -1,0 +1,6 @@
+ray.data.datasource.CSVDatasource.get\_name
+===========================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: CSVDatasource.get_name

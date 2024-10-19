@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceTrainer.restore
+================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFaceTrainer.restore

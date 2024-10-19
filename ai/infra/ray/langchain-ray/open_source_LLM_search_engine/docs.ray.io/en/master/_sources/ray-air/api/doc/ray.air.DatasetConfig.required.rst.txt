@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.required
+==============================
+
+.. currentmodule:: ray.air
+
+.. autoattribute:: DatasetConfig.required

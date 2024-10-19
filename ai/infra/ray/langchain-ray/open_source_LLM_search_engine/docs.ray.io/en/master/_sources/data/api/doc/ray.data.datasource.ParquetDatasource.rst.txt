@@ -1,0 +1,35 @@
+﻿
+
+ray.data.datasource.ParquetDatasource
+=====================================
+
+.. currentmodule:: ray.data.datasource
+
+.. autoclass:: ParquetDatasource
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~ParquetDatasource.__init__
+      
+      ~ParquetDatasource.do_write
+      
+      ~ParquetDatasource.get_name
+      ~ParquetDatasource.on_write_complete
+      ~ParquetDatasource.on_write_failed
+      ~ParquetDatasource.prepare_read
+      ~ParquetDatasource.write
+
+   
+   
+
+
+   
+   
+   

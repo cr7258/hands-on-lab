@@ -1,0 +1,6 @@
+ray.data.Datastream.zip
+=======================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.zip

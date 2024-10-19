@@ -1,0 +1,8 @@
+﻿ray.data.extensions.tensor\_extension.TensorArray
+=================================================
+
+.. currentmodule:: ray.data.extensions.tensor_extension
+
+.. autoclass:: TensorArray
+    :members:
+    :show-inheritance:

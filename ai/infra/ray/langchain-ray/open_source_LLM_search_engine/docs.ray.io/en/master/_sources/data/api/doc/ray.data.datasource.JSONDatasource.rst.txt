@@ -1,0 +1,35 @@
+﻿
+
+ray.data.datasource.JSONDatasource
+==================================
+
+.. currentmodule:: ray.data.datasource
+
+.. autoclass:: JSONDatasource
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~JSONDatasource.__init__
+      
+      ~JSONDatasource.do_write
+      
+      ~JSONDatasource.get_name
+      ~JSONDatasource.on_write_complete
+      ~JSONDatasource.on_write_failed
+      ~JSONDatasource.prepare_read
+      ~JSONDatasource.write
+
+   
+   
+
+
+   
+   
+   

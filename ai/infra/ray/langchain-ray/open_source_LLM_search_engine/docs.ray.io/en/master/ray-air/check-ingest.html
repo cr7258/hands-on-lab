@@ -1,0 +1,1529 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Configuring Training Datasets &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/versionwarning.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../_static/js/docsearch.js"></script>
+    <script src="../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../_static/js/termynal.js"></script>
+    <script defer="defer" src="../_static/js/custom.js"></script>
+    <script defer="defer" src="../_static/js/top-navigation.js"></script>
+    <script src="../_static/js/tags.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script async="async" src="../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/ray-air/check-ingest.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuring Hyperparameter Tuning" href="tuner.html" />
+    <link rel="prev" title="Using Trainers" href="trainers.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:31:19Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "ray-air/check-ingest", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="key-concepts.html">
+     Key Concepts
+    </a>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="user-guides.html">
+     User Guides
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="preprocessors.html">
+       Using Preprocessors
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="trainers.html">
+       Using Trainers
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="check-ingest.html#">
+       Configuring Training Datasets
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="tuner.html">
+       Configuring Hyperparameter Tuning
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="predictors.html">
+       Using Predictors for Inference
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="computer-vision.html">
+       Computer Vision
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="examples/serving_guide.html">
+       Deploying Predictors with Serve
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="deployment.html">
+       How to Deploy AIR
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="examples/index.html">
+     Examples
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api/api.html">
+     Ray AIR API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="benchmarks.html">
+     Benchmarks
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2Fray-air/check-ingest.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/edit/master/doc/source/ray-air/check-ingest.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/ray-air/check-ingest.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="check-ingest.html#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="check-ingest.html#getting-started">
+   Getting Started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="check-ingest.html#configuring-ingest">
+   Configuring Ingest
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#enabling-streaming-ingest">
+     Enabling Streaming Ingest
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#shuffling-data">
+     Shuffling Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#applying-randomized-preprocessing-experimental">
+     Applying randomized preprocessing (experimental)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#splitting-auxiliary-datasets">
+     Splitting Auxiliary Datasets
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#disabling-preprocessor-transforms">
+     Disabling Preprocessor Transforms
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#dataset-resources">
+     Dataset Resources
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="check-ingest.html#debugging-ingest-with-the-dummytrainer">
+   Debugging Ingest with the
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     DummyTrainer
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#setting-it-up">
+     Setting it up
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#understanding-the-output">
+     Understanding the output
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#debugging-the-performance-problem">
+     Debugging the performance problem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#going-from-dummytrainer-to-your-real-trainer">
+     Going from DummyTrainer to your real Trainer
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="check-ingest.html#performance-tips">
+   Performance Tips
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#dataset-sharing">
+     Dataset Sharing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="check-ingest.html#faq">
+   FAQ
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#how-do-i-pass-in-a-datasetpipeline-to-my-trainer">
+     How do I pass in a
+     <code class="xref py py-class docutils literal notranslate">
+      <span class="pre">
+       DatasetPipeline
+      </span>
+     </code>
+     to my
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Trainer
+      </span>
+     </code>
+     ?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#how-do-i-shard-validation-and-test-datasets">
+     How do I shard validation and test datasets?
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Configuring Training Datasets</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="check-ingest.html#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="check-ingest.html#getting-started">
+   Getting Started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="check-ingest.html#configuring-ingest">
+   Configuring Ingest
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#enabling-streaming-ingest">
+     Enabling Streaming Ingest
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#shuffling-data">
+     Shuffling Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#applying-randomized-preprocessing-experimental">
+     Applying randomized preprocessing (experimental)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#splitting-auxiliary-datasets">
+     Splitting Auxiliary Datasets
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#disabling-preprocessor-transforms">
+     Disabling Preprocessor Transforms
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#dataset-resources">
+     Dataset Resources
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="check-ingest.html#debugging-ingest-with-the-dummytrainer">
+   Debugging Ingest with the
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     DummyTrainer
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#setting-it-up">
+     Setting it up
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#understanding-the-output">
+     Understanding the output
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#debugging-the-performance-problem">
+     Debugging the performance problem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#going-from-dummytrainer-to-your-real-trainer">
+     Going from DummyTrainer to your real Trainer
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="check-ingest.html#performance-tips">
+   Performance Tips
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#dataset-sharing">
+     Dataset Sharing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="check-ingest.html#faq">
+   FAQ
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#how-do-i-pass-in-a-datasetpipeline-to-my-trainer">
+     How do I pass in a
+     <code class="xref py py-class docutils literal notranslate">
+      <span class="pre">
+       DatasetPipeline
+      </span>
+     </code>
+     to my
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Trainer
+      </span>
+     </code>
+     ?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="check-ingest.html#how-do-i-shard-validation-and-test-datasets">
+     How do I shard validation and test datasets?
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="configuring-training-datasets">
+<span id="air-ingest"></span><h1>Configuring Training Datasets<a class="headerlink" href="check-ingest.html#configuring-training-datasets" title="Permalink to this headline">#</a></h1>
+<p>AIR builds its training data pipeline on <a class="reference internal" href="../data/data.html#data"><span class="std std-ref">Ray Data</span></a>, which is a scalable, framework-agnostic data loading and preprocessing library. Ray Data enables AIR to seamlessly load data for local and distributed training with Train.</p>
+<p>This page describes how to setup and configure these datasets in Train under different scenarios and scales.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="check-ingest.html#overview" title="Permalink to this headline">#</a></h2>
+<p id="ingest-basics">The following figure illustrates a simple Ray AIR training job that (1) loads parquet data from S3, (2) applies a simple
+<a class="reference internal" href="../data/transforming-datastreams.html#transform-datastreams-writing-udfs"><span class="std std-ref">user-defined function</span></a> to preprocess batches of data, and (3) runs an AIR Trainer with the given dataset and preprocessor.</p>
+<figure class="align-default">
+<img alt="../_images/ingest.svg" src="../_images/ingest.svg" /></figure>
+<p>Let’s walk through the stages of what happens when <code class="docutils literal notranslate"><span class="pre">Trainer.fit()</span></code> is called.</p>
+<p><strong>Preprocessing</strong>: First, AIR will <code class="docutils literal notranslate"><span class="pre">fit</span></code> the preprocessor (e.g., compute statistics) on the
+<code class="docutils literal notranslate"><span class="pre">&quot;train&quot;</span></code> dataset, and then <code class="docutils literal notranslate"><span class="pre">transform</span></code> all given datasets with the fitted preprocessor. This is done by calling
+<a class="reference internal" href="api/doc/ray.data.preprocessor.Preprocessor.fit_transform.html#ray.data.preprocessor.Preprocessor.fit_transform" title="ray.data.preprocessor.Preprocessor.fit_transform"><code class="xref py py-meth docutils literal notranslate"><span class="pre">prep.fit_transform()</span></code></a>
+on the train dataset passed to the Trainer, followed by <a class="reference internal" href="api/doc/ray.data.preprocessor.Preprocessor.transform.html#ray.data.preprocessor.Preprocessor.transform" title="ray.data.preprocessor.Preprocessor.transform"><code class="xref py py-meth docutils literal notranslate"><span class="pre">prep.transform()</span></code></a>
+on remaining datasets.</p>
+<p><strong>Training</strong>: Then, AIR passes the preprocessed dataset to Train workers (Ray actors) launched by the Trainer. Each worker calls <a class="reference internal" href="api/doc/ray.air.session.get_dataset_shard.html#ray.air.session.get_dataset_shard" title="ray.air.session.get_dataset_shard"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_dataset_shard()</span></code></a> to get a handle to its assigned data shard.
+This returns a <a class="reference internal" href="../data/api/data_iterator.html#ray.data.DataIterator" title="ray.data.DataIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataIterator</span></code></a>, which can be used to loop over the data with <a class="reference internal" href="../data/api/doc/ray.data.DataIterator.iter_batches.html#ray.data.DataIterator.iter_batches" title="ray.data.DataIterator.iter_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">iter_batches()</span></code></a>, <a class="reference internal" href="../data/api/doc/ray.data.Datastream.iter_torch_batches.html#ray.data.Datastream.iter_torch_batches" title="ray.data.Datastream.iter_torch_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">iter_torch_batches()</span></code></a>, or <a class="reference internal" href="../data/api/doc/ray.data.Datastream.to_tf.html#ray.data.Datastream.to_tf" title="ray.data.Datastream.to_tf"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_tf()</span></code></a>.
+Each of these returns a batch iterator for one epoch (a full pass over the original dataset).</p>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="check-ingest.html#getting-started" title="Permalink to this headline">#</a></h2>
+<p>The following is a simple example of how to configure ingest for a dummy <a class="reference internal" href="../train/api/doc/ray.train.torch.TorchTrainer.html#ray.train.torch.TorchTrainer" title="ray.train.torch.TorchTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TorchTrainer</span></code></a>. Below, we are passing a small tensor dataset to the Trainer via the <code class="docutils literal notranslate"><span class="pre">datasets</span></code> argument. In the Trainer’s <code class="docutils literal notranslate"><span class="pre">train_loop_per_worker</span></code>, we access the preprocessed dataset using
+<a class="reference internal" href="api/doc/ray.air.session.get_dataset_shard.html#ray.air.session.get_dataset_shard" title="ray.air.session.get_dataset_shard"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_dataset_shard()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.air</span> <span class="kn">import</span> <span class="n">session</span>
+<span class="kn">from</span> <span class="nn">ray.data</span> <span class="kn">import</span> <span class="n">DataIterator</span>
+<span class="kn">from</span> <span class="nn">ray.train.torch</span> <span class="kn">import</span> <span class="n">TorchTrainer</span>
+<span class="kn">from</span> <span class="nn">ray.air.config</span> <span class="kn">import</span> <span class="n">ScalingConfig</span>
+
+<span class="c1"># A simple preprocessor that just scales all values by 2.0.</span>
+<span class="n">preprocessor</span> <span class="o">=</span> <span class="n">BatchMapper</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">train_loop_per_worker</span><span class="p">():</span>
+    <span class="c1"># Get a handle to the worker&#39;s assigned DataIterator shard.</span>
+    <span class="n">data_shard</span><span class="p">:</span> <span class="n">DataIterator</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_dataset_shard</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Manually iterate over the data 10 times (10 epochs).</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">data_shard</span><span class="o">.</span><span class="n">iter_batches</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Do some training on batch&quot;</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+
+    <span class="c1"># Print the stats for performance debugging.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data_shard</span><span class="o">.</span><span class="n">stats</span><span class="p">())</span>
+
+
+<span class="n">my_trainer</span> <span class="o">=</span> <span class="n">TorchTrainer</span><span class="p">(</span>
+    <span class="n">train_loop_per_worker</span><span class="p">,</span>
+    <span class="n">scaling_config</span><span class="o">=</span><span class="n">ScalingConfig</span><span class="p">(</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">datasets</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span>
+    <span class="p">},</span>
+    <span class="n">preprocessor</span><span class="o">=</span><span class="n">preprocessor</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">my_trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p id="air-configure-ingest">For local development and testing, you can also use the helper function <a class="reference internal" href="api/doc/ray.air.util.check_ingest.make_local_dataset_iterator.html#ray.air.util.check_ingest.make_local_dataset_iterator" title="ray.air.util.check_ingest.make_local_dataset_iterator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">make_local_dataset_iterator()</span></code></a> to get a local <a class="reference internal" href="../data/api/data_iterator.html#ray.data.DataIterator" title="ray.data.DataIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataIterator</span></code></a>.</p>
+</section>
+<section id="configuring-ingest">
+<h2>Configuring Ingest<a class="headerlink" href="check-ingest.html#configuring-ingest" title="Permalink to this headline">#</a></h2>
+<p>You can use the <a class="reference internal" href="api/doc/ray.air.DatasetConfig.html#ray.air.DatasetConfig" title="ray.air.config.DatasetConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatasetConfig</span></code></a> object to configure how Datasets are preprocessed and split across training workers.
+Each <a class="reference internal" href="../train/api/doc/ray.train.data_parallel_trainer.DataParallelTrainer.html#ray.train.data_parallel_trainer.DataParallelTrainer" title="ray.train.data_parallel_trainer.DataParallelTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataParallelTrainer</span></code></a> takes in a <code class="docutils literal notranslate"><span class="pre">dataset_config</span></code> constructor argument that takes in a mapping
+from Dataset name to a <a class="reference internal" href="api/doc/ray.air.DatasetConfig.html#ray.air.DatasetConfig" title="ray.air.config.DatasetConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatasetConfig</span></code></a> object. If no <code class="docutils literal notranslate"><span class="pre">dataset_config</span></code> is passed in,
+the default configuration is used:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The default DataParallelTrainer dataset config, which is inherited</span>
+<span class="c1"># by sub-classes such as TorchTrainer, HorovodTrainer, etc.</span>
+<span class="n">_dataset_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># Fit preprocessors on the train dataset only. Split the dataset</span>
+    <span class="c1"># across workers if scaling_config[&quot;num_workers&quot;] &gt; 1.</span>
+    <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">DatasetConfig</span><span class="p">(</span><span class="n">fit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="c1"># For all other datasets, use the defaults (don&#39;t fit, don&#39;t split).</span>
+    <span class="c1"># The datasets will be transformed by the fitted preprocessor.</span>
+    <span class="s2">&quot;*&quot;</span><span class="p">:</span> <span class="n">DatasetConfig</span><span class="p">(),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here are some examples of configuring Dataset ingest options and what they do:</p>
+<section id="enabling-streaming-ingest">
+<span id="air-streaming-ingest"></span><h3>Enabling Streaming Ingest<a class="headerlink" href="check-ingest.html#enabling-streaming-ingest" title="Permalink to this headline">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+Bulk Ingest</label><div class="sd-tab-content docutils">
+<p>By default, AIR loads all datasets into the Ray object store at the start of training.
+This provides the best performance if the cluster can fit the datasets
+entirely in memory, or if the preprocessing step is expensive to run more than once.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.air</span> <span class="kn">import</span> <span class="n">session</span>
+<span class="kn">from</span> <span class="nn">ray.data</span> <span class="kn">import</span> <span class="n">DataIterator</span>
+<span class="kn">from</span> <span class="nn">ray.train.torch</span> <span class="kn">import</span> <span class="n">TorchTrainer</span>
+<span class="kn">from</span> <span class="nn">ray.air.config</span> <span class="kn">import</span> <span class="n">ScalingConfig</span>
+
+<span class="c1"># A simple preprocessor that just scales all values by 2.0.</span>
+<span class="n">preprocessor</span> <span class="o">=</span> <span class="n">BatchMapper</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">train_loop_per_worker</span><span class="p">():</span>
+    <span class="c1"># Get a handle to the worker&#39;s assigned DataIterator shard.</span>
+    <span class="n">data_shard</span><span class="p">:</span> <span class="n">DataIterator</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_dataset_shard</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Manually iterate over the data 10 times (10 epochs).</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">data_shard</span><span class="o">.</span><span class="n">iter_batches</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Do some training on batch&quot;</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+
+    <span class="c1"># Print the stats for performance debugging.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data_shard</span><span class="o">.</span><span class="n">stats</span><span class="p">())</span>
+
+
+<span class="n">my_trainer</span> <span class="o">=</span> <span class="n">TorchTrainer</span><span class="p">(</span>
+    <span class="n">train_loop_per_worker</span><span class="p">,</span>
+    <span class="n">scaling_config</span><span class="o">=</span><span class="n">ScalingConfig</span><span class="p">(</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">datasets</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span>
+    <span class="p">},</span>
+    <span class="n">preprocessor</span><span class="o">=</span><span class="n">preprocessor</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">my_trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You should use bulk ingest when:</p>
+<ul class="simple">
+<li><p>you have enough memory to fit data blocks in cluster object store; or</p></li>
+<li><p>your preprocessing transform is expensive to recompute on each epoch</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+Streaming Ingest (experimental)</label><div class="sd-tab-content docutils">
+<p>In streaming ingest mode, instead of loading the entire dataset into the
+Ray object store at once, AIR will load a fraction of the dataset at a
+time. This can be desirable when the dataset is very large, and caching it
+all at once would cause expensive disk spilling. The downside is that the
+dataset will have to be preprocessed on each epoch, which may be more
+expensive. Preprocessing is overlapped with training computation, but
+overall training throughput may still decrease if preprocessing is more
+expensive than the training computation (forward pass, backward pass,
+gradient sync).</p>
+<p>To enable this mode, use the <a class="reference internal" href="api/doc/ray.air.DatasetConfig.html#ray.air.DatasetConfig" title="ray.air.config.DatasetConfig"><code class="xref py py-meth docutils literal notranslate"><span class="pre">max_object_store_memory_fraction</span></code></a> argument. This argument defaults to -1,
+meaning that bulk ingest should be used and the entire dataset should be
+computed and cached before training starts.</p>
+<p>Use a float value 0 or greater to indicate the “window” size, i.e. the
+maximum fraction of object store memory that should be used at once. A
+reasonable value is 0.2, meaning 20% of available object store memory.
+Larger window sizes can improve performance by increasing parallelism. A
+window size of 1 or greater will likely result in spilling.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.air</span> <span class="kn">import</span> <span class="n">session</span>
+<span class="kn">from</span> <span class="nn">ray.data</span> <span class="kn">import</span> <span class="n">DataIterator</span>
+<span class="kn">from</span> <span class="nn">ray.train.torch</span> <span class="kn">import</span> <span class="n">TorchTrainer</span>
+<span class="kn">from</span> <span class="nn">ray.air.config</span> <span class="kn">import</span> <span class="n">ScalingConfig</span><span class="p">,</span> <span class="n">DatasetConfig</span>
+
+<span class="c1"># A simple preprocessor that just scales all values by 2.0.</span>
+<span class="n">preprocessor</span> <span class="o">=</span> <span class="n">BatchMapper</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">train_loop_per_worker</span><span class="p">():</span>
+    <span class="n">data_shard</span><span class="p">:</span> <span class="n">DataIterator</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_dataset_shard</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Iterate over 10 epochs of data.</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">data_shard</span><span class="o">.</span><span class="n">iter_batches</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Do some training on batch&quot;</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+
+    <span class="c1"># View the stats for performance debugging.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data_shard</span><span class="o">.</span><span class="n">stats</span><span class="p">())</span>
+
+
+<span class="n">my_trainer</span> <span class="o">=</span> <span class="n">TorchTrainer</span><span class="p">(</span>
+    <span class="n">train_loop_per_worker</span><span class="p">,</span>
+    <span class="n">scaling_config</span><span class="o">=</span><span class="n">ScalingConfig</span><span class="p">(</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">datasets</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span>
+    <span class="p">},</span>
+    <span class="n">dataset_config</span><span class="o">=</span><span class="p">{</span>
+        <span class="c1"># Use 20% of object store memory.</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">DatasetConfig</span><span class="p">(</span><span class="n">max_object_store_memory_fraction</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
+    <span class="p">},</span>
+    <span class="n">preprocessor</span><span class="o">=</span><span class="n">preprocessor</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">my_trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Use streaming ingest when:</p>
+<ul class="simple">
+<li><p>you have large datasets that don’t fit into memory; and</p></li>
+<li><p>re-executing the preprocessing step on each epoch is faster than caching the preprocessed dataset on disk and reloading from disk on each epoch</p></li>
+</ul>
+<p>Note that this feature is experimental and the actual object store memory
+usage may vary. Please file a <a class="reference external" href="https://github.com/ray-project/ray/issues">GitHub issue</a> if you run into problems.</p>
+</div>
+</div>
+</section>
+<section id="shuffling-data">
+<span id="air-shuffle"></span><h3>Shuffling Data<a class="headerlink" href="check-ingest.html#shuffling-data" title="Permalink to this headline">#</a></h3>
+<p>Shuffling or data randomization is important for training high-quality models.</p>
+<p>By default, AIR shuffles the assignment of data blocks (files) to dataset shards between epochs. You can disable this behavior by setting
+<code class="docutils literal notranslate"><span class="pre">randomize_block_order</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code> in your <a class="reference internal" href="api/doc/ray.air.DatasetConfig.html#ray.air.DatasetConfig" title="ray.air.config.DatasetConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatasetConfig</span></code></a>.</p>
+<p>To randomize data records within a file, perform a local or global shuffle.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+Local Shuffling</label><div class="sd-tab-content docutils">
+<p>Local shuffling is the recommended approach for randomizing data order. To use local shuffle,
+simply specify a non-zero <code class="docutils literal notranslate"><span class="pre">local_shuffle_buffer_size</span></code> as an argument to <a class="reference internal" href="../data/api/doc/ray.data.DataIterator.iter_batches.html#ray.data.DataIterator.iter_batches" title="ray.data.DataIterator.iter_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">iter_batches()</span></code></a>.
+The iterator will then use a local buffer of the given size to randomize record order. The
+larger the buffer size, the more randomization will be applied, but it will also use more
+memory.</p>
+<p>See <a class="reference internal" href="../data/api/doc/ray.data.DataIterator.iter_batches.html#ray.data.DataIterator.iter_batches" title="ray.data.DataIterator.iter_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">iter_batches()</span></code></a> for more details.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.air</span> <span class="kn">import</span> <span class="n">session</span>
+<span class="kn">from</span> <span class="nn">ray.data</span> <span class="kn">import</span> <span class="n">DataIterator</span>
+<span class="kn">from</span> <span class="nn">ray.train.torch</span> <span class="kn">import</span> <span class="n">TorchTrainer</span>
+<span class="kn">from</span> <span class="nn">ray.air.config</span> <span class="kn">import</span> <span class="n">DatasetConfig</span><span class="p">,</span> <span class="n">ScalingConfig</span>
+
+
+<span class="k">def</span> <span class="nf">train_loop_per_worker</span><span class="p">():</span>
+    <span class="n">data_shard</span><span class="p">:</span> <span class="n">DataIterator</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_dataset_shard</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Iterate over 10 epochs of data.</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">data_shard</span><span class="o">.</span><span class="n">iter_batches</span><span class="p">(</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span>
+            <span class="n">local_shuffle_buffer_size</span><span class="o">=</span><span class="mi">100_000</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Do some training on batch&quot;</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+
+    <span class="c1"># View the stats for performance debugging.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data_shard</span><span class="o">.</span><span class="n">stats</span><span class="p">())</span>
+
+
+<span class="n">my_trainer</span> <span class="o">=</span> <span class="n">TorchTrainer</span><span class="p">(</span>
+    <span class="n">train_loop_per_worker</span><span class="p">,</span>
+    <span class="n">scaling_config</span><span class="o">=</span><span class="n">ScalingConfig</span><span class="p">(</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">datasets</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">1000</span><span class="p">)},</span>
+    <span class="n">dataset_config</span><span class="o">=</span><span class="p">{</span>
+        <span class="c1"># global_shuffle is disabled by default, but we&#39;re emphasizing here that you</span>
+        <span class="c1"># would NOT want to use both global and local shuffling together.</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">DatasetConfig</span><span class="p">(</span><span class="n">global_shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_trainer</span><span class="o">.</span><span class="n">get_dataset_config</span><span class="p">())</span>
+<span class="c1"># -&gt; {&#39;train&#39;: DatasetConfig(fit=True, split=True, global_shuffle=False, ...)}</span>
+<span class="n">my_trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You should use local shuffling when:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>a small in-memory buffer provides enough randomization; or</p></li>
+<li><p>you want the highest possible ingest performance; or</p></li>
+<li><p>your model is not overly sensitive to shuffle quality</p></li>
+</ul>
+</div></blockquote>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-3">
+Global Shuffling (slower)</label><div class="sd-tab-content docutils">
+<p>Global shuffling provides more uniformly random (decorrelated) samples and is carried
+out via a distributed map-reduce operation. This higher quality shuffle can often lead
+to more precision gain per training step, but it is also an expensive distributed
+operation and will decrease the ingest throughput. The shuffle step is overlapped with
+training computation, so as long as the shuffled ingest throughput matches
+or exceeds the model training (forward pass, backward pass, gradient sync)
+throughput, this higher-quality shuffle shouldn’t slow down the overall
+training.</p>
+<p>If global shuffling <em>is</em> causing the ingest throughput to become the training
+bottleneck, local shuffling may be a better option.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.air</span> <span class="kn">import</span> <span class="n">session</span>
+<span class="kn">from</span> <span class="nn">ray.data</span> <span class="kn">import</span> <span class="n">DataIterator</span>
+<span class="kn">from</span> <span class="nn">ray.train.torch</span> <span class="kn">import</span> <span class="n">TorchTrainer</span>
+<span class="kn">from</span> <span class="nn">ray.air.config</span> <span class="kn">import</span> <span class="n">DatasetConfig</span><span class="p">,</span> <span class="n">ScalingConfig</span>
+
+
+<span class="k">def</span> <span class="nf">train_loop_per_worker</span><span class="p">():</span>
+    <span class="n">data_shard</span><span class="p">:</span> <span class="n">DataIterator</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_dataset_shard</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Iterate over 10 epochs of data.</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">data_shard</span><span class="o">.</span><span class="n">iter_batches</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Do some training on batch&quot;</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+
+    <span class="c1"># View the stats for performance debugging.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data_shard</span><span class="o">.</span><span class="n">stats</span><span class="p">())</span>
+
+
+<span class="n">my_trainer</span> <span class="o">=</span> <span class="n">TorchTrainer</span><span class="p">(</span>
+    <span class="n">train_loop_per_worker</span><span class="p">,</span>
+    <span class="n">scaling_config</span><span class="o">=</span><span class="n">ScalingConfig</span><span class="p">(</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">datasets</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">1000</span><span class="p">)},</span>
+    <span class="n">dataset_config</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">DatasetConfig</span><span class="p">(</span><span class="n">global_shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_trainer</span><span class="o">.</span><span class="n">get_dataset_config</span><span class="p">())</span>
+<span class="c1"># -&gt; {&#39;train&#39;: DatasetConfig(fit=True, split=True, global_shuffle=True, ...)}</span>
+<span class="n">my_trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You should use global shuffling when:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>you suspect high-quality shuffles may significantly improve model quality; and</p></li>
+<li><p>absolute ingest performance is less of a concern</p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</section>
+<section id="applying-randomized-preprocessing-experimental">
+<span id="air-per-epoch-preprocessing"></span><h3>Applying randomized preprocessing (experimental)<a class="headerlink" href="check-ingest.html#applying-randomized-preprocessing-experimental" title="Permalink to this headline">#</a></h3>
+<p>The standard preprocessor passed to the <code class="docutils literal notranslate"><span class="pre">Trainer</span></code> is only applied once to the initial dataset when using <a class="reference internal" href="check-ingest.html#air-streaming-ingest"><span class="std std-ref">bulk ingest</span></a>.
+However, in some cases you may want to reapply a preprocessor on each epoch, for example to augment your training dataset with a randomized transform.</p>
+<p>To support this use case, AIR offers an additional <em>per-epoch preprocessor</em> that gets reapplied on each epoch, after all other preprocessors and right before dataset consumption (e.g., using <a class="reference internal" href="../data/api/doc/ray.data.DataIterator.iter_batches.html#ray.data.DataIterator.iter_batches" title="ray.data.DataIterator.iter_batches"><code class="xref py py-meth docutils literal notranslate"><span class="pre">iter_batches()</span></code></a>).
+Per-epoch preprocessing also executes in parallel with dataset consumption to reduce pauses in dataset consumption.</p>
+<p>This example shows how to use this feature to apply a randomized preprocessor on top of the standard preprocessor.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.air</span> <span class="kn">import</span> <span class="n">session</span>
+<span class="kn">from</span> <span class="nn">ray.data</span> <span class="kn">import</span> <span class="n">DataIterator</span>
+<span class="kn">from</span> <span class="nn">ray.data.preprocessors</span> <span class="kn">import</span> <span class="n">BatchMapper</span>
+<span class="kn">from</span> <span class="nn">ray.train.torch</span> <span class="kn">import</span> <span class="n">TorchTrainer</span>
+<span class="kn">from</span> <span class="nn">ray.air.config</span> <span class="kn">import</span> <span class="n">ScalingConfig</span><span class="p">,</span> <span class="n">DatasetConfig</span>
+
+<span class="c1"># A simple preprocessor that just scales all values by 2.0.</span>
+<span class="n">preprocessor</span> <span class="o">=</span> <span class="n">BatchMapper</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+
+<span class="c1"># A randomized preprocessor that adds a random float to all values, to be</span>
+<span class="c1"># reapplied on each epoch after `preprocessor`. Each epoch will therefore add a</span>
+<span class="c1"># different random float to the scaled dataset.</span>
+<span class="n">add_noise</span> <span class="o">=</span> <span class="n">BatchMapper</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">train_loop_per_worker</span><span class="p">():</span>
+    <span class="c1"># Get a handle to the worker&#39;s assigned DataIterator shard.</span>
+    <span class="n">data_shard</span><span class="p">:</span> <span class="n">DataIterator</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_dataset_shard</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Manually iterate over the data 10 times (10 epochs).</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">data_shard</span><span class="o">.</span><span class="n">iter_batches</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Do some training on batch&quot;</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+
+    <span class="c1"># Print the stats for performance debugging.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data_shard</span><span class="o">.</span><span class="n">stats</span><span class="p">())</span>
+
+
+<span class="n">my_trainer</span> <span class="o">=</span> <span class="n">TorchTrainer</span><span class="p">(</span>
+    <span class="n">train_loop_per_worker</span><span class="p">,</span>
+    <span class="n">scaling_config</span><span class="o">=</span><span class="n">ScalingConfig</span><span class="p">(</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">datasets</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+    <span class="p">},</span>
+    <span class="n">dataset_config</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">DatasetConfig</span><span class="p">(</span>
+            <span class="c1"># Don&#39;t randomize order, just to make it easier to read the results.</span>
+            <span class="n">randomize_block_order</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">per_epoch_preprocessor</span><span class="o">=</span><span class="n">add_noise</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">},</span>
+    <span class="n">preprocessor</span><span class="o">=</span><span class="n">preprocessor</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">my_trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="splitting-auxiliary-datasets">
+<span id="air-splitting-aux-datasets"></span><h3>Splitting Auxiliary Datasets<a class="headerlink" href="check-ingest.html#splitting-auxiliary-datasets" title="Permalink to this headline">#</a></h3>
+<p>During data parallel training, the datasets are split so that each model replica is training on a different shard of data.
+By default, only the <code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;train&quot;</span></code> dataset is split. All the other Datasets are not split and the entire dataset is returned by
+<a class="reference internal" href="api/doc/ray.air.session.get_dataset_shard.html#ray.air.session.get_dataset_shard" title="ray.air.session.get_dataset_shard"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_dataset_shard()</span></code></a>.</p>
+<p>However, you may want to split a large validation dataset example to also do data parallel validation.
+This example shows overriding the split config for the “valid” and “test” datasets. This means that
+both the valid and test datasets here will be <a class="reference internal" href="../data/api/doc/ray.data.Datastream.split.html#ray.data.Datastream.split" title="ray.data.Datastream.split"><code class="xref py py-meth docutils literal notranslate"><span class="pre">.split()</span></code></a> across the training workers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.train.torch</span> <span class="kn">import</span> <span class="n">TorchTrainer</span>
+<span class="kn">from</span> <span class="nn">ray.air.config</span> <span class="kn">import</span> <span class="n">ScalingConfig</span><span class="p">,</span> <span class="n">DatasetConfig</span>
+
+<span class="n">train_ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">valid_ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">test_ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">my_trainer</span> <span class="o">=</span> <span class="n">TorchTrainer</span><span class="p">(</span>
+    <span class="k">lambda</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># No-op training loop.</span>
+    <span class="n">scaling_config</span><span class="o">=</span><span class="n">ScalingConfig</span><span class="p">(</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">datasets</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">train_ds</span><span class="p">,</span>
+        <span class="s2">&quot;valid&quot;</span><span class="p">:</span> <span class="n">valid_ds</span><span class="p">,</span>
+        <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="n">test_ds</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">dataset_config</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;valid&quot;</span><span class="p">:</span> <span class="n">DatasetConfig</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="n">DatasetConfig</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_trainer</span><span class="o">.</span><span class="n">get_dataset_config</span><span class="p">())</span>
+<span class="c1"># -&gt; {&#39;train&#39;: DatasetConfig(fit=True, split=True, ...),</span>
+<span class="c1">#     &#39;valid&#39;: DatasetConfig(fit=False, split=True, ...),</span>
+<span class="c1">#     &#39;test&#39;: DatasetConfig(fit=False, split=True, ...), ...}</span>
+</pre></div>
+</div>
+</section>
+<section id="disabling-preprocessor-transforms">
+<h3>Disabling Preprocessor Transforms<a class="headerlink" href="check-ingest.html#disabling-preprocessor-transforms" title="Permalink to this headline">#</a></h3>
+<p>By default, the provided <a class="reference internal" href="api/doc/ray.data.preprocessor.Preprocessor.html#ray.data.preprocessor.Preprocessor" title="ray.data.preprocessor.Preprocessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Preprocessor</span></code></a> is fit on the <code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;train&quot;</span></code> dataset and is then used to
+transform all the datasets. However, you may want to disable the preprocessor transforms for certain datasets.</p>
+<p>This example shows overriding the transform config for the “side” dataset. This means that
+the original dataset will be returned by <code class="docutils literal notranslate"><span class="pre">.get_dataset_shard(&quot;side&quot;)</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.train.torch</span> <span class="kn">import</span> <span class="n">TorchTrainer</span>
+<span class="kn">from</span> <span class="nn">ray.air.config</span> <span class="kn">import</span> <span class="n">ScalingConfig</span><span class="p">,</span> <span class="n">DatasetConfig</span>
+
+<span class="n">train_ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">side_ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">my_trainer</span> <span class="o">=</span> <span class="n">TorchTrainer</span><span class="p">(</span>
+    <span class="k">lambda</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># No-op training loop.</span>
+    <span class="n">scaling_config</span><span class="o">=</span><span class="n">ScalingConfig</span><span class="p">(</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">datasets</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">train_ds</span><span class="p">,</span>
+        <span class="s2">&quot;side&quot;</span><span class="p">:</span> <span class="n">side_ds</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">dataset_config</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;side&quot;</span><span class="p">:</span> <span class="n">DatasetConfig</span><span class="p">(</span><span class="n">transform</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_trainer</span><span class="o">.</span><span class="n">get_dataset_config</span><span class="p">())</span>
+<span class="c1"># -&gt; {&#39;train&#39;: DatasetConfig(fit=True, split=True, ...),</span>
+<span class="c1">#     &#39;side&#39;: DatasetConfig(fit=False, split=False, transform=False, ...), ...}</span>
+</pre></div>
+</div>
+</section>
+<section id="dataset-resources">
+<h3>Dataset Resources<a class="headerlink" href="check-ingest.html#dataset-resources" title="Permalink to this headline">#</a></h3>
+<p>Datasets uses Ray tasks to execute data processing operations. These tasks use CPU resources in the cluster during execution, which may compete with resources needed for Training.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-4">
+Unreserved CPUs</label><div class="sd-tab-content docutils">
+<p>By default, Dataset tasks use cluster CPU resources for execution. This can sometimes
+conflict with Trainer resource requests. For example, if Trainers allocate all CPU resources
+in the cluster, then no Datasets tasks can run.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.air</span> <span class="kn">import</span> <span class="n">session</span>
+<span class="kn">from</span> <span class="nn">ray.data.preprocessors</span> <span class="kn">import</span> <span class="n">BatchMapper</span>
+<span class="kn">from</span> <span class="nn">ray.train.torch</span> <span class="kn">import</span> <span class="n">TorchTrainer</span>
+<span class="kn">from</span> <span class="nn">ray.air.config</span> <span class="kn">import</span> <span class="n">ScalingConfig</span>
+
+<span class="c1"># Create a cluster with 4 CPU slots available.</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">num_cpus</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># A simple example training loop.</span>
+<span class="k">def</span> <span class="nf">train_loop_per_worker</span><span class="p">():</span>
+    <span class="n">data_shard</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_dataset_shard</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">data_shard</span><span class="o">.</span><span class="n">iter_batches</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Do some training on batch&quot;</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+
+
+<span class="c1"># A simple preprocessor that just scales all values by 2.0.</span>
+<span class="n">preprocessor</span> <span class="o">=</span> <span class="n">BatchMapper</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+
+<span class="n">my_trainer</span> <span class="o">=</span> <span class="n">TorchTrainer</span><span class="p">(</span>
+    <span class="n">train_loop_per_worker</span><span class="p">,</span>
+    <span class="c1"># This will hang if you set num_workers=4, since the</span>
+    <span class="c1"># Trainer will reserve all 4 CPUs for workers, leaving</span>
+    <span class="c1"># none left for Datasets execution.</span>
+    <span class="n">scaling_config</span><span class="o">=</span><span class="n">ScalingConfig</span><span class="p">(</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">datasets</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span>
+    <span class="p">},</span>
+    <span class="n">preprocessor</span><span class="o">=</span><span class="n">preprocessor</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">my_trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Unreserved CPUs work well when:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>you are running only one Trainer and the cluster has enough CPUs; or</p></li>
+<li><p>your Trainers are configured to use GPUs and not CPUs</p></li>
+</ul>
+</div></blockquote>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-5">
+Using Reserved CPUs (experimental)</label><div class="sd-tab-content docutils">
+<p>The <code class="docutils literal notranslate"><span class="pre">_max_cpu_fraction_per_node</span></code> option can be used to exclude CPUs from placement
+group scheduling. In the below example, setting this parameter to <code class="docutils literal notranslate"><span class="pre">0.8</span></code> enables Tune
+trials to run smoothly without risk of deadlock by reserving 20% of node CPUs for
+Dataset execution.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.air</span> <span class="kn">import</span> <span class="n">session</span>
+<span class="kn">from</span> <span class="nn">ray.data.preprocessors</span> <span class="kn">import</span> <span class="n">BatchMapper</span>
+<span class="kn">from</span> <span class="nn">ray.train.torch</span> <span class="kn">import</span> <span class="n">TorchTrainer</span>
+<span class="kn">from</span> <span class="nn">ray.air.config</span> <span class="kn">import</span> <span class="n">ScalingConfig</span>
+
+<span class="c1"># Create a cluster with 4 CPU slots available.</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">num_cpus</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># A simple example training loop.</span>
+<span class="k">def</span> <span class="nf">train_loop_per_worker</span><span class="p">():</span>
+    <span class="n">data_shard</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_dataset_shard</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">data_shard</span><span class="o">.</span><span class="n">iter_batches</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Do some training on batch&quot;</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+
+
+<span class="c1"># A simple preprocessor that just scales all values by 2.0.</span>
+<span class="n">preprocessor</span> <span class="o">=</span> <span class="n">BatchMapper</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+
+<span class="n">my_trainer</span> <span class="o">=</span> <span class="n">TorchTrainer</span><span class="p">(</span>
+    <span class="n">train_loop_per_worker</span><span class="p">,</span>
+    <span class="c1"># This will hang if you set num_workers=4, since the</span>
+    <span class="c1"># Trainer will reserve all 4 CPUs for workers, leaving</span>
+    <span class="c1"># none left for Datasets execution.</span>
+    <span class="n">scaling_config</span><span class="o">=</span><span class="n">ScalingConfig</span><span class="p">(</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">datasets</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span>
+    <span class="p">},</span>
+    <span class="n">preprocessor</span><span class="o">=</span><span class="n">preprocessor</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">my_trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You should use reserved CPUs when:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>you are running multiple concurrent CPU Trainers using Tune; or</p></li>
+<li><p>you want to ensure predictable Datasets performance</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="docutils literal notranslate"><span class="pre">_max_cpu_fraction_per_node</span></code> is experimental and not currently recommended for use with
+autoscaling clusters (scale-up will not trigger properly).</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="debugging-ingest-with-the-dummytrainer">
+<h2>Debugging Ingest with the <code class="docutils literal notranslate"><span class="pre">DummyTrainer</span></code><a class="headerlink" href="check-ingest.html#debugging-ingest-with-the-dummytrainer" title="Permalink to this headline">#</a></h2>
+<p>Data ingest problems can be challenging to debug when combined in a full training pipeline. To isolate data
+ingest issues from other possible training problems, we provide the <a class="reference internal" href="api/doc/ray.air.util.check_ingest.DummyTrainer.html#ray.air.util.check_ingest.DummyTrainer" title="ray.air.util.check_ingest.DummyTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DummyTrainer</span></code></a>
+utility class that can be used to debug ingest problems.
+You can also use the helper function <a class="reference internal" href="api/doc/ray.air.util.check_ingest.make_local_dataset_iterator.html#ray.air.util.check_ingest.make_local_dataset_iterator" title="ray.air.util.check_ingest.make_local_dataset_iterator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">make_local_dataset_iterator()</span></code></a> to get a local <a class="reference internal" href="../data/api/data_iterator.html#ray.data.DataIterator" title="ray.data.DataIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataIterator</span></code></a> for debugging purposes.
+Let’s walk through using <code class="docutils literal notranslate"><span class="pre">DummyTrainer</span></code> to understand
+and resolve an ingest misconfiguration.</p>
+<section id="setting-it-up">
+<h3>Setting it up<a class="headerlink" href="check-ingest.html#setting-it-up" title="Permalink to this headline">#</a></h3>
+<p>First, let’s create a synthetic in-memory dataset and setup a simple preprocessor pipeline. For this example,
+we’ll run it on a 3-node cluster with m5.4xlarge nodes. In practice we might want to use a single machine to
+keep data local, but we’ll use a cluster for illustrative purposes.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.data.preprocessors</span> <span class="kn">import</span> <span class="n">Chain</span><span class="p">,</span> <span class="n">BatchMapper</span>
+<span class="kn">from</span> <span class="nn">ray.air.util.check_ingest</span> <span class="kn">import</span> <span class="n">DummyTrainer</span>
+<span class="kn">from</span> <span class="nn">ray.air.config</span> <span class="kn">import</span> <span class="n">ScalingConfig</span>
+
+<span class="c1"># Generate a synthetic dataset of ~10GiB of float64 data. The dataset is sharded</span>
+<span class="c1"># into 100 blocks (parallelism=100).</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range_tensor</span><span class="p">(</span><span class="mi">50000</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">parallelism</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># An example preprocessor chain that just scales all values by 4.0 in two stages.</span>
+<span class="n">preprocessor</span> <span class="o">=</span> <span class="n">Chain</span><span class="p">(</span>
+    <span class="n">BatchMapper</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">),</span>
+    <span class="n">BatchMapper</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, we instantiate and fit a <a class="reference internal" href="api/doc/ray.air.util.check_ingest.DummyTrainer.html#ray.air.util.check_ingest.DummyTrainer" title="ray.air.util.check_ingest.DummyTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DummyTrainer</span></code></a> with a single training worker and no GPUs. You can customize
+these parameters to simulate your use training use cases (e.g., 16 trainers each with GPUs enabled).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Setup the dummy trainer that prints ingest stats.</span>
+<span class="c1"># Run and print ingest stats.</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">DummyTrainer</span><span class="p">(</span>
+    <span class="n">scaling_config</span><span class="o">=</span><span class="n">ScalingConfig</span><span class="p">(</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="n">datasets</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">dataset</span><span class="p">},</span>
+    <span class="n">preprocessor</span><span class="o">=</span><span class="n">preprocessor</span><span class="p">,</span>
+    <span class="n">num_epochs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Stop after this number of epochs is read.</span>
+    <span class="n">prefetch_batches</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Number of batches to prefetch when reading data.</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># Use whole blocks as batches.</span>
+<span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="understanding-the-output">
+<h3>Understanding the output<a class="headerlink" href="check-ingest.html#understanding-the-output" title="Permalink to this headline">#</a></h3>
+<p>Let’s walk through the output. First, the job starts and executes preprocessing. You can see that the
+preprocessing runs in <code class="docutils literal notranslate"><span class="pre">6.8s</span></code> below. The dataset stats for the preprocessing is also printed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Starting</span> <span class="n">dataset</span> <span class="n">preprocessing</span>
+<span class="n">Preprocessed</span> <span class="n">datasets</span> <span class="ow">in</span> <span class="mf">6.874227493000035</span> <span class="n">seconds</span>
+<span class="n">Preprocessor</span> <span class="n">Chain</span><span class="p">(</span><span class="n">preprocessors</span><span class="o">=</span><span class="p">(</span><span class="n">BatchMapper</span><span class="p">(</span><span class="n">fn</span><span class="o">=&lt;</span><span class="k">lambda</span><span class="o">&gt;</span><span class="p">),</span> <span class="n">BatchMapper</span><span class="p">(</span><span class="n">fn</span><span class="o">=&lt;</span><span class="k">lambda</span><span class="o">&gt;</span><span class="p">)))</span>
+<span class="n">Preprocessor</span> <span class="n">transform</span> <span class="n">stats</span><span class="p">:</span>
+
+<span class="n">Stage</span> <span class="mi">1</span> <span class="n">read</span><span class="o">-&gt;</span><span class="n">map_batches</span><span class="p">:</span> <span class="mi">100</span><span class="o">/</span><span class="mi">100</span> <span class="n">blocks</span> <span class="n">executed</span> <span class="ow">in</span> <span class="mf">4.57</span><span class="n">s</span>
+<span class="o">*</span> <span class="n">Remote</span> <span class="n">wall</span> <span class="n">time</span><span class="p">:</span> <span class="mf">120.68</span><span class="n">ms</span> <span class="nb">min</span><span class="p">,</span> <span class="mf">522.36</span><span class="n">ms</span> <span class="nb">max</span><span class="p">,</span> <span class="mf">251.53</span><span class="n">ms</span> <span class="n">mean</span><span class="p">,</span> <span class="mf">25.15</span><span class="n">s</span> <span class="n">total</span>
+<span class="o">*</span> <span class="n">Remote</span> <span class="n">cpu</span> <span class="n">time</span><span class="p">:</span> <span class="mf">116.55</span><span class="n">ms</span> <span class="nb">min</span><span class="p">,</span> <span class="mf">278.08</span><span class="n">ms</span> <span class="nb">max</span><span class="p">,</span> <span class="mf">216.38</span><span class="n">ms</span> <span class="n">mean</span><span class="p">,</span> <span class="mf">21.64</span><span class="n">s</span> <span class="n">total</span>
+<span class="o">*</span> <span class="n">Output</span> <span class="n">num</span> <span class="n">rows</span><span class="p">:</span> <span class="mi">500</span> <span class="nb">min</span><span class="p">,</span> <span class="mi">500</span> <span class="nb">max</span><span class="p">,</span> <span class="mi">500</span> <span class="n">mean</span><span class="p">,</span> <span class="mi">50000</span> <span class="n">total</span>
+<span class="o">*</span> <span class="n">Output</span> <span class="n">size</span> <span class="nb">bytes</span><span class="p">:</span> <span class="mi">102400128</span> <span class="nb">min</span><span class="p">,</span> <span class="mi">102400128</span> <span class="nb">max</span><span class="p">,</span> <span class="mi">102400128</span> <span class="n">mean</span><span class="p">,</span> <span class="mi">10240012800</span> <span class="n">total</span>
+<span class="o">*</span> <span class="n">Tasks</span> <span class="n">per</span> <span class="n">node</span><span class="p">:</span> <span class="mi">16</span> <span class="nb">min</span><span class="p">,</span> <span class="mi">48</span> <span class="nb">max</span><span class="p">,</span> <span class="mi">33</span> <span class="n">mean</span><span class="p">;</span> <span class="mi">3</span> <span class="n">nodes</span> <span class="n">used</span>
+
+<span class="n">Stage</span> <span class="mi">2</span> <span class="n">map_batches</span><span class="p">:</span> <span class="mi">100</span><span class="o">/</span><span class="mi">100</span> <span class="n">blocks</span> <span class="n">executed</span> <span class="ow">in</span> <span class="mf">2.22</span><span class="n">s</span>
+<span class="o">*</span> <span class="n">Remote</span> <span class="n">wall</span> <span class="n">time</span><span class="p">:</span> <span class="mf">89.07</span><span class="n">ms</span> <span class="nb">min</span><span class="p">,</span> <span class="mf">302.71</span><span class="n">ms</span> <span class="nb">max</span><span class="p">,</span> <span class="mf">175.12</span><span class="n">ms</span> <span class="n">mean</span><span class="p">,</span> <span class="mf">17.51</span><span class="n">s</span> <span class="n">total</span>
+<span class="o">*</span> <span class="n">Remote</span> <span class="n">cpu</span> <span class="n">time</span><span class="p">:</span> <span class="mf">89.22</span><span class="n">ms</span> <span class="nb">min</span><span class="p">,</span> <span class="mf">207.53</span><span class="n">ms</span> <span class="nb">max</span><span class="p">,</span> <span class="mf">137.5</span><span class="n">ms</span> <span class="n">mean</span><span class="p">,</span> <span class="mf">13.75</span><span class="n">s</span> <span class="n">total</span>
+<span class="o">*</span> <span class="n">Output</span> <span class="n">num</span> <span class="n">rows</span><span class="p">:</span> <span class="mi">500</span> <span class="nb">min</span><span class="p">,</span> <span class="mi">500</span> <span class="nb">max</span><span class="p">,</span> <span class="mi">500</span> <span class="n">mean</span><span class="p">,</span> <span class="mi">50000</span> <span class="n">total</span>
+<span class="o">*</span> <span class="n">Output</span> <span class="n">size</span> <span class="nb">bytes</span><span class="p">:</span> <span class="mi">102400128</span> <span class="nb">min</span><span class="p">,</span> <span class="mi">102400128</span> <span class="nb">max</span><span class="p">,</span> <span class="mi">102400128</span> <span class="n">mean</span><span class="p">,</span> <span class="mi">10240012800</span> <span class="n">total</span>
+<span class="o">*</span> <span class="n">Tasks</span> <span class="n">per</span> <span class="n">node</span><span class="p">:</span> <span class="mi">30</span> <span class="nb">min</span><span class="p">,</span> <span class="mi">37</span> <span class="nb">max</span><span class="p">,</span> <span class="mi">33</span> <span class="n">mean</span><span class="p">;</span> <span class="mi">3</span> <span class="n">nodes</span> <span class="n">used</span>
+</pre></div>
+</div>
+<p>When the train job finishes running, it will print out some more statistics.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">P50</span><span class="o">/</span><span class="n">P95</span><span class="o">/</span><span class="n">Max</span> <span class="n">batch</span> <span class="n">delay</span> <span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="mf">1.101227020500005</span> <span class="mf">1.120024863100042</span> <span class="mf">1.9424749629999951</span>
+<span class="n">Num</span> <span class="n">epochs</span> <span class="n">read</span> <span class="mi">1</span>
+<span class="n">Num</span> <span class="n">batches</span> <span class="n">read</span> <span class="mi">100</span>
+<span class="n">Num</span> <span class="nb">bytes</span> <span class="n">read</span> <span class="mf">9765.64</span> <span class="n">MiB</span>
+<span class="n">Mean</span> <span class="n">throughput</span> <span class="mf">116.59</span> <span class="n">MiB</span><span class="o">/</span><span class="n">s</span>
+</pre></div>
+</div>
+<p>Let’s break it down:</p>
+<ul class="simple">
+<li><p><strong>Batch delay</strong>: Time the trainer spents waiting for the next data batch to be fetched. Ideally
+this value is as close to zero as possible. If it is too high, Ray may be spending too much time
+downloading data from remote nodes to the trainer node.</p></li>
+<li><p><strong>Num epochs read</strong>: The number of times the trainer read the dataset during the run.</p></li>
+<li><p><strong>Num batches read</strong>: The number of batches read.</p></li>
+<li><p><strong>Num bytes read</strong>: The number of bytes read.</p></li>
+<li><p><strong>Mean throughput</strong>: The average read throughput.</p></li>
+</ul>
+<p>Finally, we can query memory statistics (this can be run in the middle of a job) to get an idea of how this workload used the object store.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ray</span> <span class="n">memory</span> <span class="o">--</span><span class="n">stats</span><span class="o">-</span><span class="n">only</span>
+</pre></div>
+</div>
+<p>As you can see, this run used 18GiB of object store memory, which was 32% of the total memory available
+on the cluster. No disk spilling was reported:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span> <span class="n">Aggregate</span> <span class="nb">object</span> <span class="n">store</span> <span class="n">stats</span> <span class="n">across</span> <span class="nb">all</span> <span class="n">nodes</span> <span class="o">---</span>
+<span class="n">Plasma</span> <span class="n">memory</span> <span class="n">usage</span> <span class="mi">18554</span> <span class="n">MiB</span><span class="p">,</span> <span class="mi">242</span> <span class="n">objects</span><span class="p">,</span> <span class="mf">32.98</span><span class="o">%</span> <span class="n">full</span><span class="p">,</span> <span class="mf">0.17</span><span class="o">%</span> <span class="n">needed</span>
+<span class="n">Objects</span> <span class="n">consumed</span> <span class="n">by</span> <span class="n">Ray</span> <span class="n">tasks</span><span class="p">:</span> <span class="mi">38965</span> <span class="n">MiB</span><span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="debugging-the-performance-problem">
+<h3>Debugging the performance problem<a class="headerlink" href="check-ingest.html#debugging-the-performance-problem" title="Permalink to this headline">#</a></h3>
+<p>So why was the data ingest only 116MiB/s above? That’s sufficient for many models, but one would expect
+faster if the trainer was doing nothing except read the data. Based on the stats above, there was no object
+spilling, but there was a high batch delay.</p>
+<p>We can guess that perhaps AIR was spending too much time loading blocks from other machines, since
+we were using a multi-node cluster. We can test this by setting <code class="docutils literal notranslate"><span class="pre">prefetch_blocks=10</span></code> to prefetch
+blocks more aggressively and rerunning training.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">P50</span><span class="o">/</span><span class="n">P95</span><span class="o">/</span><span class="n">Max</span> <span class="n">batch</span> <span class="n">delay</span> <span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="mf">0.0006792084998323844</span> <span class="mf">0.0009853049503362856</span> <span class="mf">0.12657493300002898</span>
+<span class="n">Num</span> <span class="n">epochs</span> <span class="n">read</span> <span class="mi">47</span>
+<span class="n">Num</span> <span class="n">batches</span> <span class="n">read</span> <span class="mi">4700</span>
+<span class="n">Num</span> <span class="nb">bytes</span> <span class="n">read</span> <span class="mf">458984.95</span> <span class="n">MiB</span>
+<span class="n">Mean</span> <span class="n">throughput</span> <span class="mf">15136.18</span> <span class="n">MiB</span><span class="o">/</span><span class="n">s</span>
+</pre></div>
+</div>
+<p>That’s much better! Now we can see that our DummyTrainer is ingesting data at a rate of 15000MiB/s,
+and was able to read through many more epochs of training. This high throughput means
+that all data was able to be fit into memory on a single node.</p>
+</section>
+<section id="going-from-dummytrainer-to-your-real-trainer">
+<h3>Going from DummyTrainer to your real Trainer<a class="headerlink" href="check-ingest.html#going-from-dummytrainer-to-your-real-trainer" title="Permalink to this headline">#</a></h3>
+<p>Once you’re happy with the ingest performance of with DummyTrainer with synthetic data, the next steps are to switch to adapting it for your real workload scenario. This involves:</p>
+<ul class="simple">
+<li><p><strong>Scaling the DummyTrainer</strong>: Change the scaling config of the DummyTrainer and cluster configuration to reflect your target workload.</p></li>
+<li><p><strong>Switching the Dataset</strong>: Change the dataset from synthetic tensor data to reading your real dataset.</p></li>
+<li><p><strong>Switching the Trainer</strong>: Swap the DummyTrainer with your real trainer.</p></li>
+</ul>
+<p>Switching these components one by one allows performance problems to be easily isolated and reproduced.</p>
+</section>
+</section>
+<section id="performance-tips">
+<h2>Performance Tips<a class="headerlink" href="check-ingest.html#performance-tips" title="Permalink to this headline">#</a></h2>
+<p><strong>Memory availability</strong>: To maximize ingest performance, consider using machines with sufficient memory to fit the dataset entirely in memory. This avoids the need for disk spilling, streamed ingest, or fetching data across the network. As a rule of thumb, a Ray cluster with fewer but bigger nodes will outperform a Ray cluster with more smaller nodes due to better memory locality.</p>
+<p><strong>Autoscaling</strong>: We generally recommend first trying out AIR training with a fixed size cluster. This makes it easier to understand and debug issues. Autoscaling can be enabled after you are happy with performance to autoscale experiment sweeps with Tune, etc. We also recommend starting with autoscaling with a single node type. Autoscaling with hetereogeneous clusters can optimize costs, but may complicate performance debugging.</p>
+<p><strong>Partitioning</strong>: By default, Datasets will automatically select the read parallelism based on the current cluster size and number of files. If you run into out-of-memory errors during preprocessing, consider increasing the number of blocks to reduce their size. To increase the max number of partitions, you can manually set the <code class="docutils literal notranslate"><span class="pre">parallelism</span></code> option when calling <code class="docutils literal notranslate"><span class="pre">ray.data.read_*()</span></code>. To change the number of partitions at runtime, use <code class="docutils literal notranslate"><span class="pre">ds.repartition(N)</span></code>. As a rule of thumb, blocks should be no more than 1-2GiB each.</p>
+<section id="dataset-sharing">
+<h3>Dataset Sharing<a class="headerlink" href="check-ingest.html#dataset-sharing" title="Permalink to this headline">#</a></h3>
+<p>When you pass Datasets to a Tuner, Datasets are executed independently per-trial. This could potentially duplicate data reads in the cluster. To share Dataset blocks between trials, call <code class="docutils literal notranslate"><span class="pre">ds</span> <span class="pre">=</span> <span class="pre">ds.materialize()</span></code> prior to passing the Dataset to the Tuner. This ensures that the initial read operation will not be repeated per trial.</p>
+</section>
+</section>
+<section id="faq">
+<h2>FAQ<a class="headerlink" href="check-ingest.html#faq" title="Permalink to this headline">#</a></h2>
+<section id="how-do-i-pass-in-a-datasetpipeline-to-my-trainer">
+<h3>How do I pass in a <code class="xref py py-class docutils literal notranslate"><span class="pre">DatasetPipeline</span></code> to my <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>?<a class="headerlink" href="check-ingest.html#how-do-i-pass-in-a-datasetpipeline-to-my-trainer" title="Permalink to this headline">#</a></h3>
+<p>The Trainer interface only accepts a standard <a class="reference internal" href="../data/api/doc/ray.data.Datastream.html#ray.data.Datastream" title="ray.data.Datastream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Datastream</span></code></a> and not a <code class="xref py py-class docutils literal notranslate"><span class="pre">DatasetPipeline</span></code>.
+Instead, you can configure the ingest via the <code class="docutils literal notranslate"><span class="pre">dataset_config</span></code> that is passed to your <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>. Internally, Ray AIR will
+convert the provided <a class="reference internal" href="../data/api/doc/ray.data.Datastream.html#ray.data.Datastream" title="ray.data.Datastream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Datastream</span></code></a> into a <code class="xref py py-class docutils literal notranslate"><span class="pre">DatasetPipeline</span></code> with the specified configurations.</p>
+<p>See the <a class="reference internal" href="check-ingest.html#air-streaming-ingest"><span class="std std-ref">Enabling Streaming Ingest</span></a> and <a class="reference internal" href="check-ingest.html#air-shuffle"><span class="std std-ref">Shuffling Data</span></a> sections for full examples.</p>
+</section>
+<section id="how-do-i-shard-validation-and-test-datasets">
+<h3>How do I shard validation and test datasets?<a class="headerlink" href="check-ingest.html#how-do-i-shard-validation-and-test-datasets" title="Permalink to this headline">#</a></h3>
+<p>By default only the <code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;train&quot;</span></code> Dataset is sharded. To also shard validation and test datasets, you can configure the <code class="docutils literal notranslate"><span class="pre">dataset_config</span></code>
+that is passed to your <code class="docutils literal notranslate"><span class="pre">Trainer</span></code>.
+See the <a class="reference internal" href="check-ingest.html#air-splitting-aux-datasets"><span class="std std-ref">Splitting Auxiliary Datasets</span></a> section for a full example.</p>
+</section>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="trainers.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Using Trainers</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="tuner.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Configuring Hyperparameter Tuning</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

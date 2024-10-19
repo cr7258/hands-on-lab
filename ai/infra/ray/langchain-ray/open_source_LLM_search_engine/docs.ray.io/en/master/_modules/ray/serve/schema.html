@@ -1,0 +1,1256 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ray.serve.schema &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/versionwarning.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../../../_static/js/docsearch.js"></script>
+    <script src="../../../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../../../_static/js/termynal.js"></script>
+    <script defer="defer" src="../../../_static/js/custom.js"></script>
+    <script defer="defer" src="../../../_static/js/top-navigation.js"></script>
+    <script src="../../../_static/js/tags.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script async="async" src="../../../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/_modules/ray/serve/schema.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:35:18Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "_modules/ray/serve/schema", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2F_modules/ray/serve/schema.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for ray.serve.schema</h1><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">Extra</span><span class="p">,</span> <span class="n">root_validator</span><span class="p">,</span> <span class="n">validator</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">ray._private.runtime_env.packaging</span> <span class="kn">import</span> <span class="n">parse_uri</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.common</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DeploymentStatusInfo</span><span class="p">,</span>
+    <span class="n">ApplicationStatusInfo</span><span class="p">,</span>
+    <span class="n">ApplicationStatus</span><span class="p">,</span>
+    <span class="n">DeploymentStatus</span><span class="p">,</span>
+    <span class="n">StatusOverview</span><span class="p">,</span>
+    <span class="n">DeploymentInfo</span><span class="p">,</span>
+    <span class="n">ReplicaState</span><span class="p">,</span>
+    <span class="n">ServeDeployMode</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ray.serve.config</span> <span class="kn">import</span> <span class="n">DeploymentMode</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.utils</span> <span class="kn">import</span> <span class="n">DEFAULT</span><span class="p">,</span> <span class="n">dict_keys_snake_to_camel_case</span>
+<span class="kn">from</span> <span class="nn">ray.util.annotations</span> <span class="kn">import</span> <span class="n">DeveloperAPI</span><span class="p">,</span> <span class="n">PublicAPI</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.constants</span> <span class="kn">import</span> <span class="n">SERVE_DEFAULT_APP_NAME</span>
+
+
+<span class="k">def</span> <span class="nf">_route_prefix_format</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The route_prefix</span>
+<span class="sd">    1. must start with a / character</span>
+<span class="sd">    2. must not end with a / character (unless the entire prefix is just /)</span>
+<span class="sd">    3. cannot contain wildcards (must not have &quot;{&quot; or &quot;}&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">v</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;Got &quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&quot; for route_prefix. Route prefix must start with &quot;/&quot;.&#39;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">v</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;Got &quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&quot; for route_prefix. Route prefix &#39;</span>
+            <span class="s1">&#39;cannot end with &quot;/&quot; unless the &#39;</span>
+            <span class="s1">&#39;entire prefix is just &quot;/&quot;.&#39;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;{&quot;</span> <span class="ow">in</span> <span class="n">v</span> <span class="ow">or</span> <span class="s2">&quot;}&quot;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;Got &quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&quot; for route_prefix. Route prefix &#39;</span>
+            <span class="s2">&quot;cannot contain wildcards, so it cannot &quot;</span>
+            <span class="s1">&#39;contain &quot;{&quot; or &quot;}&quot;.&#39;</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">v</span>
+
+
+<div class="viewcode-block" id="RayActorOptionsSchema"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.RayActorOptionsSchema.html#ray.serve.schema.RayActorOptionsSchema">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">RayActorOptionsSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Options with which to start a replica actor.&quot;&quot;&quot;</span>
+
+    <span class="n">runtime_env</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;This deployment&#39;s runtime_env. working_dir and &quot;</span>
+            <span class="s2">&quot;py_modules may contain only remote URIs.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">num_cpus</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;The number of CPUs required by the deployment&#39;s &quot;</span>
+            <span class="s2">&quot;application per replica. This is the same as a ray &quot;</span>
+            <span class="s2">&quot;actor&#39;s num_cpus. Uses a default if null.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">num_gpus</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;The number of GPUs required by the deployment&#39;s &quot;</span>
+            <span class="s2">&quot;application per replica. This is the same as a ray &quot;</span>
+            <span class="s2">&quot;actor&#39;s num_gpus. Uses a default if null.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">memory</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Restrict the heap memory usage of each replica. Uses a default if null.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">object_store_memory</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Restrict the object store memory used per replica when &quot;</span>
+            <span class="s2">&quot;creating objects. Uses a default if null.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">resources</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;The custom resources required by each replica.&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">accelerator_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Forces replicas to run on nodes with the specified accelerator type.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="RayActorOptionsSchema.runtime_env_contains_remote_uris"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.RayActorOptionsSchema.html#ray.serve.schema.RayActorOptionsSchema.runtime_env_contains_remote_uris">[docs]</a>    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;runtime_env&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">runtime_env_contains_remote_uris</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="c1"># Ensure that all uris in py_modules and working_dir are remote</span>
+
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">uris</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;py_modules&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="s2">&quot;working_dir&quot;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+            <span class="n">uris</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;working_dir&quot;</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">uri</span> <span class="ow">in</span> <span class="n">uris</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">uri</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">parse_uri</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;runtime_envs in the Serve config support only &quot;</span>
+                        <span class="s2">&quot;remote URIs in working_dir and py_modules. Got &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;error when parsing URI: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">v</span></div></div>
+
+
+<div class="viewcode-block" id="DeploymentSchema"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.DeploymentSchema.html#ray.serve.schema.DeploymentSchema">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DeploymentSchema</span><span class="p">(</span>
+    <span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span><span class="p">,</span> <span class="n">allow_population_by_field_name</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Specifies options for one deployment within a Serve application. For each deployment</span>
+<span class="sd">    this can optionally be included in `ServeApplicationSchema` to override deployment</span>
+<span class="sd">    options specified in code.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Globally-unique name identifying this deployment.&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">num_replicas</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;The number of processes that handle requests to this &quot;</span>
+            <span class="s2">&quot;deployment. Uses a default if null.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># route_prefix of None means the deployment is not exposed over HTTP.</span>
+    <span class="n">route_prefix</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Requests to paths under this HTTP path &quot;</span>
+            <span class="s2">&quot;prefix will be routed to this deployment. When null, no HTTP &quot;</span>
+            <span class="s2">&quot;endpoint will be created. When omitted, defaults to &quot;</span>
+            <span class="s2">&quot;the deployment&#39;s name. Routing is done based on &quot;</span>
+            <span class="s2">&quot;longest-prefix match, so if you have deployment A with &quot;</span>
+            <span class="s1">&#39;a prefix of &quot;/a&quot; and deployment B with a prefix of &quot;/a/b&quot;, &#39;</span>
+            <span class="s1">&#39;requests to &quot;/a&quot;, &quot;/a/&quot;, and &quot;/a/c&quot; go to A and requests &#39;</span>
+            <span class="s1">&#39;to &quot;/a/b&quot;, &quot;/a/b/&quot;, and &quot;/a/b/c&quot; go to B. Routes must not &#39;</span>
+            <span class="s1">&#39;end with a &quot;/&quot; unless they</span><span class="se">\&#39;</span><span class="s1">re the root (just &quot;/&quot;), which &#39;</span>
+            <span class="s2">&quot;acts as a catch-all.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">max_concurrent_queries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;The max number of pending queries in a single replica. &quot;</span>
+            <span class="s2">&quot;Uses a default if null.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">user_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Config to pass into this deployment&#39;s &quot;</span>
+            <span class="s2">&quot;reconfigure method. This can be updated dynamically &quot;</span>
+            <span class="s2">&quot;without restarting replicas&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">autoscaling_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Config specifying autoscaling &quot;</span>
+            <span class="s2">&quot;parameters for the deployment&#39;s number of replicas. &quot;</span>
+            <span class="s2">&quot;If null, the deployment won&#39;t autoscale its number of &quot;</span>
+            <span class="s2">&quot;replicas; the number of replicas will be fixed at &quot;</span>
+            <span class="s2">&quot;num_replicas.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">graceful_shutdown_wait_loop_s</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Duration that deployment replicas will wait until there &quot;</span>
+            <span class="s2">&quot;is no more work to be done before shutting down. Uses a &quot;</span>
+            <span class="s2">&quot;default if null.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">graceful_shutdown_timeout_s</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Serve controller waits for this duration before &quot;</span>
+            <span class="s2">&quot;forcefully killing the replica for shutdown. Uses a &quot;</span>
+            <span class="s2">&quot;default if null.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">health_check_period_s</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Frequency at which the controller will health check &quot;</span>
+            <span class="s2">&quot;replicas. Uses a default if null.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">health_check_timeout_s</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Timeout that the controller will wait for a response &quot;</span>
+            <span class="s2">&quot;from the replica&#39;s health check before marking it &quot;</span>
+            <span class="s2">&quot;unhealthy. Uses a default if null.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ray_actor_options</span><span class="p">:</span> <span class="n">RayActorOptionsSchema</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Options set for each replica actor.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">is_driver_deployment</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Indicate Whether the deployment is driver deployment &quot;</span>
+        <span class="s2">&quot;Driver deployments are spawned one per node.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="DeploymentSchema.num_replicas_and_autoscaling_config_mutually_exclusive"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.DeploymentSchema.html#ray.serve.schema.DeploymentSchema.num_replicas_and_autoscaling_config_mutually_exclusive">[docs]</a>    <span class="nd">@root_validator</span>
+    <span class="k">def</span> <span class="nf">num_replicas_and_autoscaling_config_mutually_exclusive</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;num_replicas&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="ow">and</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s2">&quot;autoscaling_config&quot;</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Manually setting num_replicas is not allowed &quot;</span>
+                <span class="s2">&quot;when autoscaling_config is provided.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">values</span></div>
+
+    <span class="n">deployment_schema_route_prefix_format</span> <span class="o">=</span> <span class="n">validator</span><span class="p">(</span><span class="s2">&quot;route_prefix&quot;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span>
+        <span class="n">_route_prefix_format</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="DeploymentSchema.get_user_configured_option_names"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.DeploymentSchema.html#ray.serve.schema.DeploymentSchema.get_user_configured_option_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_user_configured_option_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Get set of names for all user-configured options.</span>
+
+<span class="sd">        Any field not set to DEFAULT.VALUE is considered a user-configured option.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">field</span> <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span>
+        <span class="p">}</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">_deployment_info_to_schema</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="n">DeploymentInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DeploymentSchema</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Converts a DeploymentInfo object to DeploymentSchema.</span>
+
+<span class="sd">    Route_prefix will not be set in the returned DeploymentSchema, since starting in 2.x</span>
+<span class="sd">    route_prefix is an application-level concept. (This should only be used on the 2.x</span>
+<span class="sd">    codepath)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">schema</span> <span class="o">=</span> <span class="n">DeploymentSchema</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+        <span class="n">max_concurrent_queries</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">deployment_config</span><span class="o">.</span><span class="n">max_concurrent_queries</span><span class="p">,</span>
+        <span class="n">user_config</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">deployment_config</span><span class="o">.</span><span class="n">user_config</span><span class="p">,</span>
+        <span class="n">graceful_shutdown_wait_loop_s</span><span class="o">=</span><span class="p">(</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">deployment_config</span><span class="o">.</span><span class="n">graceful_shutdown_wait_loop_s</span>
+        <span class="p">),</span>
+        <span class="n">graceful_shutdown_timeout_s</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">deployment_config</span><span class="o">.</span><span class="n">graceful_shutdown_timeout_s</span><span class="p">,</span>
+        <span class="n">health_check_period_s</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">deployment_config</span><span class="o">.</span><span class="n">health_check_period_s</span><span class="p">,</span>
+        <span class="n">health_check_timeout_s</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">deployment_config</span><span class="o">.</span><span class="n">health_check_timeout_s</span><span class="p">,</span>
+        <span class="n">ray_actor_options</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">replica_config</span><span class="o">.</span><span class="n">ray_actor_options</span><span class="p">,</span>
+        <span class="n">is_driver_deployment</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">is_driver_deployment</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">deployment_config</span><span class="o">.</span><span class="n">autoscaling_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">schema</span><span class="o">.</span><span class="n">autoscaling_config</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">deployment_config</span><span class="o">.</span><span class="n">autoscaling_config</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">schema</span><span class="o">.</span><span class="n">num_replicas</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">deployment_config</span><span class="o">.</span><span class="n">num_replicas</span>
+
+    <span class="k">return</span> <span class="n">schema</span>
+
+
+<div class="viewcode-block" id="ServeApplicationSchema"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeApplicationSchema.html#ray.serve.schema.ServeApplicationSchema">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ServeApplicationSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Describes one Serve application, and currently can also be used as a standalone</span>
+<span class="sd">    config to deploy a single application to a Ray cluster.</span>
+
+
+<span class="sd">    This is the request JSON schema for the v1 REST API `PUT &quot;/api/serve/deployments/&quot;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">SERVE_DEFAULT_APP_NAME</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Application name, the name should be unique within the serve instance&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">route_prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Route prefix for HTTP requests. If not provided, it will use&quot;</span>
+            <span class="s2">&quot;route_prefix of the ingress deployment. By default, the ingress route&quot;</span>
+            <span class="s2">&quot;prefix is &#39;/&#39;.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">import_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;An import path to a bound deployment node. Should be of the &quot;</span>
+            <span class="s1">&#39;form &quot;module.submodule_1...submodule_n.&#39;</span>
+            <span class="s1">&#39;dag_node&quot;. This is equivalent to &#39;</span>
+            <span class="s1">&#39;&quot;from module.submodule_1...submodule_n import &#39;</span>
+            <span class="s1">&#39;dag_node&quot;. Only works with Python &#39;</span>
+            <span class="s2">&quot;applications. This field is REQUIRED when deploying Serve config &quot;</span>
+            <span class="s2">&quot;to a Ray cluster.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">runtime_env</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;The runtime_env that the deployment graph will be run in. &quot;</span>
+            <span class="s2">&quot;Per-deployment runtime_envs will inherit from this. working_dir &quot;</span>
+            <span class="s2">&quot;and py_modules may contain only remote URIs.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Host for HTTP servers to listen on. Defaults to &quot;</span>
+            <span class="s1">&#39;&quot;0.0.0.0&quot;, which exposes Serve publicly. Cannot be updated once &#39;</span>
+            <span class="s2">&quot;your Serve application has started running. The Serve application &quot;</span>
+            <span class="s2">&quot;must be shut down and restarted with the new host instead.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">8000</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Port for HTTP server. Defaults to 8000. Cannot be updated once &quot;</span>
+            <span class="s2">&quot;your Serve application has started running. The Serve application &quot;</span>
+            <span class="s2">&quot;must be shut down and restarted with the new port instead.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">deployments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DeploymentSchema</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Deployment options that override options specified in the code.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">args</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Arguments that will be passed to the application builder.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="ServeApplicationSchema.runtime_env_contains_remote_uris"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeApplicationSchema.html#ray.serve.schema.ServeApplicationSchema.runtime_env_contains_remote_uris">[docs]</a>    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;runtime_env&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">runtime_env_contains_remote_uris</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="c1"># Ensure that all uris in py_modules and working_dir are remote</span>
+
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">uris</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;py_modules&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="s2">&quot;working_dir&quot;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+            <span class="n">uris</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;working_dir&quot;</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">uri</span> <span class="ow">in</span> <span class="n">uris</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">uri</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">parse_uri</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;runtime_envs in the Serve config support only &quot;</span>
+                        <span class="s2">&quot;remote URIs in working_dir and py_modules. Got &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;error when parsing URI: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">v</span></div>
+
+<div class="viewcode-block" id="ServeApplicationSchema.import_path_format_valid"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeApplicationSchema.html#ray.serve.schema.ServeApplicationSchema.import_path_format_valid">[docs]</a>    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;import_path&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">import_path_format_valid</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;Got invalid import path &quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&quot;. An &#39;</span>
+                    <span class="s2">&quot;import path may have at most one colon.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">v</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;Got invalid import path &quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&quot;. An &#39;</span>
+                    <span class="s2">&quot;import path may not start or end with a colon.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">v</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;Got invalid import path &quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&quot;. An &#39;</span>
+                    <span class="s2">&quot;import path must contain at least on dot or colon &quot;</span>
+                    <span class="s2">&quot;separating the module (and potentially submodules) from &quot;</span>
+                    <span class="s1">&#39;the deployment graph. E.g.: &quot;module.deployment_graph&quot;.&#39;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">v</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;Got invalid import path &quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&quot;. An &#39;</span>
+                    <span class="s2">&quot;import path may not start or end with a dot.&quot;</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">v</span></div>
+
+<div class="viewcode-block" id="ServeApplicationSchema.get_empty_schema_dict"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeApplicationSchema.html#ray.serve.schema.ServeApplicationSchema.get_empty_schema_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_empty_schema_dict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns an empty app schema dictionary.</span>
+
+<span class="sd">        Schema can be used as a representation of an empty Serve application config.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;import_path&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;runtime_env&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">&quot;deployments&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="ServeApplicationSchema.kubernetes_dict"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeApplicationSchema.html#ray.serve.schema.ServeApplicationSchema.kubernetes_dict">[docs]</a>    <span class="k">def</span> <span class="nf">kubernetes_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns dictionary in Kubernetes format.</span>
+
+<span class="sd">        Dictionary can be yaml-dumped to a Serve config file directly and then</span>
+<span class="sd">        copy-pasted into a RayService Kubernetes config.</span>
+
+<span class="sd">        Args: all kwargs are passed directly into schema&#39;s dict() function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">deployment</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;deployments&quot;</span><span class="p">]):</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">deployment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ray_actor_options&quot;</span><span class="p">),</span> <span class="nb">dict</span><span class="p">):</span>
+
+                <span class="c1"># JSON-serialize ray_actor_options&#39; resources dictionary</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">deployment</span><span class="p">[</span><span class="s2">&quot;ray_actor_options&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;resources&quot;</span><span class="p">),</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">deployment</span><span class="p">[</span><span class="s2">&quot;ray_actor_options&quot;</span><span class="p">][</span><span class="s2">&quot;resources&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                        <span class="n">deployment</span><span class="p">[</span><span class="s2">&quot;ray_actor_options&quot;</span><span class="p">][</span><span class="s2">&quot;resources&quot;</span><span class="p">]</span>
+                    <span class="p">)</span>
+
+                <span class="c1"># JSON-serialize ray_actor_options&#39; runtime_env dictionary</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">deployment</span><span class="p">[</span><span class="s2">&quot;ray_actor_options&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;runtime_env&quot;</span><span class="p">),</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">deployment</span><span class="p">[</span><span class="s2">&quot;ray_actor_options&quot;</span><span class="p">][</span><span class="s2">&quot;runtime_env&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                        <span class="n">deployment</span><span class="p">[</span><span class="s2">&quot;ray_actor_options&quot;</span><span class="p">][</span><span class="s2">&quot;runtime_env&quot;</span><span class="p">]</span>
+                    <span class="p">)</span>
+
+                <span class="c1"># Convert ray_actor_options&#39; keys</span>
+                <span class="n">deployment</span><span class="p">[</span><span class="s2">&quot;ray_actor_options&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_keys_snake_to_camel_case</span><span class="p">(</span>
+                    <span class="n">deployment</span><span class="p">[</span><span class="s2">&quot;ray_actor_options&quot;</span><span class="p">]</span>
+                <span class="p">)</span>
+
+            <span class="c1"># JSON-serialize user_config dictionary</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">deployment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_config&quot;</span><span class="p">),</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">deployment</span><span class="p">[</span><span class="s2">&quot;user_config&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">deployment</span><span class="p">[</span><span class="s2">&quot;user_config&quot;</span><span class="p">])</span>
+
+            <span class="c1"># Convert deployment&#39;s keys</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;deployments&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_keys_snake_to_camel_case</span><span class="p">(</span><span class="n">deployment</span><span class="p">)</span>
+
+        <span class="c1"># Convert top-level runtime_env</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;runtime_env&quot;</span><span class="p">),</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;runtime_env&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;runtime_env&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Convert top-level option&#39;s keys</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">dict_keys_snake_to_camel_case</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">config</span></div></div>
+
+
+<div class="viewcode-block" id="HTTPOptionsSchema"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.HTTPOptionsSchema.html#ray.serve.schema.HTTPOptionsSchema">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">HTTPOptionsSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Options to start the HTTP Proxy with.&quot;&quot;&quot;</span>
+
+    <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Host for HTTP servers to listen on. Defaults to &quot;</span>
+            <span class="s1">&#39;&quot;0.0.0.0&quot;, which exposes Serve publicly. Cannot be updated once &#39;</span>
+            <span class="s2">&quot;Serve has started running. Serve must be shut down and restarted &quot;</span>
+            <span class="s2">&quot;with the new host instead.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">8000</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Port for HTTP server. Defaults to 8000. Cannot be updated once &quot;</span>
+            <span class="s2">&quot;Serve has started running. Serve must be shut down and restarted &quot;</span>
+            <span class="s2">&quot;with the new port instead.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">root_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s1">&#39;Root path to mount the serve application (for example, &quot;/serve&quot;). All &#39;</span>
+            <span class="s1">&#39;deployment routes will be prefixed with this path. Defaults to &quot;&quot;.&#39;</span>
+        <span class="p">),</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ServeDeploySchema"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeDeploySchema.html#ray.serve.schema.ServeDeploySchema">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ServeDeploySchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Multi-application config for deploying a list of Serve applications to the Ray</span>
+<span class="sd">    cluster.</span>
+
+<span class="sd">    This is the request JSON schema for the v2 REST API</span>
+<span class="sd">    `PUT &quot;/api/serve/applications/&quot;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">proxy_location</span><span class="p">:</span> <span class="n">DeploymentMode</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">DeploymentMode</span><span class="o">.</span><span class="n">EveryNode</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;The location of HTTP servers.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s1">&#39;- &quot;EveryNode&quot; (default): start one HTTP server per node.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="s1">&#39;- &quot;HeadOnly&quot;: start one HTTP server on the head node.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="s1">&#39;- &quot;NoServer&quot;: disable HTTP server.&#39;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">http_options</span><span class="p">:</span> <span class="n">HTTPOptionsSchema</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">HTTPOptionsSchema</span><span class="p">(),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Options to start the HTTP Proxy with.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">applications</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ServeApplicationSchema</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;The set of Serve applications to run on the Ray cluster.&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="ServeDeploySchema.application_names_unique"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeDeploySchema.html#ray.serve.schema.ServeDeploySchema.application_names_unique">[docs]</a>    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;applications&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">application_names_unique</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="c1"># Ensure there are no duplicate applications listed</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">app</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
+        <span class="n">duplicates</span> <span class="o">=</span> <span class="p">{</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot;&#39;</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">if</span> <span class="n">names</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">duplicates</span><span class="p">):</span>
+            <span class="n">apps_str</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;application &quot;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">duplicates</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;applications &quot;</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span>
+                <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">duplicates</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Found multiple configs for </span><span class="si">{</span><span class="n">apps_str</span><span class="si">}</span><span class="s2">. Please remove all duplicates.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span></div>
+
+<div class="viewcode-block" id="ServeDeploySchema.application_routes_unique"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeDeploySchema.html#ray.serve.schema.ServeDeploySchema.application_routes_unique">[docs]</a>    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;applications&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">application_routes_unique</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="c1"># Ensure each application with a non-null route prefix has unique route prefixes</span>
+        <span class="n">routes</span> <span class="o">=</span> <span class="p">[</span><span class="n">app</span><span class="o">.</span><span class="n">route_prefix</span> <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">v</span> <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">route_prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="n">duplicates</span> <span class="o">=</span> <span class="p">{</span><span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">route</span><span class="si">}</span><span class="s1">&quot;&#39;</span> <span class="k">for</span> <span class="n">route</span> <span class="ow">in</span> <span class="n">routes</span> <span class="k">if</span> <span class="n">routes</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">route</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">duplicates</span><span class="p">):</span>
+            <span class="n">routes_str</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;route prefix &quot;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">duplicates</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;route prefixes &quot;</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">duplicates</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Found duplicate applications for </span><span class="si">{</span><span class="n">routes_str</span><span class="si">}</span><span class="s2">. Please ensure each &quot;</span>
+                <span class="s2">&quot;application&#39;s route_prefix is unique.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span></div>
+
+<div class="viewcode-block" id="ServeDeploySchema.application_names_nonempty"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeDeploySchema.html#ray.serve.schema.ServeDeploySchema.application_names_nonempty">[docs]</a>    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;applications&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">application_names_nonempty</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Application names must be nonempty.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span></div>
+
+<div class="viewcode-block" id="ServeDeploySchema.nested_host_and_port"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeDeploySchema.html#ray.serve.schema.ServeDeploySchema.nested_host_and_port">[docs]</a>    <span class="nd">@root_validator</span>
+    <span class="k">def</span> <span class="nf">nested_host_and_port</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="c1"># TODO (zcin): ServeApplicationSchema still needs to have host and port</span>
+        <span class="c1"># fields to support single-app mode, but in multi-app mode the host and port</span>
+        <span class="c1"># fields at the top-level deploy config is used instead. Eventually, after</span>
+        <span class="c1"># migration, we should remove these fields from ServeApplicationSchema.</span>
+        <span class="k">for</span> <span class="n">app_config</span> <span class="ow">in</span> <span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;applications&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s2">&quot;host&quot;</span> <span class="ow">in</span> <span class="n">app_config</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;Host &quot;</span><span class="si">{</span><span class="n">app_config</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s1">&quot; is set in the config for application &#39;</span>
+                    <span class="sa">f</span><span class="s2">&quot;`</span><span class="si">{</span><span class="n">app_config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">`. Please remove it and set host in the top &quot;</span>
+                    <span class="s2">&quot;level deploy config only.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;port&quot;</span> <span class="ow">in</span> <span class="n">app_config</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Port </span><span class="si">{</span><span class="n">app_config</span><span class="o">.</span><span class="n">port</span><span class="si">}</span><span class="s2"> is set in the config for application &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;`</span><span class="si">{</span><span class="n">app_config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">`. Please remove it and set port in the top &quot;</span>
+                    <span class="s2">&quot;level deploy config only.&quot;</span>
+                <span class="p">)</span>
+        <span class="k">return</span> <span class="n">values</span></div>
+
+<div class="viewcode-block" id="ServeDeploySchema.get_empty_schema_dict"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeDeploySchema.html#ray.serve.schema.ServeDeploySchema.get_empty_schema_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_empty_schema_dict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns an empty deploy schema dictionary.</span>
+
+<span class="sd">        Schema can be used as a representation of an empty Serve deploy config.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;applications&quot;</span><span class="p">:</span> <span class="p">[]}</span></div></div>
+
+
+<div class="viewcode-block" id="ReplicaDetails"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ReplicaDetails.html#ray.serve.schema.ReplicaDetails">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ReplicaDetails</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Detailed info about a single deployment replica.&quot;&quot;&quot;</span>
+
+    <span class="n">replica_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Unique ID for the replica. By default, this will be &quot;</span>
+            <span class="s1">&#39;&quot;&lt;deployment name&gt;#&lt;replica suffix&gt;&quot;, where the replica suffix is a &#39;</span>
+            <span class="s2">&quot;randomly generated unique string.&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">state</span><span class="p">:</span> <span class="n">ReplicaState</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Current state of the replica.&quot;</span><span class="p">)</span>
+    <span class="n">pid</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;PID of the replica actor process.&quot;</span><span class="p">)</span>
+    <span class="n">actor_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Name of the replica actor.&quot;</span><span class="p">)</span>
+    <span class="n">actor_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;ID of the replica actor.&quot;</span><span class="p">)</span>
+    <span class="n">node_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;ID of the node that the replica actor is running on.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">node_ip</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;IP address of the node that the replica actor is running on.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">start_time_s</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;The time at which the replica actor was started. If the controller dies, &quot;</span>
+            <span class="s2">&quot;this is the time at which the controller recovers and retrieves replica &quot;</span>
+            <span class="s2">&quot;state from the running replica actor.&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DeploymentDetails"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.DeploymentDetails.html#ray.serve.schema.DeploymentDetails">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DeploymentDetails</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Detailed info about a deployment within a Serve application.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Deployment name.&quot;</span><span class="p">)</span>
+    <span class="n">status</span><span class="p">:</span> <span class="n">DeploymentStatus</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The current status of the deployment.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;If there are issues with the deployment, this will describe the issue in &quot;</span>
+            <span class="s2">&quot;more detail.&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">deployment_config</span><span class="p">:</span> <span class="n">DeploymentSchema</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;The set of deployment config options that are currently applied to this &quot;</span>
+            <span class="s2">&quot;deployment. These options may come from the user&#39;s code, config file &quot;</span>
+            <span class="s2">&quot;options, or Serve default values.&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">replicas</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ReplicaDetails</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Details about the live replicas of this deployment.&quot;</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="DeploymentDetails.deployment_route_prefix_not_set"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.DeploymentDetails.html#ray.serve.schema.DeploymentDetails.deployment_route_prefix_not_set">[docs]</a>    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;deployment_config&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">deployment_route_prefix_not_set</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">DeploymentSchema</span><span class="p">):</span>
+        <span class="c1"># Route prefix should not be set at the deployment level. Deployment-level route</span>
+        <span class="c1"># prefix is outdated, there should be one route prefix per application</span>
+        <span class="k">if</span> <span class="s2">&quot;route_prefix&quot;</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">exclude_unset</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Unexpectedly found a deployment-level route_prefix in the &quot;</span>
+                <span class="sa">f</span><span class="s1">&#39;deployment_config for deployment &quot;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot;. The route_prefix in &#39;</span>
+                <span class="s2">&quot;deployment_config within DeploymentDetails should not be set; please &quot;</span>
+                <span class="s2">&quot;set it at the application level.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span></div></div>
+
+
+<div class="viewcode-block" id="ApplicationDetails"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ApplicationDetails.html#ray.serve.schema.ApplicationDetails">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ApplicationDetails</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Detailed info about a Serve application.&quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Application name.&quot;</span><span class="p">)</span>
+    <span class="n">route_prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;This is the `route_prefix` of the ingress deployment in the application. &quot;</span>
+            <span class="s2">&quot;Requests to paths under this HTTP path prefix will be routed to this &quot;</span>
+            <span class="s2">&quot;application. This value may be null if the application is deploying &quot;</span>
+            <span class="s2">&quot;and app information has not yet fully propagated in the backend; or &quot;</span>
+            <span class="s2">&quot;if the user explicitly set the prefix to `None`, so the application isn&#39;t &quot;</span>
+            <span class="s2">&quot;exposed over HTTP. Routing is done based on longest-prefix match, so if &quot;</span>
+            <span class="s1">&#39;you have deployment A with a prefix of &quot;/a&quot; and deployment B with a &#39;</span>
+            <span class="s1">&#39;prefix of &quot;/a/b&quot;, requests to &quot;/a&quot;, &quot;/a/&quot;, and &quot;/a/c&quot; go to A and &#39;</span>
+            <span class="s1">&#39;requests to &quot;/a/b&quot;, &quot;/a/b/&quot;, and &quot;/a/b/c&quot; go to B. Routes must not end &#39;</span>
+            <span class="s1">&#39;with a &quot;/&quot; unless they</span><span class="se">\&#39;</span><span class="s1">re the root (just &quot;/&quot;), which acts as a catch-all.&#39;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">docs_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;The path at which the docs for this application is served, for instance &quot;</span>
+            <span class="s2">&quot;the `docs_url` for FastAPI-integrated applications.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">status</span><span class="p">:</span> <span class="n">ApplicationStatus</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The current status of the application.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A message that gives more insight into the application status.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">last_deployed_time_s</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The time at which the application was deployed.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">deployed_app_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ServeApplicationSchema</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;The exact copy of the application config that was submitted to the &quot;</span>
+            <span class="s2">&quot;cluster. This will include all of, and only, the options that were &quot;</span>
+            <span class="s2">&quot;explicitly specified in the submitted config. Default values for &quot;</span>
+            <span class="s2">&quot;unspecified options will not be displayed, and deployments that are part &quot;</span>
+            <span class="s2">&quot;of the application but unlisted in the config will also not be displayed. &quot;</span>
+            <span class="s2">&quot;Note that default values for unspecified options are applied to the &quot;</span>
+            <span class="s2">&quot;cluster under the hood, and deployments that were unlisted will still be &quot;</span>
+            <span class="s2">&quot;deployed. This config simply avoids cluttering with unspecified fields &quot;</span>
+            <span class="s2">&quot;for readability.&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">deployments</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DeploymentDetails</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Details about the deployments in this application.&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">application_details_route_prefix_format</span> <span class="o">=</span> <span class="n">validator</span><span class="p">(</span>
+        <span class="s2">&quot;route_prefix&quot;</span><span class="p">,</span> <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)(</span><span class="n">_route_prefix_format</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ApplicationDetails.get_status_dict"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ApplicationDetails.html#ray.serve.schema.ApplicationDetails.get_status_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_status_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="c1"># NOTE(zcin): We use json.loads(model.json()) since model.dict() doesn&#39;t expand</span>
+        <span class="c1"># dataclasses (ApplicationStatusInfo and DeploymentStatusInfo are dataclasses)</span>
+        <span class="c1"># See https://github.com/pydantic/pydantic/issues/3764.</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
+            <span class="n">ServeStatusSchema</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">app_status</span><span class="o">=</span><span class="n">ApplicationStatusInfo</span><span class="p">(</span>
+                    <span class="n">status</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">,</span>
+                    <span class="n">deployment_timestamp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">last_deployed_time_s</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">deployment_statuses</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">DeploymentStatusInfo</span><span class="p">(</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                        <span class="n">status</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>
+                        <span class="n">message</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">message</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">deployments</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="p">],</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ServeInstanceDetails"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeInstanceDetails.html#ray.serve.schema.ServeInstanceDetails">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ServeInstanceDetails</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Serve metadata with system-level info and details on all applications deployed to</span>
+<span class="sd">    the Ray cluster.</span>
+
+<span class="sd">    This is the response JSON schema for v2 REST API `GET /api/serve/applications`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">proxy_location</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DeploymentMode</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;The location of HTTP servers.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s1">&#39;- &quot;EveryNode&quot;: start one HTTP server per node.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="s1">&#39;- &quot;HeadOnly&quot;: start one HTTP server on the head node.</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="s1">&#39;- &quot;NoServer&quot;: disable HTTP server.&#39;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">http_options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">HTTPOptionsSchema</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;HTTP Proxy options.&quot;</span><span class="p">)</span>
+    <span class="n">deploy_mode</span><span class="p">:</span> <span class="n">ServeDeployMode</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Whether a single-app config of format ServeApplicationSchema or multi-app &quot;</span>
+            <span class="s2">&quot;config of format ServeDeploySchema was deployed to the cluster.&quot;</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">applications</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ApplicationDetails</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Details about all live applications running on the cluster.&quot;</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="ServeInstanceDetails.get_empty_schema_dict"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeInstanceDetails.html#ray.serve.schema.ServeInstanceDetails.get_empty_schema_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_empty_schema_dict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Empty Serve instance details dictionary.</span>
+
+<span class="sd">        Represents no Serve instance running on the cluster.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;deploy_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;UNSET&quot;</span><span class="p">,</span> <span class="s2">&quot;applications&quot;</span><span class="p">:</span> <span class="p">{}}</span></div></div>
+
+
+<div class="viewcode-block" id="ServeStatusSchema"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeStatusSchema.html#ray.serve.schema.ServeStatusSchema">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ServeStatusSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Describes the status of an application and all its deployments.</span>
+
+<span class="sd">    This is the response JSON schema for the v1 REST API</span>
+<span class="sd">    `GET /api/serve/deployments/status`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Application name&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">app_status</span><span class="p">:</span> <span class="n">ApplicationStatusInfo</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Describes if the Serve application is DEPLOYING, if the &quot;</span>
+            <span class="s2">&quot;DEPLOY_FAILED, or if the app is RUNNING. Includes a timestamp of &quot;</span>
+            <span class="s2">&quot;when the application was deployed.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">deployment_statuses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DeploymentStatusInfo</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;List of statuses for all the deployments running in this Serve &quot;</span>
+            <span class="s2">&quot;application. Each status contains the deployment name, the &quot;</span>
+            <span class="s2">&quot;deployment&#39;s status, and a message providing extra context on &quot;</span>
+            <span class="s2">&quot;the status.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="ServeStatusSchema.get_empty_schema_dict"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.schema.ServeStatusSchema.html#ray.serve.schema.ServeStatusSchema.get_empty_schema_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_empty_schema_dict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns an empty status schema dictionary.</span>
+
+<span class="sd">        Schema represents Serve status for a Ray cluster where Serve hasn&#39;t</span>
+<span class="sd">        started yet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;app_status&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">ApplicationStatus</span><span class="o">.</span><span class="n">NOT_STARTED</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;deployment_timestamp&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;deployment_statuses&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span></div></div>
+
+
+<span class="nd">@DeveloperAPI</span>
+<span class="k">def</span> <span class="nf">serve_status_to_schema</span><span class="p">(</span><span class="n">serve_status</span><span class="p">:</span> <span class="n">StatusOverview</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ServeStatusSchema</span><span class="p">:</span>
+
+    <span class="k">return</span> <span class="n">ServeStatusSchema</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">serve_status</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="n">app_status</span><span class="o">=</span><span class="n">serve_status</span><span class="o">.</span><span class="n">app_status</span><span class="p">,</span>
+        <span class="n">deployment_statuses</span><span class="o">=</span><span class="n">serve_status</span><span class="o">.</span><span class="n">deployment_statuses</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

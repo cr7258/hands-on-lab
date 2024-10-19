@@ -1,0 +1,6 @@
+ray.data.datasource.FileBasedDatasource.on\_write\_failed
+=========================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: FileBasedDatasource.on_write_failed

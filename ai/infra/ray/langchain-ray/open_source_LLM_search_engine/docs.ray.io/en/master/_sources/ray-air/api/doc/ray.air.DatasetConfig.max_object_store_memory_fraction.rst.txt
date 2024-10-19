@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.max\_object\_store\_memory\_fraction
+==========================================================
+
+.. currentmodule:: ray.air
+
+.. autoattribute:: DatasetConfig.max_object_store_memory_fraction

@@ -1,0 +1,6 @@
+ray.data.datasource.WebDatasetDatasource.do\_write
+==================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: WebDatasetDatasource.do_write

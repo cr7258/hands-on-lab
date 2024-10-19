@@ -1,0 +1,6 @@
+ray.train.huggingface.accelerate.AccelerateTrainer.restore
+==========================================================
+
+.. currentmodule:: ray.train.huggingface.accelerate
+
+.. automethod:: AccelerateTrainer.restore

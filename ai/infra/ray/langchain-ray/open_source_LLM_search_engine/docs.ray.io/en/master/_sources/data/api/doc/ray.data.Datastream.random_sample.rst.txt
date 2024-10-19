@@ -1,0 +1,6 @@
+ray.data.Datastream.random\_sample
+==================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.random_sample

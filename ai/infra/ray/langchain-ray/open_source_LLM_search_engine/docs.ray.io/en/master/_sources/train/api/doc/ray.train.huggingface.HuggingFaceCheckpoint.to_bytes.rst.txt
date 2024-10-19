@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceCheckpoint.to\_bytes
+=====================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFaceCheckpoint.to_bytes

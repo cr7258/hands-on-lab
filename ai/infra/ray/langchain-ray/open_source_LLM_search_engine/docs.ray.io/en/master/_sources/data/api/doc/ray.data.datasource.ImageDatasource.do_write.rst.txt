@@ -1,0 +1,6 @@
+ray.data.datasource.ImageDatasource.do\_write
+=============================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: ImageDatasource.do_write

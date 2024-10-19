@@ -1,0 +1,6 @@
+ray.data.Datastream.drop\_columns
+=================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.drop_columns

@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.validated
+===============================
+
+.. currentmodule:: ray.air
+
+.. automethod:: DatasetConfig.validated

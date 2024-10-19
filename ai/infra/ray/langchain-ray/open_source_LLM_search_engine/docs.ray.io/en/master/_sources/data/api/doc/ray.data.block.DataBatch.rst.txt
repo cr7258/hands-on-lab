@@ -1,0 +1,6 @@
+﻿ray.data.block.DataBatch
+========================
+
+.. currentmodule:: ray.data.block
+
+.. autodata:: DataBatch

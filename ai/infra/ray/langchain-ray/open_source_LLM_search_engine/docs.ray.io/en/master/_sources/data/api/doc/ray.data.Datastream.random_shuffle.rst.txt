@@ -1,0 +1,6 @@
+ray.data.Datastream.random\_shuffle
+===================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.random_shuffle

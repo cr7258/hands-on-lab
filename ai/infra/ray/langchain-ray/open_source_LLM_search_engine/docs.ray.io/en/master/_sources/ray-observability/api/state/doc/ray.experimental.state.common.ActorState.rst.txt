@@ -1,0 +1,8 @@
+﻿ray.experimental.state.common.ActorState
+========================================
+
+.. currentmodule:: ray.experimental.state.common
+
+.. autoclass:: ActorState
+    :members:
+    :show-inheritance:

@@ -1,0 +1,6 @@
+ray.data.row.TableRow.items
+===========================
+
+.. currentmodule:: ray.data.row
+
+.. automethod:: TableRow.items

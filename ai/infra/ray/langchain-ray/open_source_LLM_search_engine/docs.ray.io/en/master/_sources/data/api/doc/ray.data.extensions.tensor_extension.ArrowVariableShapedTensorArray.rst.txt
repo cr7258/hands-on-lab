@@ -1,0 +1,8 @@
+﻿ray.data.extensions.tensor\_extension.ArrowVariableShapedTensorArray
+====================================================================
+
+.. currentmodule:: ray.data.extensions.tensor_extension
+
+.. autoclass:: ArrowVariableShapedTensorArray
+    :members:
+    :show-inheritance:

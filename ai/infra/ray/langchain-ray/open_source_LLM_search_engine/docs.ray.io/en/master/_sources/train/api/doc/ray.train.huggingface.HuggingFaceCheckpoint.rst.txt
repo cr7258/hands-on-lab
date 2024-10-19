@@ -1,0 +1,54 @@
+﻿
+
+ray.train.huggingface.HuggingFaceCheckpoint
+===========================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. autoclass:: HuggingFaceCheckpoint
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~HuggingFaceCheckpoint.__init__
+      ~HuggingFaceCheckpoint.as_directory
+      ~HuggingFaceCheckpoint.from_bytes
+      ~HuggingFaceCheckpoint.from_checkpoint
+      ~HuggingFaceCheckpoint.from_dict
+      ~HuggingFaceCheckpoint.from_directory
+      ~HuggingFaceCheckpoint.from_model
+      ~HuggingFaceCheckpoint.from_uri
+      ~HuggingFaceCheckpoint.get_internal_representation
+      ~HuggingFaceCheckpoint.get_model
+      ~HuggingFaceCheckpoint.get_preprocessor
+      ~HuggingFaceCheckpoint.get_tokenizer
+      ~HuggingFaceCheckpoint.get_training_arguments
+      ~HuggingFaceCheckpoint.set_preprocessor
+      ~HuggingFaceCheckpoint.to_bytes
+      ~HuggingFaceCheckpoint.to_dict
+      ~HuggingFaceCheckpoint.to_directory
+      ~HuggingFaceCheckpoint.to_uri
+
+   
+   
+
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~HuggingFaceCheckpoint.path
+      ~HuggingFaceCheckpoint.uri
+
+   
+   

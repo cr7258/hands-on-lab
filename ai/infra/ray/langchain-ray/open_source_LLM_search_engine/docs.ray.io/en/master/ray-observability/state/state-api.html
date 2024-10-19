@@ -1,0 +1,1368 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Monitoring Ray States &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/versionwarning.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../../_static/js/docsearch.js"></script>
+    <script src="../../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../../_static/js/termynal.js"></script>
+    <script defer="defer" src="../../_static/js/custom.js"></script>
+    <script defer="defer" src="../../_static/js/top-navigation.js"></script>
+    <script src="../../_static/js/tags.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script async="async" src="../../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/ray-observability/state/state-api.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Ray Debugger" href="../ray-debugging.html" />
+    <link rel="prev" title="Ray Dashboard" href="../../ray-core/ray-dashboard.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:31:53Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "ray-observability/state/state-api", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../overview.html">
+     Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ray-core/ray-dashboard.html">
+     Ray Dashboard
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="state-api.html#">
+     Monitoring Ray States
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-debugging.html">
+     Ray Debugger
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-logging.html">
+     Logging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ray-core/ray-metrics.html">
+     Metrics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../monitoring-debugging/profiling.html">
+     Profiling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-tracing.html">
+     Tracing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../monitoring-debugging/troubleshoot-failures.html">
+     Troubleshooting Failures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../monitoring-debugging/troubleshoot-hangs.html">
+     Troubleshooting Hangs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../monitoring-debugging/troubleshoot-performance.html">
+     Troubleshooting Performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../monitoring-debugging/gotchas.html">
+     Ray Gotchas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../monitoring-debugging/getting-help.html">
+     Getting Help
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ray-contribute/debugging.html">
+     Debugging (internal)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ray-contribute/profiling.html">
+     Profiling (internal)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2Fray-observability/state/state-api.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/edit/master/doc/source/ray-observability/state/state-api.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/ray-observability/state/state-api.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#getting-started">
+   Getting Started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#key-concepts">
+   Key Concepts
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#summary">
+   Summary
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-summarize-all-actors">
+     E.g., Summarize all actors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-summarize-all-tasks">
+     E.g., Summarize all tasks
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-summarize-all-objects">
+     E.g., Summarize all objects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#list">
+   List
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-all-nodes">
+     E.g., List all nodes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-all-placement-groups">
+     E.g., List all placement groups
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-local-referenced-objects-created-by-a-process">
+     E.g., List local referenced objects created by a process
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-alive-actors">
+     E.g., List alive actors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-running-tasks">
+     E.g., List running tasks
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-non-running-tasks">
+     E.g., List non-running tasks
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-running-tasks-that-have-a-name-func">
+     E.g., List running tasks that have a name func
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-tasks-with-more-details">
+     E.g., List tasks with more details
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#get">
+   Get
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-get-a-task-info">
+     E.g., Get a task info
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-get-a-node-info">
+     E.g., Get a node info
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#logs">
+   Logs
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-get-all-retrievable-log-file-names-from-a-head-node-in-a-cluster">
+     E.g., Get all retrievable log file names from a head node in a cluster
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-get-a-particular-log-file-from-a-node">
+     E.g., Get a particular log file from a node
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-stream-a-log-file-from-a-node">
+     E.g., Stream a log file from a node
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-stream-log-from-an-actor-with-actor-id">
+     E.g., Stream log from an actor with actor id
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-stream-log-from-a-pid">
+     E.g., Stream log from a pid
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#failure-semantics">
+   Failure Semantics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#query-failures">
+     Query Failures
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#data-truncation">
+     Data Truncation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#garbage-collected-resources">
+     Garbage Collected Resources
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#api-reference">
+   API Reference
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Monitoring Ray States</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#getting-started">
+   Getting Started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#key-concepts">
+   Key Concepts
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#summary">
+   Summary
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-summarize-all-actors">
+     E.g., Summarize all actors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-summarize-all-tasks">
+     E.g., Summarize all tasks
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-summarize-all-objects">
+     E.g., Summarize all objects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#list">
+   List
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-all-nodes">
+     E.g., List all nodes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-all-placement-groups">
+     E.g., List all placement groups
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-local-referenced-objects-created-by-a-process">
+     E.g., List local referenced objects created by a process
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-alive-actors">
+     E.g., List alive actors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-running-tasks">
+     E.g., List running tasks
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-non-running-tasks">
+     E.g., List non-running tasks
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-running-tasks-that-have-a-name-func">
+     E.g., List running tasks that have a name func
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-list-tasks-with-more-details">
+     E.g., List tasks with more details
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#get">
+   Get
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-get-a-task-info">
+     E.g., Get a task info
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-get-a-node-info">
+     E.g., Get a node info
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#logs">
+   Logs
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-get-all-retrievable-log-file-names-from-a-head-node-in-a-cluster">
+     E.g., Get all retrievable log file names from a head node in a cluster
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-get-a-particular-log-file-from-a-node">
+     E.g., Get a particular log file from a node
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-stream-a-log-file-from-a-node">
+     E.g., Stream a log file from a node
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-stream-log-from-an-actor-with-actor-id">
+     E.g., Stream log from an actor with actor id
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#e-g-stream-log-from-a-pid">
+     E.g., Stream log from a pid
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#failure-semantics">
+   Failure Semantics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#query-failures">
+     Query Failures
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#data-truncation">
+     Data Truncation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="state-api.html#garbage-collected-resources">
+     Garbage Collected Resources
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="state-api.html#api-reference">
+   API Reference
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="monitoring-ray-states">
+<span id="state-api-overview-ref"></span><h1>Monitoring Ray States<a class="headerlink" href="state-api.html#monitoring-ray-states" title="Permalink to this headline">#</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>We’d love to hear your feedback on using Ray state APIs - <a class="reference external" href="https://forms.gle/gh77mwjEskjhN8G46">feedback form</a>!</p>
+</div>
+<p>Ray state APIs allow users to conveniently access the current state (snapshot) of Ray through CLI or Python SDK.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>APIs are <a class="reference internal" href="../../ray-contribute/stability.html#api-stability-alpha"><span class="std std-ref">alpha</span></a>. This feature requires a full installation of Ray using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;ray[default]&quot;</span></code>. This feature also requires the dashboard component to be available. The dashboard component needs to be included when starting the ray cluster, which is the default behavior for <code class="docutils literal notranslate"><span class="pre">ray</span> <span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">ray.init()</span></code>. For more in-depth debugging, you could check the dashboard log at <code class="docutils literal notranslate"><span class="pre">&lt;RAY_LOG_DIR&gt;/dashboard.log</span></code>, which is usually <code class="docutils literal notranslate"><span class="pre">/tmp/ray/session_latest/logs/dashboard.log</span></code>.</p>
+</div>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="state-api.html#getting-started" title="Permalink to this headline">#</a></h2>
+<p>Run any workload. In this example, you will use the following script that runs 2 tasks and creates 2 actors.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">num_cpus</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">task_running_300_seconds</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Start!&quot;</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">class</span> <span class="nc">Actor</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Actor created&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create 2 tasks</span>
+<span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">task_running_300_seconds</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+
+<span class="c1"># Create 2 actors</span>
+<span class="n">actors</span> <span class="o">=</span> <span class="p">[</span><span class="n">Actor</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+
+<span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, let’s see the summarized states of tasks. If it doesn’t return the output immediately, retry the command.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-0-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-0-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-0-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-0-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray summary tasks
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">summarize_tasks</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summarize_tasks</span><span class="p">())</span>
+</pre></div>
+</div>
+</div></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>======== Tasks Summary: 2022-07-22 08:54:38.332537 ========
+Stats:
+------------------------------------
+total_actor_scheduled: 2
+total_actor_tasks: 0
+total_tasks: 2
+
+
+Table (group by func_name):
+------------------------------------
+    FUNC_OR_CLASS_NAME        STATE_COUNTS    TYPE
+0   task_running_300_seconds  RUNNING: 2      NORMAL_TASK
+1   Actor.__init__            FINISHED: 2     ACTOR_CREATION_TASK
+</pre></div>
+</div>
+<p>Let’s list all actors.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-1-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-1-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-1-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-1-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-1-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray list actors
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">list_actors</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">list_actors</span><span class="p">())</span>
+</pre></div>
+</div>
+</div></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>======== List: 2022-07-23 21:29:39.323925 ========
+Stats:
+------------------------------
+Total: 2
+
+Table:
+------------------------------
+    ACTOR_ID                          CLASS_NAME    NAME      PID  STATE
+0  31405554844820381c2f0f8501000000  Actor                 96956  ALIVE
+1  f36758a9f8871a9ca993b1d201000000  Actor                 96955  ALIVE
+</pre></div>
+</div>
+<p>You can get the state of a single task using the get API.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-2-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-2-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-2-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-2-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-2-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-2-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># In this case, 31405554844820381c2f0f8501000000</span>
+ray get actors &lt;ACTOR_ID&gt;
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-2-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">get_actor</span>
+<span class="c1"># In this case, 31405554844820381c2f0f8501000000</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">get_actor</span><span class="p">(</span><span class="nb">id</span><span class="o">=&lt;</span><span class="n">ACTOR_ID</span><span class="o">&gt;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>---
+actor_id: 31405554844820381c2f0f8501000000
+class_name: Actor
+death_cause: null
+is_detached: false
+name: &#39;&#39;
+pid: 96956
+resource_mapping: []
+serialized_runtime_env: &#39;{}&#39;
+state: ALIVE
+</pre></div>
+</div>
+<p>You can also access logs through <code class="docutils literal notranslate"><span class="pre">ray</span> <span class="pre">logs</span></code> API.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-3-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-3-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-3-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-3-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-3-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-3-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray list actors
+<span class="c1"># In this case, ACTOR_ID is 31405554844820381c2f0f8501000000</span>
+ray logs actor --id &lt;ACTOR_ID&gt;
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-3-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-3-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">get_log</span>
+
+<span class="c1"># In this case, ACTOR_ID is 31405554844820381c2f0f8501000000</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">get_log</span><span class="p">(</span><span class="n">actor_id</span><span class="o">=&lt;</span><span class="n">ACTOR_ID</span><span class="o">&gt;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--- Log has been truncated to last 1000 lines. Use `--tail` flag to toggle. ---
+
+:actor_name:Actor
+Actor created
+</pre></div>
+</div>
+</section>
+<section id="key-concepts">
+<h2>Key Concepts<a class="headerlink" href="state-api.html#key-concepts" title="Permalink to this headline">#</a></h2>
+<p>Ray state APIs allow you to access <strong>states</strong> of <strong>resources</strong> through <strong>summary</strong>, <strong>list</strong>, and <strong>get</strong> APIs. It also supports <strong>logs</strong> API to access logs.</p>
+<ul class="simple">
+<li><p><strong>states</strong>: The state of the cluster of corresponding resources. States consist of immutable metadata (e.g., actor’s name) and mutable states (e.g., actor’s scheduling state or pid).</p></li>
+<li><p><strong>resources</strong>: Resources created by Ray. E.g., actors, tasks, objects, placement groups, and etc.</p></li>
+<li><p><strong>summary</strong>: API to return the summarized view of resources.</p></li>
+<li><p><strong>list</strong>: API to return every individual entity of resources.</p></li>
+<li><p><strong>get</strong>: API to return a single entity of resources in detail.</p></li>
+<li><p><strong>logs</strong>: API to access the log of actors, tasks, workers, or system log files.</p></li>
+</ul>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="state-api.html#summary" title="Permalink to this headline">#</a></h2>
+<p>Return the summarized information of the given Ray resource (objects, actors, tasks).
+It is recommended to start monitoring states through summary APIs first. When you find anomalies
+(e.g., actors running for a long time, tasks that are not scheduled for a long time),
+you can use <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">get</span></code> APIs to get more details for an individual abnormal resource.</p>
+<section id="e-g-summarize-all-actors">
+<h3>E.g., Summarize all actors<a class="headerlink" href="state-api.html#e-g-summarize-all-actors" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-4-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-4-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-4-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-4-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-4-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-4-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray summary actors
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-4-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">summarize_actors</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summarize_actors</span><span class="p">())</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-summarize-all-tasks">
+<h3>E.g., Summarize all tasks<a class="headerlink" href="state-api.html#e-g-summarize-all-tasks" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-5-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-5-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-5-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-5-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-5-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-5-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray summary tasks
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-5-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-5-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">summarize_tasks</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summarize_tasks</span><span class="p">())</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-summarize-all-objects">
+<h3>E.g., Summarize all objects<a class="headerlink" href="state-api.html#e-g-summarize-all-objects" title="Permalink to this headline">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, objects are summarized by callsite. However, callsite is not recorded by Ray by default.
+To get callsite info, set env variable <code class="xref py py-obj docutils literal notranslate"><span class="pre">RAY_record_ref_creation_sites=1</span></code> when starting the ray cluster
+RAY_record_ref_creation_sites=1 ray start –head</p>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-6-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-6-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-6-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-6-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-6-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-6-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray summary objects
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-6-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-6-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">summarize_objects</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summarize_objects</span><span class="p">())</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+</section>
+<section id="list">
+<h2>List<a class="headerlink" href="state-api.html#list" title="Permalink to this headline">#</a></h2>
+<p>Get a list of resources, possible resources include:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../actors.html#actor-guide"><span class="std std-ref">Actors</span></a>, e.g., actor id, state, pid, death_cause. (<a class="reference internal" href="../api/state/doc/ray.experimental.state.common.ActorState.html#ray.experimental.state.common.ActorState" title="ray.experimental.state.common.ActorState"><code class="xref py py-class docutils literal notranslate"><span class="pre">output</span> <span class="pre">schema</span></code></a>)</p></li>
+<li><p><a class="reference internal" href="../../ray-core/tasks.html#ray-remote-functions"><span class="std std-ref">Tasks</span></a>, e.g., name, scheduling state, type, runtime env info (<a class="reference internal" href="../api/state/doc/ray.experimental.state.common.TaskState.html#ray.experimental.state.common.TaskState" title="ray.experimental.state.common.TaskState"><code class="xref py py-class docutils literal notranslate"><span class="pre">output</span> <span class="pre">schema</span></code></a>)</p></li>
+<li><p><a class="reference internal" href="../../ray-core/objects.html#objects-in-ray"><span class="std std-ref">Objects</span></a>, e.g., object id, callsites, reference types. (<a class="reference internal" href="../api/state/doc/ray.experimental.state.common.ObjectState.html#ray.experimental.state.common.ObjectState" title="ray.experimental.state.common.ObjectState"><code class="xref py py-class docutils literal notranslate"><span class="pre">output</span> <span class="pre">schema</span></code></a>)</p></li>
+<li><p><a class="reference internal" href="../../cluster/running-applications/job-submission/index.html#jobs-overview"><span class="std std-ref">Jobs</span></a>, e.g., start/end time, entrypoint, status. (<a class="reference internal" href="../api/state/doc/ray.experimental.state.common.JobState.html#ray.experimental.state.common.JobState" title="ray.experimental.state.common.JobState"><code class="xref py py-class docutils literal notranslate"><span class="pre">output</span> <span class="pre">schema</span></code></a>)</p></li>
+<li><p><a class="reference internal" href="../../ray-core/scheduling/placement-group.html#ray-placement-group-doc-ref"><span class="std std-ref">Placement Groups</span></a>, e.g., name, bundles, stats. (<a class="reference internal" href="../api/state/doc/ray.experimental.state.common.PlacementGroupState.html#ray.experimental.state.common.PlacementGroupState" title="ray.experimental.state.common.PlacementGroupState"><code class="xref py py-class docutils literal notranslate"><span class="pre">output</span> <span class="pre">schema</span></code></a>)</p></li>
+<li><p>Nodes (Ray worker nodes), e.g., node id, node ip, node state. (<a class="reference internal" href="../api/state/doc/ray.experimental.state.common.NodeState.html#ray.experimental.state.common.NodeState" title="ray.experimental.state.common.NodeState"><code class="xref py py-class docutils literal notranslate"><span class="pre">output</span> <span class="pre">schema</span></code></a>)</p></li>
+<li><p>Workers (Ray worker processes), e.g., worker id, type, exit type and details. (<a class="reference internal" href="../api/state/doc/ray.experimental.state.common.WorkerState.html#ray.experimental.state.common.WorkerState" title="ray.experimental.state.common.WorkerState"><code class="xref py py-class docutils literal notranslate"><span class="pre">output</span> <span class="pre">schema</span></code></a>)</p></li>
+<li><p><a class="reference internal" href="../../ray-core/handling-dependencies.html#runtime-environments"><span class="std std-ref">Runtime environments</span></a>, e.g., runtime envs, creation time, nodes (<a class="reference internal" href="../api/state/doc/ray.experimental.state.common.RuntimeEnvState.html#ray.experimental.state.common.RuntimeEnvState" title="ray.experimental.state.common.RuntimeEnvState"><code class="xref py py-class docutils literal notranslate"><span class="pre">output</span> <span class="pre">schema</span></code></a>)</p></li>
+</ul>
+<section id="e-g-list-all-nodes">
+<h3>E.g., List all nodes<a class="headerlink" href="state-api.html#e-g-list-all-nodes" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-7-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-7-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-7-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-7-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-7-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-7-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray list nodes
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-7-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-7-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">list_nodes</span><span class="p">()</span>
+<span class="n">list_nodes</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-list-all-placement-groups">
+<h3>E.g., List all placement groups<a class="headerlink" href="state-api.html#e-g-list-all-placement-groups" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-8-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-8-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-8-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-8-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-8-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-8-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray list placement-groups
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-8-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-8-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">list_placement_groups</span>
+<span class="n">list_placement_groups</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-list-local-referenced-objects-created-by-a-process">
+<h3>E.g., List local referenced objects created by a process<a class="headerlink" href="state-api.html#e-g-list-local-referenced-objects-created-by-a-process" title="Permalink to this headline">#</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can list resources with one or multiple filters: using <code class="xref py py-obj docutils literal notranslate"><span class="pre">--filter</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">-f</span></code></p>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-9-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-9-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-9-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-9-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-9-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-9-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray list objects -f <span class="nv">pid</span><span class="o">=</span>&lt;PID&gt; -f <span class="nv">reference_type</span><span class="o">=</span>LOCAL_REFERENCE
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-9-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-9-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">list_objects</span>
+<span class="n">list_objects</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;pid&quot;</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">PID</span><span class="o">&gt;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;reference_type&quot;</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="s2">&quot;LOCAL_REFERENCE&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-list-alive-actors">
+<h3>E.g., List alive actors<a class="headerlink" href="state-api.html#e-g-list-alive-actors" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-10-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-10-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-10-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-10-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-10-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-10-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray list actors -f <span class="nv">state</span><span class="o">=</span>ALIVE
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-10-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-10-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">list_actors</span>
+<span class="n">list_actors</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="s2">&quot;ALIVE&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-list-running-tasks">
+<h3>E.g., List running tasks<a class="headerlink" href="state-api.html#e-g-list-running-tasks" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-11-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-11-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-11-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-11-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-11-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-11-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray list tasks -f <span class="nv">state</span><span class="o">=</span>RUNNING
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-11-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-11-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">list_tasks</span>
+<span class="n">list_tasks</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="s2">&quot;RUNNING&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-list-non-running-tasks">
+<h3>E.g., List non-running tasks<a class="headerlink" href="state-api.html#e-g-list-non-running-tasks" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-12-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-12-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-12-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-12-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-12-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-12-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray list tasks -f state!<span class="o">=</span>RUNNING
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-12-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-12-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">list_tasks</span>
+<span class="n">list_tasks</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;RUNNING&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-list-running-tasks-that-have-a-name-func">
+<h3>E.g., List running tasks that have a name func<a class="headerlink" href="state-api.html#e-g-list-running-tasks-that-have-a-name-func" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-13-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-13-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-13-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-13-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-13-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-13-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray list tasks -f <span class="nv">state</span><span class="o">=</span>RUNNING -f <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;task_running_300_seconds()&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-13-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-13-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">list_tasks</span>
+<span class="n">list_tasks</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="s2">&quot;RUNNING&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="s2">&quot;task_running_300_seconds()&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-list-tasks-with-more-details">
+<h3>E.g., List tasks with more details<a class="headerlink" href="state-api.html#e-g-list-tasks-with-more-details" title="Permalink to this headline">#</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">--detail</span></code> is specified, the API can query more data sources to obtain state information in details.</p>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-14-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-14-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-14-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-14-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-14-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-14-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray list tasks --detail
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-14-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-14-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">list_tasks</span>
+<span class="n">list_tasks</span><span class="p">(</span><span class="n">detail</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+</section>
+<section id="get">
+<h2>Get<a class="headerlink" href="state-api.html#get" title="Permalink to this headline">#</a></h2>
+<section id="e-g-get-a-task-info">
+<h3>E.g., Get a task info<a class="headerlink" href="state-api.html#e-g-get-a-task-info" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-15-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-15-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-15-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-15-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-15-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-15-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray get tasks &lt;TASK_ID&gt;
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-15-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-15-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">get_task</span>
+<span class="n">get_task</span><span class="p">(</span><span class="nb">id</span><span class="o">=&lt;</span><span class="n">TASK_ID</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-get-a-node-info">
+<h3>E.g., Get a node info<a class="headerlink" href="state-api.html#e-g-get-a-node-info" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-16-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-16-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-16-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-16-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-16-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-16-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray get nodes &lt;NODE_ID&gt;
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-16-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-16-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">get_node</span>
+<span class="n">get_node</span><span class="p">(</span><span class="nb">id</span><span class="o">=&lt;</span><span class="n">NODE_ID</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+</section>
+<section id="logs">
+<h2>Logs<a class="headerlink" href="state-api.html#logs" title="Permalink to this headline">#</a></h2>
+<p id="state-api-log-doc">State API also allows you to conveniently access ray logs. Note that you cannot access the logs from a dead node.
+By default, the API prints log from a head node.</p>
+<section id="e-g-get-all-retrievable-log-file-names-from-a-head-node-in-a-cluster">
+<h3>E.g., Get all retrievable log file names from a head node in a cluster<a class="headerlink" href="state-api.html#e-g-get-all-retrievable-log-file-names-from-a-head-node-in-a-cluster" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-17-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-17-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-17-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-17-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-17-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-17-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray logs cluster
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-17-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-17-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># You could get the node id / node ip from `ray list nodes`</span>
+<span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">list_logs</span>
+<span class="c1"># `ray logs` by default print logs from a head node.</span>
+<span class="c1"># So in order to list the same logs, you should provide the head node id.</span>
+<span class="c1"># You could get the node id / node ip from `ray list nodes`</span>
+<span class="n">list_logs</span><span class="p">(</span><span class="n">node_id</span><span class="o">=&lt;</span><span class="n">HEAD_NODE_ID</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-get-a-particular-log-file-from-a-node">
+<h3>E.g., Get a particular log file from a node<a class="headerlink" href="state-api.html#e-g-get-a-particular-log-file-from-a-node" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-18-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-18-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-18-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-18-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-18-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-18-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># You could get the node id / node ip from `ray list nodes`</span>
+ray logs cluster gcs_server.out --node-id &lt;NODE_ID&gt;
+<span class="c1"># `ray logs cluster` is alias to `ray logs` when querying with globs.</span>
+ray logs gcs_server.out --node-id &lt;NODE_ID&gt;
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-18-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-18-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">get_log</span>
+
+<span class="c1"># Node IP could be retrieved from list_nodes() or ray.nodes()</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">get_log</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;gcs_server.out&quot;</span><span class="p">,</span> <span class="n">node_id</span><span class="o">=&lt;</span><span class="n">NODE_ID</span><span class="o">&gt;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-stream-a-log-file-from-a-node">
+<h3>E.g., Stream a log file from a node<a class="headerlink" href="state-api.html#e-g-stream-a-log-file-from-a-node" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-19-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-19-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-19-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-19-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-19-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-19-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># You could get the node id / node ip from `ray list nodes`</span>
+ray logs raylet.out --node-ip &lt;NODE_IP&gt; --follow
+<span class="c1"># Or,</span>
+ray logs cluster raylet.out --node-ip &lt;NODE_IP&gt; --follow
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-19-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-19-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">get_log</span>
+
+<span class="c1"># Node IP could be retrieved from list_nodes() or ray.nodes()</span>
+<span class="c1"># The loop will block with `follow=True`</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">get_log</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;raylet.out&quot;</span><span class="p">,</span> <span class="n">node_ip</span><span class="o">=&lt;</span><span class="n">NODE_IP</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">follow</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-stream-log-from-an-actor-with-actor-id">
+<h3>E.g., Stream log from an actor with actor id<a class="headerlink" href="state-api.html#e-g-stream-log-from-an-actor-with-actor-id" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-20-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-20-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-20-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-20-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-20-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-20-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray logs actor --id<span class="o">=</span>&lt;ACTOR_ID&gt; --follow
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-20-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-20-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">get_log</span>
+
+<span class="c1"># You could get the actor&#39;s ID from the output of `ray list actors`.</span>
+<span class="c1"># The loop will block with `follow=True`</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">get_log</span><span class="p">(</span><span class="n">actor_id</span><span class="o">=&lt;</span><span class="n">ACTOR_ID</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">follow</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="e-g-stream-log-from-a-pid">
+<h3>E.g., Stream log from a pid<a class="headerlink" href="state-api.html#e-g-stream-log-from-a-pid" title="Permalink to this headline">#</a></h3>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" role="tablist"><button aria-controls="panel-21-Q0xJ" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-21-Q0xJ" name="Q0xJ" role="tab" tabindex="0">CLI</button><button aria-controls="panel-21-UHl0aG9uIFNESw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-21-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tab" tabindex="-1">Python SDK</button></div><div aria-labelledby="tab-21-Q0xJ" class="sphinx-tabs-panel group-tab" id="panel-21-Q0xJ" name="Q0xJ" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray logs worker --pid<span class="o">=</span>&lt;PID&gt; --follow
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-21-UHl0aG9uIFNESw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-21-UHl0aG9uIFNESw==" name="UHl0aG9uIFNESw==" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ray.experimental.state.api</span> <span class="kn">import</span> <span class="n">get_log</span>
+
+<span class="c1"># Node IP could be retrieved from list_nodes() or ray.nodes()</span>
+<span class="c1"># You could get the pid of the worker running the actor easily when output</span>
+<span class="c1"># of worker being directed to the driver (default)</span>
+<span class="c1"># The loop will block with `follow=True`</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">get_log</span><span class="p">(</span><span class="n">pid</span><span class="o">=&lt;</span><span class="n">PID</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">node_ip</span><span class="o">=&lt;</span><span class="n">NODE_IP</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">follow</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+</section>
+<section id="failure-semantics">
+<h2>Failure Semantics<a class="headerlink" href="state-api.html#failure-semantics" title="Permalink to this headline">#</a></h2>
+<p>The state APIs don’t guarantee to return a consistent/complete snapshot of the cluster all the time. By default,
+all Python SDKs raise an exception when there’s a missing output from the API. And CLI returns a partial result
+and provides warning messages. Here are cases where there can be missing output from the API.</p>
+<section id="query-failures">
+<h3>Query Failures<a class="headerlink" href="state-api.html#query-failures" title="Permalink to this headline">#</a></h3>
+<p>State APIs query “data sources” (e.g., GCS, raylets, etc.) to obtain and build the snapshot of the cluster.
+However, data sources are sometimes unavailable (e.g., the source is down or overloaded). In this case, APIs
+will return a partial (incomplete) snapshot of the cluster, and users are informed that the output is incomplete through a warning message.
+All warnings are printed through Python’s <code class="docutils literal notranslate"><span class="pre">warnings</span></code> library, and they can be suppressed.</p>
+</section>
+<section id="data-truncation">
+<h3>Data Truncation<a class="headerlink" href="state-api.html#data-truncation" title="Permalink to this headline">#</a></h3>
+<p>When the returned number of entities (number of rows) is too large (&gt; 100K), state APIs truncate the output data to ensure system stability
+(when this happens, there’s no way to choose truncated data). When truncation happens it will be informed through Python’s
+<code class="docutils literal notranslate"><span class="pre">warnings</span></code> module.</p>
+</section>
+<section id="garbage-collected-resources">
+<h3>Garbage Collected Resources<a class="headerlink" href="state-api.html#garbage-collected-resources" title="Permalink to this headline">#</a></h3>
+<p>Depending on the lifecycle of the resources, some “finished” resources are not accessible
+through the APIs because they are already garbage collected.
+<strong>It is recommended not to rely on this API to obtain correct information on finished resources</strong>.
+For example, Ray periodically garbage collects DEAD state actor data to reduce memory usage.
+Or it cleans up the FINISHED state of tasks when its lineage goes out of scope.</p>
+</section>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="state-api.html#api-reference" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>For the CLI Reference, see <a class="reference internal" href="../api/state/cli.html#state-api-cli-ref"><span class="std std-ref">State CLI Refernece</span></a>.</p></li>
+<li><p>For the SDK Reference, see <a class="reference internal" href="../api/state/api.html#state-api-ref"><span class="std std-ref">State API Reference</span></a>.</p></li>
+<li><p>For the Log CLI Reference, see <a class="reference internal" href="../api/state/cli.html#ray-logs-api-cli-ref"><span class="std std-ref">Log CLI Reference</span></a>.</p></li>
+</ul>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../../ray-core/ray-dashboard.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Ray Dashboard</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../ray-debugging.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Ray Debugger</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

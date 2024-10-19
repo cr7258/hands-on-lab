@@ -1,0 +1,6 @@
+ray.data.Datastream.dataset\_format
+===================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.dataset_format

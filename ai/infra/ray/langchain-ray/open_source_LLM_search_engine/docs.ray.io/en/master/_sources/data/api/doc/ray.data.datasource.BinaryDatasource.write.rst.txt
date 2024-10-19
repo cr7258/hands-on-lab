@@ -1,0 +1,6 @@
+ray.data.datasource.BinaryDatasource.write
+==========================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: BinaryDatasource.write

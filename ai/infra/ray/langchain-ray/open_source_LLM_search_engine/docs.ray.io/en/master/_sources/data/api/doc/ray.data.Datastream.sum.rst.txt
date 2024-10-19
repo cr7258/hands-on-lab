@@ -1,0 +1,6 @@
+ray.data.Datastream.sum
+=======================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.sum

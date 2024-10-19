@@ -1,0 +1,6 @@
+ray.data.Datastream.write\_webdataset
+=====================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.write_webdataset

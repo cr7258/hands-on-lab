@@ -1,0 +1,34 @@
+﻿
+
+ray.data.datasource.RangeDatasource
+===================================
+
+.. currentmodule:: ray.data.datasource
+
+.. autoclass:: RangeDatasource
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~RangeDatasource.__init__
+      
+      ~RangeDatasource.do_write
+      ~RangeDatasource.get_name
+      ~RangeDatasource.on_write_complete
+      ~RangeDatasource.on_write_failed
+      ~RangeDatasource.prepare_read
+      ~RangeDatasource.write
+
+   
+   
+
+
+   
+   
+   

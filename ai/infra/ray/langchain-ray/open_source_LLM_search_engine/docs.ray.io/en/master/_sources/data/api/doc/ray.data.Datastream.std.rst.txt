@@ -1,0 +1,6 @@
+ray.data.Datastream.std
+=======================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.std

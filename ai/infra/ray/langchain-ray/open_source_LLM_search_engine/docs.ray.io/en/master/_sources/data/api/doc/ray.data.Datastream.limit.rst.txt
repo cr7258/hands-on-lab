@@ -1,0 +1,6 @@
+ray.data.Datastream.limit
+=========================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.limit

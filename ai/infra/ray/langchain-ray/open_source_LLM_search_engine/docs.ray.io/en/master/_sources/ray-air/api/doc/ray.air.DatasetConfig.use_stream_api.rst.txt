@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.use\_stream\_api
+======================================
+
+.. currentmodule:: ray.air
+
+.. autoattribute:: DatasetConfig.use_stream_api

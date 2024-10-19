@@ -1,0 +1,6 @@
+ray.data.Datastream.min
+=======================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.min

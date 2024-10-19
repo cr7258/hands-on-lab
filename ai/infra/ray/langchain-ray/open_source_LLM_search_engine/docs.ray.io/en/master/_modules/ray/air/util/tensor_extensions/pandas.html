@@ -1,0 +1,1850 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ray.air.util.tensor_extensions.pandas &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../../_static/copybutton.js"></script>
+    <script src="../../../../../_static/js/versionwarning.js"></script>
+    <script src="../../../../../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../../../../../_static/js/docsearch.js"></script>
+    <script src="../../../../../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../../../../../_static/js/termynal.js"></script>
+    <script defer="defer" src="../../../../../_static/js/custom.js"></script>
+    <script defer="defer" src="../../../../../_static/js/top-navigation.js"></script>
+    <script src="../../../../../_static/js/tags.js"></script>
+    <script src="../../../../../_static/tabs.js"></script>
+    <script src="../../../../../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../../_static/design-tabs.js"></script>
+    <script async="async" src="../../../../../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/_modules/ray/air/util/tensor_extensions/pandas.html" />
+    <link rel="shortcut icon" href="../../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../../../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:35:10Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "_modules/ray/air/util/tensor_extensions/pandas", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../../../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2F_modules/ray/air/util/tensor_extensions/pandas.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for ray.air.util.tensor_extensions.pandas</h1><div class="highlight"><pre><span></span><span class="c1"># Adapted from</span>
+<span class="c1"># https://github.com/CODAIT/text-extensions-for-pandas/blob/dc03278689fe1c5f131573658ae19815ba25f33e/text_extensions_for_pandas/array/tensor.py</span>
+<span class="c1"># and</span>
+<span class="c1"># https://github.com/CODAIT/text-extensions-for-pandas/blob/dc03278689fe1c5f131573658ae19815ba25f33e/text_extensions_for_pandas/array/arrow_conversion.py</span>
+
+<span class="c1">#</span>
+<span class="c1">#  Copyright (c) 2020 IBM Corp.</span>
+<span class="c1">#  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1">#  you may not use this file except in compliance with the License.</span>
+<span class="c1">#  You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#  http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1">#  Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1">#  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1">#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1">#  See the License for the specific language governing permissions and</span>
+<span class="c1">#  limitations under the License.</span>
+
+<span class="c1"># Modifications:</span>
+<span class="c1"># - Added ArrowTensorType.to_pandas_type()</span>
+<span class="c1"># - Added ArrowTensorArray.__getitem__()</span>
+<span class="c1"># - Added ArrowTensorArray.__iter__()</span>
+<span class="c1"># - Added support for column casts to extension types.</span>
+<span class="c1"># - Fleshed out docstrings and examples.</span>
+<span class="c1"># - Fixed TensorArray.isna() so it returns an appropriate ExtensionArray.</span>
+<span class="c1"># - Added different (more vectorized) TensorArray.take() operation.</span>
+<span class="c1"># - Added support for more reducers (agg funcs) to TensorArray.</span>
+<span class="c1"># - Added support for logical operators to TensorArray(Element).</span>
+<span class="c1"># - Added support for heterogeneously-shaped tensors.</span>
+<span class="c1"># - Miscellaneous small bug fixes and optimizations.</span>
+
+<span class="kn">import</span> <span class="nn">numbers</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+<span class="kn">from</span> <span class="nn">pandas._typing</span> <span class="kn">import</span> <span class="n">Dtype</span>
+<span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="n">set_function_name</span>
+<span class="kn">from</span> <span class="nn">pandas.core.dtypes.generic</span> <span class="kn">import</span> <span class="n">ABCDataFrame</span><span class="p">,</span> <span class="n">ABCSeries</span>
+<span class="kn">from</span> <span class="nn">pandas.core.indexers</span> <span class="kn">import</span> <span class="n">check_array_indexer</span><span class="p">,</span> <span class="n">validate_indices</span>
+<span class="kn">from</span> <span class="nn">pandas.io.formats.format</span> <span class="kn">import</span> <span class="n">ExtensionArrayFormatter</span>
+
+<span class="kn">from</span> <span class="nn">ray.air.util.tensor_extensions.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_create_possibly_ragged_ndarray</span><span class="p">,</span>
+    <span class="n">_is_ndarray_variable_shaped_tensor</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ray.util.annotations</span> <span class="kn">import</span> <span class="n">PublicAPI</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pandas.core.dtypes.generic</span> <span class="kn">import</span> <span class="n">ABCIndex</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="c1"># ABCIndexClass changed to ABCIndex in Pandas 1.3</span>
+    <span class="kn">from</span> <span class="nn">pandas.core.dtypes.generic</span> <span class="kn">import</span> <span class="n">ABCIndexClass</span> <span class="k">as</span> <span class="n">ABCIndex</span>
+
+
+<span class="c1">#############################################</span>
+<span class="c1"># Begin patching of ExtensionArrayFormatter #</span>
+<span class="c1">#############################################</span>
+
+
+<span class="k">def</span> <span class="nf">_format_strings_patched</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="kn">from</span> <span class="nn">pandas.core.construction</span> <span class="kn">import</span> <span class="n">extract_array</span>
+    <span class="kn">from</span> <span class="nn">pandas.io.formats.format</span> <span class="kn">import</span> <span class="n">format_array</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">TensorArray</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_strings_orig</span><span class="p">()</span>
+
+    <span class="n">values</span> <span class="o">=</span> <span class="n">extract_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">extract_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_strings_orig</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">format_array_wrap</span><span class="p">(</span><span class="n">array_</span><span class="p">,</span> <span class="n">formatter_</span><span class="p">):</span>
+        <span class="n">fmt_values</span> <span class="o">=</span> <span class="n">format_array</span><span class="p">(</span>
+            <span class="n">array_</span><span class="p">,</span>
+            <span class="n">formatter_</span><span class="p">,</span>
+            <span class="n">float_format</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">float_format</span><span class="p">,</span>
+            <span class="n">na_rep</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">na_rep</span><span class="p">,</span>
+            <span class="n">digits</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span>
+            <span class="n">space</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="p">,</span>
+            <span class="n">justify</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">justify</span><span class="p">,</span>
+            <span class="n">decimal</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">decimal</span><span class="p">,</span>
+            <span class="n">leading_space</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">leading_space</span><span class="p">,</span>
+            <span class="n">quoting</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">quoting</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">fmt_values</span>
+
+    <span class="n">flat_formatter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatter</span>
+    <span class="k">if</span> <span class="n">flat_formatter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">flat_formatter</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">_formatter</span><span class="p">(</span><span class="n">boxed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Flatten array, call function, reshape (use ravel_compat in v1.3.0)</span>
+    <span class="n">flat_array</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="s2">&quot;K&quot;</span><span class="p">)</span>
+    <span class="n">fmt_flat_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">format_array_wrap</span><span class="p">(</span><span class="n">flat_array</span><span class="p">,</span> <span class="n">flat_formatter</span><span class="p">))</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="s2">&quot;F&quot;</span> <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">f_contiguous</span> <span class="k">else</span> <span class="s2">&quot;C&quot;</span>
+    <span class="n">fmt_array</span> <span class="o">=</span> <span class="n">fmt_flat_array</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+
+    <span class="c1"># Format the array of nested strings, use default formatter</span>
+    <span class="k">return</span> <span class="n">format_array_wrap</span><span class="p">(</span><span class="n">fmt_array</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_format_strings_patched_v1_0_0</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+
+    <span class="kn">from</span> <span class="nn">pandas.core.construction</span> <span class="kn">import</span> <span class="n">extract_array</span>
+    <span class="kn">from</span> <span class="nn">pandas.io.formats.format</span> <span class="kn">import</span> <span class="n">format_array</span>
+    <span class="kn">from</span> <span class="nn">pandas.io.formats.printing</span> <span class="kn">import</span> <span class="n">pprint_thing</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">TensorArray</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_strings_orig</span><span class="p">()</span>
+
+    <span class="n">values</span> <span class="o">=</span> <span class="n">extract_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">extract_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_strings_orig</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">format_array_wrap</span><span class="p">(</span><span class="n">array_</span><span class="p">,</span> <span class="n">formatter_</span><span class="p">):</span>
+        <span class="n">fmt_values</span> <span class="o">=</span> <span class="n">format_array</span><span class="p">(</span>
+            <span class="n">array_</span><span class="p">,</span>
+            <span class="n">formatter_</span><span class="p">,</span>
+            <span class="n">float_format</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">float_format</span><span class="p">,</span>
+            <span class="n">na_rep</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">na_rep</span><span class="p">,</span>
+            <span class="n">digits</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span>
+            <span class="n">space</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="p">,</span>
+            <span class="n">justify</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">justify</span><span class="p">,</span>
+            <span class="n">decimal</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">decimal</span><span class="p">,</span>
+            <span class="n">leading_space</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">leading_space</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">fmt_values</span>
+
+    <span class="n">flat_formatter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatter</span>
+    <span class="k">if</span> <span class="n">flat_formatter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">flat_formatter</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">_formatter</span><span class="p">(</span><span class="n">boxed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Flatten array, call function, reshape (use ravel_compat in v1.3.0)</span>
+    <span class="n">flat_array</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="s2">&quot;K&quot;</span><span class="p">)</span>
+    <span class="n">fmt_flat_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">format_array_wrap</span><span class="p">(</span><span class="n">flat_array</span><span class="p">,</span> <span class="n">flat_formatter</span><span class="p">))</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="s2">&quot;F&quot;</span> <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">f_contiguous</span> <span class="k">else</span> <span class="s2">&quot;C&quot;</span>
+    <span class="n">fmt_array</span> <span class="o">=</span> <span class="n">fmt_flat_array</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+
+    <span class="c1"># Slimmed down version of GenericArrayFormatter due to:</span>
+    <span class="c1"># https://github.com/pandas-dev/pandas/issues/33770</span>
+    <span class="k">def</span> <span class="nf">format_strings_slim</span><span class="p">(</span><span class="n">array_</span><span class="p">,</span> <span class="n">leading_space</span><span class="p">):</span>
+        <span class="n">formatter</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
+            <span class="n">pprint_thing</span><span class="p">,</span>
+            <span class="n">escape_chars</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_format</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">formatter</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+        <span class="n">fmt_values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">array_</span><span class="p">:</span>
+            <span class="n">tpl</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{v}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">leading_space</span> <span class="ow">is</span> <span class="kc">False</span> <span class="k">else</span> <span class="s2">&quot; </span><span class="si">{v}</span><span class="s2">&quot;</span>
+            <span class="n">fmt_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tpl</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="n">_format</span><span class="p">(</span><span class="n">v</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">fmt_values</span>
+
+    <span class="k">return</span> <span class="n">format_strings_slim</span><span class="p">(</span><span class="n">fmt_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">leading_space</span><span class="p">)</span>
+
+
+<span class="n">_FORMATTER_ENABLED_ENV_VAR</span> <span class="o">=</span> <span class="s2">&quot;TENSOR_COLUMN_EXTENSION_FORMATTER_ENABLED&quot;</span>
+
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">_FORMATTER_ENABLED_ENV_VAR</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+    <span class="n">ExtensionArrayFormatter</span><span class="o">.</span><span class="n">_format_strings_orig</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">ExtensionArrayFormatter</span><span class="o">.</span><span class="n">_format_strings</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;1.1.0&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">Version</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;1.3.0&quot;</span><span class="p">):</span>
+        <span class="n">ExtensionArrayFormatter</span><span class="o">.</span><span class="n">_format_strings</span> <span class="o">=</span> <span class="n">_format_strings_patched</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ExtensionArrayFormatter</span><span class="o">.</span><span class="n">_format_strings</span> <span class="o">=</span> <span class="n">_format_strings_patched_v1_0_0</span>
+    <span class="n">ExtensionArrayFormatter</span><span class="o">.</span><span class="n">_patched_by_ray_datasets</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1">###########################################</span>
+<span class="c1"># End patching of ExtensionArrayFormatter #</span>
+<span class="c1">###########################################</span>
+
+
+<div class="viewcode-block" id="TensorDtype"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.TensorDtype.html#ray.data.extensions.tensor_extension.TensorDtype">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="nd">@pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">register_extension_dtype</span>
+<span class="k">class</span> <span class="nc">TensorDtype</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">ExtensionDtype</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pandas extension type for a column of homogeneous-typed tensors.</span>
+
+<span class="sd">    This extension supports tensors in which the elements have different shapes.</span>
+<span class="sd">    However, each tensor element must be non-ragged, i.e. each tensor element must have</span>
+<span class="sd">    a well-defined, non-ragged shape.</span>
+
+<span class="sd">    See:</span>
+<span class="sd">    https://github.com/pandas-dev/pandas/blob/master/pandas/core/dtypes/base.py</span>
+<span class="sd">    for up-to-date interface documentation and the subclassing contract. The</span>
+<span class="sd">    docstrings of the below properties and methods were copied from the base</span>
+<span class="sd">    ExtensionDtype.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; # Create a DataFrame with a list of ndarrays as a column.</span>
+<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; import ray</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({</span>
+<span class="sd">        ...     &quot;one&quot;: [1, 2, 3],</span>
+<span class="sd">        ...     &quot;two&quot;: list(np.arange(24).reshape((3, 2, 2, 2)))})</span>
+<span class="sd">        &gt;&gt;&gt; # Note the opaque np.object dtype for this column.</span>
+<span class="sd">        &gt;&gt;&gt; df.dtypes # doctest: +SKIP</span>
+<span class="sd">        one     int64</span>
+<span class="sd">        two    object</span>
+<span class="sd">        dtype: object</span>
+<span class="sd">        &gt;&gt;&gt; # Cast column to our TensorDtype extension type.</span>
+<span class="sd">        &gt;&gt;&gt; from ray.data.extensions import TensorDtype</span>
+<span class="sd">        &gt;&gt;&gt; df[&quot;two&quot;] = df[&quot;two&quot;].astype(TensorDtype(np.int64, (3, 2, 2, 2)))</span>
+<span class="sd">        &gt;&gt;&gt; # Note that the column dtype is now TensorDtype instead of</span>
+<span class="sd">        &gt;&gt;&gt; # np.object.</span>
+<span class="sd">        &gt;&gt;&gt; df.dtypes # doctest: +SKIP</span>
+<span class="sd">        one          int64</span>
+<span class="sd">        two    TensorDtype(shape=(3, 2, 2, 2), dtype=int64)</span>
+<span class="sd">        dtype: object</span>
+<span class="sd">        &gt;&gt;&gt; # Pandas is now aware of this tensor column, and we can do the</span>
+<span class="sd">        &gt;&gt;&gt; # typical DataFrame operations on this column.</span>
+<span class="sd">        &gt;&gt;&gt; col = 2 * (df[&quot;two&quot;] + 10)</span>
+<span class="sd">        &gt;&gt;&gt; # The ndarrays underlying the tensor column will be manipulated,</span>
+<span class="sd">        &gt;&gt;&gt; # but the column itself will continue to be a Pandas type.</span>
+<span class="sd">        &gt;&gt;&gt; type(col) # doctest: +SKIP</span>
+<span class="sd">        pandas.core.series.Series</span>
+<span class="sd">        &gt;&gt;&gt; col # doctest: +SKIP</span>
+<span class="sd">        0   [[[ 2  4]</span>
+<span class="sd">              [ 6  8]]</span>
+<span class="sd">             [[10 12]</span>
+<span class="sd">               [14 16]]]</span>
+<span class="sd">        1   [[[18 20]</span>
+<span class="sd">              [22 24]]</span>
+<span class="sd">             [[26 28]</span>
+<span class="sd">              [30 32]]]</span>
+<span class="sd">        2   [[[34 36]</span>
+<span class="sd">              [38 40]]</span>
+<span class="sd">             [[42 44]</span>
+<span class="sd">              [46 48]]]</span>
+<span class="sd">        Name: two, dtype: TensorDtype(shape=(3, 2, 2, 2), dtype=int64)</span>
+<span class="sd">        &gt;&gt;&gt; # Once you do an aggregation on that column that returns a single</span>
+<span class="sd">        &gt;&gt;&gt; # row&#39;s value, you get back our TensorArrayElement type.</span>
+<span class="sd">        &gt;&gt;&gt; tensor = col.mean()</span>
+<span class="sd">        &gt;&gt;&gt; type(tensor) # doctest: +SKIP</span>
+<span class="sd">        ray.data.extensions.tensor_extension.TensorArrayElement</span>
+<span class="sd">        &gt;&gt;&gt; tensor # doctest: +SKIP</span>
+<span class="sd">        array([[[18., 20.],</span>
+<span class="sd">                [22., 24.]],</span>
+<span class="sd">               [[26., 28.],</span>
+<span class="sd">                [30., 32.]]])</span>
+<span class="sd">        &gt;&gt;&gt; # This is a light wrapper around a NumPy ndarray, and can easily</span>
+<span class="sd">        &gt;&gt;&gt; # be converted to an ndarray.</span>
+<span class="sd">        &gt;&gt;&gt; type(tensor.to_numpy()) # doctest: +SKIP</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">        &gt;&gt;&gt; # In addition to doing Pandas operations on the tensor column,</span>
+<span class="sd">        &gt;&gt;&gt; # you can now put the DataFrame into a Dataset.</span>
+<span class="sd">        &gt;&gt;&gt; ds = ray.data.from_pandas(df) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; # Internally, this column is represented the corresponding</span>
+<span class="sd">        &gt;&gt;&gt; # Arrow tensor extension type.</span>
+<span class="sd">        &gt;&gt;&gt; ds.schema() # doctest: +SKIP</span>
+<span class="sd">        one: int64</span>
+<span class="sd">        two: extension&lt;arrow.py_extension_type&lt;ArrowTensorType&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # You can write the dataset to Parquet.</span>
+<span class="sd">        &gt;&gt;&gt; ds.write_parquet(&quot;/some/path&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; # And you can read it back.</span>
+<span class="sd">        &gt;&gt;&gt; read_ds = ray.data.read_parquet(&quot;/some/path&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; read_ds.schema() # doctest: +SKIP</span>
+<span class="sd">        one: int64</span>
+<span class="sd">        two: extension&lt;arrow.py_extension_type&lt;ArrowTensorType&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; read_df = ray.get(read_ds.to_pandas_refs())[0] # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; read_df.dtypes # doctest: +SKIP</span>
+<span class="sd">        one          int64</span>
+<span class="sd">        two    TensorDtype(shape=(3, 2, 2, 2), dtype=int64)</span>
+<span class="sd">        dtype: object</span>
+<span class="sd">        &gt;&gt;&gt; # The tensor extension type is preserved along the</span>
+<span class="sd">        &gt;&gt;&gt; # Pandas --&gt; Arrow --&gt; Parquet --&gt; Arrow --&gt; Pandas</span>
+<span class="sd">        &gt;&gt;&gt; # conversion chain.</span>
+<span class="sd">        &gt;&gt;&gt; read_df.equals(df) # doctest: +SKIP</span>
+<span class="sd">        True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># NOTE(Clark): This is apparently required to prevent integer indexing</span>
+    <span class="c1"># errors, but is an undocumented ExtensionDtype attribute. See issue:</span>
+    <span class="c1"># https://github.com/CODAIT/text-extensions-for-pandas/issues/166</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span> <span class="o">=</span> <span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span> <span class="o">=</span> <span class="n">dtype</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The scalar type for the array, e.g. ``int``</span>
+<span class="sd">        It&#39;s expected ``ExtensionArray[item]`` returns an instance</span>
+<span class="sd">        of ``ExtensionDtype.type`` for scalar ``item``, assuming</span>
+<span class="sd">        that value is valid (not NA). NA values do not need to be</span>
+<span class="sd">        instances of `type`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">TensorArrayElement</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">element_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The dtype of the underlying tensor elements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">element_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The shape of the underlying tensor elements. This will be a tuple of Nones if</span>
+<span class="sd">        the corresponding TensorArray for this TensorDtype holds variable-shaped tensor</span>
+<span class="sd">        elements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shape</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_variable_shaped</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Whether the corresponding TensorArray for this TensorDtype holds variable-shaped</span>
+<span class="sd">        tensor elements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">dim_size</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">dim_size</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A string identifying the data type.</span>
+<span class="sd">        Will be used for display in, e.g. ``Series.dtype``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;numpy.ndarray(shape=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_shape</span><span class="si">}</span><span class="s2">, dtype=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+<div class="viewcode-block" id="TensorDtype.construct_from_string"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.TensorDtype.html#ray.data.extensions.tensor_extension.TensorDtype.construct_from_string">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">construct_from_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">string</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct this type from a string.</span>
+
+<span class="sd">        This is useful mainly for data types that accept parameters.</span>
+<span class="sd">        For example, a period dtype accepts a frequency parameter that</span>
+<span class="sd">        can be set as ``period[H]`` (where H means hourly frequency).</span>
+
+<span class="sd">        By default, in the abstract class, just the name of the type is</span>
+<span class="sd">        expected. But subclasses can overwrite this method to accept</span>
+<span class="sd">        parameters.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        string : str</span>
+<span class="sd">            The name of the type, for example ``category``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ExtensionDtype</span>
+<span class="sd">            Instance of the dtype.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If a class cannot be constructed from this &#39;string&#39;.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        For extension dtypes with arguments the following may be an</span>
+<span class="sd">        adequate implementation.</span>
+
+<span class="sd">        &gt;&gt;&gt; import re</span>
+<span class="sd">        &gt;&gt;&gt; @classmethod</span>
+<span class="sd">        ... def construct_from_string(cls, string):</span>
+<span class="sd">        ...     pattern = re.compile(r&quot;^my_type\[(?P&lt;arg_name&gt;.+)\]$&quot;)</span>
+<span class="sd">        ...     match = pattern.match(string)</span>
+<span class="sd">        ...     if match:</span>
+<span class="sd">        ...         return cls(**match.groupdict())</span>
+<span class="sd">        ...     else:</span>
+<span class="sd">        ...         raise TypeError(</span>
+<span class="sd">        ...             f&quot;Cannot construct a &#39;{cls.__name__}&#39; from &#39;{string}&#39;&quot;</span>
+<span class="sd">        ...         )</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">ast</span>
+        <span class="kn">import</span> <span class="nn">re</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;&#39;construct_from_string&#39; expects a string, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">string</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># Upstream code uses exceptions as part of its normal control flow and</span>
+        <span class="c1"># will pass this method bogus class names.</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">r</span><span class="s2">&quot;^(TensorDtype|numpy.ndarray)&quot;</span>
+            <span class="sa">r</span><span class="s2">&quot;\(shape=(\((?:(?:\d+|None),?\s?)*\)), dtype=(\w+)\)$&quot;</span>
+        <span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+        <span class="n">err_msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Cannot construct a &#39;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; from &#39;</span><span class="si">{</span><span class="n">string</span><span class="si">}</span><span class="s2">&#39;; expected a string &quot;</span>
+            <span class="s2">&quot;like &#39;TensorDtype(shape=(1, 2, 3), dtype=int64)&#39;.&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+        <span class="n">groups</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">groups</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TensorDtype.construct_array_type"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.TensorDtype.html#ray.data.extensions.tensor_extension.TensorDtype.construct_array_type">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">construct_array_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the array type associated with this dtype.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">TensorArray</span></div>
+
+    <span class="k">def</span> <span class="nf">__from_arrow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pa</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">ChunkedArray</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert a pyarrow (chunked) array to a TensorArray.</span>
+
+<span class="sd">        This and TensorArray.__arrow_array__ make up the</span>
+<span class="sd">        Pandas extension type + array &lt;--&gt; Arrow extension type + array</span>
+<span class="sd">        interoperability protocol. See</span>
+<span class="sd">        https://pandas.pydata.org/pandas-docs/stable/development/extending.html#compatibility-with-apache-arrow</span>
+<span class="sd">        for more information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">ChunkedArray</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">num_chunks</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># TODO(Clark): Remove concat and construct from list with</span>
+                <span class="c1"># shape.</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">chunk</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">array</span><span class="o">.</span><span class="n">iterchunks</span><span class="p">()]</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">TensorArray</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_is_boolean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Whether this extension array should be considered boolean.</span>
+
+<span class="sd">        By default, ExtensionArrays are assumed to be non-numeric.</span>
+<span class="sd">        Setting this to True will affect the behavior of several places,</span>
+<span class="sd">        e.g.</span>
+
+<span class="sd">        * is_bool</span>
+<span class="sd">        * boolean indexing</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># This is needed to support returning a TensorArray from .isnan().</span>
+        <span class="kn">from</span> <span class="nn">pandas.core.dtypes.common</span> <span class="kn">import</span> <span class="n">is_bool_dtype</span>
+
+        <span class="k">return</span> <span class="n">is_bool_dtype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span><span class="p">)</span></div>
+
+
+<span class="k">class</span> <span class="nc">_TensorOpsMixin</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">ExtensionScalarOpsMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mixin for TensorArray operator support, applying operations on the</span>
+<span class="sd">    underlying ndarrays.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_create_method</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">coerce_to_dtype</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">result_dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add support for binary operators by unwrapping, applying, and</span>
+<span class="sd">        rewrapping.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># NOTE(Clark): This overrides, but coerce_to_dtype, result_dtype might</span>
+        <span class="c1"># not be needed</span>
+
+        <span class="k">def</span> <span class="nf">_binop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+            <span class="n">lvalues</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">ABCDataFrame</span><span class="p">,</span> <span class="n">ABCSeries</span><span class="p">,</span> <span class="n">ABCIndex</span><span class="p">)):</span>
+                <span class="c1"># Rely on Pandas to unbox and dispatch to us.</span>
+                <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+            <span class="c1"># divmod returns a tuple</span>
+            <span class="k">if</span> <span class="n">op_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;__divmod__&quot;</span><span class="p">,</span> <span class="s2">&quot;__rdivmod__&quot;</span><span class="p">]:</span>
+                <span class="c1"># TODO(Clark): Add support for divmod and rdivmod.</span>
+                <span class="c1"># div, mod = result</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">TensorArray</span><span class="p">,</span> <span class="n">TensorArrayElement</span><span class="p">)):</span>
+                <span class="n">rvalues</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">_tensor</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rvalues</span> <span class="o">=</span> <span class="n">other</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="n">op</span><span class="p">(</span><span class="n">lvalues</span><span class="p">,</span> <span class="n">rvalues</span><span class="p">)</span>
+
+            <span class="c1"># Force a TensorArray if rvalue is not a scalar.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">TensorArrayElement</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">TensorArrayElement</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">result_wrapped</span> <span class="o">=</span> <span class="n">TensorArray</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result_wrapped</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">result_wrapped</span>
+
+        <span class="n">op_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;__</span><span class="si">{</span><span class="n">op</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">__&quot;</span>
+        <span class="k">return</span> <span class="n">set_function_name</span><span class="p">(</span><span class="n">_binop</span><span class="p">,</span> <span class="n">op_name</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_create_logical_method</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">op</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_create_method</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">_TensorScalarCastMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mixin for casting scalar tensors to a particular numeric type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_scalarfunc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__complex__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scalarfunc</span><span class="p">(</span><span class="nb">complex</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scalarfunc</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scalarfunc</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__hex__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scalarfunc</span><span class="p">(</span><span class="nb">hex</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__oct__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scalarfunc</span><span class="p">(</span><span class="nb">oct</span><span class="p">)</span>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TensorArrayElement</span><span class="p">(</span><span class="n">_TensorOpsMixin</span><span class="p">,</span> <span class="n">_TensorScalarCastMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Single element of a TensorArray, wrapping an underlying ndarray.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a TensorArrayElement from a NumPy ndarray.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            values: ndarray that underlies this TensorArray element.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span> <span class="o">=</span> <span class="n">values</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">numpy_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the dtype of the tensor.</span>
+<span class="sd">        :return: The numpy dtype of the backing ndarray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">dtype</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">numpy_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the number of tensor dimensions.</span>
+<span class="sd">        :return: integer for the number of dimensions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">ndim</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">numpy_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the shape of the tensor.</span>
+<span class="sd">        :return: A tuple of integers for the numpy shape of the backing ndarray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">numpy_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the size of the tensor.</span>
+<span class="sd">        :return: integer for the number of elements in the tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="k">def</span> <span class="nf">to_numpy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the values of this element as a NumPy ndarray.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__array__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="TensorArray"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.TensorArray.html#ray.data.extensions.tensor_extension.TensorArray">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TensorArray</span><span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">ExtensionArray</span><span class="p">,</span>
+    <span class="n">_TensorOpsMixin</span><span class="p">,</span>
+    <span class="n">_TensorScalarCastMixin</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pandas `ExtensionArray` representing a tensor column, i.e. a column</span>
+<span class="sd">    consisting of ndarrays as elements.</span>
+
+<span class="sd">    This extension supports tensors in which the elements have different shapes.</span>
+<span class="sd">    However, each tensor element must be non-ragged, i.e. each tensor element must have</span>
+<span class="sd">    a well-defined, non-ragged shape.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; # Create a DataFrame with a list of ndarrays as a column.</span>
+<span class="sd">        &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; import ray</span>
+<span class="sd">        &gt;&gt;&gt; from ray.data.extensions import TensorArray</span>
+<span class="sd">        &gt;&gt;&gt; df = pd.DataFrame({</span>
+<span class="sd">        ...     &quot;one&quot;: [1, 2, 3],</span>
+<span class="sd">        ...     &quot;two&quot;: TensorArray(np.arange(24).reshape((3, 2, 2, 2)))})</span>
+<span class="sd">        &gt;&gt;&gt; # Note that the column dtype is TensorDtype.</span>
+<span class="sd">        &gt;&gt;&gt; df.dtypes # doctest: +SKIP</span>
+<span class="sd">        one          int64</span>
+<span class="sd">        two    TensorDtype(shape=(3, 2, 2, 2), dtype=int64)</span>
+<span class="sd">        dtype: object</span>
+<span class="sd">        &gt;&gt;&gt; # Pandas is aware of this tensor column, and we can do the</span>
+<span class="sd">        &gt;&gt;&gt; # typical DataFrame operations on this column.</span>
+<span class="sd">        &gt;&gt;&gt; col = 2 * (df[&quot;two&quot;] + 10)</span>
+<span class="sd">        &gt;&gt;&gt; # The ndarrays underlying the tensor column will be manipulated,</span>
+<span class="sd">        &gt;&gt;&gt; # but the column itself will continue to be a Pandas type.</span>
+<span class="sd">        &gt;&gt;&gt; type(col) # doctest: +SKIP</span>
+<span class="sd">        pandas.core.series.Series</span>
+<span class="sd">        &gt;&gt;&gt; col # doctest: +SKIP</span>
+<span class="sd">        0   [[[ 2  4]</span>
+<span class="sd">              [ 6  8]]</span>
+<span class="sd">             [[10 12]</span>
+<span class="sd">               [14 16]]]</span>
+<span class="sd">        1   [[[18 20]</span>
+<span class="sd">              [22 24]]</span>
+<span class="sd">             [[26 28]</span>
+<span class="sd">              [30 32]]]</span>
+<span class="sd">        2   [[[34 36]</span>
+<span class="sd">              [38 40]]</span>
+<span class="sd">             [[42 44]</span>
+<span class="sd">              [46 48]]]</span>
+<span class="sd">        Name: two, dtype: TensorDtype(shape=(3, 2, 2, 2), dtype=int64)</span>
+<span class="sd">        &gt;&gt;&gt; # Once you do an aggregation on that column that returns a single</span>
+<span class="sd">        &gt;&gt;&gt; # row&#39;s value, you get back our TensorArrayElement type.</span>
+<span class="sd">        &gt;&gt;&gt; tensor = col.mean() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; type(tensor) # doctest: +SKIP</span>
+<span class="sd">        ray.data.extensions.tensor_extension.TensorArrayElement</span>
+<span class="sd">        &gt;&gt;&gt; tensor # doctest: +SKIP</span>
+<span class="sd">        array([[[18., 20.],</span>
+<span class="sd">                [22., 24.]],</span>
+<span class="sd">               [[26., 28.],</span>
+<span class="sd">                [30., 32.]]])</span>
+<span class="sd">        &gt;&gt;&gt; # This is a light wrapper around a NumPy ndarray, and can easily</span>
+<span class="sd">        &gt;&gt;&gt; # be converted to an ndarray.</span>
+<span class="sd">        &gt;&gt;&gt; type(tensor.to_numpy()) # doctest: +SKIP</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">        &gt;&gt;&gt; # In addition to doing Pandas operations on the tensor column,</span>
+<span class="sd">        &gt;&gt;&gt; # you can now put the DataFrame into a Dataset.</span>
+<span class="sd">        &gt;&gt;&gt; ds = ray.data.from_pandas(df) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; # Internally, this column is represented the corresponding</span>
+<span class="sd">        &gt;&gt;&gt; # Arrow tensor extension type.</span>
+<span class="sd">        &gt;&gt;&gt; ds.schema() # doctest: +SKIP</span>
+<span class="sd">        one: int64</span>
+<span class="sd">        two: extension&lt;arrow.py_extension_type&lt;ArrowTensorType&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # You can write the dataset to Parquet.</span>
+<span class="sd">        &gt;&gt;&gt; ds.write_parquet(&quot;/some/path&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; # And you can read it back.</span>
+<span class="sd">        &gt;&gt;&gt; read_ds = ray.data.read_parquet(&quot;/some/path&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; read_ds.schema() # doctest: +SKIP</span>
+<span class="sd">        one: int64</span>
+<span class="sd">        two: extension&lt;arrow.py_extension_type&lt;ArrowTensorType&gt;&gt;</span>
+
+<span class="sd">        &gt;&gt;&gt; read_df = ray.get(read_ds.to_pandas_refs())[0] # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; read_df.dtypes # doctest: +SKIP</span>
+<span class="sd">        one          int64</span>
+<span class="sd">        two    TensorDtype(shape=(3, 2, 2, 2), dtype=int64)</span>
+<span class="sd">        dtype: object</span>
+<span class="sd">        &gt;&gt;&gt; # The tensor extension type is preserved along the</span>
+<span class="sd">        &gt;&gt;&gt; # Pandas --&gt; Arrow --&gt; Parquet --&gt; Arrow --&gt; Pandas</span>
+<span class="sd">        &gt;&gt;&gt; # conversion chain.</span>
+<span class="sd">        &gt;&gt;&gt; read_df.equals(df) # doctest: +SKIP</span>
+<span class="sd">        True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">SUPPORTED_REDUCERS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;sum&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span>
+        <span class="s2">&quot;all&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">,</span>
+        <span class="s2">&quot;any&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">,</span>
+        <span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">,</span>
+        <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">,</span>
+        <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>
+        <span class="s2">&quot;median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">,</span>
+        <span class="s2">&quot;prod&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">,</span>
+        <span class="s2">&quot;std&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">,</span>
+        <span class="s2">&quot;var&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1"># See https://github.com/pandas-dev/pandas/blob/master/pandas/core/arrays/base.py</span>
+    <span class="c1"># for interface documentation and the subclassing contract.</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">values</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+            <span class="n">ABCSeries</span><span class="p">,</span>
+            <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">TensorArrayElement</span><span class="p">]],</span>
+            <span class="n">TensorArrayElement</span><span class="p">,</span>
+            <span class="n">Any</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            values: A NumPy ndarray or sequence of NumPy ndarrays of equal</span>
+<span class="sd">                shape.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Try to convert some well-known objects to ndarrays before handing off to</span>
+        <span class="c1"># ndarray handling logic.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">ABCSeries</span><span class="p">):</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">_create_possibly_ragged_ndarray</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">):</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">TensorArrayElement</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span>
+            <span class="p">]</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">_create_possibly_ragged_ndarray</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">TensorArrayElement</span><span class="p">):</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">)],</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">object_</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># Tensor is empty, pass through to create empty TensorArray.</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="nb">all</span><span class="p">(</span>
+                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">TensorArrayElement</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">))</span>
+                    <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span>
+                <span class="p">):</span>
+                    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+                    <span class="c1"># Try to convert ndarrays of ndarrays/TensorArrayElements with an</span>
+                    <span class="c1"># opaque object type to a properly typed ndarray of ndarrays.</span>
+                    <span class="n">values</span> <span class="o">=</span> <span class="n">_create_possibly_ragged_ndarray</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="s2">&quot;Expected a well-typed ndarray or an object-typed ndarray of &quot;</span>
+                        <span class="s2">&quot;ndarray pointers, but got an object-typed ndarray whose &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;subndarrays are of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">.&quot;</span>
+                    <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">TensorArray</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Use the copy() method to create a copy of a TensorArray.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s2">&quot;Expected a numpy.ndarray or sequence of numpy.ndarray, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;but received </span><span class="si">{</span><span class="n">values</span><span class="si">}</span><span class="s2"> of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> instead.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span> <span class="o">=</span> <span class="n">values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_variable_shaped</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_from_sequence</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">scalars</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">copy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a new ExtensionArray from a sequence of scalars.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        scalars : Sequence</span>
+<span class="sd">            Each element will be an instance of the scalar type for this</span>
+<span class="sd">            array, ``cls.dtype.type`` or be converted into this type in this</span>
+<span class="sd">            method.</span>
+<span class="sd">        dtype : dtype, optional</span>
+<span class="sd">            Construct for this particular dtype. This should be a Dtype</span>
+<span class="sd">            compatible with the ExtensionArray.</span>
+<span class="sd">        copy : bool, default False</span>
+<span class="sd">            If True, copy the underlying data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ExtensionArray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">copy</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">scalars</span> <span class="o">=</span> <span class="n">scalars</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="n">TensorArray</span><span class="p">):</span>
+            <span class="n">scalars</span> <span class="o">=</span> <span class="n">scalars</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">scalars</span><span class="o">.</span><span class="n">_tensor</span>
+        <span class="k">return</span> <span class="n">TensorArray</span><span class="p">(</span><span class="n">scalars</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_from_factorized</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">original</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">ExtensionArray</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reconstruct an ExtensionArray after factorization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        values : ndarray</span>
+<span class="sd">            An integer ndarray with the factorized values.</span>
+<span class="sd">        original : ExtensionArray</span>
+<span class="sd">            The original ExtensionArray that factorize was called on.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        factorize : Top-level factorize method that dispatches here.</span>
+<span class="sd">        ExtensionArray.factorize : Encode the extension array as an enumerated</span>
+<span class="sd">            type.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;TensorArray&quot;</span><span class="p">,</span> <span class="s2">&quot;TensorArrayElement&quot;</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Select a subset of self.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        item : int, slice, or ndarray</span>
+<span class="sd">            * int: The position in &#39;self&#39; to get.</span>
+<span class="sd">            * slice: A slice object, where &#39;start&#39;, &#39;stop&#39;, and &#39;step&#39; are</span>
+<span class="sd">              integers or None</span>
+<span class="sd">            * ndarray: A 1-d boolean NumPy ndarray the same length as &#39;self&#39;</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        item : scalar or ExtensionArray</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        For scalar ``item``, return a scalar value suitable for the array&#39;s</span>
+<span class="sd">        type. This should be an instance of ``self.dtype.type``.</span>
+<span class="sd">        For slice ``key``, return an instance of ``ExtensionArray``, even</span>
+<span class="sd">        if the slice is length 0 or 1.</span>
+<span class="sd">        For a boolean mask, return an instance of ``ExtensionArray``, filtered</span>
+<span class="sd">        to the values where ``item`` is True.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Return scalar if single value is selected, a TensorArrayElement for</span>
+        <span class="c1"># single array element, or TensorArray for slice.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">value</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">TensorArrayElement</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># BEGIN workaround for Pandas issue #42430</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="bp">Ellipsis</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="c1"># Hopefully this case is not possible, but can&#39;t be sure</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;Workaround Pandas issue #42430 not &quot;</span>
+                        <span class="s2">&quot;implemented for tuple length &gt; 2&quot;</span>
+                    <span class="p">)</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># END workaround for issue #42430</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">TensorArray</span><span class="p">):</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">check_array_indexer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">TensorArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">[</span><span class="n">item</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Length of this array.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        length : int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">ExtensionDtype</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        An instance of &#39;ExtensionDtype&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_variable_shaped</span><span class="p">:</span>
+            <span class="c1"># A tensor is only considered variable-shaped if it&#39;s non-empty, so no</span>
+            <span class="c1"># non-empty check is needed here.</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numpy_dtype</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numpy_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">return</span> <span class="n">TensorDtype</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_variable_shaped</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Whether this TensorArray holds variable-shaped tensor elements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_variable_shaped</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_variable_shaped</span> <span class="o">=</span> <span class="n">_is_ndarray_variable_shaped_tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_variable_shaped</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nbytes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The number of bytes needed to store this object in memory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">nbytes</span>
+
+<div class="viewcode-block" id="TensorArray.isna"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.TensorArray.html#ray.data.extensions.tensor_extension.TensorArray.isna">[docs]</a>    <span class="k">def</span> <span class="nf">isna</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;TensorArray&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A 1-D array indicating if each value is missing.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        na_values : Union[np.ndarray, ExtensionArray]</span>
+<span class="sd">            In most cases, this should return a NumPy ndarray. For</span>
+<span class="sd">            exceptional cases like ``SparseArray``, where returning</span>
+<span class="sd">            an ndarray would be expensive, an ExtensionArray may be</span>
+<span class="sd">            returned.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        If returning an ExtensionArray, then</span>
+
+<span class="sd">        * ``na_values._is_boolean`` should be True</span>
+<span class="sd">        * `na_values` should implement :func:`ExtensionArray._reduce`</span>
+<span class="sd">        * ``na_values.any`` and ``na_values.all`` should be implemented</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">object_</span><span class="p">:</span>
+            <span class="c1"># Avoid comparing with __eq__ because the elements of the tensor</span>
+            <span class="c1"># may do something funny with that operation.</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">ndim</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">ndim</span><span class="p">))</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="TensorArray.take"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.TensorArray.html#ray.data.extensions.tensor_extension.TensorArray.take">[docs]</a>    <span class="k">def</span> <span class="nf">take</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">allow_fill</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;TensorArray&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Take elements from an array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        indices : sequence of int</span>
+<span class="sd">            Indices to be taken.</span>
+<span class="sd">        allow_fill : bool, default False</span>
+<span class="sd">            How to handle negative values in `indices`.</span>
+
+<span class="sd">            * False: negative values in `indices` indicate positional indices</span>
+<span class="sd">              from the right (the default). This is similar to</span>
+<span class="sd">              :func:`numpy.take`.</span>
+
+<span class="sd">            * True: negative values in `indices` indicate</span>
+<span class="sd">              missing values. These values are set to `fill_value`. Any other</span>
+<span class="sd">              other negative values raise a ``ValueError``.</span>
+
+<span class="sd">        fill_value : any, optional</span>
+<span class="sd">            Fill value to use for NA-indices when `allow_fill` is True.</span>
+<span class="sd">            This may be ``None``, in which case the default NA value for</span>
+<span class="sd">            the type, ``self.dtype.na_value``, is used.</span>
+
+<span class="sd">            For many ExtensionArrays, there will be two representations of</span>
+<span class="sd">            `fill_value`: a user-facing &quot;boxed&quot; scalar, and a low-level</span>
+<span class="sd">            physical NA value. `fill_value` should be the user-facing version,</span>
+<span class="sd">            and the implementation should handle translating that to the</span>
+<span class="sd">            physical version for processing the take if necessary.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ExtensionArray</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        IndexError</span>
+<span class="sd">            When the indices are out of bounds for the array.</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            When `indices` contains negative values other than ``-1``</span>
+<span class="sd">            and `allow_fill` is True.</span>
+
+<span class="sd">        See Also</span>
+<span class="sd">        --------</span>
+<span class="sd">        numpy.take : Take elements from an array along an axis.</span>
+<span class="sd">        api.extensions.take : Take elements from an array.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        ExtensionArray.take is called by ``Series.__getitem__``, ``.loc``,</span>
+<span class="sd">        ``iloc``, when `indices` is a sequence of values. Additionally,</span>
+<span class="sd">        it&#39;s called by :meth:`Series.reindex`, or any other method</span>
+<span class="sd">        that causes realignment, with a `fill_value`.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Here&#39;s an example implementation, which relies on casting the</span>
+<span class="sd">        extension array to object dtype. This uses the helper method</span>
+<span class="sd">        :func:`pandas.api.extensions.take`.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">           def take(self, indices, allow_fill=False, fill_value=None):</span>
+<span class="sd">               from pandas.core.algorithms import take</span>
+
+<span class="sd">               # If the ExtensionArray is backed by an ndarray, then</span>
+<span class="sd">               # just pass that here instead of coercing to object.</span>
+<span class="sd">               data = self.astype(object)</span>
+
+<span class="sd">               if allow_fill and fill_value is None:</span>
+<span class="sd">                   fill_value = self.dtype.na_value</span>
+
+<span class="sd">               # fill value should always be translated from the scalar</span>
+<span class="sd">               # type for the array, to the physical storage type for</span>
+<span class="sd">               # the data, before passing to take.</span>
+
+<span class="sd">               result = take(data, indices, fill_value=fill_value,</span>
+<span class="sd">                             allow_fill=allow_fill)</span>
+<span class="sd">               return self._from_sequence(result, dtype=self.dtype)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">allow_fill</span><span class="p">:</span>
+            <span class="c1"># With allow_fill being True, negative values in `indices` indicate</span>
+            <span class="c1"># missing values and should be set to `fill_value`.</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">)</span>
+            <span class="n">validate_indices</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">))</span>
+
+            <span class="c1"># Check if there are missing indices to fill, otherwise we can</span>
+            <span class="c1"># delegate to NumPy ndarray .take().</span>
+            <span class="n">has_missing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">indices</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">has_missing</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">fill_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">fill_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+                <span class="c1"># Create an array populated with fill value.</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">),)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">fill_value</span><span class="p">)</span>
+
+                <span class="c1"># Put tensors at the given positive indices into array.</span>
+                <span class="n">is_nonneg</span> <span class="o">=</span> <span class="n">indices</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_nonneg</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="n">is_nonneg</span><span class="p">]])</span>
+
+                <span class="k">return</span> <span class="n">TensorArray</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+        <span class="c1"># Delegate take to NumPy array.</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">TensorArray</span><span class="p">(</span><span class="n">values</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TensorArray.copy"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.TensorArray.html#ray.data.extensions.tensor_extension.TensorArray.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;TensorArray&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a copy of the array.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ExtensionArray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO(Clark): Copy cached properties.</span>
+        <span class="k">return</span> <span class="n">TensorArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_concat_same_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">to_concat</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="s2">&quot;TensorArray&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;TensorArray&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Concatenate multiple array of this dtype.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        to_concat : sequence of this type</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ExtensionArray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">should_flatten</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">to_concat</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">shape</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">element_shape</span>
+            <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">is_variable_shaped</span> <span class="ow">or</span> <span class="n">a</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">element_shape</span> <span class="o">!=</span> <span class="n">shape</span><span class="p">:</span>
+                <span class="n">should_flatten</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">should_flatten</span><span class="p">:</span>
+            <span class="n">concated</span> <span class="o">=</span> <span class="n">TensorArray</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">e</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">to_concat</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">_tensor</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">concated</span> <span class="o">=</span> <span class="n">TensorArray</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">a</span><span class="o">.</span><span class="n">_tensor</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">to_concat</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">concated</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set one or more values inplace.</span>
+
+<span class="sd">        This method is not required to satisfy the pandas extension array</span>
+<span class="sd">        interface.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key : int, ndarray, or slice</span>
+<span class="sd">            When called from, e.g. ``Series.__setitem__``, ``key`` will be</span>
+<span class="sd">            one of</span>
+
+<span class="sd">            * scalar int</span>
+<span class="sd">            * ndarray of integers.</span>
+<span class="sd">            * boolean ndarray</span>
+<span class="sd">            * slice object</span>
+
+<span class="sd">        value : ExtensionDtype.type, Sequence[ExtensionDtype.type], or object</span>
+<span class="sd">            value or values to be set of ``key``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">check_array_indexer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">TensorArrayElement</span><span class="p">)</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">TensorArrayElement</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span>
+            <span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ABCSeries</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">TensorDtype</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;__setitem__ with key type &#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39; not implemented&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return for `item in self`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">TensorArrayElement</span><span class="p">):</span>
+            <span class="n">np_item</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np_item</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">np_item</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_values_for_factorize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="c1"># TODO(Clark): return self._tensor, np.nan</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">_reduce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">skipna</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a scalar result of performing the reduction operation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the function, supported values are:</span>
+<span class="sd">            { any, all, min, max, sum, mean, median, prod,</span>
+<span class="sd">            std, var, sem, kurt, skew }.</span>
+<span class="sd">        skipna : bool, default True</span>
+<span class="sd">            If True, skip NaN values.</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Additional keyword arguments passed to the reduction function.</span>
+<span class="sd">            Currently, `ddof` is the only supported kwarg.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        scalar</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        TypeError : subclass does not define reductions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">supported_kwargs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ddof&quot;</span><span class="p">]</span>
+        <span class="n">reducer_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">kw</span> <span class="ow">in</span> <span class="n">supported_kwargs</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">reducer_kwargs</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">TensorArrayElement</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">SUPPORTED_REDUCERS</span><span class="p">[</span><span class="n">name</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">reducer_kwargs</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; aggregate not implemented.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">__array__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__array_ufunc__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ufunc</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Supports NumPy ufuncs without requiring sloppy coercion to an</span>
+<span class="sd">        ndarray.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;out&quot;</span><span class="p">,</span> <span class="p">())</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">inputs</span> <span class="o">+</span> <span class="n">out</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">TensorArray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+        <span class="c1"># Defer to the implementation of the ufunc on unwrapped values.</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">_tensor</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">TensorArray</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">out</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">.</span><span class="n">_tensor</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">TensorArray</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">out</span>
+            <span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ufunc</span><span class="p">,</span> <span class="n">method</span><span class="p">)(</span><span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
+            <span class="c1"># Multiple return values.</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">result</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;at&quot;</span><span class="p">:</span>
+            <span class="c1"># No return value.</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># One return value.</span>
+            <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="n">result</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TensorArray.to_numpy"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.TensorArray.html#ray.data.extensions.tensor_extension.TensorArray.to_numpy">[docs]</a>    <span class="k">def</span> <span class="nf">to_numpy</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">copy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">na_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">no_default</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert to a NumPy ndarray.</span>
+
+<span class="sd">        .. versionadded:: 1.0.0</span>
+
+<span class="sd">        This is similar to :meth:`numpy.asarray`, but may provide additional</span>
+<span class="sd">        control over how the conversion is done.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dtype : str or numpy.dtype, optional</span>
+<span class="sd">            The dtype to pass to :meth:`numpy.asarray`.</span>
+<span class="sd">        copy : bool, default False</span>
+<span class="sd">            Whether to ensure that the returned value is a not a view on</span>
+<span class="sd">            another array. Note that ``copy=False`` does not *ensure* that</span>
+<span class="sd">            ``to_numpy()`` is no-copy. Rather, ``copy=True`` ensure that</span>
+<span class="sd">            a copy is made, even if not strictly necessary.</span>
+<span class="sd">        na_value : Any, optional</span>
+<span class="sd">            The value to use for missing values. The default value depends</span>
+<span class="sd">            on `dtype` and the type of the array.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">pandas_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">copy</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">copy</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span>
+        <span class="k">return</span> <span class="n">values</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">numpy_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the dtype of the tensor.</span>
+<span class="sd">        :return: The numpy dtype of the backing ndarray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">dtype</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">numpy_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the number of tensor dimensions.</span>
+<span class="sd">        :return: integer for the number of dimensions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">ndim</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">numpy_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the shape of the tensor.</span>
+<span class="sd">        :return: A tuple of integers for the numpy shape of the backing ndarray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">numpy_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the size of the tensor.</span>
+<span class="sd">        :return: integer for the number of elements in the tensor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">size</span>
+
+<div class="viewcode-block" id="TensorArray.astype"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.TensorArray.html#ray.data.extensions.tensor_extension.TensorArray.astype">[docs]</a>    <span class="k">def</span> <span class="nf">astype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cast to a NumPy array with &#39;dtype&#39;.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dtype : str or dtype</span>
+<span class="sd">            Typecode or data-type to which the array is cast.</span>
+<span class="sd">        copy : bool, default True</span>
+<span class="sd">            Whether to copy the data, even if not necessary. If False,</span>
+<span class="sd">            a copy is made only if the old dtype does not match the</span>
+<span class="sd">            new dtype.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        array : ndarray</span>
+<span class="sd">            NumPy ndarray with &#39;dtype&#39; for its dtype.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">pandas_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">TensorDtype</span><span class="p">):</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">TensorArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="bp">self</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_object_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_string_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">StringDtype</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">dtype</span><span class="o">.</span><span class="n">construct_array_type</span><span class="p">()</span><span class="o">.</span><span class="n">_from_sequence</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">values</span>
+        <span class="k">elif</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_object_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
+            <span class="c1"># Interpret astype(object) as &quot;cast to an array of numpy arrays&quot;</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+                <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">values</span></div>
+
+<div class="viewcode-block" id="TensorArray.any"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.TensorArray.html#ray.data.extensions.tensor_extension.TensorArray.any">[docs]</a>    <span class="k">def</span> <span class="nf">any</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test whether any array element along a given axis evaluates to True.</span>
+
+<span class="sd">        See numpy.any() documentation for more information</span>
+<span class="sd">        https://numpy.org/doc/stable/reference/generated/numpy.any.html#numpy.any</span>
+
+<span class="sd">        :param axis: Axis or axes along which a logical OR reduction is</span>
+<span class="sd">            performed.</span>
+<span class="sd">        :param out: Alternate output array in which to place the result.</span>
+<span class="sd">        :param keepdims: If this is set to True, the axes which are reduced are</span>
+<span class="sd">            left in the result as dimensions with size one.</span>
+<span class="sd">        :return: single boolean unless axis is not None else TensorArray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="n">keepdims</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">TensorArray</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TensorArray.all"><a class="viewcode-back" href="../../../../../data/api/doc/ray.data.extensions.tensor_extension.TensorArray.html#ray.data.extensions.tensor_extension.TensorArray.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test whether all array elements along a given axis evaluate to True.</span>
+
+<span class="sd">        :param axis: Axis or axes along which a logical AND reduction is</span>
+<span class="sd">            performed.</span>
+<span class="sd">        :param out: Alternate output array in which to place the result.</span>
+<span class="sd">        :param keepdims: If this is set to True, the axes which are reduced are</span>
+<span class="sd">            left in the result as dimensions with size one.</span>
+<span class="sd">        :return: single boolean unless axis is not None else TensorArray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="n">keepdims</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">TensorArray</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__arrow_array__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert this TensorArray to an ArrowTensorArray extension array.</span>
+
+<span class="sd">        This and TensorDtype.__from_arrow__ make up the</span>
+<span class="sd">        Pandas extension type + array &lt;--&gt; Arrow extension type + array</span>
+<span class="sd">        interoperability protocol. See</span>
+<span class="sd">        https://pandas.pydata.org/pandas-docs/stable/development/extending.html#compatibility-with-apache-arrow</span>
+<span class="sd">        for more information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">ray.air.util.tensor_extensions.arrow</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">ArrowTensorArray</span><span class="p">,</span>
+            <span class="n">ArrowVariableShapedTensorArray</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_variable_shaped</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ArrowVariableShapedTensorArray</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ArrowTensorArray</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tensor</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_is_boolean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Whether this extension array should be considered boolean.</span>
+
+<span class="sd">        By default, ExtensionArrays are assumed to be non-numeric.</span>
+<span class="sd">        Setting this to True will affect the behavior of several places,</span>
+<span class="sd">        e.g.</span>
+
+<span class="sd">        * is_bool</span>
+<span class="sd">        * boolean indexing</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># This is needed to support returning a TensorArray from .isnan().</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">_is_boolean</span><span class="p">()</span></div>
+
+
+<span class="c1"># Add operators from the mixin to the TensorArrayElement and TensorArray</span>
+<span class="c1"># classes.</span>
+<span class="n">TensorArrayElement</span><span class="o">.</span><span class="n">_add_arithmetic_ops</span><span class="p">()</span>
+<span class="n">TensorArrayElement</span><span class="o">.</span><span class="n">_add_comparison_ops</span><span class="p">()</span>
+<span class="n">TensorArrayElement</span><span class="o">.</span><span class="n">_add_logical_ops</span><span class="p">()</span>
+<span class="n">TensorArray</span><span class="o">.</span><span class="n">_add_arithmetic_ops</span><span class="p">()</span>
+<span class="n">TensorArray</span><span class="o">.</span><span class="n">_add_comparison_ops</span><span class="p">()</span>
+<span class="n">TensorArray</span><span class="o">.</span><span class="n">_add_logical_ops</span><span class="p">()</span>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">column_needs_tensor_extension</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return whether the provided pandas Series column needs a tensor extension</span>
+<span class="sd">    representation. This tensor extension representation provides more efficient slicing</span>
+<span class="sd">    and interop with ML frameworks.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        s: The pandas Series column that may need to be represented using the tensor</span>
+<span class="sd">            extension.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Whether the provided Series needs a tensor extension representation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># NOTE: This is an O(1) check.</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">object_</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">s</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

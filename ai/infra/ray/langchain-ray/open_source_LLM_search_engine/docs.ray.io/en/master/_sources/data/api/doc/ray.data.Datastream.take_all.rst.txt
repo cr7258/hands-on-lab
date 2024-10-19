@@ -1,0 +1,6 @@
+ray.data.Datastream.take\_all
+=============================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.take_all

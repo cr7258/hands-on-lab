@@ -1,0 +1,6 @@
+ray.data.Datastream.show
+========================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.show

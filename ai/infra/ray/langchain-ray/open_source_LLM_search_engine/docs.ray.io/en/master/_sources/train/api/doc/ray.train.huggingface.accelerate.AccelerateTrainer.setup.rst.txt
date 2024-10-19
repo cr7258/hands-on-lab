@@ -1,0 +1,6 @@
+ray.train.huggingface.accelerate.AccelerateTrainer.setup
+========================================================
+
+.. currentmodule:: ray.train.huggingface.accelerate
+
+.. automethod:: AccelerateTrainer.setup

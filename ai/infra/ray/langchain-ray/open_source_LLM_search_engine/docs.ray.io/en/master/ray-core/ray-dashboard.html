@@ -1,0 +1,1490 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Ray Dashboard &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/versionwarning.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../_static/js/docsearch.js"></script>
+    <script src="../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../_static/js/termynal.js"></script>
+    <script defer="defer" src="../_static/js/custom.js"></script>
+    <script defer="defer" src="../_static/js/top-navigation.js"></script>
+    <script src="../_static/js/tags.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script async="async" src="../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/ray-core/ray-dashboard.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Monitoring Ray States" href="../ray-observability/state/state-api.html" />
+    <link rel="prev" title="Overview" href="../ray-observability/overview.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:31:45Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "ray-core/ray-dashboard", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/overview.html">
+     Overview
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="ray-dashboard.html#">
+     Ray Dashboard
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/state/state-api.html">
+     Monitoring Ray States
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/ray-debugging.html">
+     Ray Debugger
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/ray-logging.html">
+     Logging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ray-metrics.html">
+     Metrics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/monitoring-debugging/profiling.html">
+     Profiling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/ray-tracing.html">
+     Tracing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/monitoring-debugging/troubleshoot-failures.html">
+     Troubleshooting Failures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/monitoring-debugging/troubleshoot-hangs.html">
+     Troubleshooting Hangs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/monitoring-debugging/troubleshoot-performance.html">
+     Troubleshooting Performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/monitoring-debugging/gotchas.html">
+     Ray Gotchas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-observability/monitoring-debugging/getting-help.html">
+     Getting Help
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-contribute/debugging.html">
+     Debugging (internal)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-contribute/profiling.html">
+     Profiling (internal)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2Fray-core/ray-dashboard.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/edit/master/doc/source/ray-core/ray-dashboard.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/ray-core/ray-dashboard.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#common-workflows">
+   Common Workflows
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#getting-started">
+   Getting Started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#how-to-guides">
+   How to Guides
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#view-the-application-logs-and-errors">
+     View the application logs and errors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#analyze-the-cpu-and-memory-usage-of-tasks-and-actors">
+     Analyze the CPU and memory usage of tasks and actors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#view-the-resource-utilization">
+     View the Resource Utilization
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#jobs-view">
+   Jobs View
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#job-profiling">
+     Job Profiling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#advanced-task-and-actor-breakdown">
+     Advanced Task and Actor Breakdown
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#task-timeline">
+     Task Timeline
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#ray-status">
+     Ray Status
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#task-table-actor-table-placement-group-table">
+     Task Table, Actor Table, Placement Group Table
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#serve-view">
+   Serve View
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#serve-application-detail-page">
+     Serve Application Detail Page
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#serve-replica-detail-page">
+     Serve Replica Detail Page
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#serve-metrics">
+     Serve Metrics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#cluster-view">
+   Cluster View
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#actors-view">
+   Actors View
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#actor-profiling">
+     Actor Profiling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#actor-detail-page">
+     Actor Detail Page
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#metrics-view">
+   Metrics View
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#logs-view">
+   Logs View
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#advanced-usage">
+   Advanced Usage
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#changing-dashboard-ports">
+     Changing Dashboard Ports
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#viewing-built-in-dashboard-api-metrics">
+     Viewing Built-in Dashboard API Metrics
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#running-behind-a-reverse-proxy">
+     Running Behind a Reverse Proxy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#disabling-the-dashboard">
+     Disabling the Dashboard
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#page-references">
+   Page References
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#id3">
+     Cluster View
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#id4">
+     Jobs View
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#actors">
+     Actors
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#resources">
+   Resources
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Ray Dashboard</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#common-workflows">
+   Common Workflows
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#getting-started">
+   Getting Started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#how-to-guides">
+   How to Guides
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#view-the-application-logs-and-errors">
+     View the application logs and errors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#analyze-the-cpu-and-memory-usage-of-tasks-and-actors">
+     Analyze the CPU and memory usage of tasks and actors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#view-the-resource-utilization">
+     View the Resource Utilization
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#jobs-view">
+   Jobs View
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#job-profiling">
+     Job Profiling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#advanced-task-and-actor-breakdown">
+     Advanced Task and Actor Breakdown
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#task-timeline">
+     Task Timeline
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#ray-status">
+     Ray Status
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#task-table-actor-table-placement-group-table">
+     Task Table, Actor Table, Placement Group Table
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#serve-view">
+   Serve View
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#serve-application-detail-page">
+     Serve Application Detail Page
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#serve-replica-detail-page">
+     Serve Replica Detail Page
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#serve-metrics">
+     Serve Metrics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#cluster-view">
+   Cluster View
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#actors-view">
+   Actors View
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#actor-profiling">
+     Actor Profiling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#actor-detail-page">
+     Actor Detail Page
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#metrics-view">
+   Metrics View
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#logs-view">
+   Logs View
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#advanced-usage">
+   Advanced Usage
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#changing-dashboard-ports">
+     Changing Dashboard Ports
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#viewing-built-in-dashboard-api-metrics">
+     Viewing Built-in Dashboard API Metrics
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#running-behind-a-reverse-proxy">
+     Running Behind a Reverse Proxy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#disabling-the-dashboard">
+     Disabling the Dashboard
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#page-references">
+   Page References
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#id3">
+     Cluster View
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#id4">
+     Jobs View
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-dashboard.html#actors">
+     Actors
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-dashboard.html#resources">
+   Resources
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="ray-dashboard">
+<span id="id1"></span><h1>Ray Dashboard<a class="headerlink" href="ray-dashboard.html#ray-dashboard" title="Permalink to this headline">#</a></h1>
+<p>Ray provides a web-based dashboard for monitoring and debugging Ray applications.
+The dashboard provides a visual representation of the system state, allowing users to track the performance
+of their applications and troubleshoot issues.</p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+    <iframe src="https://www.youtube.com/embed/VPksEcjACOM" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+</div><section id="common-workflows">
+<h2>Common Workflows<a class="headerlink" href="ray-dashboard.html#common-workflows" title="Permalink to this headline">#</a></h2>
+<p>Here are common workflows when using the Ray dashboard.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="ray-dashboard.html#dash-metrics-view"><span class="std std-ref">View the metrics graphs</span></a>.</p></li>
+<li><p><a class="reference internal" href="ray-dashboard.html#dash-workflow-job-progress"><span class="std std-ref">View the progress of your job</span></a>.</p></li>
+<li><p><a class="reference internal" href="ray-dashboard.html#dash-workflow-logs"><span class="std std-ref">Find the application logs or error messages of failed tasks or actors</span></a>.</p></li>
+<li><p><a class="reference internal" href="../ray-observability/monitoring-debugging/profiling.html#dashboard-profiling"><span class="std std-ref">Profile, trace dump, and visualize the timeline of the Ray jobs, tasks, or actors</span></a>.</p></li>
+<li><p><a class="reference internal" href="ray-dashboard.html#dash-workflow-cpu-memory-analysis"><span class="std std-ref">Analyze the CPU and memory usage of the cluster, tasks and actors</span></a>.</p></li>
+<li><p><a class="reference internal" href="ray-dashboard.html#dash-workflow-state-apis"><span class="std std-ref">View the individual state of task, actor, placement group</span></a>, and <a class="reference internal" href="ray-dashboard.html#dash-node-view"><span class="std std-ref">nodes (machines from a cluster)</span></a> which is equivalent to <a class="reference internal" href="../ray-observability/state/state-api.html#state-api-overview-ref"><span class="std std-ref">Ray state APIs</span></a>.</p></li>
+<li><p><a class="reference internal" href="ray-dashboard.html#dash-workflow-resource-utilization"><span class="std std-ref">View the hardware utilization (CPU, GPU, memory)</span></a>.</p></li>
+</ul>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="ray-dashboard.html#getting-started" title="Permalink to this headline">#</a></h2>
+<p>To use the dashboard, you should use the <code class="xref py py-obj docutils literal notranslate"><span class="pre">ray[default]</span></code> installation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -U <span class="s2">&quot;ray[default]&quot;</span>
+</pre></div>
+</div>
+<p>You can access the dashboard through a URL printed when Ray is initialized (the default URL is <strong>http://localhost:8265</strong>) or via the context object returned from <a class="reference internal" href="api/doc/ray.init.html#ray.init" title="ray.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray.init</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">context</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">dashboard_url</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>INFO worker.py:1487 -- Connected to Ray cluster. View the dashboard at 127.0.0.1:8265.
+</pre></div>
+</div>
+<p>Ray cluster comes with the dashboard. See <a class="reference internal" href="../cluster/running-applications/monitoring-and-observability.html#monitor-cluster-via-dashboard"><span class="std std-ref">Cluster Monitoring</span></a> for more details.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using the Ray dashboard, it is highly recommended to also set up Prometheus and Grafana.
+They are necessary for critical features such as <a class="reference internal" href="ray-dashboard.html#dash-metrics-view"><span class="std std-ref">Metrics View</span></a>.
+See <a class="reference internal" href="ray-metrics.html#ray-metrics"><span class="std std-ref">Ray Metrics</span></a> to learn how to set up Prometheus and Grafana.</p>
+</div>
+</section>
+<section id="how-to-guides">
+<h2>How to Guides<a class="headerlink" href="ray-dashboard.html#how-to-guides" title="Permalink to this headline">#</a></h2>
+<section id="view-the-application-logs-and-errors">
+<span id="dash-workflow-logs"></span><h3>View the application logs and errors<a class="headerlink" href="ray-dashboard.html#view-the-application-logs-and-errors" title="Permalink to this headline">#</a></h3>
+<p><strong>Driver Logs</strong></p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/log_button_at_job.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/log_button_at_job.png" />
+<p>If the Ray job is submitted by <a class="reference internal" href="../cluster/running-applications/job-submission/quickstart.html#jobs-quickstart"><span class="std std-ref">Ray job API</span></a>, the job logs are available from the dashboard. The log file follows the following format; <code class="docutils literal notranslate"><span class="pre">job-driver-&lt;job_submission_id&gt;.log</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the driver is executed directly on the head node of the Ray cluster (without the job API) or run via <a class="reference internal" href="../cluster/running-applications/job-submission/ray-client.html#ray-client-ref"><span class="std std-ref">Ray client</span></a>, the driver logs are not accessible from the dashboard. In this case, see the terminal output to view the driver logs.</p>
+</div>
+<p><strong>Task and Actor Logs</strong></p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/actor_log.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/actor_log.png" />
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/task_log.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/task_log.png" />
+<p>Task and actor logs are accessible from the <a class="reference internal" href="ray-dashboard.html#dash-workflow-state-apis"><span class="std std-ref">task and actor table view</span></a>. Click the log button.
+You can see the worker logs (<code class="docutils literal notranslate"><span class="pre">worker-[worker_id]-[job_id]-[pid].[out|err]</span></code>) that execute the task and actor. <code class="docutils literal notranslate"><span class="pre">.out</span></code> (stdout) and <code class="docutils literal notranslate"><span class="pre">.err</span></code> (stderr) logs contain the logs emitted from the tasks and actors.
+The core worker logs (<code class="docutils literal notranslate"><span class="pre">python-core-worker-[worker_id]_[pid].log</span></code>) contain the system-level logs for the corresponding worker.</p>
+<p><strong>Task and Actor Errors</strong></p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/failed_task_progress-bar.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/failed_task_progress-bar.png" />
+<p>You can easily identify failed tasks or actors by looking at the job progress bar, which links to the table.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/task_error_button.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/task_error_button.png" />
+<p>The table displays the name of the failed tasks or actors and provides access to their corresponding log or error messages.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/task_error_box.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/task_error_box.png" />
+</section>
+<section id="analyze-the-cpu-and-memory-usage-of-tasks-and-actors">
+<span id="dash-workflow-cpu-memory-analysis"></span><h3>Analyze the CPU and memory usage of tasks and actors<a class="headerlink" href="ray-dashboard.html#analyze-the-cpu-and-memory-usage-of-tasks-and-actors" title="Permalink to this headline">#</a></h3>
+<p>The <a class="reference internal" href="ray-dashboard.html#dash-metrics-view"><span class="std std-ref">Metrics View</span></a> in the Ray dashboard provides a “per-component CPU/memory usage graph” that displays CPU and memory usage over time for each task and actor in the application (as well as system components).
+This allows users to identify tasks and actors that may be consuming more resources than expected and optimize the performance of the application.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/node_cpu_by_comp.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/node_cpu_by_comp.png" />
+<p>Per component CPU graph. 0.379 cores mean that it uses 40% of a single CPU core. Ray process names start with <code class="docutils literal notranslate"><span class="pre">ray::</span></code>. <code class="docutils literal notranslate"><span class="pre">raylet</span></code>, <code class="docutils literal notranslate"><span class="pre">agent</span></code>, <code class="docutils literal notranslate"><span class="pre">dashboard</span></code>, or <code class="docutils literal notranslate"><span class="pre">gcs</span></code> are system components.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/node_memory_by_comp.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/node_memory_by_comp.png" />
+<p>Per component memory graph. Ray process names start with <code class="docutils literal notranslate"><span class="pre">ray::</span></code>. <code class="docutils literal notranslate"><span class="pre">raylet</span></code>, <code class="docutils literal notranslate"><span class="pre">agent</span></code>, <code class="docutils literal notranslate"><span class="pre">dashboard</span></code>, or <code class="docutils literal notranslate"><span class="pre">gcs</span></code> are system components.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/cluster_page.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/cluster_page.png" />
+<p>Additionally, users can see a snapshot of hardware utilization from the <a class="reference internal" href="ray-dashboard.html#dash-node-view"><span class="std std-ref">cluster page</span></a>, which provides an overview of resource usage across the entire Ray cluster.</p>
+</section>
+<section id="view-the-resource-utilization">
+<span id="dash-workflow-resource-utilization"></span><h3>View the Resource Utilization<a class="headerlink" href="ray-dashboard.html#view-the-resource-utilization" title="Permalink to this headline">#</a></h3>
+<p>Ray requires users to specify the number of <a class="reference internal" href="scheduling/resources.html#logical-resources"><span class="std std-ref">resources</span></a> their tasks and actors will use through arguments such as <code class="docutils literal notranslate"><span class="pre">num_cpus</span></code>, <code class="docutils literal notranslate"><span class="pre">num_gpus</span></code>, <code class="docutils literal notranslate"><span class="pre">memory</span></code>, and <code class="docutils literal notranslate"><span class="pre">resource</span></code>.
+These values are used for scheduling, but may not always match the actual resource utilization (physical resource utilization).</p>
+<ul class="simple">
+<li><p>You can see the logical and physical resource utilization over time from the <a class="reference internal" href="ray-dashboard.html#dash-metrics-view"><span class="std std-ref">Metrics View</span></a>.</p></li>
+<li><p>The snapshot of physical resource utilization (CPU, GPU, memory, disk, network) is also available from the <a class="reference internal" href="ray-dashboard.html#dash-node-view"><span class="std std-ref">Cluster View</span></a>.</p></li>
+</ul>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/logical_resource.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/logical_resource.png" />
+<p>The <a class="reference internal" href="scheduling/resources.html#logical-resources"><span class="std std-ref">logical resources</span></a> usage.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/physical_resource.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/physical_resource.png" />
+<p>The physical resources (hardware) usage. Ray provides CPU, GPU, Memory, GRAM, disk, and network usage for each machine in a cluster.</p>
+</section>
+</section>
+<section id="overview">
+<span id="dash-overview"></span><h2>Overview<a class="headerlink" href="ray-dashboard.html#overview" title="Permalink to this headline">#</a></h2>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/overview-page.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/overview-page.png" />
+<p>The overview page provides a high-level status of the Ray cluster.</p>
+<p><strong>Overview Metrics</strong></p>
+<p>The Overview Metrics page provides the cluster-level hardware utilization and autoscaling status (number of pending, active, and failed nodes).</p>
+<p><strong>Recent Jobs</strong></p>
+<p>The Recent Jobs card provides a list of recently submitted Ray jobs.</p>
+<p id="dash-event"><strong>Event View</strong></p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/event-page.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/event-page.png" />
+<p>The Event View displays a list of events associated with a specific type (e.g., autoscaler or job) in chronological order. The same information is accessible with the <code class="docutils literal notranslate"><span class="pre">ray</span> <span class="pre">list</span> <span class="pre">cluster-events</span></code> <a class="reference internal" href="../ray-observability/state/state-api.html#state-api-overview-ref"><span class="std std-ref">(Ray state APIs)</span></a> CLI commands .</p>
+<p>Two types of events are available.</p>
+<ul class="simple">
+<li><p>Job: Events related to <a class="reference internal" href="../cluster/running-applications/job-submission/quickstart.html#jobs-quickstart"><span class="std std-ref">Ray job submission APIs</span></a>.</p></li>
+<li><p>Autoscaler: Events related to the <a class="reference internal" href="../cluster/key-concepts.html#cluster-autoscaler"><span class="std std-ref">Ray autoscaler</span></a>.</p></li>
+</ul>
+</section>
+<section id="jobs-view">
+<span id="dash-jobs-view"></span><h2>Jobs View<a class="headerlink" href="ray-dashboard.html#jobs-view" title="Permalink to this headline">#</a></h2>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/jobs.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/jobs.png" />
+<p>The Jobs View lets you monitor the different jobs that ran on your Ray cluster.</p>
+<p>A job is a ray workload that uses Ray APIs (e.g., <code class="docutils literal notranslate"><span class="pre">ray.init</span></code>). It can be submitted directly (e.g., by executing a Python script within a head node) or via <a class="reference internal" href="../cluster/running-applications/job-submission/quickstart.html#jobs-quickstart"><span class="std std-ref">Ray job API</span></a>.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/job_list.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/job_list.png" />
+<p>The job page displays a list of active, finished, and failed jobs, and clicking on an ID allows users to view detailed information about that job.
+For more information on Ray jobs, see the Ray Job Overview section.</p>
+<section id="job-profiling">
+<h3>Job Profiling<a class="headerlink" href="ray-dashboard.html#job-profiling" title="Permalink to this headline">#</a></h3>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/profile-job.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/profile-job.png" />
+<p>You can profile Ray jobs by clicking on the “Stack Trace” or “CPU Flame Graph” actions. See the <a class="reference internal" href="../ray-observability/monitoring-debugging/profiling.html#dashboard-profiling"><span class="std std-ref">Dashboard Profiling</span></a> for more details.</p>
+</section>
+<section id="advanced-task-and-actor-breakdown">
+<span id="dash-workflow-job-progress"></span><h3>Advanced Task and Actor Breakdown<a class="headerlink" href="ray-dashboard.html#advanced-task-and-actor-breakdown" title="Permalink to this headline">#</a></h3>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/advanced-progress.png" class="align-left" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/advanced-progress.png" />
+<p>The job page allows you to see tasks and actors broken down by their states.
+Tasks and actors are grouped and nested by default. You can see the nested entries by clicking the expand button.</p>
+<p>Tasks and actors are grouped and nested by the following criteria.</p>
+<ul class="simple">
+<li><p>All tasks and actors are grouped together, and you can view individual entries by expanding the corresponding row.</p></li>
+<li><p>Tasks are grouped by their <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute (e.g., <code class="docutils literal notranslate"><span class="pre">task.options(name=&quot;&lt;name_here&gt;&quot;).remote()</span></code>).</p></li>
+<li><p>Child tasks (nested tasks) are nested under their parent task’s row.</p></li>
+<li><p>Actors are grouped by their class name.</p></li>
+<li><p>Child actors (actors created within an actor) are nested under their parent actor’s row.</p></li>
+<li><p>Actor tasks (remote methods within an actor) are nested under the actor for the corresponding actor method.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ray dashboard can only display or retrieve up to 10K tasks at a time. If there are more than 10K tasks from your job,
+they are unaccounted. The number of unaccounted tasks is available from the task breakdown.</p>
+</div>
+</section>
+<section id="task-timeline">
+<h3>Task Timeline<a class="headerlink" href="ray-dashboard.html#task-timeline" title="Permalink to this headline">#</a></h3>
+<p>The <a class="reference internal" href="../ray-observability/monitoring-debugging/profiling.html#ray-core-timeline"><span class="std std-ref">timeline API</span></a> is available from the dashboard.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/profile-button.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/profile-button.png" />
+<p>First, you can download the chrome tracing file by clicking the download button.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/profile_drag.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/profile_drag.png" />
+<p>Second, you can use tools like <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code> or the <a class="reference external" href="https://ui.perfetto.dev/">Perfetto UI</a> and drop the downloaded chrome tracing file. We will use the Perfetto as it is the recommendation way to visualize chrome tracing files.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/timeline.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/timeline.png" />
+<p>Now, you can see the timeline visualization of Ray tasks and actors. There are Node rows (hardware) and Worker rows (processes).
+Each worker rows display a list of events (e.g., task scheduled, task running, input/output deserialization, etc.) happening from that worker over time.</p>
+</section>
+<section id="ray-status">
+<h3>Ray Status<a class="headerlink" href="ray-dashboard.html#ray-status" title="Permalink to this headline">#</a></h3>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/ray-status.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/ray-status.png" />
+<p>The job page displays the output of the CLI tool <code class="docutils literal notranslate"><span class="pre">ray</span> <span class="pre">status</span></code>, which shows the autoscaler status of the Ray cluster.</p>
+<p>The left page shows the autoscaling status, including pending, active, and failed nodes.
+The right page displays the cluster’s demands, which are resources that cannot be scheduled to the cluster at the moment. This page is useful for debugging resource deadlocks or slow scheduling.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The output shows the aggregated information across the cluster (not by job). If you run more than one job, some of the demands may come from other jobs.</p>
+</div>
+</section>
+<section id="task-table-actor-table-placement-group-table">
+<span id="dash-workflow-state-apis"></span><h3>Task Table, Actor Table, Placement Group Table<a class="headerlink" href="ray-dashboard.html#task-table-actor-table-placement-group-table" title="Permalink to this headline">#</a></h3>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/tables.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/tables.png" />
+<p>The dashboard shows a table with the status of the job’s tasks, actors, and placement groups.
+You get the same information from the <a class="reference internal" href="../ray-observability/state/state-api.html#state-api-overview-ref"><span class="std std-ref">Ray state APIs</span></a>.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/task-table.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/task-table.png" />
+<p>You can expand the table to see a list of each task, actor, and placement group.</p>
+</section>
+</section>
+<section id="serve-view">
+<span id="dash-serve-view"></span><h2>Serve View<a class="headerlink" href="ray-dashboard.html#serve-view" title="Permalink to this headline">#</a></h2>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/serve.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/serve.png" />
+<p>The Serve view lets you monitor the status of your <a class="reference internal" href="../serve/index.html#rayserve"><span class="std std-ref">Ray Serve</span></a> applications.</p>
+<p>The initial page showcases your general Serve configurations, a list of the Serve applications, and, if you have <a class="reference internal" href="ray-metrics.html#ray-metrics"><span class="std std-ref">Grafana and Prometheus</span></a> configured, some high-level
+metrics of all your Serve applications. Click the name of a Serve application to go to the Serve Application Detail Page.</p>
+<section id="serve-application-detail-page">
+<h3>Serve Application Detail Page<a class="headerlink" href="ray-dashboard.html#serve-application-detail-page" title="Permalink to this headline">#</a></h3>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/serve-application.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/serve-application.png" />
+<p>This page shows the Serve application’s configurations and metadata. It also lists the <a class="reference internal" href="../serve/key-concepts.html#serve-key-concepts-deployment"><span class="std std-ref">Serve deployments and replicas</span></a>.
+Click the expand button of a deployment to see all the replicas in that deployment.</p>
+<p>For each deployment, there are two available actions. You can view the Deployment config and, if you configured <a class="reference internal" href="ray-metrics.html#ray-metrics"><span class="std std-ref">Grafana and Prometheus</span></a>, you can open
+a Grafana dashboard with detailed metrics about that deployment.</p>
+<p>For each replica, there are two available actions. You can see the logs of that replica and, if you configured <a class="reference internal" href="ray-metrics.html#ray-metrics"><span class="std std-ref">Grafana and Prometheus</span></a>, you can open
+a Grafana dashboard with detailed metrics about that replica. Click on the replica name to go to the Serve Replica Detail Page.</p>
+</section>
+<section id="serve-replica-detail-page">
+<h3>Serve Replica Detail Page<a class="headerlink" href="ray-dashboard.html#serve-replica-detail-page" title="Permalink to this headline">#</a></h3>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/serve-replica.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/serve-replica.png" />
+<p>This page shows metadata about the Serve replica, high-level metrics about the replica if you configured <a class="reference internal" href="ray-metrics.html#ray-metrics"><span class="std std-ref">Grafana and Prometheus</span></a>, and
+a history of completed <a class="reference internal" href="key-concepts.html#core-key-concepts"><span class="std std-ref">tasks</span></a> of that replica.</p>
+</section>
+<section id="serve-metrics">
+<h3>Serve Metrics<a class="headerlink" href="ray-dashboard.html#serve-metrics" title="Permalink to this headline">#</a></h3>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/serve-metrics.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/serve-metrics.png" />
+<p>Ray serve exports various time-series metrics to understand the status of your Serve application over time. More details of these metrics can be found <a class="reference internal" href="../serve/production-guide/monitoring.html#serve-production-monitoring-metrics"><span class="std std-ref">here</span></a>.
+In order to store and visualize these metrics, you must set up Prometheus and Grafana by following the instructions <a class="reference internal" href="ray-metrics.html#ray-metrics"><span class="std std-ref">here</span></a>.</p>
+<p>These metrics are available in the Ray dashboard in the Serve page and the Serve Replica Detail page. They are also accessible as Grafana dashboards.
+Within the Grafana dashboard, use the dropdown filters on the top to filter metrics by route, deployment, or replica. Exact descriptions
+of each graph are available by hovering over the “info” icon on the top left of each graph.</p>
+</section>
+</section>
+<section id="cluster-view">
+<span id="dash-node-view"></span><h2>Cluster View<a class="headerlink" href="ray-dashboard.html#cluster-view" title="Permalink to this headline">#</a></h2>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard/nodes-view-expand.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard/nodes-view-expand.png" />
+<p>The cluster view visualizes hierarchical relationship of
+machines (nodes) and workers (processes). Each host consists of many workers, and
+you can see them by clicking the + button. This also shows the assignment of GPU resources to specific actors or tasks.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard/node-detail.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard/node-detail.png" />
+<p>You can also click the node id to go into a node detail page where you can see more information.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/machine-view-log.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/machine-view-log.png" />
+<p>In addition, the machine view lets you see <strong>logs</strong> for a node or a worker.</p>
+</section>
+<section id="actors-view">
+<span id="dash-actors-view"></span><h2>Actors View<a class="headerlink" href="ray-dashboard.html#actors-view" title="Permalink to this headline">#</a></h2>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/actor-page.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/actor-page.png" />
+<p>The Actors view lets you see information about the actors that have existed on the ray cluster.</p>
+<p>You can view the logs for an actor and you can see which job created the actor.
+The information of up to 1000 dead actors will be stored.
+This value can be overridden by using the <code class="xref py py-obj docutils literal notranslate"><span class="pre">RAY_DASHBOARD_MAX_ACTORS_TO_CACHE</span></code> environment variable
+when starting Ray.</p>
+<section id="actor-profiling">
+<h3>Actor Profiling<a class="headerlink" href="ray-dashboard.html#actor-profiling" title="Permalink to this headline">#</a></h3>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/actor-profiling.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/actor-profiling.png" />
+<p>You can also run the profiler on a running actor. See <a class="reference internal" href="../ray-observability/monitoring-debugging/profiling.html#dashboard-profiling"><span class="std std-ref">Dashboard Profiling</span></a> for more details.</p>
+</section>
+<section id="actor-detail-page">
+<h3>Actor Detail Page<a class="headerlink" href="ray-dashboard.html#actor-detail-page" title="Permalink to this headline">#</a></h3>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/actor-list-id.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/actor-list-id.png" />
+<p>By clicking the ID, you can also see the detail view of the actor.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/actor-detail.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard-v2/dashboard-pics/actor-detail.png" />
+<p>From the actor detail page, you can see the metadata, state, and the all tasks that have run from this actor.</p>
+</section>
+</section>
+<section id="metrics-view">
+<span id="dash-metrics-view"></span><h2>Metrics View<a class="headerlink" href="ray-dashboard.html#metrics-view" title="Permalink to this headline">#</a></h2>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard/metrics.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard/metrics.png" />
+<p>Ray exports default metrics which are available from the <a class="reference internal" href="ray-dashboard.html#dash-metrics-view"><span class="std std-ref">Metrics View</span></a>. Here are some available example metrics.</p>
+<ul class="simple">
+<li><p>The tasks, actors, and placement groups broken down by states.</p></li>
+<li><p>The <a class="reference internal" href="scheduling/resources.html#logical-resources"><span class="std std-ref">logical resource usage</span></a> across nodes.</p></li>
+<li><p>The hardware resource usage across nodes.</p></li>
+<li><p>The autoscaler status.</p></li>
+</ul>
+<p>See <a class="reference internal" href="ray-metrics.html#system-metrics"><span class="std std-ref">System Metrics Page</span></a> for available metrics.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The metrics view required the Prometheus and Grafana setup. See <a class="reference internal" href="ray-metrics.html#ray-metrics"><span class="std std-ref">Ray Metrics</span></a> to learn how to set up Prometheus and Grafana.</p>
+</div>
+<p>The metrics view lets you view visualizations of the time series metrics emitted by Ray.</p>
+<p>You can select the time range of the metrics in the top right corner. The graphs refresh automatically every 15 seconds.</p>
+<p>There is also a convenient button to open the grafana UI from the dashboard. The Grafana UI provides additional customizability of the charts.</p>
+</section>
+<section id="logs-view">
+<span id="dash-logs-view"></span><h2>Logs View<a class="headerlink" href="ray-dashboard.html#logs-view" title="Permalink to this headline">#</a></h2>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard/logs.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard/logs.png" />
+<p>The logs view lets you view all the ray logs that are in your cluster. It is organized by node and log file name. Many log links in the other pages link to this view and filter the list so the relevant logs appear.</p>
+<p>To understand the log file structure of Ray, see the <a class="reference internal" href="../ray-observability/ray-logging.html#id1"><span class="std std-ref">Logging directory structure page</span></a>.</p>
+<img alt="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard/logs-content.png" class="align-center" src="https://raw.githubusercontent.com/ray-project/Images/master/docs/new-dashboard/logs-content.png" />
+<p>The logs view provides search functionality to help you find specific log messages.</p>
+</section>
+<section id="advanced-usage">
+<h2>Advanced Usage<a class="headerlink" href="ray-dashboard.html#advanced-usage" title="Permalink to this headline">#</a></h2>
+<section id="changing-dashboard-ports">
+<h3>Changing Dashboard Ports<a class="headerlink" href="ray-dashboard.html#changing-dashboard-ports" title="Permalink to this headline">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+Single-node local cluster</label><div class="sd-tab-content docutils">
+<p><strong>CLI</strong></p>
+<p>To customize the port on which the dashboard runs, you can pass
+the <code class="docutils literal notranslate"><span class="pre">--dashboard-port</span></code> argument with <code class="docutils literal notranslate"><span class="pre">ray</span> <span class="pre">start</span></code> in the command line.</p>
+<p><strong>ray.init</strong></p>
+<p>If you need to customize the port on which the dashboard will run, you can pass the
+keyword argument <code class="docutils literal notranslate"><span class="pre">dashboard_port</span></code> in your call to <code class="docutils literal notranslate"><span class="pre">ray.init()</span></code>.</p>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+VM Cluster Launcher</label><div class="sd-tab-content docutils">
+<p>To disable the dashboard while using the “VM cluster launcher”, include the “ray start –head –include-dashboard=False” argument
+and specify the desired port number in the “head_start_ray_commands” section of the <a class="reference external" href="https://github.com/ray-project/ray/blob/0574620d454952556fa1befc7694353d68c72049/python/ray/autoscaler/aws/example-full.yaml#L172">cluster launcher’s YAML file</a>.</p>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+Kuberay</label><div class="sd-tab-content docutils">
+<p>See the <a class="reference external" href="https://docs.ray.io/en/latest/cluster/kubernetes/user-guides/config.html#specifying-non-default-ports">Specifying non-default ports</a> page.</p>
+</div>
+</div>
+</section>
+<section id="viewing-built-in-dashboard-api-metrics">
+<h3>Viewing Built-in Dashboard API Metrics<a class="headerlink" href="ray-dashboard.html#viewing-built-in-dashboard-api-metrics" title="Permalink to this headline">#</a></h3>
+<p>The dashboard is powered by a server that serves both the UI code and the data about the cluster via API endpoints.
+There are basic Prometheus metrics that are emitted for each of these API endpoints:</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_dashboard_api_requests_count_requests_total</span></code>: Collects the total count of requests. This is tagged by endpoint, method, and http_status.</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ray_dashboard_api_requests_duration_seconds_bucket</span></code>: Collects the duration of requests. This is tagged by endpoint and method.</p>
+<p>For example, you can view the p95 duration of all requests with this query:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>histogram_quantile(0.95, sum(rate(ray_dashboard_api_requests_duration_seconds_bucket[5m])) by (le))
+</pre></div>
+</div>
+<p>These metrics can be queried via Prometheus or Grafana UI. Instructions on how to set these tools up can be found <a class="reference internal" href="ray-metrics.html#ray-metrics"><span class="std std-ref">here</span></a>.</p>
+</section>
+<section id="running-behind-a-reverse-proxy">
+<h3>Running Behind a Reverse Proxy<a class="headerlink" href="ray-dashboard.html#running-behind-a-reverse-proxy" title="Permalink to this headline">#</a></h3>
+<p>The dashboard should work out-of-the-box when accessed via a reverse proxy. API requests don’t need to be proxied individually.</p>
+<p>Always access the dashboard with a trailing <code class="docutils literal notranslate"><span class="pre">/</span></code> at the end of the URL.
+For example, if your proxy is set up to handle requests to <code class="docutils literal notranslate"><span class="pre">/ray/dashboard</span></code>, view the dashboard at <code class="docutils literal notranslate"><span class="pre">www.my-website.com/ray/dashboard/</span></code>.</p>
+<p>The dashboard now sends HTTP requests with relative URL paths. Browsers will handle these requests as expected when the <code class="docutils literal notranslate"><span class="pre">window.location.href</span></code> ends in a trailing <code class="docutils literal notranslate"><span class="pre">/</span></code>.</p>
+<p>This is a peculiarity of how many browsers handle requests with relative URLs, despite what <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_URL#examples_of_relative_urls">MDN</a>
+defines as the expected behavior.</p>
+<p>Make your dashboard visible without a trailing <code class="docutils literal notranslate"><span class="pre">/</span></code> by including a rule in your reverse proxy that
+redirects the user’s browser to <code class="docutils literal notranslate"><span class="pre">/</span></code>, i.e. <code class="docutils literal notranslate"><span class="pre">/ray/dashboard</span></code> –&gt; <code class="docutils literal notranslate"><span class="pre">/ray/dashboard/</span></code>.</p>
+<p>Below is an example with a <a class="reference external" href="https://doc.traefik.io/traefik/getting-started/quick-start/">traefik</a> TOML file that accomplishes this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">[</span><span class="nv">http</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">[</span><span class="nv">http.routers</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">[</span><span class="nv">http.routers.to-dashboard</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">rule = &quot;PathPrefix(`/ray/dashboard`)&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">middlewares = [&quot;test-redirectregex&quot;, &quot;strip&quot;]</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">service = &quot;dashboard&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">[http.middlewares]</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">[http.middlewares.test-redirectregex.redirectRegex]</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">regex = &quot;^(.*)/ray/dashboard$&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">replacement = &quot;${1}/ray/dashboard/&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">[http.middlewares.strip.stripPrefix]</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">prefixes = [&quot;/ray/dashboard&quot;]</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">[http.services]</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">[http.services.dashboard.loadBalancer]</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">[[http.services.dashboard.loadBalancer.servers]]</span><span class="w"></span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">url = &quot;http://localhost:8265&quot;</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="disabling-the-dashboard">
+<h3>Disabling the Dashboard<a class="headerlink" href="ray-dashboard.html#disabling-the-dashboard" title="Permalink to this headline">#</a></h3>
+<p>Dashboard is included in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">ray[default]</span></code> installation by default and automatically started.</p>
+<p>To disable the dashboard, use the following arguments <code class="xref py py-obj docutils literal notranslate"><span class="pre">--include-dashboard</span></code>.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-3">
+Single-node local cluster</label><div class="sd-tab-content docutils">
+<p><strong>CLI</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray start --include-dashboard<span class="o">=</span>False
+</pre></div>
+</div>
+<p><strong>ray.init</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">include_dashboard</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-4">
+VM Cluster Launcher</label><div class="sd-tab-content docutils">
+<p>To disable the dashboard while using the “VM cluster launcher”, include the “ray start –head –include-dashboard=False” argument
+in the “head_start_ray_commands” section of the <a class="reference external" href="https://github.com/ray-project/ray/blob/0574620d454952556fa1befc7694353d68c72049/python/ray/autoscaler/aws/example-full.yaml#L172">cluster launcher’s YAML file</a>.</p>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-5">
+Kuberay</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
+</div>
+</section>
+</section>
+<section id="page-references">
+<span id="dash-reference"></span><h2>Page References<a class="headerlink" href="ray-dashboard.html#page-references" title="Permalink to this headline">#</a></h2>
+<section id="id3">
+<h3>Cluster View<a class="headerlink" href="ray-dashboard.html#id3" title="Permalink to this headline">#</a></h3>
+<table class="colwidths-given table" id="id5">
+<caption><span class="caption-text">Cluster View Node Table Reference</span><a class="headerlink" href="ray-dashboard.html#id5" title="Permalink to this table">#</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>State</strong></p></td>
+<td><p>Whether the node or worker is alive or dead.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>ID</strong></p></td>
+<td><p>The ID of the node or the workerId for the worker.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Host / Cmd line</strong></p></td>
+<td><p>If it is a node, it shows host information. If it is a worker, it shows the name of the task that is being run.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>IP / PID</strong></p></td>
+<td><p>If it is a node, it shows the IP address of the node. If it’s a worker, it shows the PID of the worker process.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>CPU Usage</strong></p></td>
+<td><p>CPU usage of each node and worker.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Memory</strong></p></td>
+<td><p>RAM usage of each node and worker.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>GPU</strong></p></td>
+<td><p>GPU usage of the node.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>GRAM</strong></p></td>
+<td><p>GPU memory usage of the node.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Object Store Memory</strong></p></td>
+<td><p>Amount of memory used by the object store for this node.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Disk</strong></p></td>
+<td><p>Disk usage of the node.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Sent</strong></p></td>
+<td><p>Network bytes sent for each node and worker.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Received</strong></p></td>
+<td><p>Network bytes received for each node and worker.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Log</strong></p></td>
+<td><p>Logs messages at each node and worker. You can see log files relevant to a node or worker by clicking this link.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Stack Trace</strong></p></td>
+<td><p>Get the Python stack trace for the specified worker. Refer to <a class="reference internal" href="../ray-observability/monitoring-debugging/profiling.html#dashboard-profiling"><span class="std std-ref">Python CPU Profiling in the Dashboard</span></a> for more information.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>CPU Flame Graph</strong></p></td>
+<td><p>Get a CPU flame graph for the specified worker. Refer to <a class="reference internal" href="../ray-observability/monitoring-debugging/profiling.html#dashboard-profiling"><span class="std std-ref">Python CPU Profiling in the Dashboard</span></a> for more information.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id4">
+<h3>Jobs View<a class="headerlink" href="ray-dashboard.html#id4" title="Permalink to this headline">#</a></h3>
+<table class="colwidths-given table" id="id6">
+<caption><span class="caption-text">Jobs View Reference</span><a class="headerlink" href="ray-dashboard.html#id6" title="Permalink to this table">#</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Job ID</strong></p></td>
+<td><p>The ID of the job. This is the primary id that associates tasks and actors to this job.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Submission ID</strong></p></td>
+<td><p>An alternate ID that can be provided by a user or generated for all ray job submissions.
+It’s useful if you would like to associate your job with an ID that is provided by some external system.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Status</strong></p></td>
+<td><dl class="simple">
+<dt>Describes the state of a job. One of:</dt><dd><ul class="simple">
+<li><p>PENDING: The job has not started yet, likely waiting for the runtime_env to be set up.</p></li>
+<li><p>RUNNING: The job is currently running.</p></li>
+<li><p>STOPPED: The job was intentionally stopped by the user.</p></li>
+<li><p>SUCCEEDED: The job finished successfully.</p></li>
+<li><p>FAILED: The job failed.</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Logs</strong></p></td>
+<td><p>A link to the logs for this job.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>StartTime</strong></p></td>
+<td><p>The time the job was started.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>EndTime</strong></p></td>
+<td><p>The time the job finished.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>DriverPid</strong></p></td>
+<td><p>The PID for the driver process that is started the job.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="actors">
+<h3>Actors<a class="headerlink" href="ray-dashboard.html#actors" title="Permalink to this headline">#</a></h3>
+<table class="colwidths-given table" id="id7">
+<caption><span class="caption-text">Actor View Reference</span><a class="headerlink" href="ray-dashboard.html#id7" title="Permalink to this table">#</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Actor ID</strong></p></td>
+<td><p>The ID of the actor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Restart Times</strong></p></td>
+<td><p>Number of times this actor has been restarted.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Name</strong></p></td>
+<td><p>The name of an actor. This can be user defined.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Class</strong></p></td>
+<td><p>The class of the actor.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Function</strong></p></td>
+<td><p>The current function the actor is running.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Job ID</strong></p></td>
+<td><p>The job in which this actor was created.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Pid</strong></p></td>
+<td><p>ID of the worker process on which the actor is running.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>IP</strong></p></td>
+<td><p>Node IP Address where the actor is located.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Port</strong></p></td>
+<td><p>The Port for the actor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>State</strong></p></td>
+<td><p>Either one of “ALIVE” or “DEAD”.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Log</strong></p></td>
+<td><p>A link to the logs that are relevant to this actor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Stack Trace</strong></p></td>
+<td><p>Get the Python stack trace for the specified actor. Refer to <a class="reference internal" href="../ray-observability/monitoring-debugging/profiling.html#dashboard-profiling"><span class="std std-ref">Python CPU Profiling in the Dashboard</span></a> for more information.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>CPU Flame Graph</strong></p></td>
+<td><p>Get a CPU flame graph for the specified actor. Refer to <a class="reference internal" href="../ray-observability/monitoring-debugging/profiling.html#dashboard-profiling"><span class="std std-ref">Python CPU Profiling in the Dashboard</span></a> for more information.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="resources">
+<h2>Resources<a class="headerlink" href="ray-dashboard.html#resources" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=v_JzurOkdVQ">Ray Summit observability talk</a></p></li>
+<li><p><a class="reference external" href="https://www.anyscale.com/blog/monitoring-and-debugging-ray-workloads-ray-metrics">Ray metrics blog</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ray-project/ray/issues/30097#issuecomment-1445756658">Ray dashboard roadmap</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ray-project/ray-educational-materials/blob/main/Observability/Ray_observability_part_1.ipynb">Observability Training Module</a></p></li>
+</ul>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../ray-observability/overview.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Overview</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../ray-observability/state/state-api.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Monitoring Ray States</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

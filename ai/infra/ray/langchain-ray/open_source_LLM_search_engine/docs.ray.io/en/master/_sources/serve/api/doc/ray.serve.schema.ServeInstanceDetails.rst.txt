@@ -1,0 +1,6 @@
+﻿ray.serve.schema.ServeInstanceDetails
+=====================================
+
+.. currentmodule:: ray.serve.schema
+
+.. autopydantic_model:: ServeInstanceDetails

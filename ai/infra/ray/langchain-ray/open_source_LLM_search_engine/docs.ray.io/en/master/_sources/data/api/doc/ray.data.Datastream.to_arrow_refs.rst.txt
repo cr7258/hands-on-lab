@@ -1,0 +1,6 @@
+ray.data.Datastream.to\_arrow\_refs
+===================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.to_arrow_refs

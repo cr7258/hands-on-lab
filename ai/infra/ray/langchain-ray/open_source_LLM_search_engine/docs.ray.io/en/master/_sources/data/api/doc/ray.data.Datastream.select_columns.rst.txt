@@ -1,0 +1,6 @@
+ray.data.Datastream.select\_columns
+===================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.select_columns

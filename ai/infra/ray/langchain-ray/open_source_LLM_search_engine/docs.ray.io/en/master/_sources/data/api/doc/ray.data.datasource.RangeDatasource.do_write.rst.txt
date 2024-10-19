@@ -1,0 +1,6 @@
+ray.data.datasource.RangeDatasource.do\_write
+=============================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: RangeDatasource.do_write

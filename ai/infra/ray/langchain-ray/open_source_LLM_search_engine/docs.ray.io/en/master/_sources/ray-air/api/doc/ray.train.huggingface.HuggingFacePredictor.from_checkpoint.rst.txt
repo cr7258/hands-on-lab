@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFacePredictor.from\_checkpoint
+===========================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFacePredictor.from_checkpoint

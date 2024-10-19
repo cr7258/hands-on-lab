@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceCheckpoint.from\_dict
+======================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFaceCheckpoint.from_dict

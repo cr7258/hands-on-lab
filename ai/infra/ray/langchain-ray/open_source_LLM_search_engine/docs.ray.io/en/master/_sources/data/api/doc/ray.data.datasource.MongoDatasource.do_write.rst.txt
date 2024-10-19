@@ -1,0 +1,6 @@
+ray.data.datasource.MongoDatasource.do\_write
+=============================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: MongoDatasource.do_write

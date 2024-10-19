@@ -1,0 +1,6 @@
+ray.data.datasource.NumpyDatasource.do\_write
+=============================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: NumpyDatasource.do_write

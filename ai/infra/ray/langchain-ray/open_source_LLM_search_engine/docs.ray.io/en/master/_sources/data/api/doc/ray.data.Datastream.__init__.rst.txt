@@ -1,0 +1,6 @@
+ray.data.Datastream.\_\_init\_\_
+================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.__init__

@@ -1,0 +1,6 @@
+ray.data.Datastream.add\_column
+===============================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.add_column

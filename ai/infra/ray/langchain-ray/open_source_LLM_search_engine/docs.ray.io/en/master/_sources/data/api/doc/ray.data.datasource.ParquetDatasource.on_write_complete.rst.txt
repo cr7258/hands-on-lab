@@ -1,0 +1,6 @@
+ray.data.datasource.ParquetDatasource.on\_write\_complete
+=========================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: ParquetDatasource.on_write_complete

@@ -1,0 +1,6 @@
+ray.rllib.evaluation.rollout\_worker.RolloutWorker.as\_remote
+=============================================================
+
+.. currentmodule:: ray.rllib.evaluation.rollout_worker
+
+.. automethod:: RolloutWorker.as_remote

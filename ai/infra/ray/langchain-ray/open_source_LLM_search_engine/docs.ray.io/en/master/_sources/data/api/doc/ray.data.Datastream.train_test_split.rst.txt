@@ -1,0 +1,6 @@
+ray.data.Datastream.train\_test\_split
+======================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.train_test_split

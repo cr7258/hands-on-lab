@@ -1,0 +1,34 @@
+﻿
+
+ray.data.datasource.MongoDatasource
+===================================
+
+.. currentmodule:: ray.data.datasource
+
+.. autoclass:: MongoDatasource
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~MongoDatasource.__init__
+      
+      ~MongoDatasource.do_write
+      ~MongoDatasource.get_name
+      ~MongoDatasource.on_write_complete
+      ~MongoDatasource.on_write_failed
+      ~MongoDatasource.prepare_read
+      
+
+   
+   
+
+
+   
+   
+   

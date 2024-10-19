@@ -1,0 +1,6 @@
+﻿ray.serve.schema.ServeStatusSchema
+==================================
+
+.. currentmodule:: ray.serve.schema
+
+.. autopydantic_model:: ServeStatusSchema

@@ -1,0 +1,6 @@
+ray.data.Datastream.count
+=========================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.count

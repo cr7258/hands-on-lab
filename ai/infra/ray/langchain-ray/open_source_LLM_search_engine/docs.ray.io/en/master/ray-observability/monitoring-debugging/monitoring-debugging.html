@@ -1,0 +1,812 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Monitoring and Debugging &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/versionwarning.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../../_static/js/docsearch.js"></script>
+    <script src="../../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../../_static/js/termynal.js"></script>
+    <script defer="defer" src="../../_static/js/custom.js"></script>
+    <script defer="defer" src="../../_static/js/top-navigation.js"></script>
+    <script src="../../_static/js/tags.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script async="async" src="../../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/ray-observability/monitoring-debugging/monitoring-debugging.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Overview" href="../overview.html" />
+    <link rel="prev" title="Cluster Management CLI" href="../../cluster/cli.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:31:52Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "ray-observability/monitoring-debugging/monitoring-debugging", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="monitoring-debugging.html#">
+   Monitoring and Debugging
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../overview.html">
+     Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ray-core/ray-dashboard.html">
+     Ray Dashboard
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../state/state-api.html">
+     Monitoring Ray States
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-debugging.html">
+     Ray Debugger
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-logging.html">
+     Logging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ray-core/ray-metrics.html">
+     Metrics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="profiling.html">
+     Profiling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-tracing.html">
+     Tracing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="troubleshoot-failures.html">
+     Troubleshooting Failures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="troubleshoot-hangs.html">
+     Troubleshooting Hangs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="troubleshoot-performance.html">
+     Troubleshooting Performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gotchas.html">
+     Ray Gotchas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="getting-help.html">
+     Getting Help
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ray-contribute/debugging.html">
+     Debugging (internal)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ray-contribute/profiling.html">
+     Profiling (internal)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2Fray-observability/monitoring-debugging/monitoring-debugging.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/edit/master/doc/source/ray-observability/monitoring-debugging/monitoring-debugging.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/ray-observability/monitoring-debugging/monitoring-debugging.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Monitoring and Debugging</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="monitoring-and-debugging">
+<span id="observability"></span><h1>Monitoring and Debugging<a class="headerlink" href="monitoring-debugging.html#monitoring-and-debugging" title="Permalink to this headline">#</a></h1>
+<p>This section covers how to <strong>monitor and debug Ray applications and clusters</strong>.</p>
+<p>See <a class="reference internal" href="getting-help.html#ray-troubleshoot-getting-help"><span class="std std-ref">Getting Help</span></a> if your problem is not solved by the troubleshooting guide.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#dashboard-web-ui">Dashboard (Web UI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#application-logging">Application Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#accessing-ray-states">Accessing Ray States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#debugger">Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#monitoring-cluster-state-and-resource-demands">Monitoring Cluster State and Resource Demands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#metrics">Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#profiling">Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#tracing">Tracing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ray-core/ray-dashboard.html">Ray Dashboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#common-workflows">Common Workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#how-to-guides">How to Guides</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#view-the-application-logs-and-errors">View the application logs and errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#analyze-the-cpu-and-memory-usage-of-tasks-and-actors">Analyze the CPU and memory usage of tasks and actors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#view-the-resource-utilization">View the Resource Utilization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#jobs-view">Jobs View</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#job-profiling">Job Profiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#advanced-task-and-actor-breakdown">Advanced Task and Actor Breakdown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#task-timeline">Task Timeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#ray-status">Ray Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#task-table-actor-table-placement-group-table">Task Table, Actor Table, Placement Group Table</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#serve-view">Serve View</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#serve-application-detail-page">Serve Application Detail Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#serve-replica-detail-page">Serve Replica Detail Page</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#serve-metrics">Serve Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#cluster-view">Cluster View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#actors-view">Actors View</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#actor-profiling">Actor Profiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#actor-detail-page">Actor Detail Page</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#metrics-view">Metrics View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#logs-view">Logs View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#advanced-usage">Advanced Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#changing-dashboard-ports">Changing Dashboard Ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#viewing-built-in-dashboard-api-metrics">Viewing Built-in Dashboard API Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#running-behind-a-reverse-proxy">Running Behind a Reverse Proxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#disabling-the-dashboard">Disabling the Dashboard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#page-references">Page References</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#id3">Cluster View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#id4">Jobs View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-dashboard.html#actors">Actors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-dashboard.html#resources">Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../state/state-api.html">Monitoring Ray States</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../state/state-api.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../state/state-api.html#key-concepts">Key Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../state/state-api.html#summary">Summary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-summarize-all-actors">E.g., Summarize all actors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-summarize-all-tasks">E.g., Summarize all tasks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-summarize-all-objects">E.g., Summarize all objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../state/state-api.html#list">List</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-list-all-nodes">E.g., List all nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-list-all-placement-groups">E.g., List all placement groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-list-local-referenced-objects-created-by-a-process">E.g., List local referenced objects created by a process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-list-alive-actors">E.g., List alive actors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-list-running-tasks">E.g., List running tasks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-list-non-running-tasks">E.g., List non-running tasks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-list-running-tasks-that-have-a-name-func">E.g., List running tasks that have a name func</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-list-tasks-with-more-details">E.g., List tasks with more details</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../state/state-api.html#get">Get</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-get-a-task-info">E.g., Get a task info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-get-a-node-info">E.g., Get a node info</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../state/state-api.html#logs">Logs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-get-all-retrievable-log-file-names-from-a-head-node-in-a-cluster">E.g., Get all retrievable log file names from a head node in a cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-get-a-particular-log-file-from-a-node">E.g., Get a particular log file from a node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-stream-a-log-file-from-a-node">E.g., Stream a log file from a node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-stream-log-from-an-actor-with-actor-id">E.g., Stream log from an actor with actor id</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#e-g-stream-log-from-a-pid">E.g., Stream log from a pid</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../state/state-api.html#failure-semantics">Failure Semantics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#query-failures">Query Failures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#data-truncation">Data Truncation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../state/state-api.html#garbage-collected-resources">Garbage Collected Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../state/state-api.html#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ray-debugging.html">Ray Debugger</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ray-debugging.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-debugging.html#running-on-a-cluster">Running on a Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-debugging.html#debugger-commands">Debugger Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-debugging.html#stepping-between-ray-tasks">Stepping between Ray tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-debugging.html#post-mortem-debugging">Post Mortem Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-debugging.html#debugging-apis">Debugging APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ray-logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ray-logging.html#driver-logs">Driver logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-logging.html#job-logs">Job logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-logging.html#worker-logs">Worker logs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-logging.html#log-deduplication">Log deduplication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-logging.html#disabling-logging-to-the-driver">Disabling logging to the driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-logging.html#customizing-actor-logs-prefixes">Customizing Actor logs prefixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-logging.html#coloring-actor-log-prefixes">Coloring Actor log prefixes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-logging.html#distributed-progress-bars-tqdm">Distributed progress bars (tqdm)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-logging.html#how-to-set-up-loggers">How to set up loggers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-logging.html#how-to-use-structured-logging">How to use structured logging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ray-logging.html#logging-directory-structure">Logging directory structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ray-logging.html#log-rotation">Log rotation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-logging.html#redirecting-ray-logs-to-stderr">Redirecting Ray logs to stderr</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ray-core/ray-metrics.html">Metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-metrics.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-metrics.html#grafana">Grafana</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-metrics.html#deploying-grafana">Deploying Grafana</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-metrics.html#system-metrics">System Metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-metrics.html#metrics-semantics-and-consistency">Metrics Semantics and Consistency</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-metrics.html#application-level-metrics">Application-level Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-metrics.html#configurations">Configurations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-metrics.html#customize-prometheus-export-port">Customize prometheus export port</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-metrics.html#alternate-prometheus-host-location">Alternate Prometheus host location</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-metrics.html#alternate-grafana-host-location">Alternate Grafana host location</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-core/ray-metrics.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-metrics.html#mac-does-not-trust-the-developer-when-installing-prometheus-or-grafana">Mac does not trust the developer when installing prometheus or grafana</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ray-core/ray-metrics.html#grafana-dashboards-are-not-embedded-in-the-ray-dashboard">Grafana dashboards are not embedded in the Ray dashboard</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="profiling.html">Profiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html#memory-profile-ray-actors-and-tasks">Memory profile Ray Actors and Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html#visualizing-tasks-in-the-ray-timeline">Visualizing Tasks in the Ray Timeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html#python-cpu-profiling-in-the-dashboard">Python CPU Profiling in the Dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html#profiling-using-python-s-cprofile">Profiling Using Python’s CProfile</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="profiling.html#profiling-ray-actors-with-cprofile">Profiling Ray Actors with cProfile</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="profiling.html#profiling-internal">Profiling (Internal)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ray-tracing.html">Tracing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ray-tracing.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ray-tracing.html#tracing-startup-hook">Tracing Startup Hook</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ray-tracing.html#tracer-provider">Tracer Provider</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ray-tracing.html#remote-span-processors">Remote Span Processors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ray-tracing.html#additional-instruments">Additional Instruments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ray-tracing.html#custom-traces">Custom Traces</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshoot-failures.html">Troubleshooting Failures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshoot-failures.html#what-kind-of-failures-exist-in-ray">What Kind of Failures Exist in Ray?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshoot-failures.html#debugging-application-failures">Debugging Application Failures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="troubleshoot-failures.html#print">print</a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshoot-failures.html#debugger">Debugger</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshoot-failures.html#debugging-out-of-memory">Debugging Out of Memory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="troubleshoot-failures.html#what-s-the-out-of-memory-error">What’s the Out-of-Memory Error?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshoot-failures.html#how-to-detect-out-of-memory-errors">How to Detect Out-of-Memory Errors?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshoot-failures.html#find-per-task-and-actor-memory-usage">Find per Task and Actor Memory Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshoot-failures.html#head-node-out-of-memory-error">Head Node Out-of-Memory Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshoot-failures.html#reduce-parallelism">Reduce Parallelism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshoot-failures.html#profile-task-and-actor-memory-usage">Profile Task and Actor Memory Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshoot-failures.html#running-out-of-file-descriptors-too-may-open-files">Running out of file descriptors (<code class="docutils literal notranslate"><span class="pre">Too</span> <span class="pre">may</span> <span class="pre">open</span> <span class="pre">files</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshoot-hangs.html">Troubleshooting Hangs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshoot-hangs.html#observing-ray-work">Observing Ray Work</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshoot-performance.html">Troubleshooting Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshoot-performance.html#no-speedup">No Speedup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gotchas.html">Ray Gotchas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html#environment-variables-are-not-passed-from-the-driver-to-workers">Environment variables are not passed from the driver to workers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html#filenames-work-sometimes-and-not-at-other-times">Filenames work sometimes and not at other times</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html#placement-groups-are-not-composable">Placement groups are not composable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gotchas.html#outdated-function-definitions">Outdated Function Definitions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting-help.html">Getting Help</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting-help.html#ray-community">Ray Community</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting-help.html#id1">Discourse Forum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting-help.html#bugs-or-feature-requests">Bugs or Feature Requests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting-help.html#id2">StackOverflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting-help.html#id3">Slack</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ray-contribute/debugging.html">Debugging (internal)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-contribute/debugging.html#starting-processes-in-a-debugger">Starting processes in a debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-contribute/debugging.html#backend-logging">Backend logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-contribute/debugging.html#backend-event-stats">Backend event stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-contribute/debugging.html#callback-latency-injection">Callback latency injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ray-contribute/profiling.html">Profiling (internal)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-contribute/profiling.html#getting-a-stack-trace-of-ray-c-processes">Getting a stack trace of Ray C++ processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-contribute/profiling.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-contribute/profiling.html#launching-the-to-profile-binary">Launching the to-profile binary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-contribute/profiling.html#memory-profiling">Memory Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-contribute/profiling.html#visualizing-the-cpu-profile">Visualizing the CPU profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-contribute/profiling.html#running-microbenchmarks">Running Microbenchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ray-contribute/profiling.html#references">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../../cluster/cli.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Cluster Management CLI</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../overview.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Overview</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

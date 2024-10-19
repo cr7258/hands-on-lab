@@ -1,0 +1,1048 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Performing GPU Batch Prediction on Images with a PyTorch Model &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/versionwarning.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../../_static/js/docsearch.js"></script>
+    <script src="../../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../../_static/js/termynal.js"></script>
+    <script defer="defer" src="../../_static/js/custom.js"></script>
+    <script defer="defer" src="../../_static/js/top-navigation.js"></script>
+    <script src="../../_static/js/tags.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script async="async" src="../../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/ray-air/examples/pytorch_resnet_batch_prediction.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Stable Diffusion Batch Prediction with Ray AIR" href="stablediffusion_batch_prediction.html" />
+    <link rel="prev" title="Parallel demand forecasting at scale using Ray Tune" href="batch_forecasting.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:31:23Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "ray-air/examples/pytorch_resnet_batch_prediction", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".ipynb", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../key-concepts.html">
+     Key Concepts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../user-guides.html">
+     User Guides
+    </a>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="index.html">
+     Examples
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="torch_image_example.html">
+       Training a Torch Image Classifier
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="torch_detection.html">
+       Fine-tuning a Torch object detection model
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="convert_existing_pytorch_code_to_ray_air.html">
+       Convert existing PyTorch code to Ray AIR
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="convert_existing_tf_code_to_ray_air.html">
+       Convert existing Tensorflow/Keras code to Ray AIR
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="tfx_tabular_train_to_serve.html">
+       Tabular data training and serving with Keras and Ray AIR
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="huggingface_text_classification.html">
+       Fine-tune a 🤗 Transformers model
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="sklearn_example.html">
+       Training a model with Sklearn
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="xgboost_example.html">
+       Training a model with distributed XGBoost
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="analyze_tuning_results.html">
+       Hyperparameter tuning with XGBoostTrainer
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="lightgbm_example.html">
+       Training a model with distributed LightGBM
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="torch_incremental_learning.html">
+       Incremental Learning with Ray AIR
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="rl_serving_example.html">
+       Serving reinforcement learning policy models
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="rl_online_example.html">
+       Online reinforcement learning with Ray AIR
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="rl_offline_example.html">
+       Offline reinforcement learning with Ray AIR
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="upload_to_comet_ml.html">
+       Logging results and uploading models to Comet ML
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="upload_to_wandb.html">
+       Logging results and uploading models to Weights &amp; Biases
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="feast_example.html">
+       Integrate Ray AIR with Feast feature store
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="automl_with_ray_air.html">
+       AutoML for time series forecasting with Ray AIR
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="batch_tuning.html">
+       Batch training &amp; tuning on Ray Tune
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="batch_forecasting.html">
+       Parallel demand forecasting at scale using Ray Tune
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="pytorch_resnet_batch_prediction.html#">
+       Performing GPU Batch Prediction on Images with a PyTorch Model
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="stablediffusion_batch_prediction.html">
+       Stable Diffusion Batch Prediction with Ray AIR
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="gptj_deepspeed_fine_tuning.html">
+       GPT-J-6B Fine-Tuning with Ray AIR and DeepSpeed
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="gptj_batch_prediction.html">
+       GPT-J-6B Batch Prediction with Ray AIR
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="gptj_serving.html">
+       GPT-J-6B Serving with Ray AIR
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="dreambooth_finetuning.html">
+       Fine-tuning DreamBooth with Ray AIR
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../api/api.html">
+     Ray AIR API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../benchmarks.html">
+     Benchmarks
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2Fray-air/examples/pytorch_resnet_batch_prediction.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/edit/master/doc/source/ray-air/examples/pytorch_resnet_batch_prediction.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/ray-air/examples/pytorch_resnet_batch_prediction.ipynb.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pytorch_resnet_batch_prediction.html#build-a-batchpredictor">
+   Build a BatchPredictor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pytorch_resnet_batch_prediction.html#evaluating-prediction-accuracy">
+   Evaluating Prediction Accuracy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pytorch_resnet_batch_prediction.html#save-prediction-results">
+   Save Prediction Results
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Performing GPU Batch Prediction on Images with a PyTorch Model</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pytorch_resnet_batch_prediction.html#build-a-batchpredictor">
+   Build a BatchPredictor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pytorch_resnet_batch_prediction.html#evaluating-prediction-accuracy">
+   Evaluating Prediction Accuracy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pytorch_resnet_batch_prediction.html#save-prediction-results">
+   Save Prediction Results
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="performing-gpu-batch-prediction-on-images-with-a-pytorch-model">
+<h1>Performing GPU Batch Prediction on Images with a PyTorch Model<a class="headerlink" href="pytorch_resnet_batch_prediction.html#performing-gpu-batch-prediction-on-images-with-a-pytorch-model" title="Permalink to this headline">#</a></h1>
+<p>In this example, we will introduce how to use the Ray AIR <a class="reference internal" href="../api/doc/ray.train.batch_predictor.BatchPredictor.html#ray.train.batch_predictor.BatchPredictor" title="ray.train.batch_predictor.BatchPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchPredictor</span></code></a> for <strong>large-scale batch inference with multiple GPU workers.</strong></p>
+<p>In particular, we will:</p>
+<ul class="simple">
+<li><p>Load Imagenette dataset from S3 bucket and create a ray dataset.</p></li>
+<li><p>Load a pretrained ResNet model and build a checkpoint.</p></li>
+<li><p>Define a preprocessor.</p></li>
+<li><p>Construct a BatchPredictor with the checkpoint and preprocessor.</p></li>
+<li><p>Do batch prediction on multiple GPUs.</p></li>
+<li><p>Evaluate the predictions and save results to S3/local disk.</p></li>
+</ul>
+<p>To run this example, you will need to install the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install -q <span class="s2">&quot;ray[air]&quot;</span> boto3 torch torchvision
+</pre></div>
+</div>
+</div>
+</div>
+<p><a class="reference external" href="https://github.com/fastai/imagenette">Imagenette</a> is a subset of Imagenet with 10 classes. First, we use <a class="reference internal" href="../../data/api/doc/ray.data.read_images.html#ray.data.read_images" title="ray.data.read_images"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ray.data.read_images</span></code></a> to load the validation set from S3. Since the dataset is already structured with directory names as the labels, we can use the <a class="reference internal" href="../../data/api/doc/ray.data.datasource.Partitioning.html#ray.data.datasource.Partitioning" title="ray.data.datasource.Partitioning"><code class="xref py py-class docutils literal notranslate"><span class="pre">Partitioning</span></code></a> API to automatically extract image labels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.data.datasource.partitioning</span> <span class="kn">import</span> <span class="n">Partitioning</span>
+
+<span class="n">s3_uri</span> <span class="o">=</span> <span class="s2">&quot;s3://<a href="https://docs.ray.io/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c8a9a6a7a6b1a5a7bdbb88a9a1bae5adb0a9a5b8a4ade5aca9bca9e5fa">[email&#160;protected]</a>/imagenette2/val/&quot;</span>
+
+<span class="c1"># The S3 directory structure is {s3_uri}/{class_id}/{*.JPEG}</span>
+<span class="n">partitioning</span> <span class="o">=</span> <span class="n">Partitioning</span><span class="p">(</span><span class="s2">&quot;dir&quot;</span><span class="p">,</span> <span class="n">field_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">],</span> <span class="n">base_dir</span><span class="o">=</span><span class="n">s3_uri</span><span class="p">)</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_images</span><span class="p">(</span>
+    <span class="n">s3_uri</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span> <span class="n">partitioning</span><span class="o">=</span><span class="n">partitioning</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;RGB&quot;</span>
+<span class="p">)</span>
+<span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-02-21 12:00:38,004	INFO worker.py:1360 -- Connecting to existing Ray cluster at address: 10.0.32.131:6379...
+2023-02-21 12:00:38,036	INFO worker.py:1553 -- Connected to Ray cluster. View the dashboard at <span class=" -Color -Color-Bold -Color-Bold-Green">127.0.0.1:8265 </span>
+2023-02-21 12:00:38,716	INFO packaging.py:330 -- Pushing file package &#39;gcs://_ray_pkg_96e1aec9dfd1038398d7730304a88380.zip&#39; (228.83MiB) to Ray cluster...
+2023-02-21 12:00:43,539	INFO packaging.py:343 -- Successfully pushed file package &#39;gcs://_ray_pkg_96e1aec9dfd1038398d7730304a88380.zip&#39;.
+</pre></div>
+</div>
+<script data-cfasync="false" src="../../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "20de864c05a049688f436def56152784", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;image&#39;: array([[[126, 144, 157],
+          [129, 147, 161],
+          [132, 149, 163],
+          ...,
+          [ 92, 105, 106],
+          [ 95, 107, 110],
+          [ 96, 109, 110]],
+  
+         [[124, 142, 156],
+          [126, 145, 159],
+          [130, 147, 161],
+          ...,
+          [ 89,  99, 101],
+          [ 90, 102, 105],
+          [ 92, 105, 106]],
+  
+         [[121, 140, 155],
+          [126, 144, 159],
+          [130, 147, 161],
+          ...,
+          [ 85,  98,  99],
+          [ 87, 101, 102],
+          [ 90, 101, 103]],
+  
+         ...,
+  
+         [[183, 184, 177],
+          [183, 184, 178],
+          [182, 184, 174],
+          ...,
+          [ 88,  98,  45],
+          [ 97,  94,  47],
+          [ 79,  92,  41]],
+  
+         [[180, 181, 171],
+          [179, 181, 173],
+          [180, 182, 171],
+          ...,
+          [ 89,  72,  29],
+          [ 79, 106,  50],
+          [ 66,  87,  30]],
+  
+         [[177, 178, 168],
+          [179, 181, 169],
+          [180, 181, 172],
+          ...,
+          [ 76,  67,  35],
+          [ 64,  87,  38],
+          [ 71, 107,  39]]], dtype=uint8),
+  &#39;class&#39;: &#39;n01440764&#39;}]
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, each example contains one image tensor of shape (256, 256, 3) and its label. Notice that the label for images are their corresponding directory names (e.g. n01728920). To find the indices of our model output that correspond to these names, we’ll need to download a mapping from the s3 bucket (<code class="docutils literal notranslate"><span class="pre">imagenet_class_index.json</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">boto3</span>
+<span class="kn">from</span> <span class="nn">botocore</span> <span class="kn">import</span> <span class="n">UNSIGNED</span>
+<span class="kn">from</span> <span class="nn">botocore.client</span> <span class="kn">import</span> <span class="n">Config</span>
+
+<span class="c1"># Download mapping file from S3</span>
+<span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;s3&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">Config</span><span class="p">(</span><span class="n">signature_version</span><span class="o">=</span><span class="n">UNSIGNED</span><span class="p">))</span>
+<span class="n">s3</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span>
+    <span class="s2">&quot;air-example-data-2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;imagenette2/imagenet_class_index.json&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;/tmp/imagenet_class_index.json&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Build mappings</span>
+<span class="n">idx_to_class</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/tmp/imagenet_class_index.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">))</span>
+<span class="n">class_to_idx</span> <span class="o">=</span> <span class="p">{</span><span class="n">cls_name</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">cls_name</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="n">idx_to_class</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="n">idx_to_class_name</span> <span class="o">=</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">):</span> <span class="n">text</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="ow">in</span> <span class="n">idx_to_class</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, let’s define a preprocessor to crop and normalize images, as well as convert the class names to indices with the map that we just constructed.</p>
+<p>We’ll use a <a class="reference internal" href="../api/doc/ray.data.preprocessors.TorchVisionPreprocessor.html#ray.data.preprocessors.TorchVisionPreprocessor" title="ray.data.preprocessors.TorchVisionPreprocessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TorchVisionPreprocessor</span></code></a> and a <a class="reference internal" href="../api/doc/ray.data.preprocessors.BatchMapper.html#ray.data.preprocessors.BatchMapper" title="ray.data.preprocessors.BatchMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchMapper</span></code></a> to implement these two custom preprocessing logic accordingly. Multiple preprocessors will be combined into a single preprocessor by <a class="reference internal" href="../api/doc/ray.data.preprocessors.Chain.html#ray.data.preprocessors.Chain" title="ray.data.preprocessors.Chain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Chain</span></code></a>. The above data preprocessing logic will be applied to the input dataset before feeding the data into the model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">transforms</span>
+<span class="kn">from</span> <span class="nn">ray.data.preprocessors</span> <span class="kn">import</span> <span class="n">BatchMapper</span><span class="p">,</span> <span class="n">TorchVisionPreprocessor</span><span class="p">,</span> <span class="n">Chain</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+
+
+<span class="k">def</span> <span class="nf">to_tensor</span><span class="p">(</span><span class="n">batch</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+    <span class="c1"># (B, H, W, C) -&gt; (B, C, H, W)</span>
+    <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+    <span class="c1"># [0., 255.] -&gt; [0., 1.]</span>
+    <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tensor</span>
+
+
+<span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">Lambda</span><span class="p">(</span><span class="n">to_tensor</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Accelerate image processing with batched transformations</span>
+<span class="n">image_preprocessor</span> <span class="o">=</span> <span class="n">TorchVisionPreprocessor</span><span class="p">(</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">],</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span> <span class="n">batched</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="c1"># Map the image labels from strings to integer ids</span>
+<span class="k">def</span> <span class="nf">map_labels</span><span class="p">(</span><span class="n">batch</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">class_to_idx</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">)(</span><span class="n">batch</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">batch</span>
+
+
+<span class="n">label_preprocessor</span> <span class="o">=</span> <span class="n">BatchMapper</span><span class="p">(</span><span class="n">fn</span><span class="o">=</span><span class="n">map_labels</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;numpy&quot;</span><span class="p">)</span>
+
+<span class="n">preprocessor</span> <span class="o">=</span> <span class="n">Chain</span><span class="p">(</span><span class="n">image_preprocessor</span><span class="p">,</span> <span class="n">label_preprocessor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="build-a-batchpredictor">
+<h2>Build a BatchPredictor<a class="headerlink" href="pytorch_resnet_batch_prediction.html#build-a-batchpredictor" title="Permalink to this headline">#</a></h2>
+<p>Now that we have our dataset loaded and preprocessed with <a class="reference internal" href="../../data/data.html#data"><span class="std std-ref">Ray Data</span></a>, we’re ready to construct our <a class="reference internal" href="../api/doc/ray.train.batch_predictor.BatchPredictor.html#ray.train.batch_predictor.BatchPredictor" title="ray.train.batch_predictor.BatchPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchPredictor</span></code></a>! A <a class="reference internal" href="../api/doc/ray.train.batch_predictor.BatchPredictor.html#ray.train.batch_predictor.BatchPredictor" title="ray.train.batch_predictor.BatchPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchPredictor</span></code></a> takes a checkpoint and a predictor class (e.g., <a class="reference internal" href="../api/doc/ray.train.torch.TorchPredictor.html#ray.train.torch.TorchPredictor" title="ray.train.torch.TorchPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TorchPredictor</span></code></a>, <a class="reference internal" href="../api/doc/ray.train.tensorflow.TensorflowPredictor.html#ray.train.tensorflow.TensorflowPredictor" title="ray.train.tensorflow.TensorflowPredictor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorflowPredictor</span></code></a>) and provides an interface to run batch prediction on Ray <a class="reference internal" href="../../data/api/doc/ray.data.Datastream.html#ray.data.Datastream" title="ray.data.Datastream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Datastream</span></code></a>s. It will distribute the inference workload across multiple workers when calling <code class="docutils literal notranslate"><span class="pre">predict()</span></code> and run prediction on multiple shards of data in parallel. You can find more details in <a class="reference internal" href="../predictors.html#air-predictors"><span class="std std-ref">Using Predictors for Inference</span></a>.</p>
+<p>For the demo, we’ll directly load a pretrained ResNet model from <code class="docutils literal notranslate"><span class="pre">torchvision.models</span></code> and construct a <a class="reference internal" href="../../train/api/doc/ray.train.torch.TorchCheckpoint.html#ray.train.torch.TorchCheckpoint" title="ray.train.torch.TorchCheckpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">TorchCheckpoint</span></code></a> which includes the preprocessor. You can also load your own Ray AIR checkpoint from your previous Train/Tune experiments. You can find more details about checkpoint loading at the <a class="reference internal" href="../api/checkpoint.html#air-checkpoint-ref"><span class="std std-ref">AIR <code class="docutils literal notranslate"><span class="pre">Checkpoint</span></code> API reference</span></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">ray.train.batch_predictor</span> <span class="kn">import</span> <span class="n">BatchPredictor</span>
+<span class="kn">from</span> <span class="nn">ray.train.torch</span> <span class="kn">import</span> <span class="n">TorchCheckpoint</span><span class="p">,</span> <span class="n">TorchPredictor</span>
+
+<span class="c1"># Load the pretrained resnet model and construct a checkpoint</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">resnet152</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">checkpoint</span> <span class="o">=</span> <span class="n">TorchCheckpoint</span><span class="o">.</span><span class="n">from_model</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">preprocessor</span><span class="o">=</span><span class="n">preprocessor</span><span class="p">)</span>
+
+<span class="c1"># Build a BatchPredictor from checkpoint</span>
+<span class="n">batch_predictor</span> <span class="o">=</span> <span class="n">BatchPredictor</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">,</span> <span class="n">TorchPredictor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, run batch prediction using <a class="reference internal" href="../api/doc/ray.train.batch_predictor.BatchPredictor.predict.html#ray.train.batch_predictor.BatchPredictor.predict" title="ray.train.batch_predictor.BatchPredictor.predict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">BatchPredictor.predict(...)</span></code></a>!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">batch_predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+    <span class="n">ds</span><span class="p">,</span>
+    <span class="n">feature_columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">],</span>
+    <span class="n">keep_columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">],</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+    <span class="n">max_scoring_workers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">num_gpus_per_worker</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-02-21 12:19:58,856	INFO bulk_executor.py:41 -- Executing DAG InputDataBuffer[Input] -&gt; TaskPoolMapOperator[read-&gt;TorchVisionPreprocessor]
+read-&gt;TorchVisionPreprocessor: 100%|██████████| 200/200 [00:09&lt;00:00, 21.74it/s]
+2023-02-21 12:20:08,165	INFO bulk_executor.py:41 -- Executing DAG InputDataBuffer[Input] -&gt; TaskPoolMapOperator[BatchMapper]
+BatchMapper: 100%|██████████| 200/200 [00:01&lt;00:00, 105.07it/s]
+2023-02-21 12:20:10,181	INFO bulk_executor.py:41 -- Executing DAG InputDataBuffer[Input] -&gt; ActorPoolMapOperator[MapBatches(ScoringWrapper)]
+MapBatches(ScoringWrapper), 0 actors [6 locality hits, 28 misses]:  17%|█▋        | 34/200 [00:20&lt;01:38,  1.69it/s]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We specified several parameters in <code class="docutils literal notranslate"><span class="pre">predict()</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">feature_columns</span></code> specifies which columns are required for the model.</p></li>
+<li><p>The columns in <code class="docutils literal notranslate"><span class="pre">keep_columns</span></code> will be returned together with the prediction results. For example, you can keep image labels for evaluation later.</p></li>
+<li><p>The BatchPredictor uses CPUs for inference by default, please specify <code class="docutils literal notranslate"><span class="pre">num_gpus_per_worker</span></code> if you want to use GPUs.</p></li>
+</ul>
+</section>
+<section id="evaluating-prediction-accuracy">
+<h2>Evaluating Prediction Accuracy<a class="headerlink" href="pytorch_resnet_batch_prediction.html#evaluating-prediction-accuracy" title="Permalink to this headline">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">BatchPredictor.predict()</span></code> will return a Datastream with a column of model output with key <code class="docutils literal notranslate"><span class="pre">&quot;predictions&quot;</span></code>, and all columns specified in <code class="docutils literal notranslate"><span class="pre">keep_columns</span></code>.</p>
+<p>In this example, the output of the ResNet model is a 1000-dimensional tensor containing the logits of each class. We’ll measure accuracy with Top-1 and Top-5 accuracy.
+(Top-N accuracy: The percentage of predictions where the true label falls in the top N predicted classes.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_matches</span><span class="p">(</span><span class="n">batch</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;top_5_pred&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;predictions&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)[:</span><span class="mi">5</span><span class="p">])</span>
+    <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;top_5_pred_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;top_5_pred&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">idx_to_class_name</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;top_5_match&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;top_5_pred&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;top_1_match&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;top_5_pred&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">batch</span>
+
+
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">calculate_matches</span><span class="p">,</span> <span class="n">batch_format</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top-1 accuracy: &quot;</span><span class="p">,</span> <span class="n">predictions</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">on</span><span class="o">=</span><span class="s2">&quot;top_1_match&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top-5 accuracy: &quot;</span><span class="p">,</span> <span class="n">predictions</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">on</span><span class="o">=</span><span class="s2">&quot;top_5_match&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-02-21 12:19:27,478	INFO bulk_executor.py:41 -- Executing DAG InputDataBuffer[Input] -&gt; TaskPoolMapOperator[MapBatches(calculate_matches)] -&gt; AllToAllOperator[aggregate]
+MapBatches(calculate_matches): 100%|██████████| 34/34 [00:00&lt;00:00, 1019.05it/s]
+2023-02-21 12:19:27,541	INFO bulk_executor.py:41 -- Executing DAG InputDataBuffer[Input] -&gt; TaskPoolMapOperator[MapBatches(calculate_matches)]
+MapBatches(calculate_matches): 100%|██████████| 34/34 [00:00&lt;00:00, 942.81it/s]
+Shuffle Map: 100%|██████████| 34/34 [00:00&lt;00:00, 1028.36it/s]
+Shuffle Reduce: 100%|██████████| 1/1 [00:00&lt;00:00, 52.32it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top-1 accuracy:  0.8968152866242038
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-02-21 12:19:27,670	INFO bulk_executor.py:41 -- Executing DAG InputDataBuffer[Input] -&gt; AllToAllOperator[aggregate]
+Shuffle Map: 100%|██████████| 34/34 [00:00&lt;00:00, 985.81it/s]
+Shuffle Reduce: 100%|██████████| 1/1 [00:00&lt;00:00, 70.82it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top-5 accuracy:  0.9887898089171975
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="c1"># Take an example from the model&#39;s prediction</span>
+<span class="n">sample_image</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">sample_pred</span> <span class="o">=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">sample_image</span><span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top-1 Matched: &quot;</span><span class="p">,</span> <span class="n">sample_pred</span><span class="p">[</span><span class="s2">&quot;top_1_match&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top-5 Predictions: &quot;</span><span class="p">,</span> <span class="n">sample_pred</span><span class="p">[</span><span class="s2">&quot;top_5_pred_name&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/pytorch_resnet_batch_prediction_19_0.png" src="../../_images/pytorch_resnet_batch_prediction_19_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top-1 Matched:  True
+Top-5 Predictions:  [&#39;tench&#39;, &#39;reel&#39;, &#39;coho&#39;, &#39;barracouta&#39;, &#39;gar&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="save-prediction-results">
+<h2>Save Prediction Results<a class="headerlink" href="pytorch_resnet_batch_prediction.html#save-prediction-results" title="Permalink to this headline">#</a></h2>
+<p>There are a few options for saving your prediction results:</p>
+<ul class="simple">
+<li><p>You can call <code class="docutils literal notranslate"><span class="pre">ds.repartition(n)</span></code> to split your prediction results into n partitions, then n files will be created with <code class="docutils literal notranslate"><span class="pre">write_parquet()</span></code> later.</p></li>
+<li><p>You can either store files to your local disk or S3 bucket by passing local path or S3 uri to <code class="docutils literal notranslate"><span class="pre">write_parquet()</span></code>.</p></li>
+<li><p>Other output file formats are described here: <a class="reference external" href="https://docs.ray.io/en/latest/data/api/input_output.html">Ray Data Input/Output</a></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">write_parquet</span><span class="p">(</span><span class="s2">&quot;local://tmp/single_parquet&quot;</span><span class="p">)</span>
+<span class="c1"># &gt;&gt;&gt; /tmp/single_parquet/d757569dfb2845589b0ccbcb263e8cc3_000000.parquet</span>
+
+<span class="n">predictions</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">write_parquet</span><span class="p">(</span><span class="s2">&quot;local://tmp/multiple_parquet&quot;</span><span class="p">)</span>
+<span class="c1"># &gt;&gt;&gt; /tmp/multiple_parquet/2b529dc5d8eb45e5ad03e69fb7ad8bc0_000000.parquet</span>
+<span class="c1"># &gt;&gt;&gt; /tmp/multiple_parquet/2b529dc5d8eb45e5ad03e69fb7ad8bc0_000001.parquet</span>
+<span class="c1"># &gt;&gt;&gt; /tmp/multiple_parquet/2b529dc5d8eb45e5ad03e69fb7ad8bc0_000002.parquet</span>
+
+<span class="c1"># You can also save results to S3 by replacing local path to S3 URI</span>
+<span class="c1"># predictions.write_parquet(YOUR_S3_BUCKET_URI)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-02-21 12:19:39,798	INFO bulk_executor.py:41 -- Executing DAG InputDataBuffer[Input] -&gt; AllToAllOperator[repartition] -&gt; TaskPoolMapOperator[write]
+Repartition: 100%|██████████| 1/1 [00:00&lt;00:00, 13.22it/s]
+write: 100%|██████████| 1/1 [00:00&lt;00:00, 10.46it/s]
+2023-02-21 12:19:39,989	INFO bulk_executor.py:41 -- Executing DAG InputDataBuffer[Input] -&gt; AllToAllOperator[repartition] -&gt; TaskPoolMapOperator[write]
+Repartition: 100%|██████████| 3/3 [00:00&lt;00:00, 70.68it/s]
+write: 100%|██████████| 3/3 [00:00&lt;00:00, 46.64it/s]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="batch_forecasting.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Parallel demand forecasting at scale using Ray Tune</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="stablediffusion_batch_prediction.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Stable Diffusion Batch Prediction with Ray AIR</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

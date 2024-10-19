@@ -1,0 +1,35 @@
+﻿
+
+ray.data.datasource.BinaryDatasource
+====================================
+
+.. currentmodule:: ray.data.datasource
+
+.. autoclass:: BinaryDatasource
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~BinaryDatasource.__init__
+      
+      ~BinaryDatasource.do_write
+      
+      ~BinaryDatasource.get_name
+      ~BinaryDatasource.on_write_complete
+      ~BinaryDatasource.on_write_failed
+      ~BinaryDatasource.prepare_read
+      ~BinaryDatasource.write
+
+   
+   
+
+
+   
+   
+   

@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.global\_shuffle
+=====================================
+
+.. currentmodule:: ray.air
+
+.. autoattribute:: DatasetConfig.global_shuffle

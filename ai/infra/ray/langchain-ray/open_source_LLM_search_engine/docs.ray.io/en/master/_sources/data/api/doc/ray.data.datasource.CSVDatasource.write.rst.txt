@@ -1,0 +1,6 @@
+ray.data.datasource.CSVDatasource.write
+=======================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: CSVDatasource.write

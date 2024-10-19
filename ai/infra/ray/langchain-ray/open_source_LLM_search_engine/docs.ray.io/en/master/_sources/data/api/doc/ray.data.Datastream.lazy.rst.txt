@@ -1,0 +1,6 @@
+ray.data.Datastream.lazy
+========================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.lazy

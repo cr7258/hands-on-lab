@@ -1,0 +1,6 @@
+﻿ray.serve.schema.ApplicationDetails
+===================================
+
+.. currentmodule:: ray.serve.schema
+
+.. autopydantic_model:: ApplicationDetails

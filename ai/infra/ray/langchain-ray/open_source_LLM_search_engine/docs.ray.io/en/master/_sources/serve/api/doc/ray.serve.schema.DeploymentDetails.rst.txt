@@ -1,0 +1,6 @@
+﻿ray.serve.schema.DeploymentDetails
+==================================
+
+.. currentmodule:: ray.serve.schema
+
+.. autopydantic_model:: DeploymentDetails

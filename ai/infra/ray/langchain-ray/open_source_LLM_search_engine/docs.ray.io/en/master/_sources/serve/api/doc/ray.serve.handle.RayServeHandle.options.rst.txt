@@ -1,0 +1,6 @@
+ray.serve.handle.RayServeHandle.options
+=======================================
+
+.. currentmodule:: ray.serve.handle
+
+.. automethod:: RayServeHandle.options

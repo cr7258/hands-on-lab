@@ -1,0 +1,6 @@
+﻿ray.serve.schema.RayActorOptionsSchema
+======================================
+
+.. currentmodule:: ray.serve.schema
+
+.. autopydantic_model:: RayActorOptionsSchema

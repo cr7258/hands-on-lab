@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceCheckpoint.path
+================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. autoproperty:: HuggingFaceCheckpoint.path

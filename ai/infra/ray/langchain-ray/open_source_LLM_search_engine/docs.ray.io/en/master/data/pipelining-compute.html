@@ -1,0 +1,950 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>DatasetPipelines (deprecated) &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/versionwarning.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../_static/js/docsearch.js"></script>
+    <script src="../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../_static/js/termynal.js"></script>
+    <script defer="defer" src="../_static/js/custom.js"></script>
+    <script defer="defer" src="../_static/js/top-navigation.js"></script>
+    <script src="../_static/js/tags.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script async="async" src="../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/data/pipelining-compute.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Examples" href="examples/index.html" />
+    <link rel="prev" title="Performance Tips and Tuning" href="performance-tips.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:30:50Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "data/pipelining-compute", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="data.html">
+   Ray Data
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="getting-started.html">
+     Getting Started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="key-concepts.html">
+     Key Concepts
+    </a>
+   </li>
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="user-guide.html">
+     User Guides
+    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="creating-datastreams.html">
+       Loading Data
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="transforming-datastreams.html">
+       Transforming Data
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="consuming-datastreams.html">
+       Consuming Data
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="data-tensor-support.html">
+       ML Tensor Support
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="custom-datasource.html">
+       Custom Datasources
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="data-internals.html">
+       Scheduling, Execution, and Memory Management
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="performance-tips.html">
+       Performance Tips and Tuning
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="pipelining-compute.html#">
+       DatasetPipelines (deprecated)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="examples/index.html">
+     Examples
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="faq.html">
+     FAQ
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="api/api.html">
+     Ray Data API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="glossary.html">
+     Ray Data Glossary
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="integrations.html">
+     Integrations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2Fdata/pipelining-compute.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/edit/master/doc/source/data/pipelining-compute.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/data/pipelining-compute.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pipelining-compute.html#creating-a-datasetpipeline">
+   Creating a DatasetPipeline
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pipelining-compute.html#transforming-pipeline-windows">
+   Transforming Pipeline Windows
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pipelining-compute.html#example-pipelined-batch-inference">
+   Example: Pipelined Batch Inference
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="pipelining-compute.html#enabling-pipelining">
+     Enabling Pipelining
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="pipelining-compute.html#pipelined-writes">
+     Pipelined Writes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="pipelining-compute.html#tuning-parallelism">
+     Tuning Parallelism
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pipelining-compute.html#pipelines-for-ml-ingest">
+   Pipelines for ML Ingest
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="pipelining-compute.html#splitting-pipelines-for-distributed-ingest">
+     Splitting pipelines for distributed ingest
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="pipelining-compute.html#handling-epochs">
+     Handling Epochs
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>DatasetPipelines (deprecated)</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pipelining-compute.html#creating-a-datasetpipeline">
+   Creating a DatasetPipeline
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pipelining-compute.html#transforming-pipeline-windows">
+   Transforming Pipeline Windows
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pipelining-compute.html#example-pipelined-batch-inference">
+   Example: Pipelined Batch Inference
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="pipelining-compute.html#enabling-pipelining">
+     Enabling Pipelining
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="pipelining-compute.html#pipelined-writes">
+     Pipelined Writes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="pipelining-compute.html#tuning-parallelism">
+     Tuning Parallelism
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="pipelining-compute.html#pipelines-for-ml-ingest">
+   Pipelines for ML Ingest
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="pipelining-compute.html#splitting-pipelines-for-distributed-ingest">
+     Splitting pipelines for distributed ingest
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="pipelining-compute.html#handling-epochs">
+     Handling Epochs
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="datasetpipelines-deprecated">
+<span id="pipelining-datasets"></span><h1>DatasetPipelines (deprecated)<a class="headerlink" href="pipelining-compute.html#datasetpipelines-deprecated" title="Permalink to this headline">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>DatasetPipelines are deprecated now that Datastream provides pipelined execution
+by default. For more detail, see <a class="reference internal" href="data-internals.html#streaming-execution"><span class="std std-ref">Streaming Execution</span></a>.</p>
+</div>
+<p>Dataset pipelines allow Dataset transformations to be executed incrementally on <em>windows</em> of the base data, instead of on all of the data at once. This can be used for streaming data loading into ML training, or to execute batch transformations on large datasets without needing to load the entire dataset into cluster memory.</p>
+<p>Dataset pipelines can be read in a streaming fashion by one consumer, or split into multiple sub-pipelines and read in parallel by multiple consumers for distributed traininmg.</p>
+<section id="creating-a-datasetpipeline">
+<h2>Creating a DatasetPipeline<a class="headerlink" href="pipelining-compute.html#creating-a-datasetpipeline" title="Permalink to this headline">#</a></h2>
+<p>A <a class="reference external" href="https://docs.ray.io/en/master/data/package-ref.html#datasetpipeline-api">DatasetPipeline</a> can be constructed in two ways: either by pipelining the execution of an existing Dataset (via <a class="reference internal" href="api/doc/ray.data.Datastream.window.html#ray.data.Datastream.window" title="ray.data.Datastream.window"><code class="xref py py-meth docutils literal notranslate"><span class="pre">window()</span></code></a>), or generating repeats of an existing Dataset (via <a class="reference internal" href="api/doc/ray.data.Datastream.repeat.html#ray.data.Datastream.repeat" title="ray.data.Datastream.repeat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">repeat()</span></code></a>). Similar to Datasets, you can freely pass DatasetPipelines between Ray tasks, actors, and libraries. Get started with this synthetic data example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+
+<span class="k">def</span> <span class="nf">func1</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">func2</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">func3</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span>
+
+<span class="c1"># Create a dataset and then create a pipeline from it.</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+<span class="c1"># -&gt; Dataset(num_blocks=200, num_rows=1000000, schema=&lt;class &#39;int&#39;&gt;)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">blocks_per_window</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="p">)</span>
+<span class="c1"># -&gt; DatasetPipeline(num_windows=20, num_stages=1)</span>
+
+<span class="c1"># Applying transforms to pipelines adds more pipeline stages.</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">func1</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">func2</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">func3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="p">)</span>
+<span class="c1"># -&gt; DatasetPipeline(num_windows=20, num_stages=4)</span>
+
+<span class="c1"># Output can be pulled from the pipeline concurrently with its execution.</span>
+<span class="n">num_rows</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">pipe</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">():</span>
+    <span class="n">num_rows</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="c1"># -&gt;</span>
+<span class="c1"># Stage 0:  55%|█████████████████████████                |11/20 [00:02&lt;00:00,  9.86it/s]</span>
+<span class="c1"># Stage 1:  50%|██████████████████████                   |10/20 [00:02&lt;00:01,  9.45it/s]</span>
+<span class="c1"># Stage 2:  45%|███████████████████                      | 9/20 [00:02&lt;00:01,  8.27it/s]</span>
+<span class="c1"># Stage 3:  35%|████████████████                         | 8/20 [00:02&lt;00:02,  5.33it/s]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total num rows&quot;</span><span class="p">,</span> <span class="n">num_rows</span><span class="p">)</span>
+<span class="c1"># -&gt; Total num rows 1000000</span>
+</pre></div>
+</div>
+<p>You can also create a DatasetPipeline from a custom iterator over dataset creators using <code class="xref py py-meth docutils literal notranslate"><span class="pre">from_iterable()</span></code>. For example, this is how you would implement <a class="reference internal" href="api/doc/ray.data.Datastream.repeat.html#ray.data.Datastream.repeat" title="ray.data.Datastream.repeat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">repeat()</span></code></a> and <a class="reference internal" href="api/doc/ray.data.Datastream.window.html#ray.data.Datastream.window" title="ray.data.Datastream.window"><code class="xref py py-meth docutils literal notranslate"><span class="pre">window()</span></code></a> using <code class="xref py py-meth docutils literal notranslate"><span class="pre">from_iterable()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.data.dataset_pipeline</span> <span class="kn">import</span> <span class="n">DatasetPipeline</span>
+
+<span class="c1"># Equivalent to ray.data.range(1000).repeat(times=4)</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">DatasetPipeline</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
+    <span class="p">[</span><span class="k">lambda</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">source</span><span class="p">])</span>
+
+<span class="c1"># Equivalent to ray.data.range(1000).window(blocks_per_window=10)</span>
+<span class="n">splits</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">parallelism</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">DatasetPipeline</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">([</span><span class="k">lambda</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">:</span> <span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">splits</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="transforming-pipeline-windows">
+<h2>Transforming Pipeline Windows<a class="headerlink" href="pipelining-compute.html#transforming-pipeline-windows" title="Permalink to this headline">#</a></h2>
+<p>While most Dataset operations are per-row (e.g., map, filter), some operations apply to the Dataset as a whole (e.g., sort, shuffle). Per-row operations apply to rows in the pipeline independently in the same way they do in a normal Dataset. However, when used in a pipeline, holistic transforms like shuffle are applied separately to each window in the pipeline:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example of randomly shuffling each window of a pipeline.</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_items</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span> \
+    <span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">random_shuffle_each_window</span><span class="p">()</span> \
+    <span class="o">.</span><span class="n">show_windows</span><span class="p">()</span>
+<span class="c1"># -&gt;</span>
+<span class="c1"># ----- Epoch 0 ------</span>
+<span class="c1"># === Window 0 ===</span>
+<span class="c1"># 4</span>
+<span class="c1"># 3</span>
+<span class="c1"># 1</span>
+<span class="c1"># 0</span>
+<span class="c1"># 2</span>
+<span class="c1"># ----- Epoch 1 ------</span>
+<span class="c1"># === Window 1 ===</span>
+<span class="c1"># 2</span>
+<span class="c1"># 1</span>
+<span class="c1"># 4</span>
+<span class="c1"># 0</span>
+<span class="c1"># 3</span>
+</pre></div>
+</div>
+<p>You can also apply arbitrary transformations to each window using <code class="xref py py-meth docutils literal notranslate"><span class="pre">DatasetPipeline.foreach_window()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Equivalent transformation using .foreach_window()</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_items</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span> \
+    <span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">foreach_window</span><span class="p">(</span><span class="k">lambda</span> <span class="n">w</span><span class="p">:</span> <span class="n">w</span><span class="o">.</span><span class="n">random_shuffle</span><span class="p">())</span> \
+    <span class="o">.</span><span class="n">show_windows</span><span class="p">()</span>
+<span class="c1"># -&gt;</span>
+<span class="c1"># ----- Epoch 0 ------</span>
+<span class="c1"># === Window 0 ===</span>
+<span class="c1"># 1</span>
+<span class="c1"># 0</span>
+<span class="c1"># 4</span>
+<span class="c1"># 2</span>
+<span class="c1"># 3</span>
+<span class="c1"># ----- Epoch 1 ------</span>
+<span class="c1"># === Window 1 ===</span>
+<span class="c1"># 4</span>
+<span class="c1"># 2</span>
+<span class="c1"># 0</span>
+<span class="c1"># 3</span>
+<span class="c1"># 1</span>
+</pre></div>
+</div>
+</section>
+<section id="example-pipelined-batch-inference">
+<h2>Example: Pipelined Batch Inference<a class="headerlink" href="pipelining-compute.html#example-pipelined-batch-inference" title="Permalink to this headline">#</a></h2>
+<p>In this example, we pipeline the execution of a three-stage Dataset application to minimize GPU idle time. Let’s take a look at a simple batch inference example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">image</span>
+
+<span class="k">class</span> <span class="nc">BatchInferModel</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">ImageNetModel</span><span class="p">()</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+
+<span class="c1"># Load data from storage.</span>
+<span class="n">ds</span><span class="p">:</span> <span class="n">Dataset</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">read_binary_files</span><span class="p">(</span><span class="s2">&quot;s3://bucket/image-dir&quot;</span><span class="p">)</span>
+
+<span class="c1"># Preprocess the data.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">preprocess</span><span class="p">)</span>
+
+<span class="c1"># Apply GPU batch inference to the data.</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">BatchInferModel</span><span class="p">,</span> <span class="n">compute</span><span class="o">=</span><span class="s2">&quot;actors&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">num_gpus</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Save the output.</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="s2">&quot;/tmp/results&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ignoring the output, the above script has three separate stages: loading, preprocessing, and inference. Assuming we have a fixed-sized cluster, and that each stage takes 100 seconds each, the cluster GPUs will be idle for the first 200 seconds of execution:</p>
+<img alt="../_images/dataset-pipeline-1.svg" src="../_images/dataset-pipeline-1.svg" /><section id="enabling-pipelining">
+<h3>Enabling Pipelining<a class="headerlink" href="pipelining-compute.html#enabling-pipelining" title="Permalink to this headline">#</a></h3>
+<p>We can optimize this by <em>pipelining</em> the execution of the dataset with the <a class="reference internal" href="api/doc/ray.data.Datastream.window.html#ray.data.Datastream.window" title="ray.data.Datastream.window"><code class="xref py py-meth docutils literal notranslate"><span class="pre">window()</span></code></a> call, which returns a DatasetPipeline instead of a Dataset object. The pipeline supports similar transformations to the original Dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the Dataset into a DatasetPipeline.</span>
+<span class="n">pipe</span><span class="p">:</span> <span class="n">DatasetPipeline</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span> \
+    <span class="o">.</span><span class="n">read_binary_files</span><span class="p">(</span><span class="s2">&quot;s3://bucket/image-dir&quot;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">blocks_per_window</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># The remainder of the steps do not change.</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">preprocess</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">map_batches</span><span class="p">(</span><span class="n">BatchInferModel</span><span class="p">,</span> <span class="n">compute</span><span class="o">=</span><span class="s2">&quot;actors&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">num_gpus</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="s2">&quot;/tmp/results&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here we specified <code class="docutils literal notranslate"><span class="pre">blocks_per_window=2</span></code>, which means that the Dataset is split into smaller sub-Datasets of two blocks each. Each transformation or <em>stage</em> of the pipeline is operating over these two-block Datasets in parallel. This means batch inference processing can start as soon as two blocks are read and preprocessed, greatly reducing the GPU idle time:</p>
+<img alt="../_images/dataset-pipeline-2.svg" src="../_images/dataset-pipeline-2.svg" /></section>
+<section id="pipelined-writes">
+<h3>Pipelined Writes<a class="headerlink" href="pipelining-compute.html#pipelined-writes" title="Permalink to this headline">#</a></h3>
+<p>When calling <code class="docutils literal notranslate"><span class="pre">write_&lt;datasource&gt;()</span></code> on a pipeline, data is written separately for each window. This means that in the above example, JSON files will start being written as soon as the first window is finished, in a incremental / pipelined way.</p>
+</section>
+<section id="tuning-parallelism">
+<h3>Tuning Parallelism<a class="headerlink" href="pipelining-compute.html#tuning-parallelism" title="Permalink to this headline">#</a></h3>
+<p>Tune the throughput vs latency of your pipeline with the <code class="docutils literal notranslate"><span class="pre">blocks_per_window</span></code> setting. As a rule of thumb, higher parallelism settings perform better, however <code class="docutils literal notranslate"><span class="pre">blocks_per_window</span> <span class="pre">==</span> <span class="pre">num_blocks</span></code> effectively disables pipelining, since the DatasetPipeline will only contain a single Dataset. The other extreme is setting <code class="docutils literal notranslate"><span class="pre">blocks_per_window=1</span></code>, which minimizes the latency to initial output but only allows one concurrent transformation task per stage:</p>
+<img alt="../_images/dataset-pipeline-3.svg" src="../_images/dataset-pipeline-3.svg" /><p>You can also specify the size of each window using <code class="docutils literal notranslate"><span class="pre">bytes_per_window</span></code>. In this mode, Datasets will determine the size of each window based on the target byte size, giving each window at least 1 block but not otherwise exceeding the target bytes per window. This mode can be useful to limit the memory usage of a pipeline. As a rule of thumb, the cluster memory should be at least 2-5x the window size to avoid spilling.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a DatasetPipeline with up to 10GB of data per window.</span>
+<span class="n">pipe</span><span class="p">:</span> <span class="n">DatasetPipeline</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span> \
+    <span class="o">.</span><span class="n">read_binary_files</span><span class="p">(</span><span class="s2">&quot;s3://bucket/image-dir&quot;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">bytes_per_window</span><span class="o">=</span><span class="mf">10e9</span><span class="p">)</span>
+<span class="c1"># -&gt; INFO -- Created DatasetPipeline with 73 windows: 9120MiB min, 9431MiB max, 9287MiB mean</span>
+<span class="c1"># -&gt; INFO -- Blocks per window: 10 min, 16 max, 14 mean</span>
+<span class="c1"># -&gt; INFO -- ✔️  This pipeline&#39;s per-window parallelism is high enough to fully utilize the cluster.</span>
+<span class="c1"># -&gt; INFO -- ✔️  This pipeline&#39;s windows likely fit in object store memory without spilling.</span>
+</pre></div>
+</div>
+<p>Datasets will warn you if the windows are too large or each window has insufficient parallelism (too few blocks). Check out the reported statistics for window size and blocks per window to ensure efficient pipeline execution.</p>
+</section>
+</section>
+<section id="pipelines-for-ml-ingest">
+<h2>Pipelines for ML Ingest<a class="headerlink" href="pipelining-compute.html#pipelines-for-ml-ingest" title="Permalink to this headline">#</a></h2>
+<p>Dataset pipelines can also be used for streaming data loading into distributed training in Ray.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ray Train is the standard libary for distributed training in Ray. Train will automatically create
+and split DatasetPipelines for you. See <a class="reference internal" href="../ray-air/check-ingest.html#air-ingest"><span class="std std-ref">Configuring Training Datasets</span></a>
+for the recommended way to get started with distributed training.</p>
+</div>
+<section id="splitting-pipelines-for-distributed-ingest">
+<h3>Splitting pipelines for distributed ingest<a class="headerlink" href="pipelining-compute.html#splitting-pipelines-for-distributed-ingest" title="Permalink to this headline">#</a></h3>
+<p>Similar to how you can split a Dataset with <a class="reference internal" href="api/doc/ray.data.Datastream.split.html#ray.data.Datastream.split" title="ray.data.Datastream.split"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Dataset.split()</span></code></a>, you can also split a DatasetPipeline with the same method call <code class="xref py py-meth docutils literal notranslate"><span class="pre">DatasetPipeline.split()</span></code>. This returns a number of DatasetPipeline shards that share a common parent pipeline. Each shard can be passed to a remote task or actor.</p>
+<p><strong>Code</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a pipeline that loops over its source dataset indefinitely.</span>
+<span class="n">pipe</span><span class="p">:</span> <span class="n">DatasetPipeline</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span> \
+    <span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;s3://bucket/dir&quot;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">repeat</span><span class="p">()</span> \
+    <span class="o">.</span><span class="n">random_shuffle_each_window</span><span class="p">()</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">num_gpus</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TrainingWorker</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">shard</span><span class="p">:</span> <span class="n">DatasetPipeline</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">rank</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shard</span> <span class="o">=</span> <span class="n">shard</span>
+    <span class="o">...</span>
+
+<span class="n">shards</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DatasetPipeline</span><span class="p">]</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">workers</span> <span class="o">=</span> <span class="p">[</span><span class="n">TrainingWorker</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shards</span><span class="p">)]</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p><strong>Pipeline</strong>:</p>
+<img alt="../_images/dataset-repeat-2.svg" src="../_images/dataset-repeat-2.svg" /></section>
+<section id="handling-epochs">
+<h3>Handling Epochs<a class="headerlink" href="pipelining-compute.html#handling-epochs" title="Permalink to this headline">#</a></h3>
+<p>It’s common in ML training to want to divide data ingest into epochs, or repetitions over the original source dataset.
+DatasetPipeline provides a convenient <code class="xref py py-meth docutils literal notranslate"><span class="pre">DatasetPipeline.iter_epochs()</span></code> method that can be used to split up the pipeline into epoch-delimited pipeline segments.
+Epochs are defined by the last call to <code class="docutils literal notranslate"><span class="pre">.repeat()</span></code> in a pipeline, for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pipe</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">from_items</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span> \
+    <span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">random_shuffle_each_window</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pipe</span><span class="o">.</span><span class="n">iter_epochs</span><span class="p">()):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">epoch</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="c1"># -&gt;</span>
+<span class="c1"># Epoch 0</span>
+<span class="c1"># 2</span>
+<span class="c1"># 1</span>
+<span class="c1"># 3</span>
+<span class="c1"># 4</span>
+<span class="c1"># 0</span>
+<span class="c1"># Epoch 1</span>
+<span class="c1"># 3</span>
+<span class="c1"># 4</span>
+<span class="c1"># 0</span>
+<span class="c1"># 2</span>
+<span class="c1"># 1</span>
+<span class="c1"># Epoch 2</span>
+<span class="c1"># 3</span>
+<span class="c1"># 2</span>
+<span class="c1"># 4</span>
+<span class="c1"># 1</span>
+<span class="c1"># 0</span>
+</pre></div>
+</div>
+<p>Note that while epochs commonly consist of a single window, they can also contain multiple windows if <code class="docutils literal notranslate"><span class="pre">.window()</span></code> is used or there are multiple <code class="docutils literal notranslate"><span class="pre">.repeat()</span></code> calls.</p>
+</section>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="performance-tips.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Performance Tips and Tuning</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="examples/index.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Examples</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

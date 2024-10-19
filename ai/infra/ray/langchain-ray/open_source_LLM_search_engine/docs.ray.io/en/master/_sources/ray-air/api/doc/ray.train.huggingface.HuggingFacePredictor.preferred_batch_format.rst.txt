@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFacePredictor.preferred\_batch\_format
+===================================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFacePredictor.preferred_batch_format

@@ -1,0 +1,6 @@
+ray.data.Datastream.to\_numpy\_refs
+===================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.to_numpy_refs

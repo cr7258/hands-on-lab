@@ -1,0 +1,6 @@
+ray.data.datasource.ParquetDatasource.get\_name
+===============================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: ParquetDatasource.get_name

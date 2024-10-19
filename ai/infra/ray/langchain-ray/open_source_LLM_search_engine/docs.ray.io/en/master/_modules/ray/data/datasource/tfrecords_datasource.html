@@ -1,0 +1,833 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ray.data.datasource.tfrecords_datasource &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/js/versionwarning.js"></script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../../../../_static/js/docsearch.js"></script>
+    <script src="../../../../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../../../../_static/js/termynal.js"></script>
+    <script defer="defer" src="../../../../_static/js/custom.js"></script>
+    <script defer="defer" src="../../../../_static/js/top-navigation.js"></script>
+    <script src="../../../../_static/js/tags.js"></script>
+    <script src="../../../../_static/tabs.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../_static/design-tabs.js"></script>
+    <script async="async" src="../../../../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/_modules/ray/data/datasource/tfrecords_datasource.html" />
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:35:11Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "_modules/ray/data/datasource/tfrecords_datasource", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2F_modules/ray/data/datasource/tfrecords_datasource.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for ray.data.datasource.tfrecords_datasource</h1><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+    <span class="n">Iterable</span><span class="p">,</span>
+    <span class="n">Iterator</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">import</span> <span class="nn">struct</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">ray.util.annotations</span> <span class="kn">import</span> <span class="n">PublicAPI</span>
+<span class="kn">from</span> <span class="nn">ray.data._internal.util</span> <span class="kn">import</span> <span class="n">_check_import</span>
+<span class="kn">from</span> <span class="nn">ray.data.block</span> <span class="kn">import</span> <span class="n">Block</span><span class="p">,</span> <span class="n">BlockAccessor</span>
+<span class="kn">from</span> <span class="nn">ray.data.datasource.file_based_datasource</span> <span class="kn">import</span> <span class="n">FileBasedDatasource</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pyarrow</span>
+    <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+    <span class="kn">from</span> <span class="nn">tensorflow_metadata.proto.v0</span> <span class="kn">import</span> <span class="n">schema_pb2</span>
+
+
+<div class="viewcode-block" id="TFRecordDatasource"><a class="viewcode-back" href="../../../../data/api/doc/ray.data.datasource.TFRecordDatasource.html#ray.data.datasource.TFRecordDatasource">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TFRecordDatasource</span><span class="p">(</span><span class="n">FileBasedDatasource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;TFRecord datasource, for reading and writing TFRecord files.&quot;&quot;&quot;</span>
+
+    <span class="n">_FILE_EXTENSION</span> <span class="o">=</span> <span class="s2">&quot;tfrecords&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_read_stream</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="s2">&quot;pyarrow.NativeFile&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">reader_args</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Block</span><span class="p">]:</span>
+        <span class="kn">from</span> <span class="nn">google.protobuf.message</span> <span class="kn">import</span> <span class="n">DecodeError</span>
+        <span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+        <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+        <span class="n">tf_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;schema_pb2.Schema&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reader_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tf_schema&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">_read_records</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+            <span class="n">example</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Example</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">example</span><span class="o">.</span><span class="n">ParseFromString</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">DecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;`TFRecordDatasource` failed to parse `tf.train.Example` &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;record in &#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39;. This error can occur if your TFRecord &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;file contains a message type other than `tf.train.Example`: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+            <span class="k">yield</span> <span class="n">pa</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">from_pydict</span><span class="p">(</span><span class="n">_convert_example_to_dict</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">tf_schema</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_write_block</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">f</span><span class="p">:</span> <span class="s2">&quot;pyarrow.NativeFile&quot;</span><span class="p">,</span>
+        <span class="n">block</span><span class="p">:</span> <span class="n">BlockAccessor</span><span class="p">,</span>
+        <span class="n">writer_args_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="n">tf_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;schema_pb2.Schema&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">writer_args</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_check_import</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s2">&quot;crc32c&quot;</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s2">&quot;crc32c&quot;</span><span class="p">)</span>
+
+        <span class="n">arrow_table</span> <span class="o">=</span> <span class="n">block</span><span class="o">.</span><span class="n">to_arrow</span><span class="p">()</span>
+
+        <span class="c1"># It seems like TFRecords are typically row-based,</span>
+        <span class="c1"># https://www.tensorflow.org/tutorials/load_data/tfrecord#writing_a_tfrecord_file_2</span>
+        <span class="c1"># so we must iterate through the rows of the block,</span>
+        <span class="c1"># serialize to tf.train.Example proto, and write to file.</span>
+
+        <span class="n">examples</span> <span class="o">=</span> <span class="n">_convert_arrow_table_to_examples</span><span class="p">(</span><span class="n">arrow_table</span><span class="p">,</span> <span class="n">tf_schema</span><span class="p">)</span>
+
+        <span class="c1"># Write each example to the arrow file in the TFRecord format.</span>
+        <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">:</span>
+            <span class="n">_write_record</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">example</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_convert_example_to_dict</span><span class="p">(</span>
+    <span class="n">example</span><span class="p">:</span> <span class="s2">&quot;tf.train.Example&quot;</span><span class="p">,</span>
+    <span class="n">tf_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;schema_pb2.Schema&quot;</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;pyarrow.Array&quot;</span><span class="p">]:</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">schema_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># Convert user-specified schema into dict for convenient mapping</span>
+    <span class="k">if</span> <span class="n">tf_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">schema_feature</span> <span class="ow">in</span> <span class="n">tf_schema</span><span class="o">.</span><span class="n">feature</span><span class="p">:</span>
+            <span class="n">schema_dict</span><span class="p">[</span><span class="n">schema_feature</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">schema_feature</span><span class="o">.</span><span class="n">type</span>
+
+    <span class="k">for</span> <span class="n">feature_name</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">example</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">tf_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">feature_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">schema_dict</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Found extra unexpected feature </span><span class="si">{</span><span class="n">feature_name</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;not in specified schema: </span><span class="si">{</span><span class="n">tf_schema</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="n">schema_feature_type</span> <span class="o">=</span> <span class="n">schema_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature_name</span><span class="p">)</span>
+        <span class="n">record</span><span class="p">[</span><span class="n">feature_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">_get_feature_value</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">schema_feature_type</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">record</span>
+
+
+<span class="k">def</span> <span class="nf">_convert_arrow_table_to_examples</span><span class="p">(</span>
+    <span class="n">arrow_table</span><span class="p">:</span> <span class="s2">&quot;pyarrow.Table&quot;</span><span class="p">,</span>
+    <span class="n">tf_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;schema_pb2.Schema&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="s2">&quot;tf.train.Example&quot;</span><span class="p">]:</span>
+    <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+    <span class="n">schema_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># Convert user-specified schema into dict for convenient mapping</span>
+    <span class="k">if</span> <span class="n">tf_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">schema_feature</span> <span class="ow">in</span> <span class="n">tf_schema</span><span class="o">.</span><span class="n">feature</span><span class="p">:</span>
+            <span class="n">schema_dict</span><span class="p">[</span><span class="n">schema_feature</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">schema_feature</span><span class="o">.</span><span class="n">type</span>
+
+    <span class="c1"># Serialize each row[i] of the block to a tf.train.Example and yield it.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">arrow_table</span><span class="o">.</span><span class="n">num_rows</span><span class="p">):</span>
+        <span class="c1"># First, convert row[i] to a dictionary.</span>
+        <span class="n">features</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;tf.train.Feature&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">arrow_table</span><span class="o">.</span><span class="n">column_names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tf_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">schema_dict</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Found extra unexpected feature </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;not in specified schema: </span><span class="si">{</span><span class="n">tf_schema</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="n">schema_feature_type</span> <span class="o">=</span> <span class="n">schema_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">features</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">_value_to_feature</span><span class="p">(</span>
+                <span class="n">arrow_table</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">schema_feature_type</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Convert the dictionary to an Example proto.</span>
+        <span class="n">proto</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Example</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Features</span><span class="p">(</span><span class="n">feature</span><span class="o">=</span><span class="n">features</span><span class="p">))</span>
+
+        <span class="k">yield</span> <span class="n">proto</span>
+
+
+<span class="k">def</span> <span class="nf">_get_single_true_type</span><span class="p">(</span><span class="n">dct</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Utility function for getting the single key which has a `True` value in</span>
+<span class="sd">    a dict. Used to filter a dict of `{field_type: is_valid}` to get</span>
+<span class="sd">    the field type from a schema or data source.&quot;&quot;&quot;</span>
+    <span class="n">filtered_types</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">([</span><span class="n">_type</span> <span class="k">for</span> <span class="n">_type</span> <span class="ow">in</span> <span class="n">dct</span> <span class="k">if</span> <span class="n">dct</span><span class="p">[</span><span class="n">_type</span><span class="p">]])</span>
+    <span class="c1"># In the case where there are no keys with a `True` value, return `None`</span>
+    <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">filtered_types</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_get_feature_value</span><span class="p">(</span>
+    <span class="n">feature</span><span class="p">:</span> <span class="s2">&quot;tf.train.Feature&quot;</span><span class="p">,</span>
+    <span class="n">schema_feature_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;schema_pb2.FeatureType&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;pyarrow.Array&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+
+    <span class="n">underlying_feature_type</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;bytes&quot;</span><span class="p">:</span> <span class="n">feature</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;bytes_list&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;float&quot;</span><span class="p">:</span> <span class="n">feature</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;float_list&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;int&quot;</span><span class="p">:</span> <span class="n">feature</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;int64_list&quot;</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="c1"># At most one of `bytes_list`, `float_list`, and `int64_list`</span>
+    <span class="c1"># should contain values. If none contain data, this indicates</span>
+    <span class="c1"># an empty feature value.</span>
+    <span class="k">assert</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">underlying_feature_type</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">schema_feature_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">tensorflow_metadata.proto.v0</span> <span class="kn">import</span> <span class="n">schema_pb2</span>
+        <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ModuleNotFoundError</span><span class="p">(</span>
+                <span class="s2">&quot;To use TensorFlow schemas, please install &quot;</span>
+                <span class="s2">&quot;the tensorflow-metadata package.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># If a schema is specified, compare to the underlying type</span>
+        <span class="n">specified_feature_type</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;bytes&quot;</span><span class="p">:</span> <span class="n">schema_feature_type</span> <span class="o">==</span> <span class="n">schema_pb2</span><span class="o">.</span><span class="n">FeatureType</span><span class="o">.</span><span class="n">BYTES</span><span class="p">,</span>
+            <span class="s2">&quot;float&quot;</span><span class="p">:</span> <span class="n">schema_feature_type</span> <span class="o">==</span> <span class="n">schema_pb2</span><span class="o">.</span><span class="n">FeatureType</span><span class="o">.</span><span class="n">FLOAT</span><span class="p">,</span>
+            <span class="s2">&quot;int&quot;</span><span class="p">:</span> <span class="n">schema_feature_type</span> <span class="o">==</span> <span class="n">schema_pb2</span><span class="o">.</span><span class="n">FeatureType</span><span class="o">.</span><span class="n">INT</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">und_type</span> <span class="o">=</span> <span class="n">_get_single_true_type</span><span class="p">(</span><span class="n">underlying_feature_type</span><span class="p">)</span>
+        <span class="n">spec_type</span> <span class="o">=</span> <span class="n">_get_single_true_type</span><span class="p">(</span><span class="n">specified_feature_type</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">und_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">und_type</span> <span class="o">!=</span> <span class="n">spec_type</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Schema field type mismatch during read: specified type is &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">spec_type</span><span class="si">}</span><span class="s2">, but underlying type is </span><span class="si">{</span><span class="n">und_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># Override the underlying value type with the type in the user-specified schema.</span>
+        <span class="n">underlying_feature_type</span> <span class="o">=</span> <span class="n">specified_feature_type</span>
+
+    <span class="k">if</span> <span class="n">underlying_feature_type</span><span class="p">[</span><span class="s2">&quot;bytes&quot;</span><span class="p">]:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">bytes_list</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">type_</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">binary</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">underlying_feature_type</span><span class="p">[</span><span class="s2">&quot;float&quot;</span><span class="p">]:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">float_list</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">type_</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">float32</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">underlying_feature_type</span><span class="p">[</span><span class="s2">&quot;int&quot;</span><span class="p">]:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">int64_list</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">type_</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">int64</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">type_</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">null</span><span class="p">()</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">schema_feature_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Use the value itself if the features contains a single value.</span>
+        <span class="c1"># This is to give better user experience when writing preprocessing UDF on</span>
+        <span class="c1"># these single-value lists.</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># If the feature value is empty and no type is specified in the user-provided</span>
+        <span class="c1"># schema, set the type to null for now to allow pyarrow to construct a valid</span>
+        <span class="c1"># Array; later, infer the type from other records which have non-empty values</span>
+        <span class="c1"># for the feature.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">type_</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">null</span><span class="p">()</span>
+        <span class="n">type_</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">list_</span><span class="p">(</span><span class="n">type_</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">value</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="n">type_</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_value_to_feature</span><span class="p">(</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;pyarrow.Scalar&quot;</span><span class="p">,</span> <span class="s2">&quot;pyarrow.Array&quot;</span><span class="p">],</span>
+    <span class="n">schema_feature_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;schema_pb2.FeatureType&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;tf.train.Feature&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+    <span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">pa</span><span class="o">.</span><span class="n">ListScalar</span><span class="p">):</span>
+        <span class="c1"># Use the underlying type of the ListScalar&#39;s value in</span>
+        <span class="c1"># determining the output feature&#39;s data type.</span>
+        <span class="n">value_type</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">value_type</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">as_py</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">value_type</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">type</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">as_py</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">]</span>
+
+    <span class="n">underlying_value_type</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;bytes&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_binary</span><span class="p">(</span><span class="n">value_type</span><span class="p">),</span>
+        <span class="s2">&quot;float&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_floating</span><span class="p">(</span><span class="n">value_type</span><span class="p">),</span>
+        <span class="s2">&quot;int&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_integer</span><span class="p">(</span><span class="n">value_type</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="k">assert</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">underlying_value_type</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">schema_feature_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">tensorflow_metadata.proto.v0</span> <span class="kn">import</span> <span class="n">schema_pb2</span>
+        <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ModuleNotFoundError</span><span class="p">(</span>
+                <span class="s2">&quot;To use TensorFlow schemas, please install &quot;</span>
+                <span class="s2">&quot;the tensorflow-metadata package.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">specified_feature_type</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;bytes&quot;</span><span class="p">:</span> <span class="n">schema_feature_type</span> <span class="o">==</span> <span class="n">schema_pb2</span><span class="o">.</span><span class="n">FeatureType</span><span class="o">.</span><span class="n">BYTES</span><span class="p">,</span>
+            <span class="s2">&quot;float&quot;</span><span class="p">:</span> <span class="n">schema_feature_type</span> <span class="o">==</span> <span class="n">schema_pb2</span><span class="o">.</span><span class="n">FeatureType</span><span class="o">.</span><span class="n">FLOAT</span><span class="p">,</span>
+            <span class="s2">&quot;int&quot;</span><span class="p">:</span> <span class="n">schema_feature_type</span> <span class="o">==</span> <span class="n">schema_pb2</span><span class="o">.</span><span class="n">FeatureType</span><span class="o">.</span><span class="n">INT</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="n">und_type</span> <span class="o">=</span> <span class="n">_get_single_true_type</span><span class="p">(</span><span class="n">underlying_value_type</span><span class="p">)</span>
+        <span class="n">spec_type</span> <span class="o">=</span> <span class="n">_get_single_true_type</span><span class="p">(</span><span class="n">specified_feature_type</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">und_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">und_type</span> <span class="o">!=</span> <span class="n">spec_type</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Schema field type mismatch during write: specified type is &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">spec_type</span><span class="si">}</span><span class="s2">, but underlying type is </span><span class="si">{</span><span class="n">und_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># Override the underlying value type with the type in the user-specified schema.</span>
+        <span class="n">underlying_value_type</span> <span class="o">=</span> <span class="n">specified_feature_type</span>
+
+    <span class="k">if</span> <span class="n">underlying_value_type</span><span class="p">[</span><span class="s2">&quot;int&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="n">int64_list</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Int64List</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">underlying_value_type</span><span class="p">[</span><span class="s2">&quot;float&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="n">float_list</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">FloatList</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">underlying_value_type</span><span class="p">[</span><span class="s2">&quot;bytes&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="n">bytes_list</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">BytesList</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">pa</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_null</span><span class="p">(</span><span class="n">value_type</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Unable to infer type from partially missing column. &quot;</span>
+            <span class="s2">&quot;Try setting read parallelism = 1, or use an input data source which &quot;</span>
+            <span class="s2">&quot;explicitly specifies the schema.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Value is of type </span><span class="si">{</span><span class="n">value_type</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="s2">&quot;which we cannot convert to a supported tf.train.Feature storage type &quot;</span>
+        <span class="s2">&quot;(bytes, float, or int).&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># Adapted from https://github.com/vahidk/tfrecord/blob/74b2d24a838081356d993ec0e147eaf59ccd4c84/tfrecord/reader.py#L16-L96  # noqa: E501</span>
+<span class="c1">#</span>
+<span class="c1"># MIT License</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2020 Vahid Kazemi</span>
+<span class="c1">#</span>
+<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="c1"># in the Software without restriction, including without limitation the rights</span>
+<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
+<span class="c1"># furnished to do so, subject to the following conditions:</span>
+<span class="c1">#</span>
+<span class="c1"># The above copyright notice and this permission notice shall be included in all</span>
+<span class="c1"># copies or substantial portions of the Software.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
+<span class="c1"># SOFTWARE.</span>
+<span class="k">def</span> <span class="nf">_read_records</span><span class="p">(</span>
+    <span class="n">file</span><span class="p">:</span> <span class="s2">&quot;pyarrow.NativeFile&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">memoryview</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read records from TFRecord file.</span>
+
+<span class="sd">    A TFRecord file contains a sequence of records. The file can only be read</span>
+<span class="sd">    sequentially. Each record is stored in the following formats:</span>
+<span class="sd">        uint64 length</span>
+<span class="sd">        uint32 masked_crc32_of_length</span>
+<span class="sd">        byte   data[length]</span>
+<span class="sd">        uint32 masked_crc32_of_data</span>
+
+<span class="sd">    See https://www.tensorflow.org/tutorials/load_data/tfrecord#tfrecords_format_details</span>
+<span class="sd">    for more details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">length_bytes</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">crc_bytes</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">datum_bytes</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
+    <span class="n">row_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Read &quot;length&quot; field.</span>
+            <span class="n">num_length_bytes_read</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readinto</span><span class="p">(</span><span class="n">length_bytes</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">num_length_bytes_read</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="n">num_length_bytes_read</span> <span class="o">!=</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Failed to read the length of record data. Expected 8 bytes but &quot;</span>
+                    <span class="s2">&quot;got </span><span class="si">{num_length_bytes_read}</span><span class="s2"> bytes.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Read &quot;masked_crc32_of_length&quot; field.</span>
+            <span class="n">num_length_crc_bytes_read</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readinto</span><span class="p">(</span><span class="n">crc_bytes</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">num_length_crc_bytes_read</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Failed to read the length of CRC-32C hashes. Expected 4 bytes &quot;</span>
+                    <span class="s2">&quot;but got </span><span class="si">{num_length_crc_bytes_read}</span><span class="s2"> bytes.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Read &quot;data[length]&quot; field.</span>
+            <span class="p">(</span><span class="n">data_length</span><span class="p">,)</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&lt;Q&quot;</span><span class="p">,</span> <span class="n">length_bytes</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">data_length</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">datum_bytes</span><span class="p">):</span>
+                <span class="n">datum_bytes</span> <span class="o">=</span> <span class="n">datum_bytes</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">data_length</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">datum_bytes_view</span> <span class="o">=</span> <span class="nb">memoryview</span><span class="p">(</span><span class="n">datum_bytes</span><span class="p">)[:</span><span class="n">data_length</span><span class="p">]</span>
+            <span class="n">num_datum_bytes_read</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readinto</span><span class="p">(</span><span class="n">datum_bytes_view</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">num_datum_bytes_read</span> <span class="o">!=</span> <span class="n">data_length</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Failed to read the record. Exepcted </span><span class="si">{</span><span class="n">data_length</span><span class="si">}</span><span class="s2"> bytes but got &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_datum_bytes_read</span><span class="si">}</span><span class="s2"> bytes.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Read &quot;masked_crc32_of_data&quot; field.</span>
+            <span class="c1"># TODO(chengsu): ideally we should check CRC-32C against the actual data.</span>
+            <span class="n">num_crc_bytes_read</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readinto</span><span class="p">(</span><span class="n">crc_bytes</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">num_crc_bytes_read</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Failed to read the CRC-32C hashes. Expected 4 bytes but got &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_crc_bytes_read</span><span class="si">}</span><span class="s2"> bytes.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Return the data.</span>
+            <span class="k">yield</span> <span class="n">datum_bytes_view</span>
+
+            <span class="n">row_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">data_length</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Failed to read TFRecord file </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">. Please ensure that the &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;TFRecord file has correct format. Already read </span><span class="si">{</span><span class="n">row_count</span><span class="si">}</span><span class="s2"> rows.&quot;</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">data_length</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">error_message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; Byte size of current record data is </span><span class="si">{</span><span class="n">data_length</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+
+<span class="c1"># Adapted from https://github.com/vahidk/tfrecord/blob/74b2d24a838081356d993ec0e147eaf59ccd4c84/tfrecord/writer.py#L57-L72  # noqa: E501</span>
+<span class="c1">#</span>
+<span class="c1"># MIT License</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2020 Vahid Kazemi</span>
+<span class="c1">#</span>
+<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="c1"># in the Software without restriction, including without limitation the rights</span>
+<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
+<span class="c1"># furnished to do so, subject to the following conditions:</span>
+<span class="c1">#</span>
+<span class="c1"># The above copyright notice and this permission notice shall be included in all</span>
+<span class="c1"># copies or substantial portions of the Software.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
+<span class="c1"># SOFTWARE.</span>
+
+
+<span class="k">def</span> <span class="nf">_write_record</span><span class="p">(</span>
+    <span class="n">file</span><span class="p">:</span> <span class="s2">&quot;pyarrow.NativeFile&quot;</span><span class="p">,</span>
+    <span class="n">example</span><span class="p">:</span> <span class="s2">&quot;tf.train.Example&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">example</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">()</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+    <span class="n">length_bytes</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&lt;Q&quot;</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">length_bytes</span><span class="p">)</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">_masked_crc</span><span class="p">(</span><span class="n">length_bytes</span><span class="p">))</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">_masked_crc</span><span class="p">(</span><span class="n">record</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_masked_crc</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;CRC checksum.&quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">crc32c</span>
+
+    <span class="n">mask</span> <span class="o">=</span> <span class="mh">0xA282EAD8</span>
+    <span class="n">crc</span> <span class="o">=</span> <span class="n">crc32c</span><span class="o">.</span><span class="n">crc32</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">masked</span> <span class="o">=</span> <span class="p">((</span><span class="n">crc</span> <span class="o">&gt;&gt;</span> <span class="mi">15</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">crc</span> <span class="o">&lt;&lt;</span> <span class="mi">17</span><span class="p">))</span> <span class="o">+</span> <span class="n">mask</span>
+    <span class="n">masked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">(</span><span class="n">masked</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+    <span class="n">masked_bytes</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&lt;I&quot;</span><span class="p">,</span> <span class="n">masked</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">masked_bytes</span>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

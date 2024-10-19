@@ -1,0 +1,717 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ray.serve.batching &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/versionwarning.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../../../_static/js/docsearch.js"></script>
+    <script src="../../../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../../../_static/js/termynal.js"></script>
+    <script defer="defer" src="../../../_static/js/custom.js"></script>
+    <script defer="defer" src="../../../_static/js/top-navigation.js"></script>
+    <script src="../../../_static/js/tags.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script async="async" src="../../../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/_modules/ray/serve/batching.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:35:18Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "_modules/ray/serve/batching", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2F_modules/ray/serve/batching.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for ray.serve.batching</h1><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">iscoroutinefunction</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+
+
+<span class="kn">from</span> <span class="nn">ray._private.signature</span> <span class="kn">import</span> <span class="n">extract_signature</span><span class="p">,</span> <span class="n">flatten_args</span><span class="p">,</span> <span class="n">recover_args</span>
+<span class="kn">from</span> <span class="nn">ray._private.utils</span> <span class="kn">import</span> <span class="n">get_or_create_event_loop</span>
+<span class="kn">from</span> <span class="nn">ray.serve.exceptions</span> <span class="kn">import</span> <span class="n">RayServeException</span>
+<span class="kn">from</span> <span class="nn">ray.util.annotations</span> <span class="kn">import</span> <span class="n">PublicAPI</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">_SingleRequest</span><span class="p">:</span>
+    <span class="n">self_arg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+    <span class="n">flattened_args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+    <span class="n">future</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Future</span>
+
+
+<span class="k">def</span> <span class="nf">_batch_args_kwargs</span><span class="p">(</span>
+    <span class="n">list_of_flattened_args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;Batch a list of flatten args and returns regular args and kwargs&quot;&quot;&quot;</span>
+    <span class="c1"># Ray&#39;s flatten arg format is a list with alternating key and values</span>
+    <span class="c1"># e.g. args=(1, 2), kwargs={&quot;key&quot;: &quot;val&quot;} got turned into</span>
+    <span class="c1">#      [None, 1, None, 2, &quot;key&quot;, &quot;val&quot;]</span>
+    <span class="n">arg_lengths</span> <span class="o">=</span> <span class="p">{</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="k">for</span> <span class="n">args</span> <span class="ow">in</span> <span class="n">list_of_flattened_args</span><span class="p">}</span>
+    <span class="k">assert</span> <span class="p">(</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">arg_lengths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="p">),</span> <span class="s2">&quot;All batch requests should have the same number of parameters.&quot;</span>
+    <span class="n">arg_length</span> <span class="o">=</span> <span class="n">arg_lengths</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+    <span class="n">batched_flattened_args</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">arg_length</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">batched_flattened_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">list_of_flattened_args</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">batched_flattened_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list_of_flattened_args</span><span class="p">]</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">recover_args</span><span class="p">(</span><span class="n">batched_flattened_args</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">_BatchQueue</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">max_batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">timeout_s</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">handle_batch_func</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Async queue that accepts individual items and returns batches.</span>
+
+<span class="sd">        Respects max_batch_size and timeout_s; a batch will be returned when</span>
+<span class="sd">        max_batch_size elements are available or the timeout has passed since</span>
+<span class="sd">        the previous get.</span>
+
+<span class="sd">        If handle_batch_func is passed in, a background coroutine will run to</span>
+<span class="sd">        poll from the queue and call handle_batch_func on the results.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            max_batch_size: max number of elements to return in a batch.</span>
+<span class="sd">            timeout_s: time to wait before returning an incomplete</span>
+<span class="sd">                batch.</span>
+<span class="sd">            handle_batch_func(Optional[Callable]): callback to run in the</span>
+<span class="sd">                background to handle batches if provided.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">:</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Queue</span><span class="p">[</span><span class="n">_SingleRequest</span><span class="p">]</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">full_batch_event</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_batch_size</span> <span class="o">=</span> <span class="n">max_batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout_s</span> <span class="o">=</span> <span class="n">timeout_s</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_handle_batch_task</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">handle_batch_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_batch_task</span> <span class="o">=</span> <span class="n">get_or_create_event_loop</span><span class="p">()</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_handle_batches</span><span class="p">(</span><span class="n">handle_batch_func</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">_SingleRequest</span><span class="p">,</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Future</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">put_nowait</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="c1"># Signal when the full batch is ready. The event will be reset</span>
+        <span class="c1"># in wait_for_batch.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_batch_size</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">full_batch_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">wait_for_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Wait for batch respecting self.max_batch_size and self.timeout_s.</span>
+
+<span class="sd">        Returns a batch of up to self.max_batch_size items, waiting for up</span>
+<span class="sd">        to self.timeout_s for a full batch. After the timeout, returns as many</span>
+<span class="sd">        items as are ready.</span>
+
+<span class="sd">        Always returns a batch with at least one item - will block</span>
+<span class="sd">        indefinitely until an item comes in.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">curr_timeout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout_s</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">loop_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+            <span class="c1"># If the timeout is 0, wait for any item to be available on the</span>
+            <span class="c1"># queue.</span>
+            <span class="k">if</span> <span class="n">curr_timeout</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+            <span class="c1"># If the timeout is nonzero, wait for either the timeout to occur</span>
+            <span class="c1"># or the max batch size to be ready.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_batch_event</span><span class="o">.</span><span class="n">wait</span><span class="p">(),</span> <span class="n">curr_timeout</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+            <span class="c1"># Pull up to the max_batch_size requests off the queue.</span>
+            <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_batch_size</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+                <span class="n">batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">get_nowait</span><span class="p">())</span>
+
+            <span class="c1"># Reset the event if there are fewer than max_batch_size requests</span>
+            <span class="c1"># in the queue.</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_batch_size</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_batch_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span>
+            <span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">full_batch_event</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+            <span class="c1"># Adjust the timeout based on the time spent in this iteration.</span>
+            <span class="n">curr_timeout</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">curr_timeout</span> <span class="o">-</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">loop_start</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">batch</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_handle_batches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">batch</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">_SingleRequest</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait_for_batch</span><span class="p">()</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="n">self_arg</span> <span class="o">=</span> <span class="n">batch</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">self_arg</span>
+            <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">_batch_args_kwargs</span><span class="p">([</span><span class="n">item</span><span class="o">.</span><span class="n">flattened_args</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">])</span>
+            <span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">future</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Method call.</span>
+                <span class="k">if</span> <span class="n">self_arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">func</span><span class="p">(</span><span class="n">self_arg</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="c1"># Normal function call.</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="n">RayServeException</span><span class="p">(</span>
+                        <span class="s2">&quot;Batched function doesn&#39;t preserve batch size. &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;The input list has length </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span><span class="si">}</span><span class="s2"> but the &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;returned list has length </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+                    <span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+                    <span class="n">futures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">futures</span><span class="p">:</span>
+                    <span class="n">future</span><span class="o">.</span><span class="n">set_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_batch_task</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">or</span> <span class="ow">not</span> <span class="n">get_or_create_event_loop</span><span class="p">()</span><span class="o">.</span><span class="n">is_running</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="c1"># TODO(edoakes): although we try to gracefully shutdown here, it still</span>
+        <span class="c1"># causes some errors when the process exits due to the asyncio loop</span>
+        <span class="c1"># already being destroyed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_handle_batch_task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_extract_self_if_method_call</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">object</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Check if this is a method rather than a function.</span>
+
+<span class="sd">    Does this by checking to see if `func` is the attribute of the first</span>
+<span class="sd">    (`self`) argument under `func.__name__`. Unfortunately, this is the most</span>
+<span class="sd">    robust solution to this I was able to find. It would also be preferable</span>
+<span class="sd">    to do this check when the decorator runs, rather than when the method is.</span>
+
+<span class="sd">    Returns the `self` object if it&#39;s a method call, else None.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        args (List[Any]): arguments to the function/method call.</span>
+<span class="sd">        func: the unbound function that was called.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">method</span><span class="p">:</span>
+            <span class="n">wrapped</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="s2">&quot;__wrapped__&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">wrapped</span> <span class="ow">and</span> <span class="n">wrapped</span> <span class="o">==</span> <span class="n">func</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;R&quot;</span><span class="p">)</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Callable</span><span class="p">[[</span><span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">R</span><span class="p">]])</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">R</span><span class="p">])</span>
+
+
+<span class="c1"># Normal decorator use case (called with no arguments).</span>
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">batch</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">G</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+
+<span class="c1"># &quot;Decorator factory&quot; use case (called with arguments).</span>
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">batch</span><span class="p">(</span>
+    <span class="n">max_batch_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">batch_wait_timeout_s</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">F</span><span class="p">],</span> <span class="n">G</span><span class="p">]:</span>
+    <span class="k">pass</span>
+
+
+<div class="viewcode-block" id="batch"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.batch.html#ray.serve.batch">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">batch</span><span class="p">(</span><span class="n">_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_batch_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">batch_wait_timeout_s</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Converts a function to asynchronously handle batches.</span>
+
+<span class="sd">    The function can be a standalone function or a class method. In both</span>
+<span class="sd">    cases, the function must be `async def` and take a list of objects as</span>
+<span class="sd">    its sole argument and return a list of the same length as a result.</span>
+
+<span class="sd">    When invoked, the caller passes a single object. These will be batched</span>
+<span class="sd">    and executed asynchronously once there is a batch of `max_batch_size`</span>
+<span class="sd">    or `batch_wait_timeout_s` has elapsed, whichever occurs first.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from ray import serve</span>
+<span class="sd">        &gt;&gt;&gt; @serve.batch(max_batch_size=50, batch_wait_timeout_s=0.5) # doctest: +SKIP</span>
+<span class="sd">        ... async def handle_batch(batch: List[str]): # doctest: +SKIP</span>
+<span class="sd">        ...     return [s.lower() for s in batch] # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; async def handle_single(s: str): # doctest: +SKIP</span>
+<span class="sd">        ...     # Returns s.lower().</span>
+<span class="sd">        ...     return await handle_batch(s) # doctest: +SKIP</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        max_batch_size: the maximum batch size that will be executed in</span>
+<span class="sd">            one call to the underlying function.</span>
+<span class="sd">        batch_wait_timeout_s: the maximum duration to wait for</span>
+<span class="sd">            `max_batch_size` elements before running the underlying function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># `_func` will be None in the case when the decorator is parametrized.</span>
+    <span class="c1"># See the comment at the end of this function for a detailed explanation.</span>
+    <span class="k">if</span> <span class="n">_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">_func</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s2">&quot;@serve.batch can only be used to decorate functions or methods.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">iscoroutinefunction</span><span class="p">(</span><span class="n">_func</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Functions decorated with @serve.batch must be &#39;async def&#39;&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">max_batch_size</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">max_batch_size</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">max_batch_size</span><span class="o">.</span><span class="n">is_integer</span><span class="p">():</span>
+            <span class="n">max_batch_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">max_batch_size</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;max_batch_size must be integer &gt;= 1&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">max_batch_size</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;max_batch_size must be an integer &gt;= 1&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">batch_wait_timeout_s</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;batch_wait_timeout_s must be a float &gt;= 0&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">batch_wait_timeout_s</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;batch_wait_timeout_s must be a float &gt;= 0&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_batch_decorator</span><span class="p">(</span><span class="n">_func</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">_func</span><span class="p">)</span>
+        <span class="k">async</span> <span class="k">def</span> <span class="nf">batch_wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="bp">self</span> <span class="o">=</span> <span class="n">_extract_self_if_method_call</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">_func</span><span class="p">)</span>
+            <span class="n">flattened_args</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="n">flatten_args</span><span class="p">(</span><span class="n">extract_signature</span><span class="p">(</span><span class="n">_func</span><span class="p">),</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># For functions, inject the batch queue as an</span>
+                <span class="c1"># attribute of the function.</span>
+                <span class="n">batch_queue_object</span> <span class="o">=</span> <span class="n">_func</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># For methods, inject the batch queue as an</span>
+                <span class="c1"># attribute of the object.</span>
+                <span class="n">batch_queue_object</span> <span class="o">=</span> <span class="bp">self</span>
+                <span class="c1"># Trim the self argument from methods</span>
+                <span class="n">flattened_args</span> <span class="o">=</span> <span class="n">flattened_args</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+
+            <span class="c1"># The first time the function runs, we lazily construct the batch</span>
+            <span class="c1"># queue and inject it under a custom attribute name. On subsequent</span>
+            <span class="c1"># runs, we just get a reference to the attribute.</span>
+            <span class="n">batch_queue_attr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;__serve_batch_queue_</span><span class="si">{</span><span class="n">_func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">batch_queue_object</span><span class="p">,</span> <span class="n">batch_queue_attr</span><span class="p">):</span>
+                <span class="n">batch_queue</span> <span class="o">=</span> <span class="n">_BatchQueue</span><span class="p">(</span><span class="n">max_batch_size</span><span class="p">,</span> <span class="n">batch_wait_timeout_s</span><span class="p">,</span> <span class="n">_func</span><span class="p">)</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">batch_queue_object</span><span class="p">,</span> <span class="n">batch_queue_attr</span><span class="p">,</span> <span class="n">batch_queue</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">batch_queue</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">batch_queue_object</span><span class="p">,</span> <span class="n">batch_queue_attr</span><span class="p">)</span>
+
+            <span class="n">future</span> <span class="o">=</span> <span class="n">get_or_create_event_loop</span><span class="p">()</span><span class="o">.</span><span class="n">create_future</span><span class="p">()</span>
+            <span class="n">batch_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">_SingleRequest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flattened_args</span><span class="p">,</span> <span class="n">future</span><span class="p">))</span>
+
+            <span class="c1"># This will raise if the underlying call raised an exception.</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="n">future</span>
+
+        <span class="k">return</span> <span class="n">batch_wrapper</span>
+
+    <span class="c1"># Unfortunately, this is required to handle both non-parametrized</span>
+    <span class="c1"># (@serve.batch) and parametrized (@serve.batch(**kwargs)) usage.</span>
+    <span class="c1"># In the former case, `serve.batch` will be called with the underlying</span>
+    <span class="c1"># function as the sole argument. In the latter case, it will first be</span>
+    <span class="c1"># called with **kwargs, then the result of that call will be called</span>
+    <span class="c1"># with the underlying function as the sole argument (i.e., it must be a</span>
+    <span class="c1"># &quot;decorator factory.&quot;).</span>
+    <span class="k">return</span> <span class="n">_batch_decorator</span><span class="p">(</span><span class="n">_func</span><span class="p">)</span> <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">_func</span><span class="p">)</span> <span class="k">else</span> <span class="n">_batch_decorator</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

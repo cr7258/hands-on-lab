@@ -1,0 +1,6 @@
+﻿ray.serve.schema.HTTPOptionsSchema
+==================================
+
+.. currentmodule:: ray.serve.schema
+
+.. autopydantic_model:: HTTPOptionsSchema

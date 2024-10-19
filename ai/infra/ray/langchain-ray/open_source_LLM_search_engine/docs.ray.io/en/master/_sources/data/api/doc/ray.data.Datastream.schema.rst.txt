@@ -1,0 +1,6 @@
+ray.data.Datastream.schema
+==========================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.schema

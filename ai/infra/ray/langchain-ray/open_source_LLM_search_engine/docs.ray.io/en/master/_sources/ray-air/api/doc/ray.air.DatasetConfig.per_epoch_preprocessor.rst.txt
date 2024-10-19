@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.per\_epoch\_preprocessor
+==============================================
+
+.. currentmodule:: ray.air
+
+.. autoattribute:: DatasetConfig.per_epoch_preprocessor

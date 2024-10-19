@@ -1,0 +1,993 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ray.serve.api &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/versionwarning.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../../../_static/js/docsearch.js"></script>
+    <script src="../../../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../../../_static/js/termynal.js"></script>
+    <script defer="defer" src="../../../_static/js/custom.js"></script>
+    <script defer="defer" src="../../../_static/js/top-navigation.js"></script>
+    <script src="../../../_static/js/tags.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script async="async" src="../../../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/_modules/ray/serve/api.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:35:18Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "_modules/ray/serve/api", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2F_modules/ray/serve/api.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for ray.serve.api</h1><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">overload</span>
+
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">FastAPI</span>
+<span class="kn">from</span> <span class="nn">ray._private.usage.usage_lib</span> <span class="kn">import</span> <span class="n">TagKey</span><span class="p">,</span> <span class="n">record_extra_usage_tag</span>
+<span class="kn">from</span> <span class="nn">starlette.requests</span> <span class="kn">import</span> <span class="n">Request</span>
+<span class="kn">from</span> <span class="nn">uvicorn.config</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">uvicorn.lifespan.on</span> <span class="kn">import</span> <span class="n">LifespanOn</span>
+
+<span class="kn">from</span> <span class="nn">ray</span> <span class="kn">import</span> <span class="n">cloudpickle</span>
+<span class="kn">from</span> <span class="nn">ray.dag</span> <span class="kn">import</span> <span class="n">DAGNode</span>
+<span class="kn">from</span> <span class="nn">ray.util.annotations</span> <span class="kn">import</span> <span class="n">Deprecated</span><span class="p">,</span> <span class="n">PublicAPI</span>
+
+<span class="kn">from</span> <span class="nn">ray.serve.built_application</span> <span class="kn">import</span> <span class="n">BuiltApplication</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.client</span> <span class="kn">import</span> <span class="n">ServeControllerClient</span>
+<span class="kn">from</span> <span class="nn">ray.serve.config</span> <span class="kn">import</span> <span class="n">AutoscalingConfig</span><span class="p">,</span> <span class="n">DeploymentConfig</span><span class="p">,</span> <span class="n">HTTPOptions</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DEFAULT_HTTP_HOST</span><span class="p">,</span>
+    <span class="n">DEFAULT_HTTP_PORT</span><span class="p">,</span>
+    <span class="n">SERVE_DEFAULT_APP_NAME</span><span class="p">,</span>
+    <span class="n">MIGRATION_MESSAGE</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ray.serve.context</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ReplicaContext</span><span class="p">,</span>
+    <span class="n">get_global_client</span><span class="p">,</span>
+    <span class="n">get_internal_replica_context</span><span class="p">,</span>
+    <span class="n">_set_global_client</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ray.serve.deployment</span> <span class="kn">import</span> <span class="n">Application</span><span class="p">,</span> <span class="n">Deployment</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.deployment_graph_build</span> <span class="kn">import</span> <span class="n">build</span> <span class="k">as</span> <span class="n">pipeline_build</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.deployment_graph_build</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">get_and_validate_ingress_deployment</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ray.serve.exceptions</span> <span class="kn">import</span> <span class="n">RayServeException</span>
+<span class="kn">from</span> <span class="nn">ray.serve.handle</span> <span class="kn">import</span> <span class="n">RayServeSyncHandle</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.http_util</span> <span class="kn">import</span> <span class="n">ASGIHTTPSender</span><span class="p">,</span> <span class="n">make_fastapi_class_based_view</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.logging_utils</span> <span class="kn">import</span> <span class="n">LoggingContext</span>
+<span class="kn">from</span> <span class="nn">ray.serve._private.utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DEFAULT</span><span class="p">,</span>
+    <span class="n">Default</span><span class="p">,</span>
+    <span class="n">ensure_serialization_context</span><span class="p">,</span>
+    <span class="n">in_interactive_shell</span><span class="p">,</span>
+    <span class="n">install_serve_encoders_to_fastapi</span><span class="p">,</span>
+    <span class="n">guarded_deprecation_warning</span><span class="p">,</span>
+    <span class="n">record_serve_tag</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">ray.serve._private</span> <span class="kn">import</span> <span class="n">api</span> <span class="k">as</span> <span class="n">_private_api</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="start"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.start.html#ray.serve.api.start">[docs]</a><span class="nd">@guarded_deprecation_warning</span><span class="p">(</span><span class="n">instructions</span><span class="o">=</span><span class="n">MIGRATION_MESSAGE</span><span class="p">)</span>
+<span class="nd">@Deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">MIGRATION_MESSAGE</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">start</span><span class="p">(</span>
+    <span class="n">detached</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">http_options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">HTTPOptions</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dedicated_cpu</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ServeControllerClient</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Initialize a serve instance.</span>
+
+<span class="sd">    By default, the instance will be scoped to the lifetime of the returned</span>
+<span class="sd">    Client object (or when the script exits). If detached is set to True, the</span>
+<span class="sd">    instance will instead persist until serve.shutdown() is called. This is</span>
+<span class="sd">    only relevant if connecting to a long-running Ray cluster (e.g., with</span>
+<span class="sd">    ray.init(address=&quot;auto&quot;) or ray.init(&quot;ray://&lt;remote_addr&gt;&quot;)).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        detached: Whether not the instance should be detached from this</span>
+<span class="sd">          script. If set, the instance will live on the Ray cluster until it is</span>
+<span class="sd">          explicitly stopped with serve.shutdown().</span>
+<span class="sd">        http_options (Optional[Dict, serve.HTTPOptions]): Configuration options</span>
+<span class="sd">          for HTTP proxy. You can pass in a dictionary or HTTPOptions object</span>
+<span class="sd">          with fields:</span>
+
+<span class="sd">            - host: Host for HTTP servers to listen on. Defaults to</span>
+<span class="sd">              &quot;127.0.0.1&quot;. To expose Serve publicly, you probably want to set</span>
+<span class="sd">              this to &quot;0.0.0.0&quot;.</span>
+<span class="sd">            - port: Port for HTTP server. Defaults to 8000.</span>
+<span class="sd">            - root_path: Root path to mount the serve application</span>
+<span class="sd">              (for example, &quot;/serve&quot;). All deployment routes will be prefixed</span>
+<span class="sd">              with this path. Defaults to &quot;&quot;.</span>
+<span class="sd">            - middlewares: A list of Starlette middlewares that will be</span>
+<span class="sd">              applied to the HTTP servers in the cluster. Defaults to [].</span>
+<span class="sd">            - location(str, serve.config.DeploymentMode): The deployment</span>
+<span class="sd">              location of HTTP servers:</span>
+
+<span class="sd">                - &quot;HeadOnly&quot;: start one HTTP server on the head node. Serve</span>
+<span class="sd">                  assumes the head node is the node you executed serve.start</span>
+<span class="sd">                  on. This is the default.</span>
+<span class="sd">                - &quot;EveryNode&quot;: start one HTTP server per node.</span>
+<span class="sd">                - &quot;NoServer&quot; or None: disable HTTP server.</span>
+<span class="sd">            - num_cpus: The number of CPU cores to reserve for each</span>
+<span class="sd">              internal Serve HTTP proxy actor.  Defaults to 0.</span>
+<span class="sd">        dedicated_cpu: Whether to reserve a CPU core for the internal</span>
+<span class="sd">          Serve controller actor.  Defaults to False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">_private_api</span><span class="o">.</span><span class="n">serve_start</span><span class="p">(</span><span class="n">detached</span><span class="p">,</span> <span class="n">http_options</span><span class="p">,</span> <span class="n">dedicated_cpu</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># Record after Ray has been started.</span>
+    <span class="n">record_extra_usage_tag</span><span class="p">(</span><span class="n">TagKey</span><span class="o">.</span><span class="n">SERVE_API_VERSION</span><span class="p">,</span> <span class="s2">&quot;v1&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">client</span></div>
+
+
+<div class="viewcode-block" id="shutdown"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.shutdown.html#ray.serve.api.shutdown">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;stable&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">shutdown</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Completely shut down the connected Serve instance.</span>
+
+<span class="sd">    Shuts down all processes and deletes all state associated with the</span>
+<span class="sd">    instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="n">get_global_client</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">RayServeException</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Nothing to shut down. There&#39;s no Serve application &quot;</span>
+            <span class="s2">&quot;running on this Ray cluster.&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">client</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+    <span class="n">_set_global_client</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_replica_context</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ReplicaContext</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;If called from a deployment, returns the deployment and replica tag.</span>
+
+<span class="sd">    A replica tag uniquely identifies a single replica for a Ray Serve</span>
+<span class="sd">    deployment at runtime.  Replica tags are of the form</span>
+<span class="sd">    `&lt;deployment_name&gt;#&lt;random letters&gt;`.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        RayServeException: if not called from within a Ray Serve deployment.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from ray import serve</span>
+<span class="sd">        &gt;&gt;&gt; # deployment_name</span>
+<span class="sd">        &gt;&gt;&gt; serve.get_replica_context().deployment # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; # deployment_name#krcwoa</span>
+<span class="sd">        &gt;&gt;&gt; serve.get_replica_context().replica_tag # doctest: +SKIP</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">internal_replica_context</span> <span class="o">=</span> <span class="n">get_internal_replica_context</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">internal_replica_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">RayServeException</span><span class="p">(</span>
+            <span class="s2">&quot;`serve.get_replica_context()` &quot;</span>
+            <span class="s2">&quot;may only be called from within a &quot;</span>
+            <span class="s2">&quot;Ray Serve deployment.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">internal_replica_context</span>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ingress</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;FastAPI&quot;</span><span class="p">,</span> <span class="s2">&quot;APIRouter&quot;</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;Mark an ASGI application ingress for Serve.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        app (FastAPI,APIRouter,Starlette,etc): the app or router object serve</span>
+<span class="sd">            as ingress for this deployment. It can be any ASGI compatible</span>
+<span class="sd">            object.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from fastapi import FastAPI</span>
+<span class="sd">        &gt;&gt;&gt; from ray import serve</span>
+<span class="sd">        &gt;&gt;&gt; app = FastAPI() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; app = FastAPI() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; @serve.deployment # doctest: +SKIP</span>
+<span class="sd">        ... @serve.ingress(app) # doctest: +SKIP</span>
+<span class="sd">        ... class App: # doctest: +SKIP</span>
+<span class="sd">        ...     pass # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; App.deploy() # doctest: +SKIP</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;@serve.ingress must be used with a class.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Callable</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Class passed to @serve.ingress may not have __call__ method.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Sometimes there are decorators on the methods. We want to fix</span>
+        <span class="c1"># the fast api routes here.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="p">(</span><span class="n">FastAPI</span><span class="p">,</span> <span class="n">APIRouter</span><span class="p">)):</span>
+            <span class="n">make_fastapi_class_based_view</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span>
+
+        <span class="c1"># Free the state of the app so subsequent modification won&#39;t affect</span>
+        <span class="c1"># this ingress deployment. We don&#39;t use copy.copy here to avoid</span>
+        <span class="c1"># recursion issue.</span>
+        <span class="n">ensure_serialization_context</span><span class="p">()</span>
+        <span class="n">frozen_app</span> <span class="o">=</span> <span class="n">cloudpickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cloudpickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">app</span><span class="p">))</span>
+
+        <span class="k">class</span> <span class="nc">ASGIAppWrapper</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+            <span class="k">async</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+                <span class="n">record_serve_tag</span><span class="p">(</span><span class="s2">&quot;SERVE_FASTAPI_USED&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span>
+                <span class="n">install_serve_encoders_to_fastapi</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_serve_app</span> <span class="o">=</span> <span class="n">frozen_app</span>
+
+                <span class="c1"># Use uvicorn&#39;s lifespan handling code to properly deal with</span>
+                <span class="c1"># startup and shutdown event.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_serve_asgi_lifespan</span> <span class="o">=</span> <span class="n">LifespanOn</span><span class="p">(</span>
+                    <span class="n">Config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_serve_app</span><span class="p">,</span> <span class="n">lifespan</span><span class="o">=</span><span class="s2">&quot;on&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="c1"># Replace uvicorn logger with our own.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_serve_asgi_lifespan</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+                <span class="c1"># LifespanOn&#39;s logger logs in INFO level thus becomes spammy</span>
+                <span class="c1"># Within this block we temporarily uplevel for cleaner logging</span>
+                <span class="k">with</span> <span class="n">LoggingContext</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_serve_asgi_lifespan</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span>
+                <span class="p">):</span>
+                    <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serve_asgi_lifespan</span><span class="o">.</span><span class="n">startup</span><span class="p">()</span>
+
+            <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">):</span>
+                <span class="n">sender</span> <span class="o">=</span> <span class="n">ASGIHTTPSender</span><span class="p">()</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serve_app</span><span class="p">(</span>
+                    <span class="n">request</span><span class="o">.</span><span class="n">scope</span><span class="p">,</span>
+                    <span class="n">request</span><span class="o">.</span><span class="n">receive</span><span class="p">,</span>
+                    <span class="n">sender</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="n">sender</span><span class="o">.</span><span class="n">build_asgi_response</span><span class="p">()</span>
+
+            <span class="c1"># NOTE: __del__ must be async so that we can run asgi shutdown</span>
+            <span class="c1"># in the same event loop.</span>
+            <span class="k">async</span> <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="c1"># LifespanOn&#39;s logger logs in INFO level thus becomes spammy</span>
+                <span class="c1"># Within this block we temporarily uplevel for cleaner logging</span>
+                <span class="k">with</span> <span class="n">LoggingContext</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_serve_asgi_lifespan</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span>
+                <span class="p">):</span>
+                    <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serve_asgi_lifespan</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+                <span class="c1"># Make sure to call user&#39;s del method as well.</span>
+                <span class="n">super_cls</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">super_cls</span><span class="p">,</span> <span class="s2">&quot;__del__&quot;</span><span class="p">):</span>
+                    <span class="n">super_cls</span><span class="o">.</span><span class="fm">__del__</span><span class="p">()</span>
+
+        <span class="n">ASGIAppWrapper</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">frozen_app</span><span class="p">,</span> <span class="s2">&quot;docs_url&quot;</span><span class="p">):</span>
+            <span class="n">ASGIAppWrapper</span><span class="o">.</span><span class="n">__fastapi_docs_path__</span> <span class="o">=</span> <span class="n">frozen_app</span><span class="o">.</span><span class="n">docs_url</span>
+        <span class="k">return</span> <span class="n">ASGIAppWrapper</span>
+
+    <span class="k">return</span> <span class="n">decorator</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">deployment</span><span class="p">(</span><span class="n">func_or_class</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Deployment</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">deployment</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">version</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">num_replicas</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">init_args</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">init_kwargs</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">route_prefix</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">ray_actor_options</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">user_config</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">max_concurrent_queries</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">autoscaling_config</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">AutoscalingConfig</span><span class="p">]]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">graceful_shutdown_wait_loop_s</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">graceful_shutdown_timeout_s</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">health_check_period_s</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">health_check_timeout_s</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">is_driver_deployment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">],</span> <span class="n">Deployment</span><span class="p">]:</span>
+    <span class="k">pass</span>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">deployment</span><span class="p">(</span>
+    <span class="n">_func_or_class</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">version</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">num_replicas</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">init_args</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">init_kwargs</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">route_prefix</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">ray_actor_options</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">user_config</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">max_concurrent_queries</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">autoscaling_config</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">AutoscalingConfig</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">graceful_shutdown_wait_loop_s</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">graceful_shutdown_timeout_s</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">health_check_period_s</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">health_check_timeout_s</span><span class="p">:</span> <span class="n">Default</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+    <span class="n">is_driver_deployment</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">],</span> <span class="n">Deployment</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Define a Serve deployment.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (Default[str]): Globally-unique name identifying this</span>
+<span class="sd">            deployment. If not provided, the name of the class or function will</span>
+<span class="sd">            be used.</span>
+<span class="sd">        version [DEPRECATED] (Default[str]): Version of the deployment.</span>
+<span class="sd">            This is used to indicate a code change for the deployment; when it</span>
+<span class="sd">            is re-deployed with a version change, a rolling update of the</span>
+<span class="sd">            replicas will be performed. If not provided, every deployment will</span>
+<span class="sd">            be treated as a new version.</span>
+<span class="sd">        num_replicas (Default[Optional[int]]): The number of processes to start up that</span>
+<span class="sd">            will handle requests to this deployment. Defaults to 1.</span>
+<span class="sd">        init_args (Default[Tuple[Any]]): Positional args to be passed to the</span>
+<span class="sd">            class constructor when starting up deployment replicas. These can</span>
+<span class="sd">            also be passed when you call `.deploy()` on the returned Deployment.</span>
+<span class="sd">        init_kwargs (Default[Dict[Any, Any]]): Keyword args to be passed to the</span>
+<span class="sd">            class constructor when starting up deployment replicas. These can</span>
+<span class="sd">            also be passed when you call `.deploy()` on the returned Deployment.</span>
+<span class="sd">        route_prefix (Default[Union[str, None]]): Requests to paths under this</span>
+<span class="sd">            HTTP path prefix will be routed to this deployment. Defaults to</span>
+<span class="sd">            &#39;/{name}&#39;. When set to &#39;None&#39;, no HTTP endpoint will be created.</span>
+<span class="sd">            Routing is done based on longest-prefix match, so if you have</span>
+<span class="sd">            deployment A with a prefix of &#39;/a&#39; and deployment B with a prefix</span>
+<span class="sd">            of &#39;/a/b&#39;, requests to &#39;/a&#39;, &#39;/a/&#39;, and &#39;/a/c&#39; go to A and requests</span>
+<span class="sd">            to &#39;/a/b&#39;, &#39;/a/b/&#39;, and &#39;/a/b/c&#39; go to B. Routes must not end with</span>
+<span class="sd">            a &#39;/&#39; unless they&#39;re the root (just &#39;/&#39;), which acts as a</span>
+<span class="sd">            catch-all.</span>
+<span class="sd">        ray_actor_options (Default[Dict]): Options to be passed to the Ray</span>
+<span class="sd">            actor constructor such as resource requirements. Valid options are</span>
+<span class="sd">            `accelerator_type`, `memory`, `num_cpus`, `num_gpus`,</span>
+<span class="sd">            `object_store_memory`, `resources`, and `runtime_env`.</span>
+<span class="sd">        user_config (Default[Optional[Any]]): Config to pass to the</span>
+<span class="sd">            reconfigure method of the deployment. This can be updated</span>
+<span class="sd">            dynamically without changing the version of the deployment and</span>
+<span class="sd">            restarting its replicas. The user_config must be json-serializable</span>
+<span class="sd">            to keep track of updates, so it must only contain json-serializable</span>
+<span class="sd">            types, or json-serializable types nested in lists and dictionaries.</span>
+<span class="sd">        max_concurrent_queries (Default[int]): The maximum number of queries</span>
+<span class="sd">            that will be sent to a replica of this deployment without receiving</span>
+<span class="sd">            a response. Defaults to 100.</span>
+<span class="sd">        is_driver_deployment (Optional[bool]): [Experiment] when set it as True, serve</span>
+<span class="sd">            will deploy exact one deployment to every node.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">    &gt;&gt;&gt; from ray import serve</span>
+<span class="sd">    &gt;&gt;&gt; @serve.deployment(name=&quot;deployment1&quot;) # doctest: +SKIP</span>
+<span class="sd">    ... class MyDeployment: # doctest: +SKIP</span>
+<span class="sd">    ...     pass # doctest: +SKIP</span>
+
+<span class="sd">    &gt;&gt;&gt; MyDeployment.bind(*init_args) # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; MyDeployment.options( # doctest: +SKIP</span>
+<span class="sd">    ...     num_replicas=2, init_args=init_args).bind()</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Deployment</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># NOTE: The user_configured_option_names should be the first thing that&#39;s</span>
+    <span class="c1"># defined in this function. It depends on the locals() dictionary storing</span>
+    <span class="c1"># only the function args/kwargs.</span>
+    <span class="c1"># Create list of all user-configured options from keyword args</span>
+    <span class="n">user_configured_option_names</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">option</span>
+        <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">option</span> <span class="o">!=</span> <span class="s2">&quot;_func_or_class&quot;</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span>
+    <span class="p">]</span>
+
+    <span class="c1"># Num of replicas should not be 0.</span>
+    <span class="c1"># TODO(Sihan) seperate num_replicas attribute from internal and api</span>
+    <span class="k">if</span> <span class="n">num_replicas</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;num_replicas is expected to larger than 0&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">num_replicas</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="ow">and</span> <span class="n">autoscaling_config</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
+        <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+        <span class="kc">None</span><span class="p">,</span>
+    <span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Manually setting num_replicas is not allowed when &quot;</span>
+            <span class="s2">&quot;autoscaling_config is provided.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;DeprecationWarning: `version` in `@serve.deployment` has been deprecated. &quot;</span>
+            <span class="s2">&quot;Explicitly specifying version will raise an error in the future!&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">is_driver_deployment</span> <span class="ow">is</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">:</span>
+        <span class="n">is_driver_deployment</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">config</span> <span class="o">=</span> <span class="n">DeploymentConfig</span><span class="o">.</span><span class="n">from_default</span><span class="p">(</span>
+        <span class="n">num_replicas</span><span class="o">=</span><span class="n">num_replicas</span> <span class="k">if</span> <span class="n">num_replicas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">user_config</span><span class="o">=</span><span class="n">user_config</span><span class="p">,</span>
+        <span class="n">max_concurrent_queries</span><span class="o">=</span><span class="n">max_concurrent_queries</span><span class="p">,</span>
+        <span class="n">autoscaling_config</span><span class="o">=</span><span class="n">autoscaling_config</span><span class="p">,</span>
+        <span class="n">graceful_shutdown_wait_loop_s</span><span class="o">=</span><span class="n">graceful_shutdown_wait_loop_s</span><span class="p">,</span>
+        <span class="n">graceful_shutdown_timeout_s</span><span class="o">=</span><span class="n">graceful_shutdown_timeout_s</span><span class="p">,</span>
+        <span class="n">health_check_period_s</span><span class="o">=</span><span class="n">health_check_period_s</span><span class="p">,</span>
+        <span class="n">health_check_timeout_s</span><span class="o">=</span><span class="n">health_check_timeout_s</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">user_configured_option_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">user_configured_option_names</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">_func_or_class</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Deployment</span><span class="p">(</span>
+            <span class="n">_func_or_class</span><span class="p">,</span>
+            <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span> <span class="k">else</span> <span class="n">_func_or_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="n">config</span><span class="p">,</span>
+            <span class="n">version</span><span class="o">=</span><span class="p">(</span><span class="n">version</span> <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span> <span class="k">else</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="n">init_args</span><span class="o">=</span><span class="p">(</span><span class="n">init_args</span> <span class="k">if</span> <span class="n">init_args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span> <span class="k">else</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="n">init_kwargs</span><span class="o">=</span><span class="p">(</span><span class="n">init_kwargs</span> <span class="k">if</span> <span class="n">init_kwargs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span> <span class="k">else</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="n">route_prefix</span><span class="o">=</span><span class="n">route_prefix</span><span class="p">,</span>
+            <span class="n">ray_actor_options</span><span class="o">=</span><span class="p">(</span>
+                <span class="n">ray_actor_options</span> <span class="k">if</span> <span class="n">ray_actor_options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">),</span>
+            <span class="n">is_driver_deployment</span><span class="o">=</span><span class="n">is_driver_deployment</span><span class="p">,</span>
+            <span class="n">_internal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># This handles both parametrized and non-parametrized usage of the</span>
+    <span class="c1"># decorator. See the @serve.batch code for more details.</span>
+    <span class="k">return</span> <span class="n">decorator</span><span class="p">(</span><span class="n">_func_or_class</span><span class="p">)</span> <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">_func_or_class</span><span class="p">)</span> <span class="k">else</span> <span class="n">decorator</span>
+
+
+<span class="nd">@guarded_deprecation_warning</span><span class="p">(</span><span class="n">instructions</span><span class="o">=</span><span class="n">MIGRATION_MESSAGE</span><span class="p">)</span>
+<span class="nd">@Deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">MIGRATION_MESSAGE</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_deployment</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Deployment</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Dynamically fetch a handle to a Deployment object.</span>
+
+<span class="sd">    This can be used to update and redeploy a deployment without access to</span>
+<span class="sd">    the original definition.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">    &gt;&gt;&gt; from ray import serve</span>
+<span class="sd">    &gt;&gt;&gt; MyDeployment = serve.get_deployment(&quot;name&quot;)  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; MyDeployment.options(num_replicas=10).deploy()  # doctest: +SKIP</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name: name of the deployment. This must have already been</span>
+<span class="sd">        deployed.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Deployment</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">record_extra_usage_tag</span><span class="p">(</span><span class="n">TagKey</span><span class="o">.</span><span class="n">SERVE_API_VERSION</span><span class="p">,</span> <span class="s2">&quot;v1&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_private_api</span><span class="o">.</span><span class="n">get_deployment</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+
+<span class="nd">@guarded_deprecation_warning</span><span class="p">(</span><span class="n">instructions</span><span class="o">=</span><span class="n">MIGRATION_MESSAGE</span><span class="p">)</span>
+<span class="nd">@Deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">MIGRATION_MESSAGE</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">list_deployments</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Deployment</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Returns a dictionary of all active deployments.</span>
+
+<span class="sd">    Dictionary maps deployment name to Deployment objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">record_extra_usage_tag</span><span class="p">(</span><span class="n">TagKey</span><span class="o">.</span><span class="n">SERVE_API_VERSION</span><span class="p">,</span> <span class="s2">&quot;v1&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_private_api</span><span class="o">.</span><span class="n">list_deployments</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="run"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.run.html#ray.serve.api.run">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;beta&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Application</span><span class="p">,</span> <span class="n">BuiltApplication</span><span class="p">],</span>
+    <span class="n">_blocking</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT_HTTP_HOST</span><span class="p">,</span>
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_HTTP_PORT</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SERVE_DEFAULT_APP_NAME</span><span class="p">,</span>
+    <span class="n">route_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RayServeSyncHandle</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Run an application and return a handle to its ingress deployment.</span>
+
+<span class="sd">    The application is returned by `Deployment.bind()` or `serve.build`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        target (Union[Application, BuiltApplication]):</span>
+<span class="sd">            A Serve application returned from `Deployment.bind()` or a built application</span>
+<span class="sd">            returned from `serve.build()`.</span>
+<span class="sd">        host: Host for HTTP servers to listen on. Defaults to</span>
+<span class="sd">            &quot;127.0.0.1&quot;. To expose Serve publicly, you probably want to set</span>
+<span class="sd">            this to &quot;0.0.0.0&quot;.</span>
+<span class="sd">        port: Port for HTTP server. Defaults to 8000.</span>
+<span class="sd">        name: Application name. If not provided, this will be the only</span>
+<span class="sd">            application running on the cluster (it will delete all others).</span>
+<span class="sd">        route_prefix: Route prefix for HTTP requests. If not provided, it will use</span>
+<span class="sd">            route_prefix of the ingress deployment. If specified neither as an argument</span>
+<span class="sd">            nor in the ingress deployment, the route prefix will default to &#39;/&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">_private_api</span><span class="o">.</span><span class="n">serve_start</span><span class="p">(</span>
+        <span class="n">detached</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">http_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="n">host</span><span class="p">,</span> <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="n">port</span><span class="p">,</span> <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="s2">&quot;EveryNode&quot;</span><span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Record after Ray has been started.</span>
+    <span class="n">record_extra_usage_tag</span><span class="p">(</span><span class="n">TagKey</span><span class="o">.</span><span class="n">SERVE_API_VERSION</span><span class="p">,</span> <span class="s2">&quot;v2&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">Application</span><span class="p">):</span>
+        <span class="n">deployments</span> <span class="o">=</span> <span class="n">pipeline_build</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">_get_internal_dag_node</span><span class="p">(),</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">ingress</span> <span class="o">=</span> <span class="n">get_and_validate_ingress_deployment</span><span class="p">(</span><span class="n">deployments</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">BuiltApplication</span><span class="p">):</span>
+        <span class="n">deployments</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">deployments</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">ingress</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">ingress</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;`serve.run` expects an `Application` returned by `Deployment.bind()` &quot;</span>
+            <span class="s2">&quot;or a static `BuiltApplication` returned by `serve.build`.&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">DAGNode</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot; If you are using the DAG API, you must bind the DAG node to a &quot;</span>
+            <span class="s2">&quot;deployment like: `app = Deployment.bind(my_dag_output)`. &quot;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># when name provided, keep all existing applications</span>
+    <span class="c1"># otherwise, delete all of them.</span>
+    <span class="n">remove_past_deployments</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+        <span class="n">remove_past_deployments</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">parameter_group</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">deployment</span> <span class="ow">in</span> <span class="n">deployments</span><span class="p">:</span>
+        <span class="c1"># Overwrite route prefix</span>
+        <span class="k">if</span> <span class="n">route_prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">DEFAULT</span><span class="o">.</span><span class="n">VALUE</span> <span class="ow">and</span> <span class="n">deployment</span><span class="o">.</span><span class="n">_route_prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">deployment</span><span class="o">.</span><span class="n">_route_prefix</span> <span class="o">=</span> <span class="n">route_prefix</span>
+        <span class="n">deployment_parameters</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">deployment</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span>
+            <span class="s2">&quot;func_or_class&quot;</span><span class="p">:</span> <span class="n">deployment</span><span class="o">.</span><span class="n">_func_or_class</span><span class="p">,</span>
+            <span class="s2">&quot;init_args&quot;</span><span class="p">:</span> <span class="n">deployment</span><span class="o">.</span><span class="n">init_args</span><span class="p">,</span>
+            <span class="s2">&quot;init_kwargs&quot;</span><span class="p">:</span> <span class="n">deployment</span><span class="o">.</span><span class="n">init_kwargs</span><span class="p">,</span>
+            <span class="s2">&quot;ray_actor_options&quot;</span><span class="p">:</span> <span class="n">deployment</span><span class="o">.</span><span class="n">_ray_actor_options</span><span class="p">,</span>
+            <span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="n">deployment</span><span class="o">.</span><span class="n">_config</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="n">deployment</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span>
+            <span class="s2">&quot;route_prefix&quot;</span><span class="p">:</span> <span class="n">deployment</span><span class="o">.</span><span class="n">route_prefix</span><span class="p">,</span>
+            <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">deployment</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+            <span class="s2">&quot;is_driver_deployment&quot;</span><span class="p">:</span> <span class="n">deployment</span><span class="o">.</span><span class="n">_is_driver_deployment</span><span class="p">,</span>
+            <span class="s2">&quot;docs_path&quot;</span><span class="p">:</span> <span class="n">deployment</span><span class="o">.</span><span class="n">_docs_path</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">parameter_group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deployment_parameters</span><span class="p">)</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">deploy_application</span><span class="p">(</span>
+        <span class="n">name</span><span class="p">,</span>
+        <span class="n">parameter_group</span><span class="p">,</span>
+        <span class="n">_blocking</span><span class="o">=</span><span class="n">_blocking</span><span class="p">,</span>
+        <span class="n">remove_past_deployments</span><span class="o">=</span><span class="n">remove_past_deployments</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ingress</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ingress</span><span class="o">.</span><span class="n">_get_handle</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="build"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.api.build.html#ray.serve.api.build">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="n">Application</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BuiltApplication</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Builds a Serve application into a static, built application.</span>
+
+<span class="sd">    Resolves the provided Application object into a list of deployments.</span>
+<span class="sd">    This can be converted to a Serve config file that can be deployed via</span>
+<span class="sd">    the Serve REST API or CLI.</span>
+
+<span class="sd">    All of the deployments must be importable. That is, they cannot be</span>
+<span class="sd">    defined in __main__ or inline defined. The deployments will be</span>
+<span class="sd">    imported in the config file using the same import path they were here.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        target: The Serve application to run consisting of one or more</span>
+<span class="sd">            deployments.</span>
+<span class="sd">        name: The name of the Serve application. When name is not provided, the</span>
+<span class="sd">        deployment name won&#39;t be updated. (SINGLE_APP use case.)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The static built Serve application.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">in_interactive_shell</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="s2">&quot;build cannot be called from an interactive shell like &quot;</span>
+            <span class="s2">&quot;IPython or Jupyter because it requires all deployments to be &quot;</span>
+            <span class="s2">&quot;importable to run the app after building.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># TODO(edoakes): this should accept host and port, but we don&#39;t</span>
+    <span class="c1"># currently support them in the REST API.</span>
+    <span class="k">return</span> <span class="n">BuiltApplication</span><span class="p">(</span><span class="n">pipeline_build</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">_get_internal_dag_node</span><span class="p">(),</span> <span class="n">name</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="delete"><a class="viewcode-back" href="../../../serve/api/doc/ray.serve.delete.html#ray.serve.api.delete">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">_blocking</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Delete an app by its name</span>
+
+<span class="sd">    Deletes the app with all corresponding deployments.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name: the name of app to delete.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">get_global_client</span><span class="p">()</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">delete_apps</span><span class="p">([</span><span class="n">name</span><span class="p">],</span> <span class="n">blocking</span><span class="o">=</span><span class="n">_blocking</span><span class="p">)</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

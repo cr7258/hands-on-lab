@@ -1,0 +1,6 @@
+ray.data.datasource.JSONDatasource.\_\_init\_\_
+===============================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: JSONDatasource.__init__

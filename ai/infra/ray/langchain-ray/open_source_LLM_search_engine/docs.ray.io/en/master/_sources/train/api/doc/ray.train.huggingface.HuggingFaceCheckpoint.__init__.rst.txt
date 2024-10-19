@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceCheckpoint.\_\_init\_\_
+========================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFaceCheckpoint.__init__

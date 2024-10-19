@@ -1,0 +1,6 @@
+ray.data.datasource.MongoDatasource.prepare\_read
+=================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: MongoDatasource.prepare_read

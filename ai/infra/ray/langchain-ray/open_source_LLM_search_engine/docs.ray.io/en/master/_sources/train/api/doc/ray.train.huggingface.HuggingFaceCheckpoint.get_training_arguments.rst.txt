@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceCheckpoint.get\_training\_arguments
+====================================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFaceCheckpoint.get_training_arguments

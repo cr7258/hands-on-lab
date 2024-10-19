@@ -1,0 +1,6 @@
+ray.data.Datastream.split\_proportionately
+==========================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.split_proportionately

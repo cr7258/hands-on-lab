@@ -1,0 +1,6 @@
+ray.data.datasource.TFRecordDatasource.on\_write\_failed
+========================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: TFRecordDatasource.on_write_failed

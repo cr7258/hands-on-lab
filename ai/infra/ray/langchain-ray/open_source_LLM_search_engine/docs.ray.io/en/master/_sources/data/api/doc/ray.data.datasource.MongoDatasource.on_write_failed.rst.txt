@@ -1,0 +1,6 @@
+ray.data.datasource.MongoDatasource.on\_write\_failed
+=====================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: MongoDatasource.on_write_failed

@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceCheckpoint.to\_uri
+===================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFaceCheckpoint.to_uri

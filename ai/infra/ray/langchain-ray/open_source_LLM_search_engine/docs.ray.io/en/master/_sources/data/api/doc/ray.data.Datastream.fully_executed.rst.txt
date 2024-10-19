@@ -1,0 +1,6 @@
+ray.data.Datastream.fully\_executed
+===================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.fully_executed

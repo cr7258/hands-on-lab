@@ -1,0 +1,6 @@
+ray.data.datasource.TFRecordDatasource.do\_write
+================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: TFRecordDatasource.do_write

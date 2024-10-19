@@ -1,0 +1,1013 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Logging &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/versionwarning.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../_static/js/docsearch.js"></script>
+    <script src="../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../_static/js/termynal.js"></script>
+    <script defer="defer" src="../_static/js/custom.js"></script>
+    <script defer="defer" src="../_static/js/top-navigation.js"></script>
+    <script src="../_static/js/tags.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script async="async" src="../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/ray-observability/ray-logging.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Metrics" href="../ray-core/ray-metrics.html" />
+    <link rel="prev" title="Ray Debugger" href="ray-debugging.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:31:53Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "ray-observability/ray-logging", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="overview.html">
+     Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-core/ray-dashboard.html">
+     Ray Dashboard
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="state/state-api.html">
+     Monitoring Ray States
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ray-debugging.html">
+     Ray Debugger
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="ray-logging.html#">
+     Logging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-core/ray-metrics.html">
+     Metrics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="monitoring-debugging/profiling.html">
+     Profiling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ray-tracing.html">
+     Tracing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="monitoring-debugging/troubleshoot-failures.html">
+     Troubleshooting Failures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="monitoring-debugging/troubleshoot-hangs.html">
+     Troubleshooting Hangs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="monitoring-debugging/troubleshoot-performance.html">
+     Troubleshooting Performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="monitoring-debugging/gotchas.html">
+     Ray Gotchas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="monitoring-debugging/getting-help.html">
+     Getting Help
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-contribute/debugging.html">
+     Debugging (internal)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-contribute/profiling.html">
+     Profiling (internal)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2Fray-observability/ray-logging.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/edit/master/doc/source/ray-observability/ray-logging.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/ray-observability/ray-logging.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#driver-logs">
+   Driver logs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#job-logs">
+   Job logs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#worker-logs">
+   Worker logs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#log-deduplication">
+   Log deduplication
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#disabling-logging-to-the-driver">
+   Disabling logging to the driver
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#customizing-actor-logs-prefixes">
+   Customizing Actor logs prefixes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#coloring-actor-log-prefixes">
+   Coloring Actor log prefixes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#distributed-progress-bars-tqdm">
+   Distributed progress bars (tqdm)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#how-to-set-up-loggers">
+   How to set up loggers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#how-to-use-structured-logging">
+   How to use structured logging
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-logging.html#logging-directory-structure">
+     Logging directory structure
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-logging.html#log-rotation">
+     Log rotation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#redirecting-ray-logs-to-stderr">
+   Redirecting Ray logs to stderr
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Logging</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#driver-logs">
+   Driver logs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#job-logs">
+   Job logs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#worker-logs">
+   Worker logs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#log-deduplication">
+   Log deduplication
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#disabling-logging-to-the-driver">
+   Disabling logging to the driver
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#customizing-actor-logs-prefixes">
+   Customizing Actor logs prefixes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#coloring-actor-log-prefixes">
+   Coloring Actor log prefixes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#distributed-progress-bars-tqdm">
+   Distributed progress bars (tqdm)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#how-to-set-up-loggers">
+   How to set up loggers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#how-to-use-structured-logging">
+   How to use structured logging
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-logging.html#logging-directory-structure">
+     Logging directory structure
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="ray-logging.html#log-rotation">
+     Log rotation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="ray-logging.html#redirecting-ray-logs-to-stderr">
+   Redirecting Ray logs to stderr
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="logging">
+<span id="ray-logging"></span><h1>Logging<a class="headerlink" href="ray-logging.html#logging" title="Permalink to this headline">#</a></h1>
+<p>This document will explain Ray’s logging system and its best practices.</p>
+<section id="driver-logs">
+<h2>Driver logs<a class="headerlink" href="ray-logging.html#driver-logs" title="Permalink to this headline">#</a></h2>
+<p>An entry point of Ray applications that calls <code class="docutils literal notranslate"><span class="pre">ray.init()</span></code> is called a driver.
+All the driver logs are handled in the same way as normal Python programs.</p>
+</section>
+<section id="job-logs">
+<h2>Job logs<a class="headerlink" href="ray-logging.html#job-logs" title="Permalink to this headline">#</a></h2>
+<p>Logs for jobs submitted via the <a class="reference internal" href="../cluster/running-applications/job-submission/index.html#jobs-overview"><span class="std std-ref">Ray Jobs API</span></a> can be retrieved using the <code class="docutils literal notranslate"><span class="pre">ray</span> <span class="pre">job</span> <span class="pre">logs</span></code> <a class="reference internal" href="../cluster/running-applications/job-submission/cli.html#ray-job-logs-doc"><span class="std std-ref">CLI command</span></a> or using <code class="docutils literal notranslate"><span class="pre">JobSubmissionClient.get_logs()</span></code> or <code class="docutils literal notranslate"><span class="pre">JobSubmissionClient.tail_job_logs()</span></code> via the <a class="reference internal" href="../cluster/running-applications/job-submission/jobs-package-ref.html#ray-job-submission-sdk-ref"><span class="std std-ref">Python SDK</span></a>.
+The log file consists of the stdout of the entrypoint command of the job.  For the location of the log file on disk, see <a class="reference internal" href="ray-logging.html#id1"><span class="std std-ref">Logging directory structure</span></a>.</p>
+</section>
+<section id="worker-logs">
+<span id="ray-worker-logs"></span><h2>Worker logs<a class="headerlink" href="ray-logging.html#worker-logs" title="Permalink to this headline">#</a></h2>
+<p>Ray’s tasks or actors are executed remotely within Ray’s worker processes. Ray has special support to improve the visibility of logs produced by workers.</p>
+<ul class="simple">
+<li><p>By default, all of the tasks/actors stdout and stderr are redirected to the worker log files. Check out <a class="reference internal" href="ray-logging.html#id1"><span class="std std-ref">Logging directory structure</span></a> to learn how Ray’s logging directory is structured.</p></li>
+<li><p>By default, all of the tasks/actors stdout and stderr that is redirected to worker log files are published to the driver. Drivers display logs generated from its tasks/actors to its stdout and stderr.</p></li>
+</ul>
+<p>Let’s look at a code example to see how this works.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="c1"># Initiate a driver.</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">task</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;task&quot;</span><span class="p">)</span>
+
+<span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">remote</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>You should be able to see the string <code class="xref py py-obj docutils literal notranslate"><span class="pre">task</span></code> from your driver stdout.</p>
+<p>When logs are printed, the process id (pid) and an IP address of the node that executes tasks/actors are printed together. Check out the output below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span><span class="nv">pid</span><span class="o">=</span><span class="m">45601</span><span class="o">)</span> task
+</pre></div>
+</div>
+<p>Actor log messages look like the following by default.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>MyActor <span class="nv">pid</span><span class="o">=</span><span class="m">480956</span><span class="o">)</span> actor log message
+</pre></div>
+</div>
+</section>
+<section id="log-deduplication">
+<h2>Log deduplication<a class="headerlink" href="ray-logging.html#log-deduplication" title="Permalink to this headline">#</a></h2>
+<p>By default, Ray will deduplicate logs that appear redundantly across multiple processes. The first instance of each log message will always be immediately printed. However, subsequent log messages of the same pattern (ignoring words with numeric components) will be buffered for up to five seconds and printed in batch. For example, for the following code snippet:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">task</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello there, I am a task&quot;</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+
+<span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="n">task</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>The output will be as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2023</span>-03-27 <span class="m">15</span>:08:34,195     INFO worker.py:1603 -- Started a <span class="nb">local</span> Ray instance. View the dashboard at http://127.0.0.1:8265
+<span class="o">(</span>task <span class="nv">pid</span><span class="o">=</span><span class="m">534172</span><span class="o">)</span> Hello there, I am a task <span class="m">0</span>.20583517821231412
+<span class="o">(</span>task <span class="nv">pid</span><span class="o">=</span><span class="m">534174</span><span class="o">)</span> Hello there, I am a task <span class="m">0</span>.17536720316370757 <span class="o">[</span>repeated 99x across cluster<span class="o">]</span> <span class="o">(</span>Ray deduplicates logs by default. Set <span class="nv">RAY_DEDUP_LOGS</span><span class="o">=</span><span class="m">0</span> to disable log deduplication<span class="o">)</span>
+</pre></div>
+</div>
+<p>This feature is especially useful when importing libraries such as <code class="xref py py-obj docutils literal notranslate"><span class="pre">tensorflow</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy</span></code>, which may emit many verbose warning messages when imported. You can configure this feature as follows:</p>
+<ol class="arabic simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">RAY_DEDUP_LOGS=0</span></code> to disable this feature entirely.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">RAY_DEDUP_LOGS_AGG_WINDOW_S=&lt;int&gt;</span></code> to change the agggregation window.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">RAY_DEDUP_LOGS_ALLOW_REGEX=&lt;string&gt;</span></code> to specify log messages to never deduplicate.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">RAY_DEDUP_LOGS_SKIP_REGEX=&lt;string&gt;</span></code> to specify log messages to skip printing.</p></li>
+</ol>
+</section>
+<section id="disabling-logging-to-the-driver">
+<h2>Disabling logging to the driver<a class="headerlink" href="ray-logging.html#disabling-logging-to-the-driver" title="Permalink to this headline">#</a></h2>
+<p>In large scale runs, it may be undesirable to route all worker logs to the driver. You can disable this feature by setting <code class="docutils literal notranslate"><span class="pre">log_to_driver=False</span></code> in Ray init:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+
+<span class="c1"># Task and actor logs will not be copied to the driver stdout.</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">log_to_driver</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="customizing-actor-logs-prefixes">
+<h2>Customizing Actor logs prefixes<a class="headerlink" href="ray-logging.html#customizing-actor-logs-prefixes" title="Permalink to this headline">#</a></h2>
+<p>It is often useful to distinguish between log messages from different actors. For example, suppose you have a large number of worker actors. In this case, you may want to be able to easily see the index of the actor that logged a particular message. This can be achieved by defining the <a class="reference external" href="https://docs.python.org/3/library/functions.html#repr">__repr__</a> method for an actor class. When defined, the actor repr will be used in place of the actor name. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">class</span> <span class="nc">MyActor</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello there&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;MyActor(index=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">MyActor</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">MyActor</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">foo</span><span class="o">.</span><span class="n">remote</span><span class="p">())</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">foo</span><span class="o">.</span><span class="n">remote</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>This produces the following output:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>MyActor<span class="o">(</span><span class="nv">index</span><span class="o">=</span><span class="m">2</span><span class="o">)</span> <span class="nv">pid</span><span class="o">=</span><span class="m">482120</span><span class="o">)</span> hello there
+<span class="o">(</span>MyActor<span class="o">(</span><span class="nv">index</span><span class="o">=</span><span class="m">1</span><span class="o">)</span> <span class="nv">pid</span><span class="o">=</span><span class="m">482119</span><span class="o">)</span> hello there
+</pre></div>
+</div>
+</section>
+<section id="coloring-actor-log-prefixes">
+<h2>Coloring Actor log prefixes<a class="headerlink" href="ray-logging.html#coloring-actor-log-prefixes" title="Permalink to this headline">#</a></h2>
+<p>By default Ray prints Actor logs prefixes in light blue:
+Users may instead activate multi-color prefixes by setting the environment variable <code class="docutils literal notranslate"><span class="pre">RAY_COLOR_PREFIX=1</span></code>.
+This will index into an array of colors modulo the PID of each process.</p>
+<img alt="ray-observability/images/images/coloring-actor-log-prefixes.png" class="align-center" src="https://docs.ray.io/en/master/ray-observability/ray-observability/images/images/coloring-actor-log-prefixes.png" />
+</section>
+<section id="distributed-progress-bars-tqdm">
+<h2>Distributed progress bars (tqdm)<a class="headerlink" href="ray-logging.html#distributed-progress-bars-tqdm" title="Permalink to this headline">#</a></h2>
+<p>When using <a class="reference external" href="https://tqdm.github.io">tqdm</a> in Ray remote tasks or actors, you may notice that the progress bar output is corrupted. To avoid this problem, you can use the Ray distributed tqdm implementation at <code class="docutils literal notranslate"><span class="pre">ray.experimental.tqdm_ray</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">ray</span>
+
+<span class="c1"># Instead of &quot;from tqdm import tqdm&quot;, use:</span>
+<span class="kn">from</span> <span class="nn">ray.experimental.tqdm_ray</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="n">name</span><span class="p">):</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+
+
+<span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="s2">&quot;task 1&quot;</span><span class="p">),</span> <span class="n">f</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="s2">&quot;task 2&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>This tqdm implementation works as follows:</p>
+<ol class="arabic simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">tqdm_ray</span></code> module translates TQDM calls into special json log messages written to worker stdout.</p></li>
+<li><p>The Ray log monitor, instead of copying these log messages directly to the driver stdout, routes these messages to a tqdm singleton.</p></li>
+<li><p>The tqdm singleton determines the positions of progress bars from various Ray tasks / actors, ensuring they don’t collide or conflict with each other.</p></li>
+</ol>
+<p>Limitations:</p>
+<ul class="simple">
+<li><p>Only a subset of tqdm functionality is supported. Refer to the ray_tqdm <a class="reference external" href="https://github.com/ray-project/ray/blob/master/python/ray/experimental/tqdm_ray.py">implementation</a> for more details.</p></li>
+<li><p>Performance may be poor if there are more than a couple thousand updates per second (updates are not batched).</p></li>
+</ul>
+<p>By default, the builtin print will also be patched to use <code class="xref py py-obj docutils literal notranslate"><span class="pre">ray.experimental.tqdm_ray.safe_print</span></code> when <code class="xref py py-obj docutils literal notranslate"><span class="pre">tqdm_ray</span></code> is used.
+This avoids progress bar corruption on driver print statements. To disable this, set <code class="xref py py-obj docutils literal notranslate"><span class="pre">RAY_TQDM_PATCH_PRINT=0</span></code>.</p>
+</section>
+<section id="how-to-set-up-loggers">
+<h2>How to set up loggers<a class="headerlink" href="ray-logging.html#how-to-set-up-loggers" title="Permalink to this headline">#</a></h2>
+<p>When using ray, all of the tasks and actors are executed remotely in Ray’s worker processes.
+Since Python logger module creates a singleton logger per process, loggers should be configured on per task/actor basis.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To stream logs to a driver, they should be flushed to stdout and stderr.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="c1"># Initiate a driver.</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">class</span> <span class="nc">Actor</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Basic config automatically configures logs to</span>
+        <span class="c1"># be streamed to stdout and stderr.</span>
+        <span class="c1"># Set the severity to INFO so that info logs are printed to stdout.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+<span class="n">actor</span> <span class="o">=</span> <span class="n">Actor</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">actor</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="s2">&quot;A log message for an actor.&quot;</span><span class="p">))</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+<span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="s2">&quot;A log message for a task&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span><span class="nv">pid</span><span class="o">=</span><span class="m">95193</span><span class="o">)</span> INFO:root:A log message <span class="k">for</span> a task
+<span class="o">(</span><span class="nv">pid</span><span class="o">=</span><span class="m">95192</span><span class="o">)</span> INFO:root:A log message <span class="k">for</span> an actor.
+</pre></div>
+</div>
+</section>
+<section id="how-to-use-structured-logging">
+<h2>How to use structured logging<a class="headerlink" href="ray-logging.html#how-to-use-structured-logging" title="Permalink to this headline">#</a></h2>
+<p>The metadata of tasks or actors may be obtained by Ray’s <a class="reference internal" href="../ray-core/api/core.html#runtime-context-apis"><span class="std std-ref">runtime_context APIs</span></a>.
+Runtime context APIs help you to add metadata to your logging messages, making your logs more structured.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+<span class="c1"># Initiate a driver.</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">task</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;task_id: </span><span class="si">{</span><span class="n">ray</span><span class="o">.</span><span class="n">get_runtime_context</span><span class="p">()</span><span class="o">.</span><span class="n">task_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">remote</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span><span class="nv">pid</span><span class="o">=</span><span class="m">47411</span><span class="o">)</span> task_id: TaskID<span class="o">(</span>a67dc375e60ddd1affffffffffffffffffffffff01000000<span class="o">)</span>
+</pre></div>
+</div>
+<section id="logging-directory-structure">
+<h3>Logging directory structure<a class="headerlink" href="ray-logging.html#logging-directory-structure" title="Permalink to this headline">#</a></h3>
+<p id="id1">By default, Ray logs are stored in a <code class="docutils literal notranslate"><span class="pre">/tmp/ray/session_*/logs</span></code> directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default temp directory is <code class="docutils literal notranslate"><span class="pre">/tmp/ray</span></code> (for Linux and Mac OS). If you’d like to change the temp directory, you can specify it when <code class="docutils literal notranslate"><span class="pre">ray</span> <span class="pre">start</span></code> or <code class="docutils literal notranslate"><span class="pre">ray.init()</span></code> is called.</p>
+</div>
+<p>A new Ray instance creates a new session ID to the temp directory. The latest session ID is symlinked to <code class="docutils literal notranslate"><span class="pre">/tmp/ray/session_latest</span></code>.</p>
+<p>Here’s a Ray log directory structure. Note that <code class="docutils literal notranslate"><span class="pre">.out</span></code> is logs from stdout/stderr and <code class="docutils literal notranslate"><span class="pre">.err</span></code> is logs from stderr. The backward compatibility of log directories is not maintained.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dashboard.[log|err]</span></code>: A log file of a Ray dashboard. <code class="docutils literal notranslate"><span class="pre">log.</span></code> file contains logs generated from the dashboard’s logger. <code class="docutils literal notranslate"><span class="pre">.err</span></code> file contains stdout and stderr printed from the dashboard. They are usually empty except when the dashboard crashes unexpectedly.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dashboard_agent.log</span></code>: Every Ray node has one dashboard agent. This is a log file of the agent.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcs_server.[out|err]</span></code>: The GCS server is a stateless server that manages Ray cluster metadata. It exists only in the head node.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">io-worker-[worker_id]-[pid].[out|err]</span></code>: Ray creates IO workers to spill/restore objects to external storage by default from Ray 1.3+. This is a log file of IO workers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">job-driver-[submission_id].log</span></code>: The stdout of a job submitted via the <a class="reference internal" href="../cluster/running-applications/job-submission/index.html#jobs-overview"><span class="std std-ref">Ray Jobs API</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">log_monitor.[log|err]</span></code>: The log monitor is in charge of streaming logs to the driver. <code class="docutils literal notranslate"><span class="pre">log.</span></code> file contains logs generated from the log monitor’s logger. <code class="docutils literal notranslate"><span class="pre">.err</span></code> file contains the stdout and stderr printed from the log monitor. They are usually empty except when the log monitor crashes unexpectedly.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">monitor.[out|err]</span></code>: Stdout and stderr of a cluster launcher.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">monitor.log</span></code>: Ray’s cluster launcher is operated with a monitor process. It also manages the autoscaler.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plasma_store.[out|err]</span></code>: Deprecated.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python-core-driver-[worker_id]_[pid].log</span></code>: Ray drivers consist of CPP core and Python/Java frontend. This is a log file generated from CPP code.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python-core-worker-[worker_id]_[pid].log</span></code>: Ray workers consist of CPP core and Python/Java frontend. This is a log file generated from CPP code.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">raylet.[out|err]</span></code>: A log file of raylets.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">redis-shard_[shard_index].[out|err]</span></code>: Redis shard log files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">redis.[out|err]</span></code>: Redis log files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">runtime_env_agent.log</span></code>: Every Ray node has one agent that manages <a class="reference internal" href="../ray-core/handling-dependencies.html#runtime-environments"><span class="std std-ref">runtime environment</span></a> creation, deletion and caching.
+This is the log file of the agent containing logs of create/delete requests and cache hits and misses.
+For the logs of the actual installations (including e.g. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> logs), see the <code class="docutils literal notranslate"><span class="pre">runtime_env_setup-[job_id].log</span></code> file (see below).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">runtime_env_setup-[job_id].log</span></code>: Logs from installing <a class="reference internal" href="../ray-core/handling-dependencies.html#runtime-environments"><span class="std std-ref">runtime environments</span></a> for a task, actor or job.  This file will only be present if a runtime environment is installed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">runtime_env_setup-ray_client_server_[port].log</span></code>: Logs from installing <a class="reference internal" href="../ray-core/handling-dependencies.html#runtime-environments"><span class="std std-ref">runtime environments</span></a> for a job when connecting via <a class="reference internal" href="../cluster/running-applications/job-submission/ray-client.html#ray-client-ref"><span class="std std-ref">Ray Client</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">worker-[worker_id]-[job_id]-[pid].[out|err]</span></code>: Python/Java part of Ray drivers and workers. All of stdout and stderr from tasks/actors are streamed here. Note that job_id is an id of the driver.-</p></li>
+</ul>
+</section>
+<section id="log-rotation">
+<span id="ray-log-rotation"></span><h3>Log rotation<a class="headerlink" href="ray-logging.html#log-rotation" title="Permalink to this headline">#</a></h3>
+<p>Ray supports log rotation of log files. Note that not all components are currently supporting log rotation. (Raylet and Python/Java worker logs are not rotating).</p>
+<p>By default, logs are rotating when it reaches to 512MB (maxBytes), and there could be up to 5 backup files (backupCount). Indexes are appended to all backup files (e.g., <code class="xref py py-obj docutils literal notranslate"><span class="pre">raylet.out.1</span></code>)
+If you’d like to change the log rotation configuration, you can do it by specifying environment variables. For example,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">RAY_ROTATION_MAX_BYTES</span><span class="o">=</span><span class="m">1024</span><span class="p">;</span> ray start --head <span class="c1"># Start a ray instance with maxBytes 1KB.</span>
+<span class="nv">RAY_ROTATION_BACKUP_COUNT</span><span class="o">=</span><span class="m">1</span><span class="p">;</span> ray start --head <span class="c1"># Start a ray instance with backupCount 1.</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="redirecting-ray-logs-to-stderr">
+<h2>Redirecting Ray logs to stderr<a class="headerlink" href="ray-logging.html#redirecting-ray-logs-to-stderr" title="Permalink to this headline">#</a></h2>
+<p>By default, Ray logs are written to files under the <code class="docutils literal notranslate"><span class="pre">/tmp/ray/session_*/logs</span></code> directory. If you wish to redirect all internal Ray logging and your own logging within tasks/actors to stderr of the host nodes, you can do so by ensuring that the <code class="docutils literal notranslate"><span class="pre">RAY_LOG_TO_STDERR=1</span></code> environment variable is set on the driver and on all Ray nodes. This is very useful if you are using a log aggregator that needs log records to be written to stderr in order for them to be captured.</p>
+<p>Redirecting logging to stderr will also cause a <code class="docutils literal notranslate"><span class="pre">({component})</span></code> prefix, e.g. <code class="docutils literal notranslate"><span class="pre">(raylet)</span></code>, to be added to each of the log record messages.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span><span class="m">2022</span>-01-24 <span class="m">19</span>:42:02,978 I <span class="m">1829336</span> <span class="m">1829336</span><span class="o">]</span> <span class="o">(</span>gcs_server<span class="o">)</span> grpc_server.cc:103: GcsServer server started, listening on port <span class="m">50009</span>.
+<span class="o">[</span><span class="m">2022</span>-01-24 <span class="m">19</span>:42:06,696 I <span class="m">1829415</span> <span class="m">1829415</span><span class="o">]</span> <span class="o">(</span>raylet<span class="o">)</span> grpc_server.cc:103: ObjectManager server started, listening on port <span class="m">40545</span>.
+<span class="m">2022</span>-01-24 <span class="m">19</span>:42:05,087 INFO <span class="o">(</span>dashboard<span class="o">)</span> dashboard.py:95 -- Setup static dir <span class="k">for</span> dashboard: /mnt/data/workspace/ray/python/ray/dashboard/client/build
+<span class="m">2022</span>-01-24 <span class="m">19</span>:42:07,500 INFO <span class="o">(</span>dashboard_agent<span class="o">)</span> agent.py:105 -- Dashboard agent grpc address: <span class="m">0</span>.0.0.0:49228
+</pre></div>
+</div>
+<p>This should make it easier to filter the stderr stream of logs down to the component of interest. Note that multi-line log records will <strong>not</strong> have this component marker at the beginning of each line.</p>
+<p>When running a local Ray cluster, this environment variable should be set before starting the local cluster:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;RAY_LOG_TO_STDERR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When starting a local cluster via the CLI or when starting nodes in a multi-node Ray cluster, this environment variable should be set before starting up each node:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>env <span class="nv">RAY_LOG_TO_STDERR</span><span class="o">=</span><span class="m">1</span> ray start
+</pre></div>
+</div>
+<p>If using the Ray cluster launcher, you would specify this environment variable in the Ray start commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>head_start_ray_commands:
+    - ray stop
+    - env <span class="nv">RAY_LOG_TO_STDERR</span><span class="o">=</span><span class="m">1</span> ray start --head --port<span class="o">=</span><span class="m">6379</span> --object-manager-port<span class="o">=</span><span class="m">8076</span> --autoscaling-config<span class="o">=</span>~/ray_bootstrap_config.yaml
+
+worker_start_ray_commands:
+    - ray stop
+    - env <span class="nv">RAY_LOG_TO_STDERR</span><span class="o">=</span><span class="m">1</span> ray start --address<span class="o">=</span><span class="nv">$RAY_HEAD_IP</span>:6379 --object-manager-port<span class="o">=</span><span class="m">8076</span>
+</pre></div>
+</div>
+<p>When connecting to the cluster, be sure to set the environment variable before connecting:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;RAY_LOG_TO_STDERR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="ray-debugging.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Ray Debugger</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../ray-core/ray-metrics.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Metrics</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

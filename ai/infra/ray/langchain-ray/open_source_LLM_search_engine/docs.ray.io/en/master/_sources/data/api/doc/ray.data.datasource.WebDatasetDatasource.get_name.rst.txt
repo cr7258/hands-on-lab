@@ -1,0 +1,6 @@
+ray.data.datasource.WebDatasetDatasource.get\_name
+==================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: WebDatasetDatasource.get_name

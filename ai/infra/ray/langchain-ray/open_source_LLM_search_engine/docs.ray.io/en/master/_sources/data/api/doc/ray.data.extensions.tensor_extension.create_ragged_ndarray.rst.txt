@@ -1,0 +1,6 @@
+﻿ray.data.extensions.tensor\_extension.create\_ragged\_ndarray
+=============================================================
+
+.. currentmodule:: ray.data.extensions.tensor_extension
+
+.. autofunction:: create_ragged_ndarray

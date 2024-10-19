@@ -1,0 +1,6 @@
+ray.data.Datastream.map
+=======================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.map

@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceCheckpoint.as\_directory
+=========================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFaceCheckpoint.as_directory

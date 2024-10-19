@@ -1,0 +1,6 @@
+ray.data.datasource.JSONDatasource.prepare\_read
+================================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: JSONDatasource.prepare_read

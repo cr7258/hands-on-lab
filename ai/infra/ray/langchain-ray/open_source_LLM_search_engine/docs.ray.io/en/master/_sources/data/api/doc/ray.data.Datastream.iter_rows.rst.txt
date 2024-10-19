@@ -1,0 +1,6 @@
+ray.data.Datastream.iter\_rows
+==============================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.iter_rows

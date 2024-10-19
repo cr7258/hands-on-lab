@@ -1,0 +1,6 @@
+ray.data.Datastream.write\_tfrecords
+====================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.write_tfrecords

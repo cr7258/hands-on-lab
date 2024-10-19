@@ -1,0 +1,841 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Overview &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/versionwarning.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../_static/js/docsearch.js"></script>
+    <script src="../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../_static/js/termynal.js"></script>
+    <script defer="defer" src="../_static/js/custom.js"></script>
+    <script defer="defer" src="../_static/js/top-navigation.js"></script>
+    <script src="../_static/js/tags.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script async="async" src="../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/ray-observability/overview.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ray Dashboard" href="../ray-core/ray-dashboard.html" />
+    <link rel="prev" title="Monitoring and Debugging" href="monitoring-debugging/monitoring-debugging.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:31:52Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "ray-observability/overview", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="overview.html#">
+     Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-core/ray-dashboard.html">
+     Ray Dashboard
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="state/state-api.html">
+     Monitoring Ray States
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ray-debugging.html">
+     Ray Debugger
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ray-logging.html">
+     Logging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-core/ray-metrics.html">
+     Metrics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="monitoring-debugging/profiling.html">
+     Profiling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ray-tracing.html">
+     Tracing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="monitoring-debugging/troubleshoot-failures.html">
+     Troubleshooting Failures
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="monitoring-debugging/troubleshoot-hangs.html">
+     Troubleshooting Hangs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="monitoring-debugging/troubleshoot-performance.html">
+     Troubleshooting Performance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="monitoring-debugging/gotchas.html">
+     Ray Gotchas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="monitoring-debugging/getting-help.html">
+     Getting Help
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-contribute/debugging.html">
+     Debugging (internal)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ray-contribute/profiling.html">
+     Profiling (internal)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2Fray-observability/overview.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/edit/master/doc/source/ray-observability/overview.rst"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/ray-observability/overview.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#dashboard-web-ui">
+   Dashboard (Web UI)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#application-logging">
+   Application Logging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#exceptions">
+   Exceptions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#accessing-ray-states">
+   Accessing Ray States
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#debugger">
+   Debugger
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#monitoring-cluster-state-and-resource-demands">
+   Monitoring Cluster State and Resource Demands
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#metrics">
+   Metrics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#profiling">
+   Profiling
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#tracing">
+   Tracing
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Overview</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#dashboard-web-ui">
+   Dashboard (Web UI)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#application-logging">
+   Application Logging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#exceptions">
+   Exceptions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#accessing-ray-states">
+   Accessing Ray States
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#debugger">
+   Debugger
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#monitoring-cluster-state-and-resource-demands">
+   Monitoring Cluster State and Resource Demands
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#metrics">
+   Metrics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#profiling">
+   Profiling
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="overview.html#tracing">
+   Tracing
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="overview.html#overview" title="Permalink to this headline">#</a></h1>
+<p>This section covers a list of available monitoring and debugging tools and features in Ray.</p>
+<p>This documentation only covers the high-level description of available tools and features. For more details, see <a class="reference internal" href="monitoring-debugging/monitoring-debugging.html#observability"><span class="std std-ref">Ray Observability</span></a>.</p>
+<section id="dashboard-web-ui">
+<h2>Dashboard (Web UI)<a class="headerlink" href="overview.html#dashboard-web-ui" title="Permalink to this headline">#</a></h2>
+<p>Ray supports the web-based dashboard to help users monitor the cluster. When a new cluster is started, the dashboard is available
+through the default address <code class="xref py py-obj docutils literal notranslate"><span class="pre">localhost:8265</span></code> (port can be automatically incremented if port 8265 is already occupied).</p>
+<p>See <a class="reference internal" href="../ray-core/ray-dashboard.html#ray-dashboard"><span class="std std-ref">Ray Dashboard</span></a> for more details.</p>
+</section>
+<section id="application-logging">
+<h2>Application Logging<a class="headerlink" href="overview.html#application-logging" title="Permalink to this headline">#</a></h2>
+<p>By default, all stdout and stderr of tasks and actors are streamed to the Ray driver (the entrypoint script that calls <code class="docutils literal notranslate"><span class="pre">ray.init</span></code>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ray</span>
+
+<span class="c1"># Initiate a driver.</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">def</span> <span class="nf">task</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;task&quot;</span><span class="p">)</span>
+
+
+<span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">remote</span><span class="p">())</span>
+
+
+<span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+<span class="k">class</span> <span class="nc">Actor</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">ready</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;actor&quot;</span><span class="p">)</span>
+
+
+<span class="n">actor</span> <span class="o">=</span> <span class="n">Actor</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span>
+<span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">actor</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">remote</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>All stdout emitted from the <code class="docutils literal notranslate"><span class="pre">print</span></code> method is printed to the driver with a <code class="docutils literal notranslate"><span class="pre">(the</span> <span class="pre">task</span> <span class="pre">or</span> <span class="pre">actor</span> <span class="pre">repr,</span> <span class="pre">the</span> <span class="pre">process</span> <span class="pre">ID,</span> <span class="pre">IP</span> <span class="pre">address)</span></code> prefix.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span><span class="nv">pid</span><span class="o">=</span><span class="m">45601</span><span class="o">)</span> task
+<span class="o">(</span>Actor <span class="nv">pid</span><span class="o">=</span><span class="m">480956</span><span class="o">)</span> actor
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="ray-logging.html#ray-logging"><span class="std std-ref">Logging</span></a> for more details.</p>
+</section>
+<section id="exceptions">
+<h2>Exceptions<a class="headerlink" href="overview.html#exceptions" title="Permalink to this headline">#</a></h2>
+<p>Creating a new task or submitting an actor task generates an object reference. When <code class="docutils literal notranslate"><span class="pre">ray.get</span></code> is called on the object reference,
+the API raises an exception if anything goes wrong with a related task, actor or object. For example,</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../ray-core/api/doc/ray.exceptions.RayTaskError.html#ray.exceptions.RayTaskError" title="ray.exceptions.RayTaskError"><code class="xref py py-class docutils literal notranslate"><span class="pre">RayTaskError</span></code></a> is raised when there’s an error from user code that throws an exception.</p></li>
+<li><p><a class="reference internal" href="../ray-core/api/doc/ray.exceptions.RayActorError.html#ray.exceptions.RayActorError" title="ray.exceptions.RayActorError"><code class="xref py py-class docutils literal notranslate"><span class="pre">RayActorError</span></code></a> is raised when an actor is dead (by a system failure such as node failure or user-level failure such as an exception from <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method).</p></li>
+<li><p><a class="reference internal" href="../ray-core/api/doc/ray.exceptions.RuntimeEnvSetupError.html#ray.exceptions.RuntimeEnvSetupError" title="ray.exceptions.RuntimeEnvSetupError"><code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeEnvSetupError</span></code></a> is raised when the actor or task couldn’t be started because <a class="reference internal" href="../ray-core/handling-dependencies.html#runtime-environments"><span class="std std-ref">a runtime environment</span></a> failed to be created.</p></li>
+</ul>
+<p>See <a class="reference internal" href="../ray-core/api/exceptions.html#ray-core-exceptions"><span class="std std-ref">Exceptions Reference</span></a> for more details.</p>
+</section>
+<section id="accessing-ray-states">
+<h2>Accessing Ray States<a class="headerlink" href="overview.html#accessing-ray-states" title="Permalink to this headline">#</a></h2>
+<p>Starting from Ray 2.0, it supports CLI / Python APIs to query the state of resources (e.g., actor, task, object, etc.).</p>
+<p>For example, the following command will summarize the task state of the cluster.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray summary tasks
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>======== Tasks Summary: 2022-07-22 08:54:38.332537 ========
+Stats:
+------------------------------------
+total_actor_scheduled: 2
+total_actor_tasks: 0
+total_tasks: 2
+
+
+Table (group by func_name):
+------------------------------------
+    FUNC_OR_CLASS_NAME        STATE_COUNTS    TYPE
+0   task_running_300_seconds  RUNNING: 2      NORMAL_TASK
+1   Actor.__init__            FINISHED: 2     ACTOR_CREATION_TASK
+</pre></div>
+</div>
+<p>The following command will list all the actors from the cluster.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ray list actors
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>======== List: 2022-07-23 21:29:39.323925 ========
+Stats:
+------------------------------
+Total: 2
+
+Table:
+------------------------------
+    ACTOR_ID                          CLASS_NAME    NAME      PID  STATE
+0  31405554844820381c2f0f8501000000  Actor                 96956  ALIVE
+1  f36758a9f8871a9ca993b1d201000000  Actor                 96955  ALIVE
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="state/state-api.html#state-api-overview-ref"><span class="std std-ref">Ray State API</span></a> for more details.</p>
+</section>
+<section id="debugger">
+<h2>Debugger<a class="headerlink" href="overview.html#debugger" title="Permalink to this headline">#</a></h2>
+<p>Ray has a built-in debugger that allows you to debug your distributed applications.
+It allows you to set breakpoints in your Ray tasks and actors, and when hitting the breakpoint, you can
+drop into a PDB session that you can then use to:</p>
+<ul class="simple">
+<li><p>Inspect variables in that context</p></li>
+<li><p>Step within that task or actor</p></li>
+<li><p>Move up or down the stack</p></li>
+</ul>
+<p>See <a class="reference internal" href="ray-debugging.html#ray-debugger"><span class="std std-ref">Ray Debugger</span></a> for more details.</p>
+</section>
+<section id="monitoring-cluster-state-and-resource-demands">
+<h2>Monitoring Cluster State and Resource Demands<a class="headerlink" href="overview.html#monitoring-cluster-state-and-resource-demands" title="Permalink to this headline">#</a></h2>
+<p>You can monitor cluster usage and auto-scaling status by running (on the head node) a CLI command <code class="docutils literal notranslate"><span class="pre">ray</span> <span class="pre">status</span></code>. It displays</p>
+<ul class="simple">
+<li><p><strong>Cluster State</strong>: Nodes that are up and running. Addresses of running nodes. Information about pending nodes and failed nodes.</p></li>
+<li><p><strong>Autoscaling Status</strong>: The number of nodes that are autoscaling up and down.</p></li>
+<li><p><strong>Cluster Usage</strong>: The resource usage of the cluster. E.g., requested CPUs from all Ray tasks and actors. Number of GPUs that are used.</p></li>
+</ul>
+<p>Here’s an example output.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ ray <span class="nv">status</span>
+<span class="o">========</span> Autoscaler status: <span class="m">2021</span>-10-12 <span class="m">13</span>:10:21.035674 <span class="o">========</span>
+Node status
+---------------------------------------------------------------
+Healthy:
+ <span class="m">1</span> ray.head.default
+ <span class="m">2</span> ray.worker.cpu
+Pending:
+ <span class="o">(</span>no pending nodes<span class="o">)</span>
+Recent failures:
+ <span class="o">(</span>no failures<span class="o">)</span>
+
+Resources
+---------------------------------------------------------------
+Usage:
+ <span class="m">0</span>.0/10.0 CPU
+ <span class="m">0</span>.00/70.437 GiB memory
+ <span class="m">0</span>.00/10.306 GiB object_store_memory
+
+Demands:
+ <span class="o">(</span>no resource demands<span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="metrics">
+<h2>Metrics<a class="headerlink" href="overview.html#metrics" title="Permalink to this headline">#</a></h2>
+<p>Ray collects and exposes the physical stats (e.g., CPU, memory, GRAM, disk, and network usage of each node),
+internal stats (e.g., number of actors in the cluster, number of worker failures of the cluster),
+and custom metrics (e.g., metrics defined by users). All stats can be exported as time series data (to Prometheus by default) and used
+to monitor the cluster over time.</p>
+<p>See <a class="reference internal" href="../ray-core/ray-metrics.html#ray-metrics"><span class="std std-ref">Ray Metrics</span></a> for more details.</p>
+</section>
+<section id="profiling">
+<h2>Profiling<a class="headerlink" href="overview.html#profiling" title="Permalink to this headline">#</a></h2>
+<p>Ray is compatible with Python profiling tools such as <code class="docutils literal notranslate"><span class="pre">CProfile</span></code>. It also supports its built-in profiling tool such as :ref:<code class="docutils literal notranslate"><span class="pre">`ray</span> <span class="pre">timeline</span></code> &lt;ray-timeline-doc&gt;`.</p>
+<p>See <a class="reference internal" href="monitoring-debugging/profiling.html#ray-core-profiling"><span class="std std-ref">Profiling</span></a> for more details.</p>
+</section>
+<section id="tracing">
+<h2>Tracing<a class="headerlink" href="overview.html#tracing" title="Permalink to this headline">#</a></h2>
+<p>To help debug and monitor Ray applications, Ray supports distributed tracing (integration with OpenTelemetry) across tasks and actors.</p>
+<p>See <a class="reference internal" href="ray-tracing.html#ray-tracing"><span class="std std-ref">Ray Tracing</span></a> for more details.</p>
+</section>
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="monitoring-debugging/monitoring-debugging.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Monitoring and Debugging</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../ray-core/ray-dashboard.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Ray Dashboard</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

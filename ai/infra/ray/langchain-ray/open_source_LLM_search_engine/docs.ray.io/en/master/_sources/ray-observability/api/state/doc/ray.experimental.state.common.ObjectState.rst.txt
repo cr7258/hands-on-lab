@@ -1,0 +1,8 @@
+﻿ray.experimental.state.common.ObjectState
+=========================================
+
+.. currentmodule:: ray.experimental.state.common
+
+.. autoclass:: ObjectState
+    :members:
+    :show-inheritance:

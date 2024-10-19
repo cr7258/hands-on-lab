@@ -1,0 +1,6 @@
+ray.data.row.TableRow.get
+=========================
+
+.. currentmodule:: ray.data.row
+
+.. automethod:: TableRow.get

@@ -1,0 +1,6 @@
+ray.data.Datastream.union
+=========================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.union

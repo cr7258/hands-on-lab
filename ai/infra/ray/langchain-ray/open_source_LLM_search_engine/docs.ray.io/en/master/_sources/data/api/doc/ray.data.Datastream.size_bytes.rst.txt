@@ -1,0 +1,6 @@
+ray.data.Datastream.size\_bytes
+===============================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.size_bytes

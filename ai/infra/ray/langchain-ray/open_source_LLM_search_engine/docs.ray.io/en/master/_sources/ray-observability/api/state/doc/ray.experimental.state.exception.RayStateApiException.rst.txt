@@ -1,0 +1,6 @@
+﻿ray.experimental.state.exception.RayStateApiException
+=====================================================
+
+.. currentmodule:: ray.experimental.state.exception
+
+.. autoexception:: RayStateApiException

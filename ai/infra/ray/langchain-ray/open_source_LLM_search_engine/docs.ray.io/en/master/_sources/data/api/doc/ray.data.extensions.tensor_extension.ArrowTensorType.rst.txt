@@ -1,0 +1,8 @@
+﻿ray.data.extensions.tensor\_extension.ArrowTensorType
+=====================================================
+
+.. currentmodule:: ray.data.extensions.tensor_extension
+
+.. autoclass:: ArrowTensorType
+    :members:
+    :show-inheritance:

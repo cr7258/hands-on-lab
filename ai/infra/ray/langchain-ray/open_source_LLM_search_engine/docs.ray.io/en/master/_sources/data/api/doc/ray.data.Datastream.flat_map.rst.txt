@@ -1,0 +1,6 @@
+ray.data.Datastream.flat\_map
+=============================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.flat_map

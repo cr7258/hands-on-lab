@@ -1,0 +1,6 @@
+ray.data.Datastream.mean
+========================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.mean

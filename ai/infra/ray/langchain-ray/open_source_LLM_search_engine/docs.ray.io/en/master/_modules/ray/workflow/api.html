@@ -1,0 +1,1206 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ray.workflow.api &#8212; Ray 3.0.0.dev0</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css@digest=1999514e3f237ded88cf.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css@digest=5115cc725059bd94278eecd172e13a965bf8f5a9.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/termynal.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_/static/css/badge_only.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/versionwarning.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script defer="defer" src="../../../_static/js/docsearch.js"></script>
+    <script src="../../../_static/js/rate-the-docs.es.min.js"></script>
+    <script defer="defer" src="../../../_static/js/termynal.js"></script>
+    <script defer="defer" src="../../../_static/js/custom.js"></script>
+    <script defer="defer" src="../../../_static/js/top-navigation.js"></script>
+    <script src="../../../_static/js/tags.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js@digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script async="async" src="../../../../../_/static/javascript/readthedocs-doc-embed.js"></script>
+    <link rel="canonical" href="https://docs.ray.io/en/latest/_modules/ray/workflow/api.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+<!-- Fathom - beautiful, simple website analytics -->
+<script src="https://deer.ray.io/script.js" data-site="WYYANYOS" defer></script>
+<!-- / Fathom -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110413294-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-110413294-1');
+</script>
+
+
+  
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="../../../../../_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.com", "build_date": "2023-04-28T22:35:25Z", "builder": "sphinx", "canonical_url": null, "commit": "ff36b8e7", "docroot": "/doc/source/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-2", "language": "en", "page": "_modules/ray/workflow/api", "programming_language": "py", "project": "anyscale-ray", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_book_theme", "user_analytics_code": "", "version": "master"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="../../../../../_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"><div class='topnav'></div></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Ray 3.0.0.dev0</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main Navigation">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../index.html">
+                    Welcome to Ray!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Ray
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/index.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/getting-started.html">
+   Getting Started Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-more-libs/installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/use-cases.html">
+   Use Cases
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-overview/ray-libraries.html">
+   Ecosystem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-core/walkthrough.html">
+   Ray Core
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-air/getting-started.html">
+   Ray AI Runtime (AIR)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data/data.html">
+   Ray Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../train/train.html">
+   Ray Train
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tune.html">
+   Ray Tune
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../serve/index.html">
+   Ray Serve
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../rllib/index.html">
+   Ray RLlib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-more-libs/index.html">
+   More Libraries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-core/cluster/index.html">
+   Ray Clusters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-observability/monitoring-debugging/monitoring-debugging.html">
+   Monitoring and Debugging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-references/api.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ray-contribute/stability.html">
+   Developer Guides
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ray-project/ray"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ray-project/ray/issues/new?title=Issue%20on%20page%20%2F_modules/ray/workflow/api.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for ray.workflow.api</h1><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
+<span class="kn">import</span> <span class="nn">ray</span>
+<span class="kn">from</span> <span class="nn">ray.dag</span> <span class="kn">import</span> <span class="n">DAGNode</span>
+<span class="kn">from</span> <span class="nn">ray.dag.input_node</span> <span class="kn">import</span> <span class="n">DAGInputData</span>
+<span class="kn">from</span> <span class="nn">ray.remote_function</span> <span class="kn">import</span> <span class="n">RemoteFunction</span>
+
+<span class="c1"># avoid collision with arguments &amp; APIs</span>
+
+<span class="kn">from</span> <span class="nn">ray.workflow.common</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">WorkflowStatus</span><span class="p">,</span>
+    <span class="n">Event</span><span class="p">,</span>
+    <span class="n">asyncio_run</span><span class="p">,</span>
+    <span class="n">validate_user_metadata</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ray.workflow</span> <span class="kn">import</span> <span class="n">serialization</span><span class="p">,</span> <span class="n">workflow_access</span><span class="p">,</span> <span class="n">workflow_context</span>
+<span class="kn">from</span> <span class="nn">ray.workflow.event_listener</span> <span class="kn">import</span> <span class="n">EventListener</span><span class="p">,</span> <span class="n">EventListenerType</span><span class="p">,</span> <span class="n">TimerListener</span>
+<span class="kn">from</span> <span class="nn">ray.workflow.workflow_storage</span> <span class="kn">import</span> <span class="n">WorkflowStorage</span>
+<span class="kn">from</span> <span class="nn">ray.workflow.workflow_state_from_dag</span> <span class="kn">import</span> <span class="n">workflow_state_from_dag</span>
+
+<span class="kn">from</span> <span class="nn">ray.util.annotations</span> <span class="kn">import</span> <span class="n">PublicAPI</span>
+<span class="kn">from</span> <span class="nn">ray._private.usage</span> <span class="kn">import</span> <span class="n">usage_lib</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">max_running_workflows</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_pending_workflows</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Initialize workflow.</span>
+
+<span class="sd">    If Ray is not initialized, we will initialize Ray and</span>
+<span class="sd">    use ``/tmp/ray/workflow_data`` as the default storage.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        max_running_workflows: The maximum number of concurrently running workflows.</span>
+<span class="sd">            Use -1 as infinity. &#39;None&#39; means preserving previous setting or initialize</span>
+<span class="sd">            the setting with infinity.</span>
+<span class="sd">        max_pending_workflows: The maximum number of queued workflows.</span>
+<span class="sd">            Use -1 as infinity. &#39;None&#39; means preserving previous setting or initialize</span>
+<span class="sd">            the setting with infinity.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">usage_lib</span><span class="o">.</span><span class="n">record_library_usage</span><span class="p">(</span><span class="s2">&quot;workflow&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">max_running_workflows</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">max_running_workflows</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&#39;max_running_workflows&#39; must be None or an integer.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">max_running_workflows</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">max_running_workflows</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;&#39;max_running_workflows&#39; must be a positive integer &quot;</span>
+                <span class="s2">&quot;or use -1 as infinity.&quot;</span>
+            <span class="p">)</span>
+    <span class="k">if</span> <span class="n">max_pending_workflows</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">max_pending_workflows</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&#39;max_pending_workflows&#39; must be None or an integer.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">max_pending_workflows</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;&#39;max_pending_workflows&#39; must be a non-negative integer &quot;</span>
+                <span class="s2">&quot;or use -1 as infinity.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ray</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">():</span>
+        <span class="c1"># We should use get_temp_dir_path, but for ray client, we don&#39;t</span>
+        <span class="c1"># have this one. We need a flag to tell whether it&#39;s a client</span>
+        <span class="c1"># or a driver to use the right dir.</span>
+        <span class="c1"># For now, just use /tmp/ray/workflow_data</span>
+        <span class="n">ray</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">storage</span><span class="o">=</span><span class="s2">&quot;file:///tmp/ray/workflow_data&quot;</span><span class="p">)</span>
+    <span class="n">workflow_access</span><span class="o">.</span><span class="n">init_management_actor</span><span class="p">(</span><span class="n">max_running_workflows</span><span class="p">,</span> <span class="n">max_pending_workflows</span><span class="p">)</span>
+    <span class="n">serialization</span><span class="o">.</span><span class="n">init_manager</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_ensure_workflow_initialized</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># NOTE: Trying to get the actor has a side effect: it initializes Ray with</span>
+    <span class="c1"># default arguments. This is different in &quot;init()&quot;: it assigns a temporary</span>
+    <span class="c1"># storage. This is why we need to check &quot;ray.is_initialized()&quot; first.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ray</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">():</span>
+        <span class="n">init</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">workflow_access</span><span class="o">.</span><span class="n">get_management_actor</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">init</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">client_mode_wrap</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wraps a function called during client mode for execution as a remote task.</span>
+
+<span class="sd">    Adopted from &quot;ray._private.client_mode_hook.client_mode_wrap&quot;. Some changes are made</span>
+<span class="sd">    (e.g., init the workflow instead of init Ray; the latter does not specify a storage</span>
+<span class="sd">    during Ray init and will result in workflow failures).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">ray._private.client_mode_hook</span> <span class="kn">import</span> <span class="n">client_mode_should_convert</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;RAY_ENABLE_AUTO_CONNECT&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
+            <span class="n">_ensure_workflow_initialized</span><span class="p">()</span>
+
+        <span class="c1"># `is_client_mode_enabled_by_default` is used for testing with</span>
+        <span class="c1"># `RAY_CLIENT_MODE=1`. This flag means all tests run with client mode.</span>
+        <span class="k">if</span> <span class="n">client_mode_should_convert</span><span class="p">(</span><span class="n">auto_init</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">num_cpus</span><span class="o">=</span><span class="mi">0</span><span class="p">)(</span><span class="n">func</span><span class="p">)</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span>
+
+
+<div class="viewcode-block" id="run"><a class="viewcode-back" href="../../../workflows/api/doc/ray.workflow.run.html#ray.workflow.run">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+    <span class="n">dag</span><span class="p">:</span> <span class="n">DAGNode</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="n">workflow_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Run a workflow.</span>
+
+<span class="sd">    If the workflow with the given id already exists, it will be resumed.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import ray</span>
+<span class="sd">        &gt;&gt;&gt; from ray import workflow</span>
+<span class="sd">        &gt;&gt;&gt; Flight, Reservation, Trip = ... # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; @ray.remote # doctest: +SKIP</span>
+<span class="sd">        ... def book_flight(origin: str, dest: str) -&gt; Flight: # doctest: +SKIP</span>
+<span class="sd">        ...    return Flight(...) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; @ray.remote # doctest: +SKIP</span>
+<span class="sd">        ... def book_hotel(location: str) -&gt; Reservation: # doctest: +SKIP</span>
+<span class="sd">        ...    return Reservation(...) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; @ray.remote # doctest: +SKIP</span>
+<span class="sd">        ... def finalize_trip(bookings: List[Any]) -&gt; Trip: # doctest: +SKIP</span>
+<span class="sd">        ...    return Trip(...) # doctest: +SKIP</span>
+
+<span class="sd">        &gt;&gt;&gt; flight1 = book_flight.bind(&quot;OAK&quot;, &quot;SAN&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; flight2 = book_flight.bind(&quot;SAN&quot;, &quot;OAK&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; hotel = book_hotel.bind(&quot;SAN&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; trip = finalize_trip.bind([flight1, flight2, hotel]) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; result = workflow.run(trip) # doctest: +SKIP</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        workflow_id: A unique identifier that can be used to resume the</span>
+<span class="sd">            workflow. If not specified, a random id will be generated.</span>
+<span class="sd">        metadata: The metadata to add to the workflow. It has to be able</span>
+<span class="sd">            to serialize to json.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The running result.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">run_async</span><span class="p">(</span><span class="n">dag</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">workflow_id</span><span class="o">=</span><span class="n">workflow_id</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="run_async"><a class="viewcode-back" href="../../../workflows/api/doc/ray.workflow.run_async.html#ray.workflow.run_async">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">run_async</span><span class="p">(</span>
+    <span class="n">dag</span><span class="p">:</span> <span class="n">DAGNode</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="n">workflow_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ray</span><span class="o">.</span><span class="n">ObjectRef</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Run a workflow asynchronously.</span>
+
+<span class="sd">    If the workflow with the given id already exists, it will be resumed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        workflow_id: A unique identifier that can be used to resume the</span>
+<span class="sd">            workflow. If not specified, a random id will be generated.</span>
+<span class="sd">        metadata: The metadata to add to the workflow. It has to be able</span>
+<span class="sd">            to serialize to json.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">       The running result as ray.ObjectRef.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_ensure_workflow_initialized</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dag</span><span class="p">,</span> <span class="n">DAGNode</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Input should be a DAG.&quot;</span><span class="p">)</span>
+    <span class="n">input_data</span> <span class="o">=</span> <span class="n">DAGInputData</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">validate_user_metadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">workflow_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Workflow ID format: {Entry workflow UUID}.{Unix time to nanoseconds}</span>
+        <span class="n">workflow_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="si">:</span><span class="s2">.9f</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="n">workflow_manager</span> <span class="o">=</span> <span class="n">workflow_access</span><span class="o">.</span><span class="n">get_management_actor</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">workflow_manager</span><span class="o">.</span><span class="n">is_workflow_non_terminating</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Workflow &#39;</span><span class="si">{</span><span class="n">workflow_id</span><span class="si">}</span><span class="s2">&#39; is already running or pending.&quot;</span><span class="p">)</span>
+
+    <span class="n">state</span> <span class="o">=</span> <span class="n">workflow_state_from_dag</span><span class="p">(</span><span class="n">dag</span><span class="p">,</span> <span class="n">input_data</span><span class="p">,</span> <span class="n">workflow_id</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Workflow job created. [id=&quot;</span><span class="si">{</span><span class="n">workflow_id</span><span class="si">}</span><span class="s1">&quot;].&#39;</span><span class="p">)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">workflow_context</span><span class="o">.</span><span class="n">WorkflowTaskContext</span><span class="p">(</span><span class="n">workflow_id</span><span class="o">=</span><span class="n">workflow_id</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">workflow_context</span><span class="o">.</span><span class="n">workflow_task_context</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+        <span class="c1"># checkpoint the workflow</span>
+        <span class="nd">@client_mode_wrap</span>
+        <span class="k">def</span> <span class="nf">_try_checkpoint_workflow</span><span class="p">(</span><span class="n">workflow_state</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="n">ws</span> <span class="o">=</span> <span class="n">WorkflowStorage</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">)</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">save_workflow_user_metadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ws</span><span class="o">.</span><span class="n">get_entrypoint_task_id</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="c1"># The workflow does not exist. We must checkpoint entry workflow.</span>
+                <span class="n">ws</span><span class="o">.</span><span class="n">save_workflow_execution_state</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">workflow_state</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">wf_exists</span> <span class="o">=</span> <span class="n">_try_checkpoint_workflow</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">wf_exists</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">resume_async</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">)</span>
+        <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">workflow_manager</span><span class="o">.</span><span class="n">submit_workflow</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span>
+                <span class="n">workflow_id</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">ignore_existing</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">job_id</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get_runtime_context</span><span class="p">()</span><span class="o">.</span><span class="n">get_job_id</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">workflow_manager</span><span class="o">.</span><span class="n">execute_workflow</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="resume"><a class="viewcode-back" href="../../../workflows/api/doc/ray.workflow.resume.html#ray.workflow.resume">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Resume a workflow.</span>
+
+<span class="sd">    Resume a workflow and retrieve its output. If the workflow was incomplete,</span>
+<span class="sd">    it will be re-executed from its checkpointed outputs. If the workflow was</span>
+<span class="sd">    complete, returns the result immediately.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; from ray import workflow</span>
+<span class="sd">        &gt;&gt;&gt; start_trip = ... # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; trip = start_trip.bind() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; res1 = workflow.run_async(trip, workflow_id=&quot;trip1&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; res2 = workflow.resume_async(&quot;trip1&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert ray.get(res1) == ray.get(res2) # doctest: +SKIP</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        workflow_id: The id of the workflow to resume.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The output of the workflow.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">resume_async</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="resume_async"><a class="viewcode-back" href="../../../workflows/api/doc/ray.workflow.resume_async.html#ray.workflow.resume_async">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">resume_async</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ray</span><span class="o">.</span><span class="n">ObjectRef</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Resume a workflow asynchronously.</span>
+
+<span class="sd">    Resume a workflow and retrieve its output. If the workflow was incomplete,</span>
+<span class="sd">    it will be re-executed from its checkpointed outputs. If the workflow was</span>
+<span class="sd">    complete, returns the result immediately.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; from ray import workflow</span>
+<span class="sd">        &gt;&gt;&gt; start_trip = ... # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; trip = start_trip.bind() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; res1 = workflow.run_async(trip, workflow_id=&quot;trip1&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; res2 = workflow.resume_async(&quot;trip1&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert ray.get(res1) == ray.get(res2) # doctest: +SKIP</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        workflow_id: The id of the workflow to resume.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An object reference that can be used to retrieve the workflow result.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_ensure_workflow_initialized</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Resuming workflow [id=&quot;</span><span class="si">{</span><span class="n">workflow_id</span><span class="si">}</span><span class="s1">&quot;].&#39;</span><span class="p">)</span>
+    <span class="n">workflow_manager</span> <span class="o">=</span> <span class="n">workflow_access</span><span class="o">.</span><span class="n">get_management_actor</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">workflow_manager</span><span class="o">.</span><span class="n">is_workflow_non_terminating</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Workflow &#39;</span><span class="si">{</span><span class="n">workflow_id</span><span class="si">}</span><span class="s2">&#39; is already running or pending.&quot;</span><span class="p">)</span>
+    <span class="c1"># NOTE: It is important to &#39;ray.get&#39; the returned output. This</span>
+    <span class="c1"># ensures caller of &#39;run()&#39; holds the reference to the workflow</span>
+    <span class="c1"># result. Otherwise if the actor removes the reference of the</span>
+    <span class="c1"># workflow output, the caller may fail to resolve the result.</span>
+    <span class="n">job_id</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get_runtime_context</span><span class="p">()</span><span class="o">.</span><span class="n">get_job_id</span><span class="p">()</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="n">workflow_context</span><span class="o">.</span><span class="n">WorkflowTaskContext</span><span class="p">(</span><span class="n">workflow_id</span><span class="o">=</span><span class="n">workflow_id</span><span class="p">)</span>
+    <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">workflow_manager</span><span class="o">.</span><span class="n">reconstruct_workflow</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">workflow_manager</span><span class="o">.</span><span class="n">execute_workflow</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Workflow job </span><span class="si">{</span><span class="n">workflow_id</span><span class="si">}</span><span class="s2"> resumed.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="get_output"><a class="viewcode-back" href="../../../workflows/api/doc/ray.workflow.get_output.html#ray.workflow.get_output">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_output</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">task_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get the output of a running workflow.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        workflow_id: The workflow to get the output of.</span>
+<span class="sd">        task_id: If set, fetch the specific task instead of the output of the</span>
+<span class="sd">            workflow.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; from ray import workflow</span>
+<span class="sd">        &gt;&gt;&gt; start_trip = ... # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; trip = start_trip.options(task_id=&quot;trip&quot;).bind() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; res1 = workflow.run_async(trip, workflow_id=&quot;trip1&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; # you could &quot;get_output()&quot; in another machine</span>
+<span class="sd">        &gt;&gt;&gt; res2 = workflow.get_output_async(&quot;trip1&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert ray.get(res1) == ray.get(res2) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; task_output = workflow.get_output_async(&quot;trip1&quot;, &quot;trip&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert ray.get(task_output) == ray.get(res1) # doctest: +SKIP</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The output of the workflow task.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">get_output_async</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="get_output_async"><a class="viewcode-back" href="../../../workflows/api/doc/ray.workflow.get_output_async.html#ray.workflow.get_output_async">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="nd">@client_mode_wrap</span>
+<span class="k">def</span> <span class="nf">get_output_async</span><span class="p">(</span>
+    <span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">task_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ray</span><span class="o">.</span><span class="n">ObjectRef</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get the output of a running workflow asynchronously.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        workflow_id: The workflow to get the output of.</span>
+<span class="sd">        task_id: If set, fetch the specific task output instead of the output</span>
+<span class="sd">            of the workflow.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An object reference that can be used to retrieve the workflow task result.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_ensure_workflow_initialized</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">workflow_manager</span> <span class="o">=</span> <span class="n">workflow_access</span><span class="o">.</span><span class="n">get_management_actor</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Failed to connect to the workflow management &quot;</span>
+            <span class="s2">&quot;actor. The workflow could have already failed. You can use &quot;</span>
+            <span class="s2">&quot;workflow.resume() or workflow.resume_async() to resume the &quot;</span>
+            <span class="s2">&quot;workflow.&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+    <span class="k">return</span> <span class="n">workflow_manager</span><span class="o">.</span><span class="n">get_output</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">,</span> <span class="n">task_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="list_all"><a class="viewcode-back" href="../../../workflows/api/doc/ray.workflow.list_all.html#ray.workflow.list_all">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="nd">@client_mode_wrap</span>
+<span class="k">def</span> <span class="nf">list_all</span><span class="p">(</span>
+    <span class="n">status_filter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span>
+        <span class="n">Union</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">WorkflowStatus</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Set</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">WorkflowStatus</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">WorkflowStatus</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;List all workflows matching a given status filter. When returning &quot;RESUMEABLE&quot;</span>
+<span class="sd">    workflows, the workflows that was running ranks before the workflow that was pending</span>
+<span class="sd">    in the result list.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        status_filter: If given, only returns workflow with that status. This can</span>
+<span class="sd">            be a single status or set of statuses. The string form of the</span>
+<span class="sd">            status is also acceptable, i.e.,</span>
+<span class="sd">            &quot;RUNNING&quot;/&quot;FAILED&quot;/&quot;SUCCESSFUL&quot;/&quot;CANCELED&quot;/&quot;RESUMABLE&quot;/&quot;PENDING&quot;.</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; from ray import workflow</span>
+<span class="sd">        &gt;&gt;&gt; long_running_job = ... # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; workflow_task = long_running_job.bind() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; wf = workflow.run_async(workflow_task, # doctest: +SKIP</span>
+<span class="sd">        ...     workflow_id=&quot;long_running_job&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; jobs = workflow.list_all() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert jobs == [ (&quot;long_running_job&quot;, workflow.RUNNING) ] # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; ray.get(wf) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; jobs = workflow.list_all({workflow.RUNNING}) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert jobs == [] # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; jobs = workflow.list_all(workflow.SUCCESSFUL) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert jobs == [ # doctest: +SKIP</span>
+<span class="sd">        ...     (&quot;long_running_job&quot;, workflow.SUCCESSFUL)]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of tuple with workflow id and workflow status</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_ensure_workflow_initialized</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">status_filter</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">status_filter</span> <span class="o">=</span> <span class="nb">set</span><span class="p">({</span><span class="n">WorkflowStatus</span><span class="p">(</span><span class="n">status_filter</span><span class="p">)})</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">status_filter</span><span class="p">,</span> <span class="n">WorkflowStatus</span><span class="p">):</span>
+        <span class="n">status_filter</span> <span class="o">=</span> <span class="nb">set</span><span class="p">({</span><span class="n">status_filter</span><span class="p">})</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">status_filter</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">status_filter</span><span class="p">):</span>
+            <span class="n">status_filter</span> <span class="o">=</span> <span class="p">{</span><span class="n">WorkflowStatus</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">status_filter</span><span class="p">}</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">WorkflowStatus</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">status_filter</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s2">&quot;status_filter contains element which is not&quot;</span>
+                <span class="s2">&quot; a type of `WorkflowStatus or str`.&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">status_filter</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">status_filter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">status_filter</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">WorkflowStatus</span><span class="p">)</span>
+        <span class="n">status_filter</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">WorkflowStatus</span><span class="o">.</span><span class="n">NONE</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s2">&quot;status_filter must be WorkflowStatus or a set of WorkflowStatus.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">workflow_manager</span> <span class="o">=</span> <span class="n">workflow_access</span><span class="o">.</span><span class="n">get_management_actor</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">workflow_manager</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">workflow_manager</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">non_terminating_workflows</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">non_terminating_workflows</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">workflow_manager</span><span class="o">.</span><span class="n">list_non_terminating_workflows</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">non_terminating_workflows</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">issuperset</span><span class="p">(</span><span class="n">status_filter</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">status</span><span class="p">,</span> <span class="n">workflows</span> <span class="ow">in</span> <span class="n">non_terminating_workflows</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="ow">in</span> <span class="n">status_filter</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">workflows</span><span class="p">:</span>
+                    <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">w</span><span class="p">,</span> <span class="n">status</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Here we don&#39;t have workflow id, so use empty one instead</span>
+    <span class="n">store</span> <span class="o">=</span> <span class="n">WorkflowStorage</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">modified_status_filter</span> <span class="o">=</span> <span class="n">status_filter</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># Here we have to add non-terminating status to the status filter, because some</span>
+    <span class="c1"># &quot;RESUMABLE&quot; workflows are converted from non-terminating workflows below.</span>
+    <span class="c1"># This is the tricky part: the status &quot;RESUMABLE&quot; neither come from</span>
+    <span class="c1"># the workflow management actor nor the storage. It is the status where</span>
+    <span class="c1"># the storage says it is non-terminating but the workflow management actor</span>
+    <span class="c1"># is not running it. This usually happened when there was a sudden crash</span>
+    <span class="c1"># of the whole Ray runtime or the workflow management actor</span>
+    <span class="c1"># (due to cluster etc.). So we includes non terminating status in the storage</span>
+    <span class="c1"># filter to get &quot;RESUMABLE&quot; candidates.</span>
+    <span class="n">modified_status_filter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">WorkflowStatus</span><span class="o">.</span><span class="n">non_terminating_status</span><span class="p">())</span>
+    <span class="n">status_from_storage</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">list_workflow</span><span class="p">(</span><span class="n">modified_status_filter</span><span class="p">)</span>
+    <span class="n">non_terminating_workflows</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">k</span><span class="p">:</span> <span class="nb">set</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">non_terminating_workflows</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="n">resume_running</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">resume_pending</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="n">status_from_storage</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">non_terminating_workflows</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">non_terminating_workflows</span><span class="p">[</span><span class="n">s</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="n">WorkflowStatus</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">:</span>
+                <span class="n">resume_running</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">s</span> <span class="o">==</span> <span class="n">WorkflowStatus</span><span class="o">.</span><span class="n">PENDING</span><span class="p">:</span>
+                <span class="n">resume_pending</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;This line of code should not be reachable.&quot;</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">status_filter</span><span class="p">:</span>
+            <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">WorkflowStatus</span><span class="o">.</span><span class="n">RESUMABLE</span> <span class="ow">in</span> <span class="n">status_filter</span><span class="p">:</span>
+        <span class="c1"># The running workflows ranks before the pending workflows.</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">resume_running</span><span class="p">:</span>
+            <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">w</span><span class="p">,</span> <span class="n">WorkflowStatus</span><span class="o">.</span><span class="n">RESUMABLE</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">resume_pending</span><span class="p">:</span>
+            <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">w</span><span class="p">,</span> <span class="n">WorkflowStatus</span><span class="o">.</span><span class="n">RESUMABLE</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ret</span></div>
+
+
+<div class="viewcode-block" id="resume_all"><a class="viewcode-back" href="../../../workflows/api/doc/ray.workflow.resume_all.html#ray.workflow.resume_all">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="nd">@client_mode_wrap</span>
+<span class="k">def</span> <span class="nf">resume_all</span><span class="p">(</span><span class="n">include_failed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ray</span><span class="o">.</span><span class="n">ObjectRef</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;Resume all resumable workflow jobs.</span>
+
+<span class="sd">    This can be used after cluster restart to resume all tasks.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        include_failed: Whether to resume FAILED workflows.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; from ray import workflow</span>
+<span class="sd">        &gt;&gt;&gt; failed_job = ... # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; workflow_task = failed_job.bind() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; output = workflow.run_async( # doctest: +SKIP</span>
+<span class="sd">        ...     workflow_task, workflow_id=&quot;failed_job&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; try: # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt;     ray.get(output) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; except Exception: # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt;     print(&quot;JobFailed&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; jobs = workflow.list_all() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert jobs == [(&quot;failed_job&quot;, workflow.FAILED)] # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert workflow.resume_all( # doctest: +SKIP</span>
+<span class="sd">        ...    include_failed=True).get(&quot;failed_job&quot;) is not None # doctest: +SKIP</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of (workflow_id, returned_obj_ref) resumed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_ensure_workflow_initialized</span><span class="p">()</span>
+    <span class="n">filter_set</span> <span class="o">=</span> <span class="p">{</span><span class="n">WorkflowStatus</span><span class="o">.</span><span class="n">RESUMABLE</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">include_failed</span><span class="p">:</span>
+        <span class="n">filter_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">WorkflowStatus</span><span class="o">.</span><span class="n">FAILED</span><span class="p">)</span>
+    <span class="n">all_failed</span> <span class="o">=</span> <span class="n">list_all</span><span class="p">(</span><span class="n">filter_set</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">workflow_manager</span> <span class="o">=</span> <span class="n">workflow_access</span><span class="o">.</span><span class="n">get_management_actor</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Failed to get management actor&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+    <span class="n">job_id</span> <span class="o">=</span> <span class="n">ray</span><span class="o">.</span><span class="n">get_runtime_context</span><span class="p">()</span><span class="o">.</span><span class="n">get_job_id</span><span class="p">()</span>
+    <span class="n">reconstructed_workflows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">wid</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">all_failed</span><span class="p">:</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">workflow_context</span><span class="o">.</span><span class="n">WorkflowTaskContext</span><span class="p">(</span><span class="n">workflow_id</span><span class="o">=</span><span class="n">wid</span><span class="p">)</span>
+        <span class="c1"># TODO(suquark): This is not very efficient, but it makes sure</span>
+        <span class="c1">#  running workflows has higher priority when getting reconstructed.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">workflow_manager</span><span class="o">.</span><span class="n">reconstruct_workflow</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="n">context</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># TODO(suquark): Here some workflows got resumed successfully but some</span>
+            <span class="c1">#  failed and the user has no idea about this, which is very wired.</span>
+            <span class="c1"># Maybe we should raise an exception here instead?</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to resume workflow </span><span class="si">{</span><span class="n">context</span><span class="o">.</span><span class="n">workflow_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exc_info</span><span class="o">=</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span>
+        <span class="n">reconstructed_workflows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">context</span> <span class="ow">in</span> <span class="n">reconstructed_workflows</span><span class="p">:</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">context</span><span class="o">.</span><span class="n">workflow_id</span><span class="p">,</span>
+                <span class="n">workflow_manager</span><span class="o">.</span><span class="n">execute_workflow</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="n">context</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span></div>
+
+
+<div class="viewcode-block" id="get_status"><a class="viewcode-back" href="../../../workflows/api/doc/ray.workflow.get_status.html#ray.workflow.get_status">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WorkflowStatus</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get the status for a given workflow.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        workflow_id: The workflow to query.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; from ray import workflow</span>
+<span class="sd">        &gt;&gt;&gt; trip = ... # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; workflow_task = trip.bind() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; output = workflow.run(workflow_task, workflow_id=&quot;trip&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert workflow.SUCCESSFUL == workflow.get_status(&quot;trip&quot;) # doctest: +SKIP</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The status of that workflow</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_ensure_workflow_initialized</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;workflow_id has to be a string type.&quot;</span><span class="p">)</span>
+    <span class="n">workflow_manager</span> <span class="o">=</span> <span class="n">workflow_access</span><span class="o">.</span><span class="n">get_management_actor</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">workflow_manager</span><span class="o">.</span><span class="n">get_workflow_status</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">))</span></div>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">wait_for_event</span><span class="p">(</span>
+    <span class="n">event_listener_type</span><span class="p">:</span> <span class="n">EventListenerType</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DAGNode[Event]&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">event_listener_type</span><span class="p">,</span> <span class="n">EventListener</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Event listener type is </span><span class="si">{</span><span class="n">event_listener_type</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;, which is not a subclass of workflow.EventListener&quot;</span>
+        <span class="p">)</span>
+
+    <span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+    <span class="k">def</span> <span class="nf">get_message</span><span class="p">(</span><span class="n">event_listener_type</span><span class="p">:</span> <span class="n">EventListenerType</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span><span class="p">:</span>
+        <span class="n">event_listener</span> <span class="o">=</span> <span class="n">event_listener_type</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">asyncio_run</span><span class="p">(</span><span class="n">event_listener</span><span class="o">.</span><span class="n">poll_for_event</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+    <span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+    <span class="k">def</span> <span class="nf">message_committed</span><span class="p">(</span>
+        <span class="n">event_listener_type</span><span class="p">:</span> <span class="n">EventListenerType</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span><span class="p">:</span>
+        <span class="n">event_listener</span> <span class="o">=</span> <span class="n">event_listener_type</span><span class="p">()</span>
+        <span class="n">asyncio_run</span><span class="p">(</span><span class="n">event_listener</span><span class="o">.</span><span class="n">event_checkpointed</span><span class="p">(</span><span class="n">event</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">event</span>
+
+    <span class="k">return</span> <span class="n">message_committed</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span>
+        <span class="n">event_listener_type</span><span class="p">,</span> <span class="n">get_message</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">event_listener_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">sleep</span><span class="p">(</span><span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DAGNode[Event]&quot;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A workfow that resolves after sleeping for a given duration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@ray</span><span class="o">.</span><span class="n">remote</span>
+    <span class="k">def</span> <span class="nf">end_time</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="n">duration</span>
+
+    <span class="k">return</span> <span class="n">wait_for_event</span><span class="p">(</span><span class="n">TimerListener</span><span class="p">,</span> <span class="n">end_time</span><span class="o">.</span><span class="n">bind</span><span class="p">())</span>
+
+
+<div class="viewcode-block" id="get_metadata"><a class="viewcode-back" href="../../../workflows/api/doc/ray.workflow.get_metadata.html#ray.workflow.get_metadata">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="nd">@client_mode_wrap</span>
+<span class="k">def</span> <span class="nf">get_metadata</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">task_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get the metadata of the workflow.</span>
+
+<span class="sd">    This will return a dict of metadata of either the workflow (</span>
+<span class="sd">    if only workflow_id is given) or a specific workflow task (if</span>
+<span class="sd">    both workflow_id and task id are given). Exception will be</span>
+<span class="sd">    raised if the given workflow id or task id does not exist.</span>
+
+<span class="sd">    If only workflow id is given, this will return metadata on</span>
+<span class="sd">    workflow level, which includes running status, workflow-level</span>
+<span class="sd">    user metadata and workflow-level running stats (e.g. the</span>
+<span class="sd">    start time and end time of the workflow).</span>
+
+<span class="sd">    If both workflow id and task id are given, this will return</span>
+<span class="sd">    metadata on workflow task level, which includes task inputs,</span>
+<span class="sd">    task-level user metadata and task-level running stats (e.g.</span>
+<span class="sd">    the start time and end time of the task).</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        workflow_id: The workflow to get the metadata of.</span>
+<span class="sd">        task_id: If set, fetch the metadata of the specific task instead of</span>
+<span class="sd">            the metadata of the workflow.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; from ray import workflow</span>
+<span class="sd">        &gt;&gt;&gt; trip = ... # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; workflow_task = trip.options( # doctest: +SKIP</span>
+<span class="sd">        ...     **workflow.options(task_id=&quot;trip&quot;, metadata={&quot;k1&quot;: &quot;v1&quot;})).bind()</span>
+<span class="sd">        &gt;&gt;&gt; workflow.run(workflow_task, # doctest: +SKIP</span>
+<span class="sd">        ...     workflow_id=&quot;trip1&quot;, metadata={&quot;k2&quot;: &quot;v2&quot;})</span>
+<span class="sd">        &gt;&gt;&gt; workflow_metadata = workflow.get_metadata(&quot;trip1&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert workflow_metadata[&quot;status&quot;] == &quot;SUCCESSFUL&quot; # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert workflow_metadata[&quot;user_metadata&quot;] == {&quot;k2&quot;: &quot;v2&quot;} # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert &quot;start_time&quot; in workflow_metadata[&quot;stats&quot;] # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert &quot;end_time&quot; in workflow_metadata[&quot;stats&quot;] # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; task_metadata = workflow.get_metadata(&quot;trip1&quot;, &quot;trip&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert task_metadata[&quot;task_type&quot;] == &quot;FUNCTION&quot; # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert task_metadata[&quot;user_metadata&quot;] == {&quot;k1&quot;: &quot;v1&quot;} # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert &quot;start_time&quot; in task_metadata[&quot;stats&quot;] # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert &quot;end_time&quot; in task_metadata[&quot;stats&quot;] # doctest: +SKIP</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A dictionary containing the metadata of the workflow.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: if given workflow or workflow task does not exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_ensure_workflow_initialized</span><span class="p">()</span>
+    <span class="n">store</span> <span class="o">=</span> <span class="n">WorkflowStorage</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">task_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">store</span><span class="o">.</span><span class="n">load_workflow_metadata</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">store</span><span class="o">.</span><span class="n">load_task_metadata</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cancel"><a class="viewcode-back" href="../../../workflows/api/doc/ray.workflow.cancel.html#ray.workflow.cancel">[docs]</a><span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cancel</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Cancel a workflow. Workflow checkpoints will still be saved in storage. To</span>
+<span class="sd">       clean up saved checkpoints, see `workflow.delete()`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        workflow_id: The workflow to cancel.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; from ray import workflow</span>
+<span class="sd">        &gt;&gt;&gt; some_job = ... # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; workflow_task = some_job.bind() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; output = workflow.run_async(workflow_task,  # doctest: +SKIP</span>
+<span class="sd">        ...     workflow_id=&quot;some_job&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; workflow.cancel(workflow_id=&quot;some_job&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert [ # doctest: +SKIP</span>
+<span class="sd">        ...     (&quot;some_job&quot;, workflow.CANCELED)] == workflow.list_all()</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_ensure_workflow_initialized</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;workflow_id has to be a string type.&quot;</span><span class="p">)</span>
+    <span class="n">workflow_manager</span> <span class="o">=</span> <span class="n">workflow_access</span><span class="o">.</span><span class="n">get_management_actor</span><span class="p">()</span>
+    <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">workflow_manager</span><span class="o">.</span><span class="n">cancel_workflow</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">))</span></div>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Delete a workflow, its checkpoints, and other information it may have</span>
+<span class="sd">       persisted to storage. To stop a running workflow, see</span>
+<span class="sd">       `workflow.cancel()`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        workflow_id: The workflow to delete.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        WorkflowStillActiveError: The workflow is still active.</span>
+<span class="sd">        WorkflowNotFoundError: The workflow does not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; from ray import workflow</span>
+<span class="sd">        &gt;&gt;&gt; some_job = ... # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; workflow_task = some_job.bind() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; output = workflow.run_async(workflow_task, # doctest: +SKIP</span>
+<span class="sd">        ...     workflow_id=&quot;some_job&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; workflow.delete(workflow_id=&quot;some_job&quot;) # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; assert [] == workflow.list_all() # doctest: +SKIP</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_ensure_workflow_initialized</span><span class="p">()</span>
+    <span class="n">workflow_manager</span> <span class="o">=</span> <span class="n">workflow_access</span><span class="o">.</span><span class="n">get_management_actor</span><span class="p">()</span>
+    <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">workflow_manager</span><span class="o">.</span><span class="n">delete_workflow</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="n">workflow_id</span><span class="p">))</span>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">continuation</span><span class="p">(</span><span class="n">dag_node</span><span class="p">:</span> <span class="s2">&quot;DAGNode&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;DAGNode&quot;</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Converts a DAG into a continuation.</span>
+
+<span class="sd">    The result depends on the context. If it is inside a workflow, it</span>
+<span class="sd">    returns a workflow; otherwise it executes and get the result of</span>
+<span class="sd">    the DAG.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dag_node: The DAG to be converted.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">ray.workflow.workflow_context</span> <span class="kn">import</span> <span class="n">in_workflow_execution</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dag_node</span><span class="p">,</span> <span class="n">DAGNode</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Input should be a DAG.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">in_workflow_execution</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">dag_node</span>
+    <span class="k">return</span> <span class="n">ray</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dag_node</span><span class="o">.</span><span class="n">execute</span><span class="p">())</span>
+
+
+<span class="nd">@PublicAPI</span><span class="p">(</span><span class="n">stability</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">options</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This class serves both as a decorator and options for workflow.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import ray</span>
+<span class="sd">        &gt;&gt;&gt; from ray import workflow</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # specify workflow options with a decorator</span>
+<span class="sd">        &gt;&gt;&gt; @workflow.options(catch_exceptions=True):</span>
+<span class="sd">        &gt;&gt;&gt; @ray.remote</span>
+<span class="sd">        &gt;&gt;&gt; def foo():</span>
+<span class="sd">        &gt;&gt;&gt;     return 1</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # speficy workflow options in &quot;.options&quot;</span>
+<span class="sd">        &gt;&gt;&gt; foo_new = foo.options(**workflow.options(catch_exceptions=False))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">workflow_options</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+        <span class="c1"># TODO(suquark): More rigid arguments check like @ray.remote arguments. This is</span>
+        <span class="c1"># fairly complex, but we should enable it later.</span>
+        <span class="n">valid_options</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;task_id&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metadata&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;catch_exceptions&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;checkpoint&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">invalid_keywords</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">workflow_options</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="n">valid_options</span>
+        <span class="k">if</span> <span class="n">invalid_keywords</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid option keywords </span><span class="si">{</span><span class="n">invalid_keywords</span><span class="si">}</span><span class="s2"> for workflow tasks. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Valid ones are </span><span class="si">{</span><span class="n">valid_options</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">ray.workflow.common</span> <span class="kn">import</span> <span class="n">WORKFLOW_OPTIONS</span>
+
+        <span class="n">validate_user_metadata</span><span class="p">(</span><span class="n">workflow_options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;metadata&quot;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;_metadata&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">WORKFLOW_OPTIONS</span><span class="p">:</span> <span class="n">workflow_options</span><span class="p">}}</span>
+
+    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;_metadata&quot;</span><span class="p">,)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">RemoteFunction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RemoteFunction</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">RemoteFunction</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Only apply &#39;workflow.options&#39; to Ray remote functions.&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">_default_options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">f</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;init&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;run&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;run_async&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;resume&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;resume_async&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;resume_all&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cancel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;list_all&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;delete&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_output&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_output_async&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_status&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_metadata&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sleep&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;wait_for_event&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;options&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;continuation&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Ray Team<br/>
+  
+      &copy; Copyright 2023, The Ray Team.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js@digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

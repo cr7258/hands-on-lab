@@ -1,0 +1,6 @@
+ray.data.Datastream.to\_modin
+=============================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.to_modin

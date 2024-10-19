@@ -1,0 +1,6 @@
+ray.data.Datastream.iter\_tf\_batches
+=====================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.iter_tf_batches

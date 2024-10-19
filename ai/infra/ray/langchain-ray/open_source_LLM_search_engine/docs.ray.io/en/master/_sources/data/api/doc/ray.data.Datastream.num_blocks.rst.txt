@@ -1,0 +1,6 @@
+ray.data.Datastream.num\_blocks
+===============================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.num_blocks

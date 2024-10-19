@@ -1,0 +1,6 @@
+ray.data.Datastream.default\_batch\_format
+==========================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.default_batch_format

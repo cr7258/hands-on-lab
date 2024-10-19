@@ -1,0 +1,48 @@
+﻿
+
+ray.air.DatasetConfig
+=====================
+
+.. currentmodule:: ray.air
+
+.. autoclass:: DatasetConfig
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      
+      ~DatasetConfig.fill_defaults
+      ~DatasetConfig.merge
+      ~DatasetConfig.validated
+
+   
+   
+
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~DatasetConfig.fit
+      ~DatasetConfig.global_shuffle
+      ~DatasetConfig.max_object_store_memory_fraction
+      ~DatasetConfig.per_epoch_preprocessor
+      ~DatasetConfig.randomize_block_order
+      ~DatasetConfig.required
+      ~DatasetConfig.split
+      ~DatasetConfig.stream_window_size
+      ~DatasetConfig.transform
+      ~DatasetConfig.use_stream_api
+
+   
+   

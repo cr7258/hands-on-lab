@@ -1,0 +1,32 @@
+﻿
+
+ray.data.row.TableRow
+=====================
+
+.. currentmodule:: ray.data.row
+
+.. autoclass:: TableRow
+   :show-inheritance:
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+
+   
+      ~TableRow.__init__
+      ~TableRow.as_pydict
+      ~TableRow.get
+      ~TableRow.items
+      ~TableRow.keys
+      ~TableRow.values
+
+   
+   
+
+
+   
+   
+   

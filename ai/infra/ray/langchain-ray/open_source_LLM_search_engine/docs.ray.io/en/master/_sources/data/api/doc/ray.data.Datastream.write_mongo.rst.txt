@@ -1,0 +1,6 @@
+ray.data.Datastream.write\_mongo
+================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.write_mongo

@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFacePredictor.predict
+==================================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFacePredictor.predict

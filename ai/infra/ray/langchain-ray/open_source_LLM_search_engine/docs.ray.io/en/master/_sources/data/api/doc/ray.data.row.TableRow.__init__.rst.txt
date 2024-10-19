@@ -1,0 +1,6 @@
+ray.data.row.TableRow.\_\_init\_\_
+==================================
+
+.. currentmodule:: ray.data.row
+
+.. automethod:: TableRow.__init__

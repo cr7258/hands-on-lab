@@ -1,0 +1,8 @@
+﻿ray.experimental.state.common.JobState
+======================================
+
+.. currentmodule:: ray.experimental.state.common
+
+.. autoclass:: JobState
+    :members:
+    :show-inheritance:

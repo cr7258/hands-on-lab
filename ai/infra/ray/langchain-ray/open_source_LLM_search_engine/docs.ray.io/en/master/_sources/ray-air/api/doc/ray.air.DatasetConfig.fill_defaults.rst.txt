@@ -1,0 +1,6 @@
+ray.air.DatasetConfig.fill\_defaults
+====================================
+
+.. currentmodule:: ray.air
+
+.. automethod:: DatasetConfig.fill_defaults

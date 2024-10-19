@@ -1,0 +1,6 @@
+ray.data.datasource.JSONDatasource.get\_name
+============================================
+
+.. currentmodule:: ray.data.datasource
+
+.. automethod:: JSONDatasource.get_name

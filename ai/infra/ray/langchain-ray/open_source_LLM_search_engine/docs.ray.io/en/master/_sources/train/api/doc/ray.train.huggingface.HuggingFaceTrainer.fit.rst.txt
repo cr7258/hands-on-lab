@@ -1,0 +1,6 @@
+ray.train.huggingface.HuggingFaceTrainer.fit
+============================================
+
+.. currentmodule:: ray.train.huggingface
+
+.. automethod:: HuggingFaceTrainer.fit

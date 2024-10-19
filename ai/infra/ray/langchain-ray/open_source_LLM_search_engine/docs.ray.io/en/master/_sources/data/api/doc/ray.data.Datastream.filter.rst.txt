@@ -1,0 +1,6 @@
+ray.data.Datastream.filter
+==========================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.filter

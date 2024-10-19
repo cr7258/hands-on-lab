@@ -1,0 +1,6 @@
+ray.data.Datastream.split\_at\_indices
+======================================
+
+.. currentmodule:: ray.data
+
+.. automethod:: Datastream.split_at_indices
