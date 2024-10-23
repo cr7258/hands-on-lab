@@ -1,0 +1,9 @@
+apiVersion: example.example.com/v1
+kind: MyResource
+metadata:
+  labels:
+    app.kubernetes.io/name: myresource-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: myresource-sample
+spec:
+  # TODO(user): Add fields here
