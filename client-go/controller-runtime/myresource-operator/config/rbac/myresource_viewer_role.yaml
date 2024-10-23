@@ -8,7 +8,7 @@ metadata:
   name: myresource-viewer-role
 rules:
 - apiGroups:
-  - example.example.com
+  - example.mydomain.com
   resources:
   - myresources
   verbs:
@@ -16,7 +16,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - example.example.com
+  - example.mydomain.com
   resources:
   - myresources/status
   verbs:

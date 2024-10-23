@@ -2,7 +2,7 @@
 # This file is used to track the info used to scaffold your project
 # and allow the plugins properly work.
 # More info: https://book.kubebuilder.io/reference/project-config.html
-domain: example.com
+domain: mydomain.com
 layout:
 - go.kubebuilder.io/v4
 projectName: myresource-operator
@@ -12,7 +12,7 @@ resources:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: example.com
+  domain: mydomain.com
   group: example
   kind: MyResource
   path: github.com/cr7258/myresource-operator/api/v1

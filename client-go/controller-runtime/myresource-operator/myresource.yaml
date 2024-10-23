@@ -1,0 +1,7 @@
+apiVersion: example.mydomain.com/v1
+kind: MyResource
+metadata:
+  name: example-myresource
+spec:
+  name: example-pod
+  image: nginx

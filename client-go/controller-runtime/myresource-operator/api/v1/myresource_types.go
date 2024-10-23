@@ -28,6 +28,7 @@ type MyResourceSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
+	// Foo is an example field of MyResource. Edit myresource_types.go to remove/update
 	Name  string `json:"name,omitempty"`
 	Image string `json:"image,omitempty"`
 }

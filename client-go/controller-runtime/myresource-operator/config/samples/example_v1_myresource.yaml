@@ -1,4 +1,4 @@
-apiVersion: example.example.com/v1
+apiVersion: example.mydomain.com/v1
 kind: MyResource
 metadata:
   labels:

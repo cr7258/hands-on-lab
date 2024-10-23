@@ -8,7 +8,7 @@ metadata:
   name: myresource-editor-role
 rules:
 - apiGroups:
-  - example.example.com
+  - example.mydomain.com
   resources:
   - myresources
   verbs:
@@ -20,7 +20,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - example.example.com
+  - example.mydomain.com
   resources:
   - myresources/status
   verbs:
