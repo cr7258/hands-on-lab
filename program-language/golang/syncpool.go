@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"sync"
 )
 
@@ -17,8 +16,6 @@ func main() {
 			return &User{Name: "Seven"}
 		},
 	}
-	r := gin.New()
-
 	// 从池中获取一个对象，如果池是空的，则调用 New 创建新对象
 	u1 := p.Get().(*User)
 	println(u1.Name)
