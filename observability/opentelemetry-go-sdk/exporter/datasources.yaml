@@ -22,9 +22,10 @@ datasources:
     editable: true
     jsonData:
       derivedFields:
-        - name: traceid
+        - name: trace_id
           datasourceUid: jaeger
-          matcherRegex: '"traceid"\s*:\s*"([a-fA-F0-9]+)"'
+          matcherRegex: trace_id
+          matcherType: label
           url: $${__value.raw}
   - name: Jaeger
     type: jaeger
@@ -37,5 +38,7 @@ datasources:
       tracesToLogsV2:
         datasourceUid: 'loki'
         customQuery: true
-        tags: ['service.name']
-        query: '{${__tags}} | json | traceid="$${__span.traceId}"'
+        tags:
+          - key: service.name
+            value: service_name
+        query: '{$${__tags}} | trace_id="$${__span.traceId}"'
