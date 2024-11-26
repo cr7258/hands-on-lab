@@ -20,6 +20,9 @@ services:
     image: prom/prometheus:v3.0.0
     volumes:
       - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --enable-feature=exemplar-storage
     ports:
       - "9090:9090"
 
