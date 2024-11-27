@@ -1,9 +1,7 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"github.com/grafana/pyroscope-go"
 	"go.opentelemetry.io/contrib/bridges/otelslog"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -40,14 +38,12 @@ func rolldice(w http.ResponseWriter, r *http.Request) {
 	ctx, span := tracer.Start(r.Context(), "roll")
 	defer span.End()
 
-	pyroscope.TagWrapper(context.Background(), pyroscope.Labels("controller", "slow_controller"), func(c context.Context) {
-		// Simulate CPU high load
-		var i int64 = 0
-		startTime := time.Now()
-		for time.Since(startTime) < 500*time.Millisecond {
-			i++
-		}
-	})
+	// Spend some time on CPU
+	var i int64 = 0
+	startTime := time.Now()
+	for time.Since(startTime) < 500*time.Millisecond {
+		i++
+	}
 
 	roll := 1 + rand.Intn(6)
 

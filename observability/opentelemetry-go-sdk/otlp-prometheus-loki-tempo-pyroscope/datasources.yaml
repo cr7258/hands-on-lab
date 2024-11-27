@@ -42,6 +42,12 @@ datasources:
         queries:
           - name: Request rate
             query: rate(http_server_duration_milliseconds_count{$$__tags}[5m])
+      tracesToProfiles:
+        datasourceUid: pyroscope
+        tags:
+          - key: service.name
+            value: service_name
+        profileTypeId: process_cpu:cpu:nanoseconds:cpu:nanoseconds
   - name: Pyroscope
     type: grafana-pyroscope-datasource
     uid: pyroscope

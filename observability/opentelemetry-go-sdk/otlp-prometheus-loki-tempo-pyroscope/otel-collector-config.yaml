@@ -17,18 +17,10 @@ exporters:
     tls:
       insecure: true
 
-processors:
-  attributes:
-    actions:
-      - key: "service.name"
-        action: "insert"
-        value: "dice"
-
 service:
   pipelines:
     traces:
       receivers: [otlp]
-      processors: [attributes]
       exporters: [otlp]
     metrics:
       receivers: [otlp]

@@ -58,11 +58,13 @@ func setupOTelSDK(ctx context.Context) (shutdown func(context.Context) error, er
 	_, _ = pyroscope.Start(pyroscope.Config{
 		ApplicationName: "dice",
 		ServerAddress:   "http://localhost:4040",
-		Tags: map[string]string{
-			"service_git_ref":    "main",
-			"service_repository": "https://github.com/cr7258/hands-on-lab",
-			"service_root_path":  "/observability/opentelemetry-go-sdk/otlp-prometheus-loki-tempo-pyroscope",
-		},
+		// Pyroscope GitHub integration is available only in Grafana Cloud.
+		// https://grafana.com/docs/grafana-cloud/monitor-applications/profiles/pyroscope-github-integration/
+		//Tags: map[string]string{
+		//	"service_git_ref":    "main",
+		//	"service_repository": "https://github.com/cr7258/hands-on-lab",
+		//	"service_root_path":  "/observability/opentelemetry-go-sdk/otlp-prometheus-loki-tempo-pyroscope",
+		//},
 	})
 
 	// Set up meter provider.
