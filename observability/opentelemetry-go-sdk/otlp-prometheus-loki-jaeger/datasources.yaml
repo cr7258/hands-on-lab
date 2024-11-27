@@ -4,9 +4,7 @@ datasources:
     type: prometheus
     uid: prometheus
     url: http://prometheus:9090
-    access: proxy
     editable: true
-    isDefault: true
     jsonData:
       exemplarTraceIdDestinations:
         - name: trace_id
@@ -14,10 +12,7 @@ datasources:
   - name: Loki
     type: loki
     uid: loki
-    access: proxy
     url: http://loki:3100
-    basicAuth: false
-    isDefault: false
     editable: true
     jsonData:
       derivedFields:
@@ -30,9 +25,7 @@ datasources:
     type: jaeger
     uid: jaeger
     url: http://jaeger:16686
-    access: proxy
     editable: true
-    isDefault: false
     jsonData:
       tracesToLogsV2:
         datasourceUid: loki

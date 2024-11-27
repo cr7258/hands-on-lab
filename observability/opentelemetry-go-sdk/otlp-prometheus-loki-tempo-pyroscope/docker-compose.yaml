@@ -1,11 +1,14 @@
 services:
-  jaeger:
-    image: jaegertracing/all-in-one:1.63.0
-    environment:
-      - COLLECTOR_OTLP_ENABLED=true
+  tempo:
+    image: grafana/tempo:2.6.1
+    command:
+      - --target=all
+      - --storage.trace.backend=local
+      - --storage.trace.local.path=/var/tempo
+      - --auth.enabled=false
+      - --compactor.compaction.block-retention=24h
     ports:
-      - "16686:16686"
-      - "4317:4317"
+      - 4317:4317
 
   otel-collector:
     image: otel/opentelemetry-collector-contrib:0.114.0
@@ -13,8 +16,8 @@ services:
     volumes:
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
     ports:
-      - "8889:8889"   # Prometheus exporter metrics
-      - "4318:4318"   # OTLP HTTP receiver
+      - 8889:8889   # Prometheus exporter metrics
+      - 4318:4318   # OTLP HTTP receiver
 
   prometheus:
     image: prom/prometheus:v3.0.0
@@ -24,21 +27,27 @@ services:
       - --config.file=/etc/prometheus/prometheus.yml
       - --enable-feature=exemplar-storage
     ports:
-      - "9090:9090"
+      - 9090:9090
 
   loki:
     image: grafana/loki:3.3.0
     ports:
-      - "3100:3100"
+      - 3100:3100
 
   grafana:
     image: grafana/grafana:11.3.1
     volumes:
       - ./datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
     environment:
+      - GF_INSTALL_PLUGINS=grafana-pyroscope-app
       - GF_USERS_DEFAULT_THEME=light
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=true
     ports:
-      - "3000:3000"
+      - 3000:3000
+
+  pyroscope:
+    image: grafana/pyroscope:1.10.0
+    ports:
+      - 4040:4040
