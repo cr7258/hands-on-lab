@@ -1,0 +1,33 @@
+--> Working on Test::Nginx
+Fetching http://www.cpan.org/authors/id/A/AG/AGENT/Test-Nginx-0.30.tar.gz ... OK
+Configuring Test-Nginx-0.30 ... OK
+==> Found dependencies: Text::Diff, Test::LongString, IPC::Run, Test::Base
+--> Working on Text::Diff
+Fetching http://www.cpan.org/authors/id/N/NE/NEILB/Text-Diff-1.45.tar.gz ... OK
+Configuring Text-Diff-1.45 ... OK
+Building Text-Diff-1.45 ... OK
+Successfully installed Text-Diff-1.45
+--> Working on Test::LongString
+Fetching http://www.cpan.org/authors/id/R/RG/RGARCIA/Test-LongString-0.17.tar.gz ... OK
+Configuring Test-LongString-0.17 ... OK
+Building Test-LongString-0.17 ... OK
+Successfully installed Test-LongString-0.17
+--> Working on IPC::Run
+Fetching http://www.cpan.org/authors/id/T/TO/TODDR/IPC-Run-20231003.0.tar.gz ... OK
+Configuring IPC-Run-20231003.0 ... OK
+Building IPC-Run-20231003.0 ... OK
+Successfully installed IPC-Run-20231003.0
+--> Working on Test::Base
+Fetching http://www.cpan.org/authors/id/I/IN/INGY/Test-Base-0.89.tar.gz ... OK
+Configuring Test-Base-0.89 ... OK
+==> Found dependencies: Spiffy
+--> Working on Spiffy
+Fetching http://www.cpan.org/authors/id/I/IN/INGY/Spiffy-0.46.tar.gz ... OK
+Configuring Spiffy-0.46 ... OK
+Building Spiffy-0.46 ... OK
+Successfully installed Spiffy-0.46
+Building Test-Base-0.89 ... OK
+Successfully installed Test-Base-0.89
+Building Test-Nginx-0.30 ... OK
+Successfully installed Test-Nginx-0.30
+6 distributions installed
