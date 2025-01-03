@@ -111,7 +111,7 @@ async def handle_call_tool(
                 return [types.TextContent(type="text", text=f"No active alerts for {state}")]
 
             # Format each alert into a concise string
-            formatted_alerts = [format_alert(feature) for feature in features[:20]] # only take the first 20 alerts
+            formatted_alerts = [format_alert(feature) for feature in features]
             alerts_text = f"Active alerts for {state}:\n\n" + "\n".join(formatted_alerts)
 
             return [
@@ -185,7 +185,6 @@ async def handle_call_tool(
             )]
     else:
         raise ValueError(f"Unknown tool: {name}")
-
 async def main():
     # Run the server using stdin/stdout streams
     async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
@@ -202,7 +201,5 @@ async def main():
             ),
         )
 
-# This is needed if you'd like to connect to a custom client
 if __name__ == "__main__":
-    print("Starting weather MCP server...")
     asyncio.run(main())
