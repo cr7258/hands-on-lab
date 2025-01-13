@@ -1,0 +1,11 @@
+[project]
+name = "elasticsearch-mcp-server-example"
+version = "0.1.0"
+description = "Elasticsearch MCP Server Example"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "elasticsearch>=8.17.0",
+    "mcp[cli]>=1.2.0",
+    "python-dotenv>=1.0.1",
+]
