@@ -1,6 +1,16 @@
+Metadata-Version: 2.2
+Name: elasticsearch-mcp-server-example
+Version: 0.1.0
+Summary: Elasticsearch MCP Server Example
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: elasticsearch>=8.17.0
+Requires-Dist: mcp[cli]>=1.2.0
+Requires-Dist: python-dotenv>=1.0.1
+
 # MCP Server 开发实战：无缝对接 LLM 和 Elasticsearch
 
-在[一文带你入门 MCP（模型上下文协议）](https://mp.weixin.qq.com/s/rcOi7e8F5qGVVF2noCk46Q)文章中，我们快速介绍了 MCP 的基本概念，并且通过一个示例让读者初步感受到了 MCP 的强大能力。本文将进一步深入，带领读者一步步学习如何开发一个完整的 MCP Server。本文的完整代码可以在这里找到：https://github.com/cr7258/hands-on-lab/tree/main/ai/claude/mcp/server/elasticsearch-mcp-server-example
+在[一文带你入门 MCP（模型上下文协议）](https://mp.weixin.qq.com/s/rcOi7e8F5qGVVF2noCk46Q) 文章中，我们快速介绍了 MCP 的基本概念，并且通过一个示例让读者初步感受到了 MCP 的强大能力。本文将进一步深入，带领读者一步步学习如何开发一个完整的 MCP Server。本文的完整代码可以在这里找到：https://github.com/cr7258/hands-on-lab/tree/main/ai/claude/mcp/server/elasticsearch-mcp-server-example
 
 ## MCP Server 核心原语
 
@@ -117,11 +127,8 @@ ELASTIC_PASSWORD=test123
 
 可以执行以下命令将 MCP Server 安装到 Claude Desktop 中：
 
-- `--env-file` 参数指定了 `.env` 文件的路径，用于加载环境变量。
-- `--with-editable` 参数指定了 uv 依赖管理文件 `pyproject.toml` 所在的目录，用于安装项目的依赖。
-
 ```bash
-mcp install server.py --env-file .env --with-editable ./
+mcp install server.py -f .env
 ```
 
 该命令会自动帮助你在 `cluade_desktop_config.json` 文件中添加 MCP Server 的配置。
@@ -135,11 +142,9 @@ mcp install server.py --env-file .env --with-editable ./
         "run",
         "--with",
         "mcp[cli]",
-        "--with-editable",
-        "/your/project/path/elasticsearch-mcp-server-example",
         "mcp",
         "run",
-        "/your/project/path/elasticsearch-mcp-server-example/server.py"
+        "/Users/I576375/Code/hands-on-lab/ai/claude/mcp/server/elasticsearch-mcp-server-example/server.py"
       ],
       "env": {
         "ELASTIC_HOST": "https://localhost:9200",
@@ -242,7 +247,7 @@ def get_file() -> str:
         return f.read()
 ```
 
-使用 `@mcp.resource()` 装饰器将这些函数标记为 MCP 的 Resource，装饰器参数指定了 Resource 的 URI。
+使用 @mcp.resource() 装饰器将这些函数标记为 MCP 的 Resource，装饰器参数指定了 Resource 的 URI。
 
 Resource 建议遵循以下格式的 URI 标识：
 
