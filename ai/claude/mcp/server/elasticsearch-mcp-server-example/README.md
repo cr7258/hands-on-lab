@@ -153,7 +153,7 @@ mcp install server.py --env-file .env --with-editable ./
 
 接下来我们开始编写 Elasticsearch MCP Server 的相关代码。
 
-### Elasticsearch 客户端配置
+#### Elasticsearch 客户端配置
 
 首先创建 Elasticsearch 客户端，用于和 Elasticsearch 服务器进行交互。
 
@@ -187,7 +187,7 @@ MCP_SERVER_NAME = "elasticsearch-mcp-server"
 mcp = FastMCP(MCP_SERVER_NAME)
 ```
 
-### 添加 Tool
+#### 添加 Tool
 
 Tool 定义了允许 LLM 可以调用 MCP Server 执行的操作，除了查询以外，还可以执行写入操作。接下来定义了两个 Tool：
 - `list_indices`: 列出所有可用的索引。
@@ -221,7 +221,7 @@ def get_index(index: str) -> dict:
 
 ![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/202501131258864.png)
 
-#### Resource（资源）
+#### 添加 Resource
 
 Resource 定义了 LLM 可以访问只读的数据源，可以用于为 LLM 提供上下文内容。在这个示例中，我们定义了两个资源：
 
@@ -268,7 +268,7 @@ URI 的协议和路径结构由 MCP Server 自定实现定义。
 
 ![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/202501131317901.png)
 
-#### Prompt（提示）
+#### 添加 Prompt
 
 Prompt 用于定义可重用的提示模板，帮助用户更好地引导 LLM 以标准化的方式完成任务。在这个示例中，我们定义了一个名为 `es_prompt` 的提示模板，引导 LLM 从多个维度（如索引设置、搜索优化、数据建模和扩展性等）对索引进行分析。
 

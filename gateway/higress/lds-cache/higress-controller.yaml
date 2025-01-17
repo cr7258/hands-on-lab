@@ -1,0 +1,291 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "5"
+    meta.helm.sh/release-name: higress
+    meta.helm.sh/release-namespace: higress-system
+  labels:
+    app: higress-controller
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: higress-controller
+    app.kubernetes.io/version: 2.0.3
+    helm.sh/chart: higress-core-2.0.3
+    higress: higress-controller
+    k8slens-edit-resource-version: v1
+  name: higress-controller
+  namespace: higress-system
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: higress-controller
+      higress: higress-controller
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: higress-controller
+        higress: higress-controller
+    spec:
+      containers:
+      - args:
+        - serve
+        - --gatewaySelectorKey=higress
+        - --gatewaySelectorValue=higress-system-higress-gateway
+        - --gatewayHttpPort=80
+        - --gatewayHttpsPort=443
+        - --ingressClass=higress
+        - --enableAutomaticHttps=true
+        - --automaticHttpsEmail=
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: SERVICE_ACCOUNT
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.serviceAccountName
+        - name: DOMAIN_SUFFIX
+          value: cluster.local
+        - name: GATEWAY_NAME
+          value: higress-gateway
+        - name: PILOT_ENABLE_GATEWAY_API
+          value: "false"
+        - name: PILOT_ENABLE_ALPHA_GATEWAY_API
+          value: "false"
+        image: higress-registry.cn-hangzhou.cr.aliyuncs.com/higress/higress:2.0.3
+        imagePullPolicy: IfNotPresent
+        name: higress-core
+        ports:
+        - containerPort: 8888
+          name: http
+          protocol: TCP
+        - containerPort: 8889
+          name: http-solver
+          protocol: TCP
+        - containerPort: 15051
+          name: grpc
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ready
+            port: 8888
+            scheme: HTTP
+          initialDelaySeconds: 1
+          periodSeconds: 3
+          successThreshold: 1
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: "1"
+            memory: 2Gi
+          requests:
+            cpu: 500m
+            memory: 2Gi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/log
+          name: log
+      - args:
+        - discovery
+        - --monitoringAddr=:15014
+        - --log_output_level=default:debug
+        - --domain
+        - cluster.local
+        - --keepaliveMaxServerConnectionAge
+        - 30m
+        env:
+        - name: PILOT_ENABLE_QUIC_LISTENERS
+          value: "true"
+        - name: VALIDATION_WEBHOOK_CONFIG_NAME
+        - name: ISTIO_DUAL_STACK
+          value: "false"
+        - name: PILOT_ENABLE_HEADLESS_SERVICE_POD_LISTENERS
+          value: "false"
+        - name: PILOT_ENABLE_ALPN_FILTER
+          value: "false"
+        - name: ENABLE_OPTIMIZED_CONFIG_REBUILD
+          value: "false"
+        - name: PILOT_ENABLE_K8S_SELECT_WORKLOAD_ENTRIES
+          value: "false"
+        - name: HIGRESS_SYSTEM_NS
+          value: higress-system
+        - name: DEFAULT_UPSTREAM_CONCURRENCY_THRESHOLD
+          value: "10000"
+        - name: ISTIO_GPRC_MAXRECVMSGSIZE
+          value: "104857600"
+        - name: ENBALE_SCOPED_RDS
+          value: "true"
+        - name: ON_DEMAND_RDS
+          value: "false"
+        - name: HOST_RDS_MERGE_SUBSET
+          value: "false"
+        - name: PILOT_FILTER_GATEWAY_CLUSTER_CONFIG
+          value: "true"
+        - name: HIGRESS_CONTROLLER_SVC
+          value: 127.0.0.1
+        - name: HIGRESS_CONTROLLER_PORT
+          value: "15051"
+        - name: REVISION
+          value: default
+        - name: JWT_POLICY
+          value: third-party-jwt
+        - name: PILOT_CERT_PROVIDER
+          value: istiod
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: SERVICE_ACCOUNT
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.serviceAccountName
+        - name: KUBECONFIG
+          value: /var/run/secrets/remote/config
+        - name: PRIORITIZED_LEADER_ELECTION
+          value: "false"
+        - name: INJECT_ENABLED
+          value: "false"
+        - name: PILOT_ENABLE_CROSS_CLUSTER_WORKLOAD_ENTRY
+          value: "false"
+        - name: PILOT_ENABLE_METADATA_EXCHANGE
+          value: "false"
+        - name: PILOT_SCOPE_GATEWAY_TO_NAMESPACE
+          value: "false"
+        - name: VALIDATION_ENABLED
+          value: "false"
+        - name: PILOT_TRACE_SAMPLING
+          value: "1"
+        - name: PILOT_ENABLE_PROTOCOL_SNIFFING_FOR_OUTBOUND
+          value: "true"
+        - name: PILOT_ENABLE_PROTOCOL_SNIFFING_FOR_INBOUND
+          value: "true"
+        - name: ISTIOD_ADDR
+          value: istiod.higress-system.svc:15012
+        - name: PILOT_ENABLE_ANALYSIS
+          value: "false"
+        - name: CLUSTER_ID
+          value: Kubernetes
+        - name: HIGRESS_ENABLE_ISTIO_API
+          value: "true"
+        - name: PILOT_ENABLE_GATEWAY_API
+          value: "false"
+        - name: PILOT_ENABLE_ALPHA_GATEWAY_API
+          value: "false"
+        - name: PILOT_ENABLE_GATEWAY_API_STATUS
+          value: "false"
+        - name: PILOT_ENABLE_GATEWAY_API_DEPLOYMENT_CONTROLLER
+          value: "false"
+        - name: CUSTOM_CA_CERT_NAME
+          value: higress-ca-root-cert
+        - name: PILOT_ENABLE_XDS_CACHE
+          value: "true"
+        - name: PILOT_ENABLE_LDS_CACHE
+          value: "true"
+        #image: cr7258/higress-pilot:v1
+        image: higress-registry.cn-hangzhou.cr.aliyuncs.com/higress/pilot:2.0.3
+        imagePullPolicy: Always
+        name: discovery
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 15010
+          protocol: TCP
+        - containerPort: 15017
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /ready
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 1
+          periodSeconds: 3
+          successThreshold: 1
+          timeoutSeconds: 5
+        resources:
+          requests:
+            cpu: 500m
+            memory: 2Gi
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 1337
+          runAsNonRoot: true
+          runAsUser: 1337
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/istio/config
+          name: config
+        - mountPath: /var/run/secrets/tokens
+          name: istio-token
+          readOnly: true
+        - mountPath: /var/run/secrets/istio-dns
+          name: local-certs
+        - mountPath: /etc/cacerts
+          name: cacerts
+          readOnly: true
+        - mountPath: /var/run/secrets/remote
+          name: istio-kubeconfig
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      serviceAccount: higress-controller
+      serviceAccountName: higress-controller
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: log
+      - configMap:
+          defaultMode: 420
+          name: higress-config
+        name: config
+      - emptyDir:
+          medium: Memory
+        name: local-certs
+      - name: istio-token
+        projected:
+          defaultMode: 420
+          sources:
+          - serviceAccountToken:
+              audience: istio-ca
+              expirationSeconds: 43200
+              path: istio-token
+      - name: cacerts
+        secret:
+          defaultMode: 420
+          optional: true
+          secretName: cacerts
+      - name: istio-kubeconfig
+        secret:
+          defaultMode: 420
+          optional: true
+          secretName: istio-kubeconfig

@@ -1,0 +1,68 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bar-https
+  namespace: default
+spec:
+  ingressClassName: higress
+  tls:
+    - hosts:
+        - www.bar.com
+      secretName: my-tls-secret
+  rules:
+  - host: www.bar.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: foo-service
+            port:
+              number: 5678
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test1-https
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  tls:
+    - hosts:
+        - www.test1.com
+      secretName: my-tls-secret
+  rules:
+  - host: www.test1.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: foo-service
+            port:
+              number: 5678
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test2-https
+  namespace: default
+spec:
+  ingressClassName: higress
+  tls:
+    - hosts:
+        - www.test2.com
+      secretName: my-tls-secret
+  rules:
+  - host: www.test2.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: foo-service
+            port:
+              number: 5678
