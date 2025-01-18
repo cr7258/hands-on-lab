@@ -1,8 +1,0 @@
-README.md
-pyproject.toml
-server.py
-elasticsearch_mcp_server_example.egg-info/PKG-INFO
-elasticsearch_mcp_server_example.egg-info/SOURCES.txt
-elasticsearch_mcp_server_example.egg-info/dependency_links.txt
-elasticsearch_mcp_server_example.egg-info/requires.txt
-elasticsearch_mcp_server_example.egg-info/top_level.txt
