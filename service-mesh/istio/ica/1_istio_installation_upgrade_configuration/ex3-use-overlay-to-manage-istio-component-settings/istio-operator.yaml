@@ -1,0 +1,36 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  profile: empty
+  components:
+    pilot:
+      enabled: true
+      k8s:
+        overlays:
+          - kind: Deployment
+            name: istiod
+            patches:
+              # Change the --keepaliveMaxServerConnectionAge arg from discovery container to 60m
+              - path: spec.template.spec.containers.[name:discovery].args.[30m]
+                value: "60m" # overridden from 30m
+              # Change the port 8080 from discovery container to 1234
+              - path: spec.template.spec.containers.[name:discovery].ports.[containerPort:8080].containerPort
+                value: 1234
+              # Change the POD_NAMESPACE env var from discovery container to fieldPath: metadata.name
+              - path: spec.template.spec.containers.[name:discovery].env.[name:POD_NAMESPACE].valueFrom
+                value:
+                  fieldRef:
+                    fieldPath: metadata.name
+              # Delete the REVISION env var from discovery container
+              - path: spec.template.spec.containers.[name:discovery].env.[name:REVISION]
+              # Delete the securityContext from the discovery container
+              - path: spec.template.spec.containers.[name:discovery].securityContext
+              # Add a label on the IstioD(Pilot Pods): OVERLAY_LABEL: OVERLAY_VALUE
+              - path: spec.template.metadata.labels.OVERLAY_LABEL
+                value: OVERLAY_VALUE
+          - kind: Service
+            name: istiod
+            patches:
+              # Add a label on the IstioD(Pilot svc): OVERLAY_LABEL: OVERLAY_VALUE
+              - path: metadata.labels.OVERLAY_LABEL
+                value: OVERLAY_VALUE

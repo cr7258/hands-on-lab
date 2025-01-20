@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: helloworld
+spec:
+  host: helloworld
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: helloworld
+spec:
+  hosts:
+    - helloworld
+  http:
+  - route:
+    - destination:
+        host: helloworld
+        subset: v1
+      weight: 100
+    mirror:
+      host: helloworld
+      subset: v2
+    mirrorPercentage:
+      value: 100.0

@@ -1,0 +1,27 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: helloworld
+spec:
+  host: helloworld
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: helloworld
+spec:
+  hosts:
+  - helloworld
+  http:
+  - route:
+    - destination:
+        host: helloworld
+        subset: v1
+    retries:
+      attempts: 5
+      perTryTimeout: 1ms
+      retryOn: 5xx,reset,connect-failure,refused-stream

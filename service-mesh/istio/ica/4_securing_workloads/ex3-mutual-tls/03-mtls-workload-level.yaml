@@ -1,0 +1,23 @@
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: "httpbin"
+  namespace: "bar"
+spec:
+  selector:
+    matchLabels:
+      app: httpbin
+  mtls:
+    mode: PERMISSIVE
+---
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: "httpbin"
+  namespace: "foo"
+spec:
+  selector:
+    matchLabels:
+      app: httpbin
+  mtls:
+    mode: PERMISSIVE

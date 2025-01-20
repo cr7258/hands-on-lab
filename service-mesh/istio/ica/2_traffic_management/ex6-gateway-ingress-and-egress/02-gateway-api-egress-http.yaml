@@ -1,0 +1,64 @@
+apiVersion: networking.istio.io/v1
+kind: ServiceEntry
+metadata:
+  name: cnn
+spec:
+  hosts:
+  - edition.cnn.com
+  ports:
+  - number: 80
+    name: http-port
+    protocol: HTTP
+  - number: 443
+    name: https
+    protocol: HTTPS
+  resolution: DNS
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: cnn-egress-gateway
+  # Controls the Service.spec.type field. 
+  # For example, set to ClusterIP to not expose the service externally. The default is LoadBalancer.
+  annotations:
+    networking.istio.io/service-type: ClusterIP
+spec:
+  gatewayClassName: istio
+  listeners:
+  - name: http
+    hostname: edition.cnn.com
+    port: 80
+    protocol: HTTP
+    allowedRoutes:
+      namespaces:
+        from: Same
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: direct-cnn-to-egress-gateway
+spec:
+  parentRefs:
+  - kind: ServiceEntry
+    group: networking.istio.io
+    name: cnn
+  rules:
+  - backendRefs:
+    - name: cnn-egress-gateway-istio
+      port: 80
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: forward-cnn-from-egress-gateway
+spec:
+  parentRefs:
+  - name: cnn-egress-gateway
+  hostnames:
+  - edition.cnn.com
+  rules:
+  - backendRefs:
+    - kind: Hostname
+      group: networking.istio.io
+      name: edition.cnn.com
+      port: 80
