@@ -1,15 +1,13 @@
 import asyncio
-from typing import Optional
 from contextlib import AsyncExitStack
 import json
-import os
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
+import os
 from openai import AsyncOpenAI
-from dotenv import load_dotenv
 import sys
+from typing import Optional
 
-load_dotenv()  # load environment variables from .env
 
 class MCPClient:
     def __init__(self):
@@ -111,19 +109,16 @@ class MCPClient:
                 messages.append({
                     "role": "tool",
                     "tool_call_id": tool_call.id,
-                    "content": result.content
+                    "content": str(result.content)
                 })
 
-            print(messages)
-            print("zzzzzzzzzzzzzz")
             # Get next response from OpenAI
             response = await self.client.chat.completions.create(
                 model="openai/gpt-3.5-turbo",
                 messages=messages,
                 tools=available_tools
             )
-            print(response)
-            print("xxxxxxxxxx")
+            
             message = response.choices[0].message
             if message.content:
                 final_text.append(message.content)
@@ -138,13 +133,10 @@ class MCPClient:
         while True:
             try:
                 query = input("\nQuery: ").strip()
-                
                 if query.lower() == 'quit':
                     break
-                    
                 response = await self.process_query(query)
                 print("\n" + response)
-                    
             except Exception as e:
                 print(f"\nError: {str(e)}")
     
@@ -154,6 +146,7 @@ class MCPClient:
 
 async def main():
     if len(sys.argv) < 2:
+        # python client.py ../../server/elasticsearch-mcp-server-example/server.py
         print("Usage: python client.py <path_to_server_script>")
         sys.exit(1)
         
