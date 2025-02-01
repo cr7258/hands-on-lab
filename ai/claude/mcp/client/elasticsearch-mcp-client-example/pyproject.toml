@@ -1,0 +1,9 @@
+[project]
+name = "elasticsearch-mcp-client-example"
+version = "0.1.0"
+description = "MCP Client connect to Elasticsearch MCP Server"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.2.1",
+]
