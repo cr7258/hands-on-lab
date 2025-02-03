@@ -5,5 +5,7 @@ description = "MCP Client connect to Elasticsearch MCP Server"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "elasticsearch>=8.17.1",
     "mcp>=1.2.1",
+    "openai>=1.61.0",
 ]

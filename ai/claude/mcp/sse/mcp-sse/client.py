@@ -1,8 +1,8 @@
 import asyncio
 from contextlib import AsyncExitStack
 import json
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
+from mcp import ClientSession
+from mcp.client.sse import sse_client
 import os
 from openai import AsyncOpenAI
 import sys
@@ -19,24 +19,31 @@ class MCPClient:
             api_key=os.getenv("OPENROUTER_API_KEY"),
         )
 
-    async def connect_to_server(self, server_script_path: str):
-        """Connect to an MCP server"""
-        server_params = StdioServerParameters(
-            command="python",
-            args=[server_script_path],
-            env=None
-        )
-        
-        stdio_transport = await self.exit_stack.enter_async_context(stdio_client(server_params))
-        self.stdio, self.write = stdio_transport
-        self.session = await self.exit_stack.enter_async_context(ClientSession(self.stdio, self.write))
-        
+    async def connect_to_sse_server(self, server_url: str):
+        """Connect to an MCP server running with SSE transport"""
+        # Store the context managers so they stay alive
+        self._streams_context = sse_client(url=server_url)
+        streams = await self._streams_context.__aenter__()
+
+        self._session_context = ClientSession(*streams)
+        self.session: ClientSession = await self._session_context.__aenter__()
+
+        # Initialize
         await self.session.initialize()
-        
-        # List available tools
+
+        # List available tools to verify connection
+        print("Initialized SSE client...")
+        print("Listing tools...")
         response = await self.session.list_tools()
         tools = response.tools
         print("\nConnected to server with tools:", [tool.name for tool in tools])
+
+    async def cleanup(self):
+        """Properly clean up the session and streams"""
+        if self._session_context:
+            await self._session_context.__aexit__(None, None, None)
+        if self._streams_context:
+            await self._streams_context.__aexit__(None, None, None)
 
     async def process_query(self, query: str) -> str:
         """Process a query using OpenAI and available tools"""
@@ -63,13 +70,14 @@ class MCPClient:
             messages=messages,
             tools=available_tools
         )
-
-     
+        
+        # Process response and handle tool calls
+        tool_results = []
         final_text = []
+
         message = response.choices[0].message
         final_text.append(message.content or "")
 
-        # Process response and handle tool calls
         while message.tool_calls:
             # Handle each tool call
             for tool_call in message.tool_calls:
@@ -78,6 +86,7 @@ class MCPClient:
                 
                 # Execute tool call
                 result = await self.session.call_tool(tool_name, tool_args)
+                tool_results.append({"call": tool_name, "result": result})
                 final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
 
                 # Add tool call and result to messages
@@ -127,20 +136,15 @@ class MCPClient:
                 print("\n" + response)
             except Exception as e:
                 print(f"\nError: {str(e)}")
-    
-    async def cleanup(self):
-        """Clean up resources"""
-        await self.exit_stack.aclose()
 
 async def main():
     if len(sys.argv) < 2:
-        # uv run client.py ../../server/elasticsearch-mcp-server-example/server.py
-        print("Usage: uv run client.py <path_to_server_script>")
+        print("Usage: uv run client.py <URL of SSE MCP server (i.e. http://localhost:8080/sse)>")
         sys.exit(1)
         
     client = MCPClient()
     try:
-        await client.connect_to_server(sys.argv[1])
+        await client.connect_to_sse_server(server_url=sys.argv[1])
         await client.chat_loop()
     finally:
         await client.cleanup()

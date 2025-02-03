@@ -1,0 +1,12 @@
+[project]
+name = "elasticsearch-mcp-sse"
+version = "0.1.0"
+description = "Elasticsearch MCP SSE-based Server Example"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "elasticsearch>=8.17.0",
+    "mcp[cli]>=1.2.0",
+    "python-dotenv>=1.0.1",
+    "uvicorn>=0.34.0",
+]
