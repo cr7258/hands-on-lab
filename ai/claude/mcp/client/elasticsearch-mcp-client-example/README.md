@@ -5,7 +5,7 @@
 MCP 系列文章：
 
 - [一文带你入门 MCP（模型上下文协议）](https://mp.weixin.qq.com/s/rcOi7e8F5qGVVF2noCk46Q)
-- [MCP Server 开发实战：无缝对接 LLM 和 Elasticsearch](https://mp.weixin.qq.com/s/rcOi7e8F5qGVVF2noCk46Q)
+- [MCP Server 开发实战：无缝对接 LLM 和 Elasticsearch](https://mp.weixin.qq.com/s/38HiPOOKVKz3C76d_SGkmw)
 - 快速上手：实现你的第一个 MCP Client（本文）
 
 ## MCP 客户端的作用
