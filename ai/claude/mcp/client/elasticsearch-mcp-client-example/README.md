@@ -1,6 +1,6 @@
 # 快速上手：实现你的第一个 MCP Client
 
-在 [MCP Server 开发实战：无缝对接 LLM 和 Elasticsearch](https://mp.weixin.qq.com/s/38HiPOOKVKz3C76d_SGkmw) 一文中，我们详细介绍了如何利用 [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk) 编写一个 Elasticsearch MCP 服务器，并通过 Claude Desktop 作为 MCP 客户端进行交互。本文将进一步介绍如何使用 MCP Python SDK 编写一个 MCP 客户端，以便更加灵活地与 MCP 服务器进行通信和集成。
+在 [MCP Server 开发实战：无缝对接 LLM 和 Elasticsearch](https://mp.weixin.qq.com/s/38HiPOOKVKz3C76d_SGkmw) 一文中，我们详细介绍了如何利用 [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk) 编写一个 Elasticsearch MCP 服务器，并通过 Claude Desktop 作为 MCP 客户端进行交互。本文将进一步介绍如何使用 MCP Python SDK 编写一个 MCP 客户端，以便更加灵活地与 MCP 服务器进行通信和集成。本文的完整代码可以在 Github 上找到：https://github.com/cr7258/hands-on-lab/tree/main/ai/claude/mcp/client/elasticsearch-mcp-client-example。
 
 MCP 系列文章：
 
