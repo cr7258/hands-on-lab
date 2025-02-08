@@ -1,5 +1,5 @@
+import argparse
 import os
-import subprocess
 from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
 from starlette.applications import Starlette
@@ -10,7 +10,6 @@ from mcp.server import Server
 from elasticsearch import Elasticsearch
 import logging
 import warnings
-from typing import List, Dict
 import uvicorn
 
 MCP_SERVER_NAME = "elasticsearch-mcp-sse"
@@ -75,11 +74,9 @@ def create_starlette_app(mcp_server: Server, *, debug: bool = False) -> Starlett
 if __name__ == "__main__":
     mcp_server = mcp._mcp_server
 
-    import argparse
-    
     parser = argparse.ArgumentParser(description='Run MCP SSE-based server')
     parser.add_argument('--host', default='0.0.0.0', help='Host to bind to')
-    parser.add_argument('--port', type=int, default=8080, help='Port to listen on')
+    parser.add_argument('--port', type=int, default=18080, help='Port to listen on')
     args = parser.parse_args()
 
     # Bind SSE request handling to MCP server
