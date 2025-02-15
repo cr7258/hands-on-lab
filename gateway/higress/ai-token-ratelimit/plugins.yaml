@@ -1,0 +1,46 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: ai-proxy
+  namespace: higress-system
+spec:
+  matchRules:
+  - config:
+      provider:
+        type: qwen
+        apiTokens:
+        - "<YOUR_API_TOKEN>" # set your qwen apiToken
+        modelMapping:
+          'gpt-3': "qwen-turbo"
+          'gpt-35-turbo': "qwen-plus"
+          'gpt-4-turbo': "qwen-max"
+          '*': "qwen-turbo"
+    ingress:
+    - qwen
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/ai-proxy:1.0.0
+  phase: UNSPECIFIED_PHASE
+  priority: 100
+---
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: ai-token-ratelimit
+  namespace: higress-system
+spec:
+  defaultConfig:
+    rule_name: default_limit_by_param_apikey
+    rule_items:
+    - limit_by_param: apikey
+      limit_keys:
+      - key: 123456
+        token_per_minute: 200
+    redis:
+      # 默认情况下，为了减轻数据面的压力，Higress 的 global.onlyPushRouteCluster 配置参数被设置为 true，意味着不会自动发现 Kubernetes Service
+      # 如果需要使用 Kubernetes Service 作为服务发现，可以将 global.onlyPushRouteCluster 参数设置为 false，
+      # 这样就可以直接将 service_name 设置为 Kubernetes Service, 而无须为 Redis 创建 McpBridge 以及 Ingress 路由
+      # service_name: redis.default.svc.cluster.local
+      service_name: redis.dns
+      service_port: 6379
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/ai-token-ratelimit:1.0.0
+  phase: UNSPECIFIED_PHASE
+  priority: 600

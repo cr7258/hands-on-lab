@@ -1,0 +1,15 @@
+apiVersion: networking.higress.io/v1
+kind: McpBridge
+metadata:
+  name: default
+  namespace: higress-system
+spec:
+  registries:
+  - domain: dashscope.aliyuncs.com
+    name: qwen
+    port: 443
+    type: dns
+  - domain: redis.default.svc.cluster.local # Kubernetes Service
+    name: redis
+    type: dns
+    port: 6379

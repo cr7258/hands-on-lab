@@ -1,0 +1,47 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/backend-protocol: HTTPS
+    higress.io/destination: qwen.dns
+    higress.io/proxy-ssl-name: dashscope.aliyuncs.com
+    higress.io/proxy-ssl-server-name: "on"
+  labels:
+    higress.io/resource-definer: higress
+  name: qwen
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+  - host: qwen-test.com
+    http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/destination: redis.dns
+    higress.io/ignore-path-case: "false"
+  labels:
+    higress.io/resource-definer: higress
+  name: redis
+spec:
+  ingressClassName: higress
+  rules:
+  - http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
