@@ -1,0 +1,10 @@
+[project]
+name = "quickstart"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "gradio>=5.16.0",
+    "smolagents>=1.9.2",
+]

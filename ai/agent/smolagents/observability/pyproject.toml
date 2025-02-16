@@ -1,0 +1,13 @@
+[project]
+name = "observability"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "arize-phoenix>=7.12.2",
+    "openinference-instrumentation-smolagents>=0.1.5",
+    "opentelemetry-exporter-otlp>=1.30.0",
+    "opentelemetry-sdk>=1.30.0",
+    "smolagents>=1.9.2",
+]

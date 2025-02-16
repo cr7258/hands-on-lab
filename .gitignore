@@ -2,3 +2,4 @@
 .vscode
 *temp
 **/logs/**
+.venv
