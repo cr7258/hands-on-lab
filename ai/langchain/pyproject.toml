@@ -5,13 +5,18 @@ description = "langchain demo"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "bs4>=0.0.2",
     "fastapi>=0.115.8",
     "langchain>=0.3.19",
     "langchain-chroma>=0.2.2",
     "langchain-community>=0.3.18",
     "langchain-huggingface>=0.1.2",
     "langchain-openai>=0.3.7",
+    "langgraph>=0.3.2",
     "langserve>=0.3.1",
+    "mysqlclient>=2.2.7",
+    "pytube>=15.0.0",
     "sse-starlette>=2.2.1",
     "uvicorn>=0.34.0",
+    "youtube-transcript-api>=0.6.3",
 ]
