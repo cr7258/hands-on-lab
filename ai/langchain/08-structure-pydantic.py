@@ -14,7 +14,6 @@ model = ChatOpenAI(
   model_name="openai/gpt-4o",
 )
 
-
 # pydantic: 处理数据，验证数据， 定义数据的格式，序列化和反序列化，类型转换等等。
 
 # 定义一个数据

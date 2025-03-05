@@ -814,6 +814,7 @@ dependencies = [
     { name = "langchain" },
     { name = "langchain-chroma" },
     { name = "langchain-community" },
+    { name = "langchain-experimental" },
     { name = "langchain-huggingface" },
     { name = "langchain-openai" },
     { name = "langgraph" },
@@ -832,6 +833,7 @@ requires-dist = [
     { name = "langchain", specifier = ">=0.3.19" },
     { name = "langchain-chroma", specifier = ">=0.2.2" },
     { name = "langchain-community", specifier = ">=0.3.18" },
+    { name = "langchain-experimental", specifier = ">=0.3.4" },
     { name = "langchain-huggingface", specifier = ">=0.1.2" },
     { name = "langchain-openai", specifier = ">=0.3.7" },
     { name = "langgraph", specifier = ">=0.3.2" },
@@ -841,6 +843,19 @@ requires-dist = [
     { name = "sse-starlette", specifier = ">=2.2.1" },
     { name = "uvicorn", specifier = ">=0.34.0" },
     { name = "youtube-transcript-api", specifier = ">=0.6.3" },
+]
+
+[[package]]
+name = "langchain-experimental"
+version = "0.3.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "langchain-community" },
+    { name = "langchain-core" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/27/56/a8acbb08a03383c28875b3b151e4cefea5612266917fbd6fc3c14c21e172/langchain_experimental-0.3.4.tar.gz", hash = "sha256:937c4259ee4a639c618d19acf0e2c5c2898ef127050346edc5655259aa281a21", size = 140532 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b2/27/fe8caa4884611286b1f7d6c5cfd76e1fef188faaa946db4fde6daa1cd2cd/langchain_experimental-0.3.4-py3-none-any.whl", hash = "sha256:2e587306aea36b60fa5e5fc05dc7281bee9f60a806f0bf9d30916e0ee096af80", size = 209154 },
 ]
 
 [[package]]

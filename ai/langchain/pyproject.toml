@@ -10,6 +10,7 @@ dependencies = [
     "langchain>=0.3.19",
     "langchain-chroma>=0.2.2",
     "langchain-community>=0.3.18",
+    "langchain-experimental>=0.3.4",
     "langchain-huggingface>=0.1.2",
     "langchain-openai>=0.3.7",
     "langgraph>=0.3.2",

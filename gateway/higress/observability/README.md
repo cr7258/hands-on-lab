@@ -3,6 +3,8 @@
 
 ### 安装 all-in-one Higress 
 
+脚本会有交互式提示，引导你配置 apiToken。
+
 ```bash
 curl -sS https://higress.cn/ai-gateway/install.sh | bash
 ```
@@ -16,6 +18,56 @@ docker-compose up
 ### 在 Higress console 中配置服务来源
 
 ![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/202503051020890.png)
+
+
+### 配置 higress-config
+
+文件在执行第一步的脚本的目录中：`higress/configmaps/higress-config.yaml`
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: higress-config
+  namespace: higress-system
+  creationTimestamp: "2000-01-01T00:00:00Z"
+  resourceVersion: "1"
+data:
+  higress: |-
+    tracing:
+      enable: true
+      sampling: 100
+      timeout: 500
+      opentelemetry:
+        service: opentelemetry-collector.static
+        port: 80
+```
+
+### 配置 ai-statistics 插件
+
+```yaml
+attributes:
+- apply_to_log: true
+  apply_to_span: true
+  key: question
+  value: messages.@reverse.0.content
+  value_source: request_body
+- apply_to_log: true
+  apply_to_span: true
+  key: answer
+  rule: append
+  value: choices.0.delta.content
+  value_source: response_streaming_body
+- apply_to_log: true
+  apply_to_span: true
+  key: answer
+  value: choices.0.message.content
+  value_source: response_body
+```
+
+### 在 Elasticsearch 中查询 trace
+
+![](https://chengzw258.oss-cn-beijing.aliyuncs.com/Article/202503051255258.png)
 
 ## Kubernetes 
 
