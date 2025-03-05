@@ -1,0 +1,26 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317 # Higress Gateway 的 OpenTelemetry 数据是发送到 4317 端口的
+      http:
+        endpoint: 0.0.0.0:4318
+
+exporters:
+  # for troubleshooting purposes
+  debug:
+    verbosity: detailed
+  otlp:
+    # Elastic APM server https endpoint without the "https://" prefix
+    endpoint: http://apm-server:8200
+    tls:
+      insecure: true
+    # headers:
+      # Elastic APM Server secret token
+      # Authorization: "Bearer ${ELASTIC_APM_SECRET_TOKEN}" 
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [otlp]

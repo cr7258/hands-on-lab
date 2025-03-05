@@ -1,0 +1,87 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: ai-proxy
+  namespace: higress-system
+spec:
+  phase: UNSPECIFIED_PHASE
+  priority: 100
+  matchRules:
+  - config:
+      provider:
+        type: qwen
+        apiTokens:
+          - <api-token> # 设置 apiToken
+    ingress:
+    - qwen
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/ai-proxy:1.0.0
+---
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: ai-statistics
+  namespace: higress-system
+spec:
+  phase: UNSPECIFIED_PHASE
+  priority: 200
+  matchRules:
+  - config:
+      attributes:
+      - apply_to_log: true
+        apply_to_span: true
+        key: question
+        value: messages.@reverse.0.content
+        value_source: request_body
+      - apply_to_log: true
+        apply_to_span: true
+        key: answer
+        rule: append
+        value: choices.0.delta.content
+        value_source: response_streaming_body
+      - apply_to_log: true
+        apply_to_span: true
+        key: answer
+        value: choices.0.message.content
+        value_source: response_body
+    configDisable: false
+    ingress:
+    - qwen
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/ai-statistics:1.0.0
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/backend-protocol: HTTPS
+    higress.io/destination: qwen.dns
+    higress.io/proxy-ssl-name: dashscope.aliyuncs.com
+    higress.io/proxy-ssl-server-name: "on"
+  labels:
+    higress.io/resource-definer: higress
+  name: qwen
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+  - host: "test-ai.com"
+    http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+---
+apiVersion: networking.higress.io/v1
+kind: McpBridge
+metadata:
+  name: default
+  namespace: higress-system
+spec:
+  registries:
+  - domain: dashscope.aliyuncs.com
+    name: qwen
+    port: 443
+    type: dns
