@@ -4,3 +4,5 @@
 **/logs/**
 .venv
 .windsurfrules 
+node_modules
+__pycache__
