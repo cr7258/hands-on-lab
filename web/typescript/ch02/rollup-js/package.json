@@ -1,0 +1,17 @@
+{
+  "name": "rollup",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "./node_modules/.bin/rollup -c --environment INCLUDE_DEPS,BUILD:development",
+    "build": "./node_modules/.bin/rollup -c --environment INCLUDE_DEPS,BUILD:production"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.36.0"
+  }
+}
