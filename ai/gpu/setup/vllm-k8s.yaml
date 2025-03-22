@@ -52,9 +52,9 @@ spec:
             port: 8000
           initialDelaySeconds: 60
           periodSeconds: 5
-      volumeMounts:
-        - mountPath: /root/.cache/huggingface
-          name: cache-volume
+        volumeMounts:
+          - mountPath: /root/.cache/huggingface
+            name: cache-volume
 ---
 apiVersion: v1
 kind: Service
