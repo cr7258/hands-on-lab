@@ -3,6 +3,9 @@ echo "################################# Install docker, kubectl, helm, kind, nvk
 sudo apt update
 sudo apt install -y docker.io
 sudo snap install kubectl --classic
+# Add kubectl completion to bashrc
+echo 'source <(kubectl completion bash)' >> ~/.bashrc
+source ~/.bashrc
 sudo snap install helm --classic
 
 # Install kind

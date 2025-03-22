@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: deepseek-r1-distill-qwen-1-5b
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  volumeMode: Filesystem
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,6 +28,10 @@ spec:
       labels:
         app: deepseek-r1-distill-qwen-1-5b
     spec:
+      volumes:
+        - name: cache-volume
+          persistentVolumeClaim:
+            claimName: deepseek-r1-distill-qwen-1-5b
       containers:
       - name: deepseek-r1-distill-qwen-1-5b
         image: vllm/vllm-openai:latest
@@ -35,6 +52,9 @@ spec:
             port: 8000
           initialDelaySeconds: 60
           periodSeconds: 5
+      volumeMounts:
+        - mountPath: /root/.cache/huggingface
+          name: cache-volume
 ---
 apiVersion: v1
 kind: Service
