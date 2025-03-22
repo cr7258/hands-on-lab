@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deepseek-r1-distill-qwen-1-5b
+  namespace: default
+  labels:
+    app: deepseek-r1-distill-qwen-1-5b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deepseek-r1-distill-qwen-1-5b
+  template:
+    metadata:
+      labels:
+        app: deepseek-r1-distill-qwen-1-5b
+    spec:
+      volumes:
+      # vLLM needs to access the host's shared memory for tensor parallel inference.
+      - name: shm
+        emptyDir:
+          medium: Memory
+          sizeLimit: "2Gi"
+      containers:
+      - name: deepseek-r1-distill-qwen-1-5b
+        image: vllm/vllm-openai:latest
+        command: ["/bin/sh", "-c"]
+        args: [
+          "vllm serve deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B --dtype=half --trust-remote-code --enable-chunked-prefill --max_num_batched_tokens 1024"
+        ]
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            nvidia.com/gpu: "1"
+          requests:
+            nvidia.com/gpu: "1"
+        volumeMounts:
+        - name: shm
+          mountPath: /dev/shm
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deepseek-r1-distill-qwen-1-5b
+  namespace: default
+spec:
+  ports:
+  - name: deepseek-r1-distill-qwen-1-5b
+    port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: deepseek-r1-distill-qwen-1-5b
+  type: LoadBalancer
