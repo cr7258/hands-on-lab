@@ -95,12 +95,6 @@ tar -xvzf cloud-provider-kind.tar.gz
 chmod +x cloud-provider-kind
 sudo mv cloud-provider-kind /usr/local/bin/
 
-# Verify installation
-if ! command -v cloud-provider-kind &> /dev/null; then
-    echo "Failed to install Cloud Provider Kind."
-    exit 1
-fi
-
 # Run cloud-provider-kind in the background and forward logs
 echo "Starting cloud-provider-kind in the background..."
 LOG_FILE="/tmp/cloud-provider-kind.log"

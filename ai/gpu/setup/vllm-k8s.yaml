@@ -15,12 +15,6 @@ spec:
       labels:
         app: deepseek-r1-distill-qwen-1-5b
     spec:
-      volumes:
-      # vLLM needs to access the host's shared memory for tensor parallel inference.
-      - name: shm
-        emptyDir:
-          medium: Memory
-          sizeLimit: "2Gi"
       containers:
       - name: deepseek-r1-distill-qwen-1-5b
         image: vllm/vllm-openai:latest
@@ -35,15 +29,6 @@ spec:
             nvidia.com/gpu: "1"
           requests:
             nvidia.com/gpu: "1"
-        volumeMounts:
-        - name: shm
-          mountPath: /dev/shm
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8000
-          initialDelaySeconds: 60
-          periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /health
