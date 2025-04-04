@@ -1,0 +1,213 @@
+{
+    "city": "上海",
+    "days": 3,
+    "base路线": {
+        "base_guide": "### 上海3天旅游攻略\n\n#### 第1天：上海经典地标和购物体验\n- **上午**：抵达上海后，先前往南京路步行街，这里汇集了各种时尚品牌和当地特色小店。\n- **中午**：尝试一下南京路上的小吃，比如小笼包和生煎包。\n- **下午**：参观外滩，欣赏上海的历史建筑和黄浦江的美景。\n- **傍晚**：前往陆家嘴，登上东方明珠塔，俯瞰整个城市的夜景。\n- **晚上**：参加浦江夜游，从水上视角欣赏上海的璀璨夜景。\n\n#### 第2天：传统文化与现代生活的融合\n- **上午**：游览豫园，感受上海的古典园林之美。\n- **中午**：在城隍庙品尝地道的上海小吃，如蟹壳黄和白斩鸡。\n- **下午**：逛逛豫园商城，购买一些特色纪念品。\n- **傍晚**：前往人民广场或思南路，体验上海的现代生活。\n- **晚上**：在新天地享受晚餐，这里有多种风格的餐厅供选择。\n\n#### 第3天：迪士尼乐园\n- **全天**：前往上海迪士尼乐园，尽情享受主题公园的乐趣。\n\n#### 小贴士：\n- **交通**：建议使用地铁或打车，方便快捷。\n- **餐饮**：尝试当地特色美食，如小笼包、生煎包、排骨年糕等。\n- **住宿**：推荐选择市中心附近的酒店，便于出行。\n\n希望这个攻略能帮助你在上海度过愉快的三天！"
+    },
+    "景点": [
+        {
+            "name": "外滩",
+            "describe": "位于上海市中心黄浦区的黄浦江畔，是最具上海城市象征意义的景点之一。",
+            "图片url": "https://img95.699pic.com/photo/50084/6824.jpg_wh860.jpg"
+        },
+        {
+            "name": "上海迪士尼乐园",
+            "describe": "一个充满奇幻与冒险的世界级主题公园，适合家庭游客。",
+            "图片url": "http://sh.xinhuanet.com/135399328_14646034342931n.jpg"
+        },
+        {
+            "name": "东方明珠",
+            "describe": "上海的标志性建筑之一，可以俯瞰整个城市的美景。",
+            "图片url": "https://pic.ibaotu.com/01/53/00/83i888piCH5Z.jpg-0.jpg!ww7002"
+        },
+        {
+            "name": "豫园·上海城隍庙",
+            "describe": "历史悠久的园林和庙宇，展现了古代中国的建筑风格。",
+            "图片url": "https://bpic.588ku.com/back_origin_min_pic/20/01/18/2d77afbfab0a7af0ec1b0706a45714d1.jpg"
+        },
+        {
+            "name": "上海野生动物园",
+            "describe": "拥有众多珍稀动物的大型动物园，适合亲子游。",
+            "图片url": "http://youimg1.c-ctrip.com/target/tg/697/799/808/8da3013242eb4130965cf2d754a66eae.jpg"
+        },
+        {
+            "name": "朱家角古镇",
+            "describe": "保存完好的江南水乡古镇，有着浓厚的历史文化氛围。",
+            "图片url": "http://imgbdb3.bendibao.com/shbdb/tour/202011/09/20201109231557_58872.jpg"
+        },
+        {
+            "name": "上海影视乐园",
+            "describe": "集电影拍摄、娱乐体验于一体的综合性乐园。",
+            "图片url": "http://n.sinaimg.cn/sinacn10118/101/w1836h2265/20190415/d462-hvsckth2294286.jpg"
+        },
+        {
+            "name": "黄浦江外滩(南京路步行街)",
+            "describe": "结合了购物和观光的繁华商业街区，紧邻外滩。",
+            "图片url": "https://pic.616pic.com/photoone/00/06/67/61975e8578c705632.jpg"
+        },
+        {
+            "name": "田子坊",
+            "describe": "一个融合了艺术与生活的创意园区，保留了旧上海的风情。",
+            "图片url": "http://n.sinaimg.cn/sinacn10/200/w1080h720/20180812/f97c-hhqtawx1923550.jpg"
+        },
+        {
+            "name": "新天地",
+            "describe": "时尚与历史交融的休闲娱乐区，有很多特色餐厅和酒吧。",
+            "图片url": "http://img.pconline.com.cn/images/upload/upc/tx/photoblog/1408/02/c2/36973974_36973974_1406950606281_mthumb.jpg"
+        },
+        {
+            "name": "法租界(武康大楼)",
+            "describe": "上海的历史街区，有许多具有欧洲风格的建筑。",
+            "图片url": "https://youimg1.c-ctrip.com/target/100o19000001617dd2344.jpg"
+        },
+        {
+            "name": "静安寺",
+            "describe": "一座著名的佛教寺庙，位于上海市中心。",
+            "图片url": "https://img95.699pic.com/photo/50117/7806.jpg_wh860.jpg"
+        },
+        {
+            "name": "南京路步行街",
+            "describe": "上海最繁华的商业街之一，购物天堂。",
+            "图片url": "https://img95.699pic.com/photo/50082/8573.jpg_wh860.jpg"
+        },
+        {
+            "name": "上海科技馆",
+            "describe": "集科普教育与互动体验于一体的现代化科技博物馆。",
+            "图片url": "http://img95.699pic.com/photo/50044/5437.jpg_wh860.jpg"
+        },
+        {
+            "name": "上海老街",
+            "describe": "保留了传统上海风貌的老街区，可以品尝地道的小吃。",
+            "图片url": "https://img1.qunarzz.com/travel/d3/1611/ea/f7b77eaabbe75fb5.jpg_r_640x426x70_4489b2de.jpg"
+        },
+        {
+            "name": "浦江夜游",
+            "describe": "乘坐游船欣赏黄浦江两岸的夜景，非常浪漫。",
+            "图片url": "http://www.xinhangyouchuan.cn/pic/image/2020042414134313.jpg"
+        },
+        {
+            "name": "陆家嘴",
+            "describe": "上海的金融中心，高楼林立，是现代上海的象征。",
+            "图片url": "https://img95.699pic.com/photo/50770/1381.jpg_wh860.jpg"
+        },
+        {
+            "name": "豫园商城",
+            "describe": "围绕豫园建设的商业综合体，集合了各种特色店铺。",
+            "图片url": "https://img.pconline.com.cn/images/upload/upc/tx/itbbs/1804/24/c9/84299064_1524532386209.jpg"
+        },
+        {
+            "name": "人民广场",
+            "describe": "上海的政治文化中心，周围有许多重要建筑。",
+            "图片url": "http://img95.699pic.com/photo/50027/7180.jpg_wh860.jpg"
+        },
+        {
+            "name": "思南路",
+            "describe": "一条充满历史感的小路，两旁有许多老式洋房。",
+            "图片url": "https://youimg1.c-ctrip.com/target/fd/tg/g5/M04/DF/01/CggYsVb6LnqALy-3ACtGq9mWHXU708.jpg"
+        }
+    ],
+    "美食": [
+        {
+            "name": "小笼包",
+            "describe": "上海著名的传统小吃，以其皮薄馅嫩、汤汁丰富著称。",
+            "图片url": "http://gs.cnr.cn/gslv/xc/20150701/W020150701437937282794.jpg"
+        },
+        {
+            "name": "生煎包",
+            "describe": "底部煎得金黄酥脆，上面撒上芝麻和葱花，内馅鲜美多汁。",
+            "图片url": "http://i2.chuimg.com/fba430347d8941e8a9c2453eb6e8b068_1000w_750h.jpg?imageView2/2/w/660/interlace/1/q/90"
+        },
+        {
+            "name": "排骨年糕",
+            "describe": "将排骨与年糕一起烹饪，口感香糯，味道浓郁。",
+            "图片url": "https://pic1.zhimg.com/v2-bcad885d3bf4363709dcb8b4966f9cec_r.jpg"
+        },
+        {
+            "name": "蟹壳黄",
+            "describe": "一种形似蟹壳的酥皮点心，甜咸皆有，外酥里软。",
+            "图片url": "https://pic1.zhimg.com/v2-e6597a79b448f7b252e2a1293f810148_1440w.jpg?source=172ae18b"
+        },
+        {
+            "name": "白斩鸡",
+            "describe": "上海传统名菜，鸡肉鲜嫩，佐以酱油、葱姜等调料食用。",
+            "图片url": "http://i3.meishichina.com/attachment/recipe/2015/08/01/2015080165d22b5c2df82c26.jpg@!p800"
+        },
+        {
+            "name": "鲜肉月饼",
+            "describe": "中秋时节的传统美食，内馅鲜美，外皮酥脆。",
+            "图片url": "https://cp1.douguo.com/upload/caiku/b/a/f/yuan_ba142691c7824558a9e84c3fbb53847f.jpg"
+        },
+        {
+            "name": "上海红烧肉",
+            "describe": "选用五花肉慢火炖煮，色泽红亮，肥而不腻。",
+            "图片url": "http://cp1.douguo.net/upload/caiku/7/1/a/yuan_71d34bf58a46b5083aa0a56a13c8a2fa.jpg"
+        },
+        {
+            "name": "油豆腐粉丝汤",
+            "describe": "以油豆腐和粉丝为主料，汤汁鲜美，营养丰富。",
+            "图片url": "https://cp1.douguo.com/upload/caiku/0/0/1/yuan_00b8cad85834df5ccdce83af822f0721.jpg"
+        },
+        {
+            "name": "馄饨",
+            "describe": "上海特色小吃，皮薄馅嫩，汤汁鲜美。",
+            "图片url": "https://cp1.douguo.com/upload/caiku/6/a/1/yuan_6a29f237e806e0a92cf3f4cad7830ff1.jpeg"
+        },
+        {
+            "name": "葱油饼",
+            "describe": "以面粉和葱油为主要原料，外酥内软，香气扑鼻。",
+            "图片url": "https://i2.chuimg.com/330c974a874211e6a9a10242ac110002_511w_384h.jpg?imageView2/2/w/660/interlace/1/q/90"
+        },
+        {
+            "name": "单档",
+            "describe": "上海传统小吃，面筋百叶包汤，味道鲜美。",
+            "图片url": "https://pic1.zhimg.com/v2-9acb4243ee5c62d1138351ab57b3a308_720w.jpg?source=172ae18b"
+        },
+        {
+            "name": "双档",
+            "describe": "上海传统小吃，面筋百叶包汤，味道鲜美。",
+            "图片url": "https://pic1.zhimg.com/v2-f841acc0d6519d871a0053226be4d0f8_b.jpg"
+        },
+        {
+            "name": "特色冷面",
+            "describe": "夏季特色小吃，面条冰凉爽滑，适合消暑。",
+            "图片url": "http://i2.chuimg.com/a42b566a8b5111e6a9a10242ac110002_620w_413h.jpg?imageView2/2/w/660/interlace/1/q/90"
+        },
+        {
+            "name": "擂沙圆",
+            "describe": "煮熟的汤团裹上干豆沙粉，口感独特。",
+            "图片url": "https://pica.zhimg.com/v2-ef8e0ba3d3ec31ae55434c2ce9fa513a_720w.jpg?source=172ae18b"
+        }
+    ],
+    "美食店铺": [
+        {
+            "name": "乔家栅糕点制作技艺",
+            "describe": "上海市非物质文化遗产，传承多年的传统糕点制作技艺。",
+            "图片url": "http://static.zhoudaosh.com/files/himages/2019/20190609/595975147761d4d4e39cfa22a9301992.jpg"
+        },
+        {
+            "name": "一心斋清真饮食店",
+            "describe": "位于杨浦区平凉路，以牛肉制品系列为特色，是上海知名的清真饮食店。",
+            "图片url": "https://whg.shyp.gov.cn/whg/shssjfyxm/index/9dd16723f2458db2377c397539afaaa7.jpg"
+        },
+        {
+            "name": "洪长兴",
+            "describe": "上海百年老店，以清真菜肴闻名。",
+            "图片url": "https://youimg1.c-ctrip.com/target/0106c1200040homlv2E87.jpg"
+        },
+        {
+            "name": "杨同兴",
+            "describe": "上海百年老店，以清真菜肴闻名。",
+            "图片url": "https://bkimg.cdn.bcebos.com/smart/29381f30e924b8999c48959c60061d950a7bf61a-bkimg-process,v_1,rw_1,rh_1,pad_1,color_ffffff?x-bce-process=image/format,f_auto"
+        },
+        {
+            "name": "城隍庙点心店",
+            "describe": "位于上海城隍庙，以传统点心和小吃闻名。",
+            "图片url": "http://photocdn.sohu.com/20141202/Img406576546.jpg"
+        },
+        {
+            "name": "五味斋",
+            "describe": "位于上海，以传统点心和小吃闻名。",
+            "图片url": "https://bkimg.cdn.bcebos.com/pic/58ee3d6d55fbb2fb4316d5e42a0137a4462308f776bb?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70"
+        }
+    ]
+}

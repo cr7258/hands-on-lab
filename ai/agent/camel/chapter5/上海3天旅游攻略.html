@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html><head><meta charset='utf-8'><title>旅行推荐</title>
+<style>
+
+    body {
+       font-family: "Microsoft YaHei", sans-serif;
+       margin: 20px;
+       background-color: #f8f8f8;
+       line-height: 1.6;
+    }
+    h1, h2 {
+       color: #333;
+    }
+    .itinerary-text {
+       background-color: #fff;
+       padding: 20px;
+       border-radius: 8px;
+       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+       margin-bottom: 30px;
+    }
+    .card-container {
+       display: flex;
+       flex-wrap: wrap;
+       gap: 20px;
+       margin: 20px 0;
+    }
+    .card {
+       flex: 0 0 calc(300px);
+       border: 1px solid #ccc;
+       border-radius: 10px;
+       overflow: hidden;
+       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+       background-color: #fff;
+    }
+    .card-image {
+       width: 100%;
+       height: 200px;
+       overflow: hidden;
+       background: #f8f8f8;
+       text-align: center;
+    }
+    .card-image img {
+       max-width: 100%;
+       max-height: 100%;
+       object-fit: cover;
+    }
+    .card-content {
+       padding: 10px 15px;
+    }
+    .card-content h3 {
+       margin-top: 0;
+       margin-bottom: 10px;
+       font-size: 18px;
+    }
+    .card-content p {
+       margin: 5px 0;
+    }
+    .image-center {
+        text-align: center;
+        margin: 20px 0;
+    }
+    .image-center img {
+        width: 300px;
+        height: 200px;
+        object-fit: cover;
+    }
+    
+</style></head><body>
+<h1>旅行行程与推荐</h1>
+<div class="itinerary-text">
+<p>根据您提供的信息，我为您精心设计了一个为期三天的上海旅行计划。此行程旨在让您充分体验上海的历史文化、现代魅力以及地方美食。以下是具体的行程安排：</p>
+<h2>Day1:</h2>
+<p>- 早餐：小笼包</p>
+<p>  - 描述：上海著名的传统小吃，以其皮薄馅嫩、汤汁丰富著称。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="http://gs.cnr.cn/gslv/xc/20150701/W020150701437937282794.jpg" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 地点建议：南翔馒头店</p>
+<p>- 上午：外滩</p>
+<p>  - 描述：位于上海市中心黄浦区的黄浦江畔，是最具上海城市象征意义的景点之一。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="https://img95.699pic.com/photo/50084/6824.jpg_wh860.jpg" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 出行方式：从酒店出发步行至外滩</p>
+<p>- 午餐：生煎包</p>
+<p>  - 描述：底部煎得金黄酥脆，上面撒上芝麻和葱花，内馅鲜美多汁。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="http://i2.chuimg.com/fba430347d8941e8a9c2453eb6e8b068_1000w_750h.jpg?imageView2/2/w/660/interlace/1/q/90" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 地点建议：吴记生煎</p>
+<p>- 下午：东方明珠</p>
+<p>  - 描述：上海的标志性建筑之一，可以俯瞰整个城市的美景。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="https://pic.ibaotu.com/01/53/00/83i888piCH5Z.jpg-0.jpg!ww7002" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 出行方式：从外滩乘坐地铁2号线至陆家嘴站</p>
+<p>- 晚餐：白斩鸡</p>
+<p>  - 描述：上海传统名菜，鸡肉鲜嫩，佐以酱油、葱姜等调料食用。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="http://i3.meishichina.com/attachment/recipe/2015/08/01/2015080165d22b5c2df82c26.jpg@!p800" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 地点建议：大董</p>
+<p>- 夜间：浦江夜游</p>
+<p>  - 描述：乘坐游船欣赏黄浦江两岸的夜景，非常浪漫。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="http://www.xinhangyouchuan.cn/pic/image/2020042414134313.jpg" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<h2>Day2:</h2>
+<p>- 早餐：排骨年糕</p>
+<p>  - 描述：将排骨与年糕一起烹饪，口感香糯，味道浓郁。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="https://pic1.zhimg.com/v2-bcad885d3bf4363709dcb8b4966f9cec_r.jpg" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 地点建议：大壶春</p>
+<p>- 上午：豫园·上海城隍庙</p>
+<p>  - 描述：历史悠久的园林和庙宇，展现了古代中国的建筑风格。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="https://bpic.588ku.com/back_origin_min_pic/20/01/18/2d77afbfab0a7af0ec1b0706a45714d1.jpg" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 出行方式：从酒店出发，乘坐地铁10号线至豫园站</p>
+<p>- 午餐：鲜肉月饼</p>
+<p>  - 描述：中秋时节的传统美食，内馅鲜美，外皮酥脆。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="https://cp1.douguo.com/upload/caiku/b/a/f/yuan_ba142691c7824558a9e84c3fbb53847f.jpg" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 地点建议：杏花楼</p>
+<p>- 下午：新天地</p>
+<p>  - 描述：时尚与历史交融的休闲娱乐区，有很多特色餐厅和酒吧。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="http://img.pconline.com.cn/images/upload/upc/tx/photoblog/1408/02/c2/36973974_36973974_1406950606281_mthumb.jpg" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 出行方式：从豫园乘坐地铁10号线至新天地站</p>
+<p>- 晚餐：上海红烧肉</p>
+<p>  - 描述：选用五花肉慢火炖煮，色泽红亮，肥而不腻。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="http://cp1.douguo.net/upload/caiku/7/1/a/yuan_71d34bf58a46b5083aa0a56a13c8a2fa.jpg" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 地点建议：绿波廊</p>
+<h2>Day3:</h2>
+<p>- 早餐：油豆腐粉丝汤</p>
+<p>  - 描述：以油豆腐和粉丝为主料，汤汁鲜美，营养丰富。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="https://cp1.douguo.com/upload/caiku/0/0/1/yuan_00b8cad85834df5ccdce83af822f0721.jpg" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 地点建议：王家沙</p>
+<p>- 上午：上海迪士尼乐园</p>
+<p>  - 描述：一个充满奇幻与冒险的世界级主题公园，适合家庭游客。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="http://sh.xinhuanet.com/135399328_14646034342931n.jpg" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 出行方式：从酒店出发，乘坐地铁11号线至迪士尼站</p>
+<p>- 午餐：特色冷面</p>
+<p>  - 描述：夏季特色小吃，面条冰凉爽滑，适合消暑。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="http://i2.chuimg.com/a42b566a8b5111e6a9a10242ac110002_620w_413h.jpg?imageView2/2/w/660/interlace/1/q/90" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 地点建议：乐园内的主题餐厅</p>
+<p>- 下午：继续在上海迪士尼乐园游玩</p>
+<p>- 晚餐：葱油饼</p>
+<p>  - 描述：以面粉和葱油为主要原料，外酥内软，香气扑鼻。</p>
+<p>        <div style="text-align: center;"></p>
+<p>            <img src="https://i2.chuimg.com/330c974a874211e6a9a10242ac110002_511w_384h.jpg?imageView2/2/w/660/interlace/1/q/90" alt="图片" style="width: 300px; height: 200px;" /></p>
+<p>        </div></p>
+<p>  - 地点建议：迪士尼小镇</p>
+<p>- 返程：从迪士尼站乘坐地铁11号线返回市中心，然后根据您的具体住处选择合适的交通方式回到酒店。</p>
+<p>希望这个行程能给您带来愉快的上海之旅！如果您有任何特殊需求或想要调整行程，请随时告诉我。</p>
+</div>
+<h2>景点推荐</h2>
+<div class="card-container">
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://img95.699pic.com/photo/50084/6824.jpg_wh860.jpg" alt="外滩" />
+  </div>
+  <div class="card-content">
+    <h3>外滩</h3>
+    <p><strong>距离:</strong> </p>
+    <p>位于上海市中心黄浦区的黄浦江畔，是最具上海城市象征意义的景点之一。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://sh.xinhuanet.com/135399328_14646034342931n.jpg" alt="上海迪士尼乐园" />
+  </div>
+  <div class="card-content">
+    <h3>上海迪士尼乐园</h3>
+    <p><strong>距离:</strong> </p>
+    <p>一个充满奇幻与冒险的世界级主题公园，适合家庭游客。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://pic.ibaotu.com/01/53/00/83i888piCH5Z.jpg-0.jpg!ww7002" alt="东方明珠" />
+  </div>
+  <div class="card-content">
+    <h3>东方明珠</h3>
+    <p><strong>距离:</strong> </p>
+    <p>上海的标志性建筑之一，可以俯瞰整个城市的美景。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://bpic.588ku.com/back_origin_min_pic/20/01/18/2d77afbfab0a7af0ec1b0706a45714d1.jpg" alt="豫园·上海城隍庙" />
+  </div>
+  <div class="card-content">
+    <h3>豫园·上海城隍庙</h3>
+    <p><strong>距离:</strong> </p>
+    <p>历史悠久的园林和庙宇，展现了古代中国的建筑风格。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://youimg1.c-ctrip.com/target/tg/697/799/808/8da3013242eb4130965cf2d754a66eae.jpg" alt="上海野生动物园" />
+  </div>
+  <div class="card-content">
+    <h3>上海野生动物园</h3>
+    <p><strong>距离:</strong> </p>
+    <p>拥有众多珍稀动物的大型动物园，适合亲子游。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://imgbdb3.bendibao.com/shbdb/tour/202011/09/20201109231557_58872.jpg" alt="朱家角古镇" />
+  </div>
+  <div class="card-content">
+    <h3>朱家角古镇</h3>
+    <p><strong>距离:</strong> </p>
+    <p>保存完好的江南水乡古镇，有着浓厚的历史文化氛围。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://n.sinaimg.cn/sinacn10118/101/w1836h2265/20190415/d462-hvsckth2294286.jpg" alt="上海影视乐园" />
+  </div>
+  <div class="card-content">
+    <h3>上海影视乐园</h3>
+    <p><strong>距离:</strong> </p>
+    <p>集电影拍摄、娱乐体验于一体的综合性乐园。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://pic.616pic.com/photoone/00/06/67/61975e8578c705632.jpg" alt="黄浦江外滩(南京路步行街)" />
+  </div>
+  <div class="card-content">
+    <h3>黄浦江外滩(南京路步行街)</h3>
+    <p><strong>距离:</strong> </p>
+    <p>结合了购物和观光的繁华商业街区，紧邻外滩。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://n.sinaimg.cn/sinacn10/200/w1080h720/20180812/f97c-hhqtawx1923550.jpg" alt="田子坊" />
+  </div>
+  <div class="card-content">
+    <h3>田子坊</h3>
+    <p><strong>距离:</strong> </p>
+    <p>一个融合了艺术与生活的创意园区，保留了旧上海的风情。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://img.pconline.com.cn/images/upload/upc/tx/photoblog/1408/02/c2/36973974_36973974_1406950606281_mthumb.jpg" alt="新天地" />
+  </div>
+  <div class="card-content">
+    <h3>新天地</h3>
+    <p><strong>距离:</strong> </p>
+    <p>时尚与历史交融的休闲娱乐区，有很多特色餐厅和酒吧。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://youimg1.c-ctrip.com/target/100o19000001617dd2344.jpg" alt="法租界(武康大楼)" />
+  </div>
+  <div class="card-content">
+    <h3>法租界(武康大楼)</h3>
+    <p><strong>距离:</strong> </p>
+    <p>上海的历史街区，有许多具有欧洲风格的建筑。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://img95.699pic.com/photo/50117/7806.jpg_wh860.jpg" alt="静安寺" />
+  </div>
+  <div class="card-content">
+    <h3>静安寺</h3>
+    <p><strong>距离:</strong> </p>
+    <p>一座著名的佛教寺庙，位于上海市中心。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://img95.699pic.com/photo/50082/8573.jpg_wh860.jpg" alt="南京路步行街" />
+  </div>
+  <div class="card-content">
+    <h3>南京路步行街</h3>
+    <p><strong>距离:</strong> </p>
+    <p>上海最繁华的商业街之一，购物天堂。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://img95.699pic.com/photo/50044/5437.jpg_wh860.jpg" alt="上海科技馆" />
+  </div>
+  <div class="card-content">
+    <h3>上海科技馆</h3>
+    <p><strong>距离:</strong> </p>
+    <p>集科普教育与互动体验于一体的现代化科技博物馆。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://img1.qunarzz.com/travel/d3/1611/ea/f7b77eaabbe75fb5.jpg_r_640x426x70_4489b2de.jpg" alt="上海老街" />
+  </div>
+  <div class="card-content">
+    <h3>上海老街</h3>
+    <p><strong>距离:</strong> </p>
+    <p>保留了传统上海风貌的老街区，可以品尝地道的小吃。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://www.xinhangyouchuan.cn/pic/image/2020042414134313.jpg" alt="浦江夜游" />
+  </div>
+  <div class="card-content">
+    <h3>浦江夜游</h3>
+    <p><strong>距离:</strong> </p>
+    <p>乘坐游船欣赏黄浦江两岸的夜景，非常浪漫。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://img95.699pic.com/photo/50770/1381.jpg_wh860.jpg" alt="陆家嘴" />
+  </div>
+  <div class="card-content">
+    <h3>陆家嘴</h3>
+    <p><strong>距离:</strong> </p>
+    <p>上海的金融中心，高楼林立，是现代上海的象征。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://img.pconline.com.cn/images/upload/upc/tx/itbbs/1804/24/c9/84299064_1524532386209.jpg" alt="豫园商城" />
+  </div>
+  <div class="card-content">
+    <h3>豫园商城</h3>
+    <p><strong>距离:</strong> </p>
+    <p>围绕豫园建设的商业综合体，集合了各种特色店铺。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://img95.699pic.com/photo/50027/7180.jpg_wh860.jpg" alt="人民广场" />
+  </div>
+  <div class="card-content">
+    <h3>人民广场</h3>
+    <p><strong>距离:</strong> </p>
+    <p>上海的政治文化中心，周围有许多重要建筑。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://youimg1.c-ctrip.com/target/fd/tg/g5/M04/DF/01/CggYsVb6LnqALy-3ACtGq9mWHXU708.jpg" alt="思南路" />
+  </div>
+  <div class="card-content">
+    <h3>思南路</h3>
+    <p><strong>距离:</strong> </p>
+    <p>一条充满历史感的小路，两旁有许多老式洋房。</p>
+  </div>
+</div>
+
+</div>
+<h2>美食推荐</h2>
+<div class="card-container">
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://gs.cnr.cn/gslv/xc/20150701/W020150701437937282794.jpg" alt="小笼包" />
+  </div>
+  <div class="card-content">
+    <h3>小笼包</h3>
+    <p>上海著名的传统小吃，以其皮薄馅嫩、汤汁丰富著称。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://i2.chuimg.com/fba430347d8941e8a9c2453eb6e8b068_1000w_750h.jpg?imageView2/2/w/660/interlace/1/q/90" alt="生煎包" />
+  </div>
+  <div class="card-content">
+    <h3>生煎包</h3>
+    <p>底部煎得金黄酥脆，上面撒上芝麻和葱花，内馅鲜美多汁。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://pic1.zhimg.com/v2-bcad885d3bf4363709dcb8b4966f9cec_r.jpg" alt="排骨年糕" />
+  </div>
+  <div class="card-content">
+    <h3>排骨年糕</h3>
+    <p>将排骨与年糕一起烹饪，口感香糯，味道浓郁。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://pic1.zhimg.com/v2-e6597a79b448f7b252e2a1293f810148_1440w.jpg?source=172ae18b" alt="蟹壳黄" />
+  </div>
+  <div class="card-content">
+    <h3>蟹壳黄</h3>
+    <p>一种形似蟹壳的酥皮点心，甜咸皆有，外酥里软。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://i3.meishichina.com/attachment/recipe/2015/08/01/2015080165d22b5c2df82c26.jpg@!p800" alt="白斩鸡" />
+  </div>
+  <div class="card-content">
+    <h3>白斩鸡</h3>
+    <p>上海传统名菜，鸡肉鲜嫩，佐以酱油、葱姜等调料食用。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://cp1.douguo.com/upload/caiku/b/a/f/yuan_ba142691c7824558a9e84c3fbb53847f.jpg" alt="鲜肉月饼" />
+  </div>
+  <div class="card-content">
+    <h3>鲜肉月饼</h3>
+    <p>中秋时节的传统美食，内馅鲜美，外皮酥脆。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://cp1.douguo.net/upload/caiku/7/1/a/yuan_71d34bf58a46b5083aa0a56a13c8a2fa.jpg" alt="上海红烧肉" />
+  </div>
+  <div class="card-content">
+    <h3>上海红烧肉</h3>
+    <p>选用五花肉慢火炖煮，色泽红亮，肥而不腻。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://cp1.douguo.com/upload/caiku/0/0/1/yuan_00b8cad85834df5ccdce83af822f0721.jpg" alt="油豆腐粉丝汤" />
+  </div>
+  <div class="card-content">
+    <h3>油豆腐粉丝汤</h3>
+    <p>以油豆腐和粉丝为主料，汤汁鲜美，营养丰富。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://cp1.douguo.com/upload/caiku/6/a/1/yuan_6a29f237e806e0a92cf3f4cad7830ff1.jpeg" alt="馄饨" />
+  </div>
+  <div class="card-content">
+    <h3>馄饨</h3>
+    <p>上海特色小吃，皮薄馅嫩，汤汁鲜美。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://i2.chuimg.com/330c974a874211e6a9a10242ac110002_511w_384h.jpg?imageView2/2/w/660/interlace/1/q/90" alt="葱油饼" />
+  </div>
+  <div class="card-content">
+    <h3>葱油饼</h3>
+    <p>以面粉和葱油为主要原料，外酥内软，香气扑鼻。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://pic1.zhimg.com/v2-9acb4243ee5c62d1138351ab57b3a308_720w.jpg?source=172ae18b" alt="单档" />
+  </div>
+  <div class="card-content">
+    <h3>单档</h3>
+    <p>上海传统小吃，面筋百叶包汤，味道鲜美。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://pic1.zhimg.com/v2-f841acc0d6519d871a0053226be4d0f8_b.jpg" alt="双档" />
+  </div>
+  <div class="card-content">
+    <h3>双档</h3>
+    <p>上海传统小吃，面筋百叶包汤，味道鲜美。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="http://i2.chuimg.com/a42b566a8b5111e6a9a10242ac110002_620w_413h.jpg?imageView2/2/w/660/interlace/1/q/90" alt="特色冷面" />
+  </div>
+  <div class="card-content">
+    <h3>特色冷面</h3>
+    <p>夏季特色小吃，面条冰凉爽滑，适合消暑。</p>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-image">
+    <img src="https://pica.zhimg.com/v2-ef8e0ba3d3ec31ae55434c2ce9fa513a_720w.jpg?source=172ae18b" alt="擂沙圆" />
+  </div>
+  <div class="card-content">
+    <h3>擂沙圆</h3>
+    <p>煮熟的汤团裹上干豆沙粉，口感独特。</p>
+  </div>
+</div>
+
+</div>
+</body></html>
