@@ -20,10 +20,10 @@ vector_storage = QdrantStorage(
 # 初始化检索器
 vr = VectorRetriever(embedding_model=embedding_model, storage=vector_storage)
 
-# # 处理文档并构建向量数据库
-# vr.process(
-#     content="example_document.pdf",
-# )
+# 处理文档并构建向量数据库
+vr.process(
+    content="example_document.md",
+)
 
 test_queries = [
     {
