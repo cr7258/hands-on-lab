@@ -1,0 +1,5 @@
+github.com/envoyproxy/envoy v1.31.1-0.20240821014141-c8f58b61c36d h1:YwwhqKB3CuEDpN2gjj8ed+ptgTgSP9EZ7mWe7WdLgMM=
+github.com/envoyproxy/envoy v1.31.1-0.20240821014141-c8f58b61c36d/go.mod h1:ujBFxE543X8OePZG+FbeR9LnpBxTLu64IAU7A20EB9A=
+github.com/google/go-cmp v0.5.9 h1:O2Tfq5qg4qc4AmwVlvv0oLiVAGB7enBSJ2x2DqQFi38=
+google.golang.org/protobuf v1.34.2 h1:6xV6lTsCfpGD21XK49h7MhtcApnLqkfYgPcdHftf6hg=
+google.golang.org/protobuf v1.34.2/go.mod h1:qYOHts0dSfpeUzUFpOMr/WGzszTmLH+DiWniOlNbLDw=
