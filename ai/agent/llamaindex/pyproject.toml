@@ -1,0 +1,17 @@
+[project]
+name = "llamaindex-demo"
+version = "0.1.0"
+description = "LlamaIndex demo"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "elasticsearch>=8.18.0",
+    "llama-index-callbacks-arize-phoenix>=0.5.0",
+    "llama-index-embeddings-huggingface>=0.5.3",
+    "llama-index-llms-huggingface-api>=0.4.1",
+    "llama-index-storage-docstore-redis>=0.3.0",
+    "llama-index-tools-mcp>=0.1.1",
+    "llama-index-vector-stores-chroma>=0.4.1",
+    "llama-index-vector-stores-elasticsearch>=0.4.3",
+    "llama-index-vector-stores-redis>=0.5.0",
+]
