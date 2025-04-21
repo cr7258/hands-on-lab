@@ -4,6 +4,7 @@ from langchain_elasticsearch import ElasticsearchStore
 from langchain_elasticsearch import SparseVectorStrategy
 from langchain.indexes import SQLRecordManager, index
 
+# 1. Load Markdown file, split by headers
 with open("./employee_handbook.md") as f:
     employee_handbook = f.read()
 
@@ -18,6 +19,14 @@ docs = markdown_splitter.split_text(employee_handbook)
 
 index_name = "employee_handbook"
 
+# 2. Use RecordManager for deduplication
+namespace = f"elasticsearch/{index_name}"
+record_manager = SQLRecordManager(
+    namespace, db_url="sqlite:///record_manager_cache.sql"
+)
+record_manager.create_schema()
+
+# 3. Index into Elasticsearch, only write to content field (raw text)
 es_connection = Elasticsearch(
     hosts="https://localhost:9200",
     basic_auth=("elastic", "test123"),
@@ -30,12 +39,6 @@ vectorstore = ElasticsearchStore(
     query_field="content",
     strategy=SparseVectorStrategy(),
 )
-
-namespace = f"elasticsearch/{index_name}"
-record_manager = SQLRecordManager(
-    namespace, db_url="sqlite:///record_manager_cache.sql"
-)
-record_manager.create_schema()
 
 index_result = index(
     docs,
