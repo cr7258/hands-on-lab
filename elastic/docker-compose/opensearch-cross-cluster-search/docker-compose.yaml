@@ -1,0 +1,64 @@
+# Doc: https://docs.opensearch.org/docs/latest/search-plugins/cross-cluster-search/
+version: '3'
+services:
+  opensearch-ccs-node1:
+    image: opensearchproject/opensearch:3.0.0
+    container_name: opensearch-ccs-node1
+    environment:
+      - cluster.name=opensearch-ccs-cluster1
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=Tg9!eXr2@LmQ58z#" # The initial admin password used by the demo configuration
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - opensearch-data1:/usr/share/opensearch/data
+    ports:
+      - 9200:9200
+      - 9600:9600 # required for Performance Analyzer
+    networks:
+      - opensearch-net
+
+  opensearch-ccs-node2:
+    image: opensearchproject/opensearch:3.0.0
+    container_name: opensearch-ccs-node2
+    environment:
+      - cluster.name=opensearch-ccs-cluster2
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=Tg9!eXr2@LmQ58z#" # The initial admin password used by the demo configuration
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - opensearch-data2:/usr/share/opensearch/data
+    ports:
+      - 9250:9200
+      - 9700:9600 # required for Performance Analyzer
+    networks:
+      - opensearch-net
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:3.0.0
+    container_name: opensearch-dashboards
+    ports:
+      - 5601:5601
+    expose:
+      - "5601"
+    environment:
+      OPENSEARCH_HOSTS: '["https://opensearch-ccs-node1:9200"]'
+    networks:
+      - opensearch-net
+
+
+volumes:
+  opensearch-data1:
+  opensearch-data2:
+
+networks:
+  opensearch-net:
