@@ -12,7 +12,6 @@ This repository contains a collection of demos, examples, and hands-on labs cove
   - [LlamaIndex](/ai/agent/llamaindex) - LlamaIndex framework examples
   - [SmolaAgents](/ai/agent/smolagents) - SmolaAgents framework examples
 - [Browser Use](/ai/browser-use) - Examples of AI in browser applications
-  - [Use Case](/ai/browser-use/use-case) - Browser AI use case examples
 - [Claude](/ai/claude) - Claude AI model examples
   - [MCP](/ai/claude/mcp) - Model Context Protocol tutorial
     - [Client](/ai/claude/mcp/client) - MCP client implementation
@@ -23,8 +22,8 @@ This repository contains a collection of demos, examples, and hands-on labs cove
 - [GPU](/ai/gpu) - GPU acceleration for AI workloads
   - [Setup](/ai/gpu/setup) - GPU environment setup scripts
 - [Inference](/ai/inference) - AI inference examples
-  - [llmaz](/ai/inference/llmaz) - llmaz inference platform
-  - [vLLM](/ai/inference/vllm) - vLLM inference engine
+  - [llmaz](/ai/inference/llmaz)
+  - [vLLM](/ai/inference/vllm)
 - [Infrastructure](/ai/infra) - AI infrastructure
   - [Ray](/ai/infra/ray) - Ray distributed computing framework
 - [MCP](/ai/mcp) - Model Context Protocol examples
@@ -49,8 +48,8 @@ This repository contains a collection of demos, examples, and hands-on labs cove
   - [My Scheduler](/scheduler/my-scheduler) - Custom scheduler implementation
 
 ### DevOps and Platform Engineering
-- [Argo Rollouts](/argo-rollouts) - Progressive delivery with Argo Rollouts
-- [Crossplane](/crossplane) - Infrastructure as Code with Crossplane
+- [Argo Rollouts](/argo-rollouts)
+- [Crossplane](/crossplane)
 
 ### Networking and Service Mesh
 - [Cilium](/cilium) - Cilium networking and security
@@ -60,8 +59,8 @@ This repository contains a collection of demos, examples, and hands-on labs cove
   - [Gateway API Inference Extension](/gateway/gateway-api-inference-extension)
   - [Higress](/gateway/higress) 
   - [OpenResty](/gateway/openresty)
-- [Service Mesh](/service-mesh) - Service mesh implementations
-  - [Istio](/service-mesh/istio) - Istio service mesh
+- [Service Mesh](/service-mesh) - Service Mesh projects
+  - [Istio](/service-mesh/istio)
     - [ICA](/service-mesh/istio/ica) - Istio Certified Associate (ICA) Exam material
 - [Multi-cluster](/multi-cluster) - Multi-cluster networking and management
   - [Istio](/multi-cluster/istio)
