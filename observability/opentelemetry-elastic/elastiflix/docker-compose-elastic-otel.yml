@@ -1,0 +1,424 @@
+services:
+  locust:
+    image: locustio/locust:2.15.1
+    ports:
+     - "8089:8089"
+    volumes:
+      - ./locustfile.py:/mnt/locust/locustfile.py
+    command: -f /mnt/locust/locustfile.py --host http://node-server:3001 --autostart
+    networks:
+      - app-network
+  movie-data-loader:
+    build: 
+      context: movie-data-loader/.
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    image: cr7258/elastiflix-movie-data-loader:v1
+    networks:
+      - app-network
+    environment:
+      - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
+  redis:
+    build:
+      context: redis/.
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    image: cr7258/elastiflix-redis:v1
+    ports:
+      - 6379
+    networks:
+      - app-network
+    environment:
+      - TOGGLE_CLIENT_PAUSE=${TOGGLE_CLIENT_PAUSE:-}
+  favorite-python-otel-manual:
+    build:
+      context: python-favorite-otel-manual/.
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    image: cr7258/elastiflix-python-favorite-otel-manual:v1
+    depends_on:
+      - redis
+    networks:
+      - app-network
+    ports:
+      - "5002:5000"
+    environment:
+      - OTEL_EXPORTER_OTLP_HEADERS=Authorization=Bearer%20${ELASTIC_APM_SECRET_TOKEN}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=${ELASTIC_APM_SERVER_URL}
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_RESOURCE_ATTRIBUTES=service.version=1.0,deployment.environment=production,service.name=python-favorite-otel-manual
+      - OTEL_TRACES_EXPORTER=otlp
+      - REDIS_HOST=redis
+      - TOGGLE_SERVICE_DELAY=${TOGGLE_SERVICE_DELAY:-0}
+      - TOGGLE_CANARY_DELAY=${TOGGLE_CANARY_DELAY:-0}
+      - TOGGLE_CANARY_FAILURE=${TOGGLE_CANARY_FAILURE:-0}
+  favorite-python-otel-auto:
+    build:
+      context: python-favorite-otel-auto/.
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    image: cr7258/elastiflix-python-favorite-otel-auto:v1
+    depends_on:
+      - redis
+    networks:
+      - app-network
+    ports:
+      - "5010:5000"
+    environment:
+      - OTEL_EXPORTER_OTLP_HEADERS=Authorization=Bearer%20${ELASTIC_APM_SECRET_TOKEN}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=${ELASTIC_APM_SERVER_URL}
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_RESOURCE_ATTRIBUTES=service.version=1.0,deployment.environment=production
+      - OTEL_SERVICE_NAME=python-favorite-otel-auto
+      - OTEL_TRACES_EXPORTER=otlp
+      - REDIS_HOST=redis
+      - TOGGLE_SERVICE_DELAY=${TOGGLE_SERVICE_DELAY:-0}
+      - TOGGLE_CANARY_DELAY=${TOGGLE_CANARY_DELAY:-0}
+      - TOGGLE_CANARY_FAILURE=${TOGGLE_CANARY_FAILURE:-0}
+  favorite-go-otel-manual:
+    build:
+      context: go-favorite-otel-manual/.
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    image: cr7258/elastiflix-go-favorite-otel-manual:v1
+    depends_on:
+      - redis
+    networks:
+      - app-network
+    ports:
+      - "5001:5000"
+    environment:
+      - OTEL_EXPORTER_OTLP_HEADERS=Authorization=Bearer ${ELASTIC_APM_SECRET_TOKEN}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=${ELASTIC_APM_SERVER_URL}
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_RESOURCE_ATTRIBUTES=service.version=1.0,deployment.environment=production
+      - OTEL_SERVICE_NAME=go-favorite-otel-manual
+      - OTEL_TRACES_EXPORTER=otlp
+      - REDIS_HOST=redis
+      - TOGGLE_SERVICE_DELAY=${TOGGLE_SERVICE_DELAY:-0}
+      - TOGGLE_CANARY_DELAY=${TOGGLE_CANARY_DELAY:-0}
+      - TOGGLE_CANARY_FAILURE=${TOGGLE_CANARY_FAILURE:-0}
+  favorite-java-otel-manual:
+    build:
+      context: java-favorite-otel-manual/.
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    image: cr7258/elastiflix-java-favorite-otel-manual:v1
+    depends_on:
+      - redis
+    networks:
+      - app-network
+    ports:
+      - "5003:5000"
+    environment:
+      - ELASTIC_APM_SECRET_TOKEN=${ELASTIC_APM_SECRET_TOKEN}
+      - OTEL_EXPORTER_OTLP_HEADERS=Authorization=Bearer ${ELASTIC_APM_SECRET_TOKEN}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=${ELASTIC_APM_SERVER_URL}
+      - OTEL_RESOURCE_ATTRIBUTES=service.version=1.0,deployment.environment=production
+      - OTEL_SERVICE_NAME=java-favorite-otel-manual
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_LOGS_EXPORTER=otlp
+      - OTEL_TRACES_EXPORTER=otlp
+      - REDIS_HOST=redis
+      - TOGGLE_SERVICE_DELAY=${TOGGLE_SERVICE_DELAY:-0}
+      - TOGGLE_CANARY_DELAY=${TOGGLE_CANARY_DELAY:-0}
+      - TOGGLE_CANARY_FAILURE=${TOGGLE_CANARY_FAILURE:-0}
+  favorite-java-otel-auto:
+    build:
+      context: java-favorite-otel-auto/.
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    image: cr7258/elastiflix-java-favorite-otel-auto:v1
+    depends_on:
+      - redis
+    networks:
+      - app-network
+    ports:
+      - "5004:5000"
+    environment:
+      - OTEL_EXPORTER_OTLP_HEADERS=Authorization=Bearer ${ELASTIC_APM_SECRET_TOKEN}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=${ELASTIC_APM_SERVER_URL}
+      - OTEL_RESOURCE_ATTRIBUTES=service.version=1.0,deployment.environment=production
+      - OTEL_SERVICE_NAME=java-favorite-otel-auto
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_LOGS_EXPORTER=otlp
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_JAVAAGENT_DEBUG=${OTEL_JAVAAGENT_DEBUG:-false}
+      - REDIS_HOST=redis
+      - TOGGLE_SERVICE_DELAY=${TOGGLE_SERVICE_DELAY:-0}
+      - TOGGLE_CANARY_DELAY=${TOGGLE_CANARY_DELAY:-0}
+      - TOGGLE_CANARY_FAILURE=${TOGGLE_CANARY_FAILURE:-0}
+      # agent distribution, either 'otel' or 'elastic'
+      - AGENT_DISTRIBUTION=${AGENT_DISTRIBUTION:-otel}
+      # inferred spans feature, only available for elastic distribution
+      - ELASTIC_OTEL_INFERRED_SPANS_ENABLED=true
+  login:
+    build:
+      context: dotnet-login-otel-auto/.
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    image: cr7258/elastiflix-dotnet-login-otel-auto:v1
+    networks:
+      - app-network
+    ports:
+      - "127.0.0.1:8000:80"
+    environment:
+      - OTEL_EXPORTER_OTLP_HEADERS=Authorization=Bearer ${ELASTIC_APM_SECRET_TOKEN}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=${ELASTIC_APM_SERVER_URL}
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_RESOURCE_ATTRIBUTES=service.version=1.0,deployment.environment=production
+      - OTEL_SERVICE_NAME=dotnet-login-otel-auto
+      - OTEL_TRACES_EXPORTER=otlp
+      - REDIS_HOST=redis
+  # node-server:
+  #   build:
+  #     context: node-server-otel-auto/.
+  #     platforms:
+  #       - "linux/amd64"
+  #       - "linux/arm64"
+  #   image: cr7258/elastiflix-node-server-otel-auto:v1
+  #   depends_on:
+  #     - redis
+  #     - login
+  #   networks:
+  #     - app-network
+  #   ports:
+  #     - "3001:3001"
+  #   environment:
+  #   environment:
+  #     - API_ENDPOINT_FAVORITES=favorite-java-otel-auto:5000,favorite-java-otel-manual:5000,favorite-python-otel-auto:5000,favorite-go-otel-manual:5000,favorite-python-otel-manual:5000
+  #     - API_ENDPOINT_LOGIN=login:80
+  #     - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
+  #     - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
+  #     - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
+  #     - OTEL_EXPORTER_OTLP_ENDPOINT=${ELASTIC_APM_SERVER_URL}
+  #     - OTEL_EXPORTER_OTLP_HEADERS=Authorization=Bearer ${ELASTIC_APM_SECRET_TOKEN}
+  #     - OTEL_LOG_LEVEL=info
+  #     - OTEL_METRICS_EXPORTER=otlp
+  #     - OTEL_RESOURCE_ATTRIBUTES=service.version=1.0,deployment.environment=production
+  #     - OTEL_SERVICE_NAME=node-server-otel-auto
+  #     - OTEL_TRACES_EXPORTER=otlp
+  #     - THROW_NOT_A_FUNCTION_ERROR=${THROW_NOT_A_FUNCTION_ERROR:-}
+  node-server:
+    build:
+      context: node-server-otel-manual/.
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    image: cr7258/elastiflix-node-server-otel-manual:v1
+    depends_on:
+      - redis
+      - login
+    networks:
+      - app-network
+    ports:
+      - "3001:3001"
+    environment:
+      - API_ENDPOINT_FAVORITES=favorite-java-otel-auto:5000,favorite-java-otel-manual:5000,favorite-python-otel-auto:5000,favorite-go-otel-manual:5000,favorite-python-otel-manual:5000
+      - API_ENDPOINT_LOGIN=login:80
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
+      - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=${ELASTIC_APM_SERVER_URL}
+      - OTEL_EXPORTER_OTLP_HEADERS=Authorization=Bearer ${ELASTIC_APM_SECRET_TOKEN}
+      - OTEL_LOG_LEVEL=info
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_RESOURCE_ATTRIBUTES=service.version=1.0,deployment.environment=production,service.name=node-server-otel-manual
+      - OTEL_TRACES_EXPORTER=otlp
+      - THROW_NOT_A_FUNCTION_ERROR=${THROW_NOT_A_FUNCTION_ERROR:-}
+  frontend:
+    build:
+      context: javascript-client-elastic-manual/.
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    image: cr7258/elastiflix-javascript-client-elastic-manual:v1
+    depends_on:
+      - redis
+      - node-server
+    networks:
+      - app-network
+    ports:
+      - "9000:9000"
+    environment:
+      - ELASTIC_APM_ENVIRONMENT=production
+      - ELASTIC_APM_SERVER_URL=${ELASTIC_APM_SERVER_URL}
+      - ELASTIC_APM_SERVICE_NAME=javascript-client-elastic-manual
+  # optional, can be used instead of sending data directly to APM Server
+  # otel-collector:
+  #   image: otel/opentelemetry-collector-contrib
+  #   command: [ "--config=/etc/otelcol-config.yml", "--config=/etc/otelcol-config-extras.yml" ]
+  #   volumes:
+  #     - ./otel-config.yml:/etc/otelcol-config.yml
+  #     - ./otel-config-extras.yml:/etc/otelcol-config-extras.yml
+  #   ports:
+  #     - 1888:1888 # pprof extension
+  #     - 8888:8888 # Prometheus metrics exposed by the collector
+  #     - 8889:8889 # Prometheus exporter metrics
+  #     - 13133:13133 # health_check extension
+  #     - 4317:4317 # OTLP gRPC receiver
+  #     - 4318:4318 # OTLP http receiver
+  setup:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    volumes:
+      - certs:/usr/share/elasticsearch/config/certs
+    user: "0"
+    networks:
+      - app-network
+    command: >
+      bash -c '
+        if [ x${ELASTICSEARCH_PASSWORD} == x ]; then
+          echo "Set the ELASTIC_PASSWORD environment variable in the .env file";
+          exit 1;
+        elif [ x${KIBANA_PASSWORD} == x ]; then
+          echo "Set the KIBANA_PASSWORD environment variable in the .env file";
+          exit 1;
+        fi;
+        if [ ! -f config/certs/ca.zip ]; then
+          echo "Creating CA";
+          bin/elasticsearch-certutil ca --silent --pem -out config/certs/ca.zip;
+          unzip config/certs/ca.zip -d config/certs;
+        fi;
+        if [ ! -f config/certs/certs.zip ]; then
+          echo "Creating certs";
+          echo -ne \
+          "instances:\n"\
+          "  - name: es01\n"\
+          "    dns:\n"\
+          "      - es01\n"\
+          "      - localhost\n"\
+          "    ip:\n"\
+          "      - 127.0.0.1\n"\
+          > config/certs/instances.yml;
+          bin/elasticsearch-certutil cert --silent --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;
+          unzip config/certs/certs.zip -d config/certs;
+        fi;
+        echo "Setting file permissions"
+        chown -R root:root config/certs;
+        find . -type d -exec chmod 750 \{\} \;;
+        find . -type f -exec chmod 640 \{\} \;;
+        echo "Waiting for Elasticsearch availability";
+        until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
+        echo "Setting kibana_system password";
+        until curl -s -X POST --cacert config/certs/ca/ca.crt -u "elastic:${ELASTICSEARCH_PASSWORD}" -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
+        echo "All done!";
+      '
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f config/certs/es01/es01.crt ]"]
+      interval: 1s
+      timeout: 5s
+      retries: 120
+
+  es01:
+    depends_on:
+      setup:
+        condition: service_healthy
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    volumes:
+      - certs:/usr/share/elasticsearch/config/certs
+      - esdata01:/usr/share/elasticsearch/data
+    networks:
+      - app-network
+    ports:
+      - ${ES_PORT}:9200
+    environment:
+      - node.name=es01
+      - cluster.name=${CLUSTER_NAME}
+      - cluster.initial_master_nodes=es01
+      - ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD}
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=certs/es01/es01.key
+      - xpack.security.http.ssl.certificate=certs/es01/es01.crt
+      - xpack.security.http.ssl.certificate_authorities=certs/ca/ca.crt
+      - xpack.security.http.ssl.verification_mode=certificate
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.key=certs/es01/es01.key
+      - xpack.security.transport.ssl.certificate=certs/es01/es01.crt
+      - xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt
+      - xpack.security.transport.ssl.verification_mode=certificate
+      - xpack.license.self_generated.type=${LICENSE}
+      - cluster.routing.allocation.disk.watermark.low=2gb
+      - cluster.routing.allocation.disk.watermark.high=1gb
+      - cluster.routing.allocation.disk.watermark.flood_stage=512mb
+    mem_limit: ${MEM_LIMIT}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'",
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+
+  kibana:
+    depends_on:
+      es01:
+        condition: service_healthy
+    image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION}
+    volumes:
+      - certs:/usr/share/kibana/config/certs
+      - kibanadata:/usr/share/kibana/data
+    networks:
+      - app-network
+    ports:
+      - ${KIBANA_PORT}:5601
+    environment:
+      - SERVERNAME=kibana
+      - ELASTICSEARCH_HOSTS=https://es01:9200
+      - ELASTICSEARCH_USERNAME=kibana_system
+      - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
+      - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=config/certs/ca/ca.crt
+    mem_limit: ${MEM_LIMIT}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'",
+        ]
+      interval: 10s
+      timeout: 10s
+
+  apm-server:
+    depends_on:
+      es01:
+        condition: service_healthy
+    image: docker.elastic.co/apm/apm-server:${ELASTIC_VERSION}
+    container_name: apm-server
+    user: "apm-server"
+    ports:
+      - "${APM_PORT}:8200"
+    volumes:
+      - "./apm-server.yml:/usr/share/apm-server/apm-server.yml:ro"
+    command:
+      - "--strict.perms=false"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  certs:
+    driver: local
+  esdata01:
+    driver: local
+  kibanadata:
+    driver: local

@@ -1,0 +1,34 @@
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+WORKDIR /app
+EXPOSE 8000
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /src
+COPY ["login.csproj", "./"]
+RUN dotnet restore "./login.csproj"
+COPY . .
+WORKDIR "/src/."
+RUN dotnet build "login.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "login.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+ARG AGENT_VERSION=1.22.0
+
+RUN apt-get update && apt-get install -y zip curl
+RUN curl -L -o elastic_apm_profiler_${AGENT_VERSION}-linux-x64.zip https://github.com/elastic/apm-agent-dotnet/releases/download/v${AGENT_VERSION}/elastic_apm_profiler_${AGENT_VERSION}-linux-x64.zip && \
+    unzip elastic_apm_profiler_${AGENT_VERSION}-linux-x64.zip -d /elastic_apm_profiler
+
+ENV CORECLR_ENABLE_PROFILING=1
+ENV CORECLR_PROFILER={FA65FE15-F085-4681-9B20-95E04F6C03CC}
+ENV CORECLR_PROFILER_PATH=/elastic_apm_profiler/libelastic_apm_profiler.so
+ENV ELASTIC_APM_PROFILER_HOME=/elastic_apm_profiler
+ENV ELASTIC_APM_PROFILER_INTEGRATIONS=/elastic_apm_profiler/integrations.yml
+ENV ELASTIC_APM_SERVICE_NAME=dotNetLoginService
+ENV ELASTIC_APM_ENVIRONMENT=production
+ENV PAL_OUTPUTDEBUGSTRING=1
+ENTRYPOINT ["dotnet", "login.dll"]

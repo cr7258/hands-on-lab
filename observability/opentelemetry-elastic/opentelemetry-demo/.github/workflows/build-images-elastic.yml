@@ -1,0 +1,13 @@
+name: Test image generation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_images:
+    if: github.repository == 'elastic/opentelemetry-demo'
+    uses: ./.github/workflows/component_build-images-elastic.yml
+

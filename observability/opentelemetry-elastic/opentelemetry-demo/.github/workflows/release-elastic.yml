@@ -1,0 +1,14 @@
+name: "Build and Publish"
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build_and_push_images:
+    uses: ./.github/workflows/component_build-images-elastic.yml
+    if: github.repository == 'elastic/opentelemetry-demo'
+    with:
+      push: true
+      version: ${{ github.event.release.tag_name }}
+    secrets: inherit

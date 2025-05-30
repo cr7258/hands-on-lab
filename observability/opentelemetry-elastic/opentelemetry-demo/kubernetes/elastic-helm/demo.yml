@@ -1,0 +1,47 @@
+enabled: true
+default:
+  image:
+    repository: ghcr.io/elastic/opentelemetry-demo
+    tag: 2.0.4
+  envOverrides:
+    - name: OTEL_COLLECTOR_NAME
+      value: "opentelemetry-kube-stack-daemon-collector.opentelemetry-operator-system.svc.cluster.local"
+
+components:
+  load-generator:
+    envOverrides:
+      - name: LOCUST_BROWSER_TRAFFIC_ENABLED
+        value: "false"
+  flagd:
+    sidecarContainers:
+      - name: flagd-ui
+        useDefault:
+          env: true
+        service:
+          port: 4000
+        env:
+          - name: FLAGD_METRICS_EXPORTER
+            value: otel
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://$(OTEL_COLLECTOR_NAME):4318
+        resources:
+          limits:
+            memory: 150Mi
+        volumeMounts:
+          - name: config-rw
+            mountPath: /app/data
+
+opentelemetry-collector:
+  enabled: false
+
+opensearch:
+  enabled: false
+
+grafana:
+  enabled: false
+
+jaeger:
+  enabled: false
+
+prometheus:
+  enabled: false

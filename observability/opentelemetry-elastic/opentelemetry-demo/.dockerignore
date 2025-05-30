@@ -1,0 +1,24 @@
+
+
+.github
+docs
+internal
+src/*/README.md
+src/*/Dockerfile
+src/*/*/Dockerfile
+
+###################################
+# currency
+./src/currency/client.js
+./src/currency/node_modules/
+###################################
+
+###################################
+# frontend
+./src/frontend/node_modules/
+
+###################################
+# shipping
+./src/shipping/target
+###################################
+

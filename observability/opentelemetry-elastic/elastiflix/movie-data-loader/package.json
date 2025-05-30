@@ -1,0 +1,24 @@
+{
+  "name": "movie-data-loader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elastic/Elastiflix.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elastic/Elastiflix/issues"
+  },
+  "homepage": "https://github.com/elastic/Elastiflix#readme",
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.17.12"
+  }
+}

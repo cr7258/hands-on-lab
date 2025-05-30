@@ -1,0 +1,22 @@
+FROM --platform=${BUILDPLATFORM} gradle:8-jdk17 AS builder
+
+WORKDIR /usr/src/app/
+
+COPY ./src/fraud-detection/ ./
+COPY ./pb/ ./src/main/proto/
+RUN gradle shadowJar
+
+# -----------------------------------------------------------------------------
+
+FROM gcr.io/distroless/java17-debian11
+
+# ARG version=0.4.0
+WORKDIR /usr/src/app/
+
+COPY --from=builder /usr/src/app/build/libs/fraud-detection-1.0-all.jar ./
+ADD --chmod=644 https://oss.sonatype.org/service/local/artifact/maven/redirect?r=snapshots&g=co.elastic.otel&a=elastic-otel-javaagent&v=LATEST /app/opentelemetry-javaagent.jar
+ENV JAVA_TOOL_OPTIONS=-javaagent:/app/opentelemetry-javaagent.jar
+ENV ELASTIC_OTEL_INFERRED_SPANS_ENABLED=true
+ENV ELASTIC_OTEL_SPAN_STACK_TRACE_MIN_DURATION=2
+
+ENTRYPOINT [ "java", "-jar", "fraud-detection-1.0-all.jar" ]

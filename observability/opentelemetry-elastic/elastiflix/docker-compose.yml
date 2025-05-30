@@ -1,0 +1,111 @@
+version: "3"
+services:
+  # locust:
+  #   image: locustio/locust:2.15.1
+  #   ports:
+  #    - "8089:8089"
+  #   volumes:
+  #     - ./locustfile.py:/mnt/locust/locustfile.py
+  #   command: -f /mnt/locust/locustfile.py --host http://node-server:3001 --autostart
+  #   networks:
+  #     - app-network
+  #   depends_on:
+  #     - node-backend
+  redis:
+    build: redis/.
+    image: docker.elastic.co/demos/workshop/observability/elastiflix-redis:${ELASTIC_VERSION}-${BUILD_NUMBER}
+    ports:
+      - 6379
+    networks:
+      - app-network
+    environment:
+      - TOGGLE_CLIENT_PAUSE=${TOGGLE_CLIENT_PAUSE:-}
+  movie-data-loader:
+    build: movie-data-loader/.
+    image: docker.elastic.co/demos/workshop/observability/elastiflix-movie-data-loader:${ELASTIC_VERSION}-${BUILD_NUMBER}
+    networks:
+      - app-network
+    environment:
+      - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
+  favorite-python:
+    build: python-favorite/.
+    image: docker.elastic.co/demos/workshop/observability/elastiflix-python-favorite:${ELASTIC_VERSION}-${BUILD_NUMBER}
+    depends_on:
+      - redis
+    networks:
+      - app-network
+    ports:
+      - "5000:5000"
+    environment:
+      - REDIS_HOST=redis
+      - TOGGLE_SERVICE_DELAY=${TOGGLE_SERVICE_DELAY:-0}
+      - TOGGLE_CANARY_DELAY=${TOGGLE_CANARY_DELAY:-0}
+      - TOGGLE_CANARY_FAILURE=${TOGGLE_CANARY_FAILURE:-0}
+  favorite-go:
+    build: go-favorite/.
+    image: docker.elastic.co/demos/workshop/observability/elastiflix-go-favorite:${ELASTIC_VERSION}-${BUILD_NUMBER}
+    depends_on:
+      - redis
+    networks:
+      - app-network
+    ports:
+      - "5001:5000"
+    environment:
+      - REDIS_HOST=redis
+      - TOGGLE_SERVICE_DELAY=${TOGGLE_SERVICE_DELAY:-0}
+      - TOGGLE_CANARY_DELAY=${TOGGLE_CANARY_DELAY:-0}
+      - TOGGLE_CANARY_FAILURE=${TOGGLE_CANARY_FAILURE:-0}
+  favorite-java:
+    build: java-favorite/.
+    image: docker.elastic.co/demos/workshop/observability/elastiflix-java-favorite:${ELASTIC_VERSION}-${BUILD_NUMBER}
+    depends_on:
+      - redis
+    networks:
+      - app-network
+    ports:
+      - "5002:5000"
+    environment:
+      - REDIS_HOST=redis
+      - TOGGLE_SERVICE_DELAY=${TOGGLE_SERVICE_DELAY:-0}
+      - TOGGLE_CANARY_DELAY=${TOGGLE_CANARY_DELAY:-0}
+      - TOGGLE_CANARY_FAILURE=${TOGGLE_CANARY_FAILURE:-0}
+  login:
+    build: dotnet-login/.
+    image: docker.elastic.co/demos/workshop/observability/elastiflix-dotnet-login:${ELASTIC_VERSION}-${BUILD_NUMBER}
+    networks:
+      - app-network
+    ports:
+      - "127.0.0.1:8000:80"
+  node-server:
+    build: node-server/.
+    image: docker.elastic.co/demos/workshop/observability/elastiflix-node-server:${ELASTIC_VERSION}-${BUILD_NUMBER}
+    depends_on:
+      - redis
+      - login
+    networks:
+      - app-network
+    ports:
+      - "3001:3001"
+    environment:
+      - API_ENDPOINT_FAVORITES=favorite-java:5000
+      #- API_ENDPOINT_FAVORITES=favorite-python:5000,favorite-go:5000,favorite-java:5000
+      - API_ENDPOINT_LOGIN=login:80
+      - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
+      - THROW_NOT_A_FUNCTION_ERROR=${THROW_NOT_A_FUNCTION_ERROR:-}
+  frontend:
+    build: javascript-client/.
+    image: docker.elastic.co/demos/workshop/observability/elastiflix-javascript-client:${ELASTIC_VERSION}-${BUILD_NUMBER}
+    depends_on:
+      - redis
+      - node-server
+    networks:
+      - app-network
+    ports:
+      - "9000:9000"
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,17 @@
+src/streaming-ui/scripts/.env-debug
+src/data-loader/env-debug
+node_modules/
+**/.venv
+*/bin/Debug
+**__pycache__
+.env
+**/.idea
+dotnet*/obj
+.idea
+
+# maven target folder
+java-favorite-elastic-auto/target
+java-favorite-elastic-manual/target
+java-favorite-otel-auto/target
+java-favorite-otel-manual/target
+java-favorite/target
