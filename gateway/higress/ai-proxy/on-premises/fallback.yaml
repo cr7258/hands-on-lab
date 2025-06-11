@@ -1,0 +1,55 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: ai-route-qwen2-1-5b
+  namespace: higress-system
+spec:
+  configPatches:
+  - applyTo: HTTP_ROUTE
+    match:
+      context: GATEWAY
+      routeConfiguration:
+        vhost:
+          route:
+            name: ai-route-qwen2-1-5b
+    patch:
+      operation: MERGE
+      value:
+        typed_per_filter_config:
+          envoy.filters.http.custom_response:
+            '@type': type.googleapis.com/udpa.type.v1.TypedStruct
+            type_url: type.googleapis.com/envoy.extensions.filters.http.custom_response.v3.CustomResponse
+            value:
+              custom_response_matcher:
+                matcher_list:
+                  matchers:
+                  - on_match:
+                      action:
+                        name: action
+                        typed_config:
+                          '@type': type.googleapis.com/udpa.type.v1.TypedStruct
+                          type_url: type.googleapis.com/envoy.extensions.http.custom_response.redirect_policy.v3.RedirectPolicy
+                          value:
+                            keep_original_response_code: false
+                            max_internal_redirects: 10
+                            only_redirect_upstream_code: false
+                            request_headers_to_add:
+                            - append: false
+                              header:
+                                key: x-higress-fallback-from
+                                value: ai-route-qwen2-1-5b
+                            response_headers_to_add:
+                            - append: false
+                              header:
+                                key: x-higress-fallback-from
+                                value: ai-route-qwen2-1-5b
+                            use_original_request_body: true
+                            use_original_request_uri: true
+                    predicate:
+                      single_predicate:
+                        input:
+                          name: 5xx_response
+                          typed_config:
+                            '@type': type.googleapis.com/envoy.type.matcher.v3.HttpResponseStatusCodeClassMatchInput
+                        value_match:
+                          exact: 5xx

@@ -1,0 +1,86 @@
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: ai-proxy
+  namespace: higress-system
+spec:
+  defaultConfig:
+    providers:
+    - id: qwen2-1-5b
+      openaiCustomUrl: http://qwen2-1-5b-lb.default.svc.cluster.local:8080/v1
+      type: openai
+    - id: gemma-2-2b
+      openaiCustomUrl: http://gemma-2-2b-lb.default.svc.cluster.local:8080/v1
+      type: openai
+  matchRules:
+  - config:
+      activeProviderId: gemma-2-2b
+    service:
+    - llm-gemma-2-2b.dns
+  - config:
+      activeProviderId: qwen2-1-5b
+    service:
+    - llm-qwen2-1-5b.dns
+  phase: UNSPECIFIED_PHASE
+  priority: 100
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/ai-proxy:1.0.0
+---
+apiVersion: networking.higress.io/v1
+kind: McpBridge
+metadata:
+  name: default
+  namespace: higress-system
+spec:
+  registries:
+  - domain: qwen2-1-5b-lb.default.svc.cluster.local
+    name: llm-qwen2-1-5b
+    port: 8080
+    protocol: http
+    type: dns
+  - domain: gemma-2-2b-lb.default.svc.cluster.local
+    name: llm-gemma-2-2b
+    port: 8080
+    protocol: http
+    type: dns
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/destination: llm-qwen2-1-5b.dns:8080
+    higress.io/prefix-match-header-x-higress-llm-model: qwen
+  name: ai-route-qwen2-1-5b
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+  - http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/destination: llm-gemma-2-2b.dns:8080
+    higress.io/prefix-match-header-x-higress-llm-model: gemma
+  name: ai-route-gemma-2-2b
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+  - http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix

@@ -1,0 +1,63 @@
+# Prerequisites: Install llmaz https://llmaz.inftyai.com/docs/getting-started/installation/
+# Note: if your model needs Huggingface token for weight downloads, 
+# please run kubectl create secret generic modelhub-secret --from-literal=HF_TOKEN=<your token> ahead.
+---
+apiVersion: llmaz.io/v1alpha1
+kind: OpenModel
+metadata:
+  name: qwen2-1-5b
+spec:
+  familyName: qwen2
+  source:
+    modelHub:
+      modelID: Qwen/Qwen2.5-1.5B-Instruct
+---
+apiVersion: inference.llmaz.io/v1alpha1
+kind: Playground
+metadata:
+  name: qwen2-1-5b
+spec:
+  replicas: 1
+  modelClaim:
+    modelName: qwen2-1-5b
+  backendRuntimeConfig:
+    backendName: vllm
+    resources:
+      limits:
+        cpu: "4"
+        memory: 16Gi
+        nvidia.com/gpu: "1"
+      requests:
+        cpu: "4"
+        memory: 16Gi
+        nvidia.com/gpu: "1"
+---
+apiVersion: llmaz.io/v1alpha1
+kind: OpenModel
+metadata:
+  name: gemma-2-2b
+spec:
+  familyName: gemma
+  source:
+    modelHub:
+      modelID: google/gemma-2-2b-it
+---
+apiVersion: inference.llmaz.io/v1alpha1
+kind: Playground
+metadata:
+  name: gemma-2-2b
+spec:
+  replicas: 1
+  modelClaim:
+    modelName: gemma-2-2b
+  backendRuntimeConfig:
+    backendName: vllm
+    resources:
+      limits:
+        cpu: "4"
+        memory: 16Gi
+        nvidia.com/gpu: "1"
+      requests:
+        cpu: "4"
+        memory: 16Gi
+        nvidia.com/gpu: "1"
