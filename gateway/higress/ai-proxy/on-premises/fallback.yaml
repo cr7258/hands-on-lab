@@ -53,3 +53,43 @@ spec:
                             '@type': type.googleapis.com/envoy.type.matcher.v3.HttpResponseStatusCodeClassMatchInput
                         value_match:
                           exact: 5xx
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    higress.io/destination: llm-gemma-2-2b.dns:8080
+    higress.io/exact-match-header-x-higress-fallback-from: ai-route-qwen2-1-5b
+    higress.io/prefix-match-header-x-higress-llm-model: qwen
+  name: ai-route-qwen2-1-5b.fallback
+  namespace: higress-system
+spec:
+  ingressClassName: higress
+  rules:
+  - http:
+      paths:
+      - backend:
+          resource:
+            apiGroup: networking.higress.io
+            kind: McpBridge
+            name: default
+        path: /
+        pathType: Prefix
+---
+apiVersion: extensions.higress.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: model-mapper
+  namespace: higress-system
+spec:
+  matchRules:
+  - config:
+      modelMapping:
+        '*': gemma-2-2b
+    ingress:
+    - ai-route-qwen2-1-5b.fallback
+    service:
+    - llm-gemma-2-2b.dns
+  phase: AUTHN
+  priority: 800
+  url: oci://higress-registry.cn-hangzhou.cr.aliyuncs.com/plugins/model-mapper:1.0.0
