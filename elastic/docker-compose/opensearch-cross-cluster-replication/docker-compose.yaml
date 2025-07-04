@@ -1,0 +1,52 @@
+# Doc: 
+# https://docs.opensearch.org/docs/latest/tuning-your-cluster/replication-plugin/getting-started/
+# https://docs.opensearch.org/docs/latest/tuning-your-cluster/replication-plugin/auto-follow/
+version: '3'
+services:
+  replication-node1:
+    image: opensearchproject/opensearch:3.1.0
+    container_name: replication-node1
+    environment:
+      - cluster.name=leader-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=Tg9!eXr2@LmQ58z#"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - opensearch-data2:/usr/share/opensearch/data
+    ports:
+      - 9201:9200
+      - 9700:9600 # required for Performance Analyzer
+    networks:
+      - opensearch-net
+  replication-node2:
+    image: opensearchproject/opensearch:3.1.0
+    container_name: replication-node2
+    environment:
+      - cluster.name=follower-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=Tg9!eXr2@LmQ58z#"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - opensearch-data1:/usr/share/opensearch/data
+    ports:
+      - 9200:9200
+      - 9600:9600 # required for Performance Analyzer
+    networks:
+      - opensearch-net
+
+volumes:
+  opensearch-data1:
+  opensearch-data2:
+
+networks:
+  opensearch-net:
