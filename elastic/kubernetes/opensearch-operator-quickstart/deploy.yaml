@@ -1,0 +1,116 @@
+apiVersion: opensearch.opster.io/v1
+kind: OpenSearchCluster
+metadata:
+  name: cluster-1
+  namespace: default
+spec:
+  general:
+    serviceName: cluster-1
+    version: 3.1.0
+    additionalVolumes:
+      - name: cluster-2-transport-cert
+        path: /usr/share/opensearch/config/tls-http-cluster2
+        #subPath: mykey # Add this to mount only a specific key of the configmap/secret
+        secret:
+          secretName: cluster-2-transport-cert
+        restartPods: true
+  security:
+    config:
+      adminCredentialsSecret:
+        name: admin-credentials-secret # The secret with the admin credentials for the operator to use
+      securityConfigSecret:
+        name: securityconfig-secret # The secret containing your customized securityconfig
+    tls:
+      transport:
+        generate: true
+      http:
+        generate: true
+  dashboards:
+    opensearchCredentialsSecret:
+      name: admin-credentials-secret
+    enable: true
+    version: 3.1.0
+    replicas: 1
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "200m"
+      limits:
+        memory: "512Mi"
+        cpu: "200m"
+  nodePools:
+    - component: nodes
+      replicas: 3
+      diskSize: "5Gi"
+      nodeSelector:
+      resources:
+        requests:
+          memory: "2Gi"
+          cpu: "500m"
+        limits:
+          memory: "2Gi"
+          cpu: "500m"
+      roles:
+        - "cluster_manager"
+        - "data"
+      # additionalConfig:
+      #  plugins.security.ssl.http.pemtrustedcas_filepath: tls-http-cluster2/ca.crt
+---
+apiVersion: opensearch.opster.io/v1
+kind: OpenSearchCluster
+metadata:
+  name: cluster-2
+  namespace: default
+spec:
+  general:
+    serviceName: cluster-2
+    version: 3.1.0
+    additionalVolumes:
+      - name: cluster-1-transport-cert
+        path: /usr/share/opensearch/config/tls-http-cluster1
+        #subPath: mykey # Add this to mount only a specific key of the configmap/secret
+        secret:
+          secretName: cluster-1-transport-cert
+        restartPods: true
+  security:
+    config:
+      adminCredentialsSecret:
+        name: admin-credentials-secret # The secret with the admin credentials for the operator to use
+      securityConfigSecret:
+        name: securityconfig-secret # The secret containing your customized securityconfig
+    tls:
+      transport:
+        generate: true
+      http:
+        generate: true
+  dashboards:
+    enable: true
+    version: 3.1.0
+    replicas: 1
+    opensearchCredentialsSecret:
+      name: admin-credentials-secret
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "200m"
+      limits:
+        memory: "512Mi"
+        cpu: "200m"
+  nodePools:
+    - component: nodes
+      replicas: 3
+      diskSize: "5Gi"
+      nodeSelector:
+      resources:
+        requests:
+          memory: "2Gi"
+          cpu: "500m"
+        limits:
+          memory: "2Gi"
+          cpu: "500m"
+      roles:
+        - "cluster_manager"
+        - "data"
+        - "remote_cluster_client" # cross-cluster replication
+      # additionalConfig:
+      #  plugins.security.ssl.http.pemtrustedcas_filepath: tls-http-cluster1/ca.crt
