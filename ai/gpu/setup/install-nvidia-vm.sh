@@ -24,10 +24,7 @@ export PATH=/usr/local/cuda-13.0/bin:\$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-13.0/lib64:\$LD_LIBRARY_PATH
 EOF
 
-source ~/.bashrc
-
 nvidia-smi
-nvcc -V
 
 echo "################################# Install NVIDIA Container Toolkit #################################"
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
