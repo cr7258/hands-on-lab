@@ -11,19 +11,11 @@ spec:
       extraPodSpec:
         mainContainer:
           image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:0.5.1
-          workingDir: /workspace/components/backends/vllm
-          command:
-            - /bin/sh
-            - -c
-          args:
-            - "python3 -m dynamo.frontend --http-port 8000"
-    decode:
+    VllmDecodeWorker:
       dynamoNamespace: vllm-disagg
       envFromSecret: hf-token-secret
       componentType: worker
       replicas: 1
-      multinode:
-        nodeCount: 2
       resources:
         limits:
           gpu: "1"
@@ -35,8 +27,11 @@ spec:
             - /bin/sh
             - -c
           args:
-            - "python3 -m dynamo.vllm --model Qwen/Qwen3-0.6B --tensor-parallel-size 2"
-    prefill:
+            - "python3 -m dynamo.vllm --model Qwen/Qwen3-0.6B"
+      envs:
+        - name: DYN_LOG # Set to debug mode to observe the request
+          value: debug
+    VllmPrefillWorker:
       dynamoNamespace: vllm-disagg
       envFromSecret: hf-token-secret
       componentType: worker
@@ -53,3 +48,6 @@ spec:
             - -c
           args:
             - "python3 -m dynamo.vllm --model Qwen/Qwen3-0.6B --is-prefill-worker"
+      envs:
+        - name: DYN_LOG # Set to debug mode to observe the request
+          value: debug
