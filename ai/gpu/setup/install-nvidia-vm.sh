@@ -56,3 +56,13 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-a
 
 echo "################################# Start Minikube #################################"
 minikube start --driver docker --container-runtime docker --gpus all --memory=max --cpus=max --force
+
+echo "################################# Install GPU Operator #################################"
+
+helm repo add nvidia https://helm.ngc.nvidia.com/nvidia \
+    && helm repo update
+
+helm install --wait --generate-name \
+    -n gpu-operator --create-namespace \
+    nvidia/gpu-operator \
+    --version=v25.3.4
