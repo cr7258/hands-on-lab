@@ -75,6 +75,7 @@ async def main():
             "--from", "git+https://github.com/oraios/serena",
             "serena", "start-mcp-server",
             "--project", repo_path,
+            "--enable-web-dashboard", "false",  # Disable web dashboard
         ],
     )
 
